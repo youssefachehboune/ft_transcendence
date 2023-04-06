@@ -33,8 +33,8 @@ model User {
 model UserProfile {
     id       Int    @id @default(autoincrement())
     user_id  Int
-    username String
-    email    String
+    username String @unique
+    email    String @unique
     bio      String
     location String
     avatar   String
@@ -54,10 +54,10 @@ model CareerLog {
 
 model Achievement {
     id             Int              @id @default(autoincrement())
-    name           String
+    name           String           @unique
     avatar         String
     description    String
-    condition      String
+    condition      String           @unique
     type           String
     AchievementLog AchievementLog[]
 }
@@ -118,7 +118,7 @@ model Chat {
 
 model Channel {
     id          Int          @id @default(autoincrement())
-    name        String
+    name        String       @unique
     description String
     owner_id    Int
     password    String?
