@@ -1,134 +1,164 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
-model Users {
-	id                   Int            @id @default(autoincrement())
-	OAuth_Id             String         @unique
-	created_at           DateTime       @default(now())
-	two_factor_enabled   Boolean
+model User {
+    id               Int      @id @default(autoincrement())
+    oauthId          String   @unique
+    createdAt        DateTime @default(now())
+    twoFactorEnabled Boolean
+    role             Role
 
-	// Relations
-	UserProfiles         UserProfiles[]
-	CareerLogs           CareerLogs[]  @relation("UserLogs")
-	OpponentLogs         CareerLogs[]  @relation("OpponentLogs")
-	AchievementLogs      AchievementLogs[]
-	NotificationLogs     NotificationLogs[]
-	SentFriendships      Friendships[]  @relation("SentFriendships")
-	ReceivedFriendships  Friendships[]  @relation("ReceivedFriendships")
-	SentNotifications    Notifications[] @relation("SentNotifications")
-	ReceivedNotifications Notifications[] @relation("ReceivedNotifications")
-	SentMessages         Chats[]        @relation("SentMessages")
-	ReceivedMessages     Chats[]        @relation("ReceivedMessages")
-	Channels             Channels[]
-	ChannelLogs          ChannelLogs[]
+    // Relations
+    userProfile          UserProfile[]
+    careerLog            CareerLog[]       @relation("UserLog")
+    opponentLog          CareerLog[]       @relation("OpponentLog")
+    achievementLog       AchievementLog[]
+    notificationLog      NotificationLog[]
+    sentFriendship       Friendship[]      @relation("SentFriendship")
+    receivedFriendship   Friendship[]      @relation("ReceivedFriendship")
+    sentNotification     Notification[]    @relation("SentNotification")
+    receivedNotification Notification[]    @relation("ReceivedNotification")
+    sentMessage          Chat[]            @relation("SentMessage")
+    receivedMessage      Chat[]            @relation("ReceivedMessage")
+    channel              Channel[]
+    channelLog           ChannelLog[]
 }
 
-model UserProfiles {
-  id          Int      @id @default(autoincrement())
-  user_id     Int
-  User_name   String
-  Avatar      String
-  Lvl         Int
-  Users       Users    @relation(fields: [user_id], references: [id])
+model UserProfile {
+    id       Int    @id @default(autoincrement())
+    user_id  Int
+    username String
+    email    String
+    bio      String
+    location String
+    avatar   String
+    level    Float
+    User     User   @relation(fields: [user_id], references: [id])
 }
 
-model CareerLogs {
-  id          Int      @id @default(autoincrement())
-  user_id     Int
-  opponent_id Int
-  Result      String
-  timestamp   DateTime @default(now())
-  Users       Users    @relation(name: "UserLogs", fields: [user_id], references: [id])
-  Opponents   Users    @relation(name: "OpponentLogs" , fields: [opponent_id], references: [id])
+model CareerLog {
+    id          Int             @id @default(autoincrement())
+    user_id     Int
+    opponent_id Int
+    result      CareerLogResult
+    timestamp   DateTime        @default(now())
+    User        User            @relation(name: "UserLog", fields: [user_id], references: [id])
+    Opponent    User            @relation(name: "OpponentLog", fields: [opponent_id], references: [id])
 }
 
-model Achievements {
-  id          Int      @id @default(autoincrement())
-  name        String
-  Avatar      String
-  description String
-  condition   String
-  type        String
-  AchievementLogs AchievementLogs[]
+model Achievement {
+    id             Int              @id @default(autoincrement())
+    name           String
+    avatar         String
+    description    String
+    condition      String
+    type           String
+    AchievementLog AchievementLog[]
 }
 
-model AchievementLogs {
-  id            Int           @id @default(autoincrement())
-  user_id       Int
-  achievement_id Int
-  score         Int
-  timestamp     DateTime      @default(now())
-  Users         Users         @relation(fields: [user_id], references: [id])
-  Achievements  Achievements  @relation(fields: [achievement_id], references: [id])
+model AchievementLog {
+    id             Int         @id @default(autoincrement())
+    user_id        Int
+    achievement_id Int
+    score          Int
+    timestamp      DateTime    @default(now())
+    User           User        @relation(fields: [user_id], references: [id])
+    Achievement    Achievement @relation(fields: [achievement_id], references: [id])
 }
 
-model Notifications {
-  id              Int      @id @default(autoincrement())
-  title           String
-  body            String
-  type            String
-  sender_id       Int
-  recipient_id    Int
-  timestamp       DateTime @default(now())
-  Users           Users    @relation(name: "SentNotifications", fields: [sender_id], references: [id])
-  Recipients      Users    @relation(name: "ReceivedNotifications", fields: [recipient_id], references: [id])
-  NotificationLogs NotificationLogs[]
+model Notification {
+    id              Int               @id @default(autoincrement())
+    title           String
+    body            String
+    type            String
+    sender_id       Int
+    recipient_id    Int
+    timestamp       DateTime          @default(now())
+    User            User              @relation(name: "SentNotification", fields: [sender_id], references: [id])
+    Recipient       User              @relation(name: "ReceivedNotification", fields: [recipient_id], references: [id])
+    NotificationLog NotificationLog[]
 }
 
-model NotificationLogs {
-  id              Int           @id @default(autoincrement())
-  user_id         Int
-  notification_id Int
-  read_at         DateTime?
-  Users           Users         @relation(fields: [user_id], references: [id])
-  Notifications   Notifications @relation(fields: [notification_id], references: [id])
-}
-model Friendships {
-  id          Int    @id @default(autoincrement())
-  user_id     Int
-  friend_id   Int
-  status      String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  Users       Users  @relation(name: "SentFriendships", fields: [user_id], references: [id])
-  Friends     Users  @relation(name: "ReceivedFriendships", fields: [friend_id], references: [id])
+model NotificationLog {
+    id              Int          @id @default(autoincrement())
+    user_id         Int
+    notification_id Int
+    readAt          DateTime?
+    User            User         @relation(fields: [user_id], references: [id])
+    Notification    Notification @relation(fields: [notification_id], references: [id])
 }
 
-model Chats {
-  id          Int      @id @default(autoincrement())
-  sender_id   Int
-  recipient_id Int
-  message     String
-  timestamp   DateTime @default(now())
-  Users           Users    @relation(name: "SentMessages", fields: [sender_id], references: [id])
-  Recipients      Users    @relation(name: "ReceivedMessages", fields: [recipient_id], references: [id])
+model Friendship {
+    id        Int              @id @default(autoincrement())
+    user_id   Int
+    friend_id Int
+    status    FriendshipStatus
+    createdAt DateTime         @default(now())
+    updatedAt DateTime         @updatedAt
+    User      User             @relation(name: "SentFriendship", fields: [user_id], references: [id])
+    Friend    User             @relation(name: "ReceivedFriendship", fields: [friend_id], references: [id])
 }
 
-model Channels {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  owner_id    Int
-  password    String?
-  type        String
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
-  Users       Users   @relation(fields: [owner_id], references: [id])
-  ChannelLogs ChannelLogs[]
+model Chat {
+    id           Int       @id @default(autoincrement())
+    sender_id    Int
+    recipient_id Int
+    message      String
+    sentAt       DateTime  @default(now())
+    ReadAt       DateTime?
+    User         User      @relation(name: "SentMessage", fields: [sender_id], references: [id])
+    Recipient    User      @relation(name: "ReceivedMessage", fields: [recipient_id], references: [id])
 }
 
-model ChannelLogs {
-  id          Int      @id @default(autoincrement())
-  channel_id  Int
-  user_id     Int
-  message     String
-  timestamp   DateTime @default(now())
-  Users       Users    @relation(fields: [user_id], references: [id])
-  Channels    Channels @relation(fields: [channel_id], references: [id])
+model Channel {
+    id          Int          @id @default(autoincrement())
+    name        String
+    description String
+    owner_id    Int
+    password    String?
+    type        ChannelType
+    createdAt   DateTime     @default(now())
+    updatedAt   DateTime     @updatedAt
+    User        User         @relation(fields: [owner_id], references: [id])
+    ChannelLog  ChannelLog[]
+}
+
+model ChannelLog {
+    id         Int      @id @default(autoincrement())
+    channel_id Int
+    user_id    Int
+    message    String
+    sentAt     DateTime @default(now())
+    User       User     @relation(fields: [user_id], references: [id])
+    Channel    Channel  @relation(fields: [channel_id], references: [id])
+}
+
+enum CareerLogResult {
+    WON
+    LOST
+    TIE
+}
+
+enum Role {
+    ADMIN
+    USER
+    BANNED
+}
+
+enum FriendshipStatus {
+    REQUESTED
+    ACCEPTED
+    BLOCKED
+    UNFRIEND
+}
+
+enum ChannelType {
+    PUBLIC
+    PRIVATE
 }
