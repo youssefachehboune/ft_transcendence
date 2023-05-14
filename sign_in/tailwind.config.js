@@ -30,10 +30,9 @@ module.exports = {
 	},
 	screens:
 	{
-		'custom': {'raw': '(min-width: 840px) and (max-width: 1680px)'},
-		'one': {'raw': '(min-width: 640px) and (max-width: 1310px)'},
-		'tow': {'raw': '(min-width: 500px) and (max-width: 1100px)'},
-		'tree': {'raw': '(min-width: 150px) and (max-width: 1280px)'},
+		'for': {'raw': '(min-width: 100px) and (max-width: 540px)'},
+		'one': {'raw': '(min-width: 540px) and (max-width: 700px)'},
+		'five': {'raw': '(min-width: 700px) and (max-width: 1024px)'},
 	},
   },
   plugins: [],
