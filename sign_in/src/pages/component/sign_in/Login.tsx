@@ -1,39 +1,36 @@
 
-import { BsFillEmojiLaughingFill } from 'react-icons/bs'
-import { IoArrowBackCircle } from 'react-icons/io5'
 
+import Button_intra from './Login/Button_intra';
+import Button_google from './Login/Button_google';
+import Emoji from './Login/Emoji';
+import Go_back_icone from './Login/Go_back_icone';
 
 function Login()
 {
 	return (
-		<div className="Login">
-			<h1 className="join_text">Join the movement!</h1>
-
-			<div className="all_emoji">
-				<BsFillEmojiLaughingFill className="emoji"/>
-				<img src="heart.svg" alt="" className="absolute left-[80%] top-[60%] for:w-[15px]"/>
-				<img src="heart.svg" alt="" className="absolute right-[80%] top-[60%] for:w-[15px]"/>
-				<img src="heart.svg" alt="" className="absolute left-[74%] top-[0%] for:w-[15px]"/>
-			</div>
-
-			<h1 className="sign_in_text">Sign-in or sign-up</h1>
-			
-			<button className="sign__in__intra ">
-				<h1 className="text-white absolute left-[33%] top-[25%] for:text-[10px] for:left-[25%] five:text-[15px] one:text-[14px] one:left-[30%]">Continue with Intra</h1>
-				<img src="g3.svg" className="ml-[70px] for:w-[15px] for:ml-[20px] five:w-[20px] five:ml-[35px] one:w-[20px] one:ml-[35px]"/>
-				
-			</button>
-
-			<button className="sign__in__google">
-				<h1 className="absolute left-[33%] top-[25%] for:text-[10px] for:left-[25%] five:text-[15px] one:text-[14px] one:left-[30%]">Continue with Google</h1>
-				<img src="g4.svg" className="ml-[70px] for:w-[15px] for:ml-[20px] five:w-[20px] five:ml-[35px] one:ml-[35px]"/>
-
-			</button>
-			<button className="go_back">
-				<IoArrowBackCircle className="absolute top-[90%] left-[40%] w-[25px] h-[25px] for:w-[15px] for:top-[85%]"/>
-				<h1 className="absolute top-[90%] left-[48%] text-[15px] for:text-[8px] for:top-[87%] five:text-[15px]">Go_back</h1>
-			</button>
-
+		<div className="w-[378px] h-[475px] bg-white absolute z-[100] ml-[25%] mt-[10%] rounded-[20px]
+						for:w-[270px] for:h-[300px] for:ml-[15%] for:mt-[65%]
+						one:w-[300px] one:h-[340px] one:ml-[15%] one:mt-[40%]
+						five:w-[350px] five:h-[370px] five:ml-[15%] five:mt-[30%]
+					">
+			<h1 className="absolute text-[25px] left-[90px] top-[20px]
+						   for:text-[15px] for:left-[70px]
+						   one:text-[18px] one:left-[75px]
+						   five:text-[20px] five:left-[90px]
+					">
+				Join the movement!
+			</h1>
+			<Emoji/>
+			<h1 className="text-[25px] absolute top-[40%] left-[25%]
+						   for:text-[15px] for:left-[75px] for:top-[110px]
+						   one:text-[18px] one:left-[80px] one:top-[140px]
+						   five:text-[20px] five:left-[95px] five:top-[140px]
+				">
+				Sign-in or sign-up
+			</h1>
+			<Button_intra/>
+			<Button_google/>
+			<Go_back_icone/>
 		</div>
 	)
 }
