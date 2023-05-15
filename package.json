@@ -21,12 +21,16 @@
   "dependencies": {
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.5",
+    "@nestjs/jwt": "^10.0.3",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@prisma/client": "^4.14.0",
+    "@types/passport-jwt": "^3.0.8",
     "dote": "^1.1.0",
     "dotenv": "^16.0.3",
     "passport": "^0.6.0",
     "passport-google-oauth20": "^2.0.0",
+    "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5"
   },

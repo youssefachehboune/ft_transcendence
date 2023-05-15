@@ -1,14 +1,14 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, VerifyCallback } from 'passport-google-oauth20';
+import { Profile, Strategy } from 'passport-google-oauth20';
+import { Injectable } from '@nestjs/common';
+import { PrismaClient } from "@prisma/client";
 import { config } from 'dotenv';
 
-import { Injectable } from '@nestjs/common';
-
 config();
+const prisma = new PrismaClient();
 
 @Injectable()
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
-
   constructor() {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID,
@@ -17,8 +17,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       scope: ['email', 'profile'],
     });
   }
-
-  async validate (accessToken: string, refreshToken: string, profile: any, done: VerifyCallback): Promise<any> {
+  async validate (accessToken: string, refreshToken: string, profile: Profile): Promise<any> {
     const { name, emails, photos } = profile
     const user = {
       email: emails[0].value,
@@ -27,6 +26,18 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       picture: photos[0].value,
       accessToken,
     }
-    done(null, user);
+	let _user = await prisma.user.findFirst({
+	  where: { email: user.email},
+	});
+	if (!_user) {
+	  _user = await prisma.user.create({
+		data: {
+		  email: user.email,
+		  name: user.firstName,
+		  profile: user.picture,
+		},
+	  });
+	}
+    return user;
   }
 }
