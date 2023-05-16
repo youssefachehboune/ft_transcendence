@@ -1,23 +1,24 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
-import Logo from '../public/pipo.png'
+import Logo from '@/components/logo'
+import Lang from '@/components/button-lang'
+import Racket from '@/components/Racket'
 
-import Button from '@/components/button-lang';
+
 const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
 
   return (
 
     <div id='container' className='h-[100vh] w-[100%] bg-my-bg'>
-        <div className='header'>
-          <div className='div1'>
-            <a href="##"><img src="pipo.png" alt="" className='w-[100px] mt-[40px] ml-[20px]'/></a>
+        <Logo />
+        <Lang />
+        <div className='main'>
+          <div className='doc1'>
           </div>
-          <div className='div2'>
-          </div>
-          <div className='div3'>
-
+          <div className='doc2'>
+            <Racket/>
           </div>
         </div>
         <div className='bck'>

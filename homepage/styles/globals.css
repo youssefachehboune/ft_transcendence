@@ -7,23 +7,37 @@
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-.header {
-    width: 100%;
-    height: 12%;
-    z-index: 1;
-	display: flex;
-	/* flex-direction: row; */
-	/* justify-content: center; */
-	/* align-items: baseline; */
-	/* align-content: stretch; */
+.main {
+    width : 100%;
+    height: 60%;
+}
+
+.doc1 {
+    float: left;
+    width : 50%;
+    height: 100%;
+}
+
+.doc2 {
+    float: right;
+    width : 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 .div1 {
     width: 20%;
     height: 100%;
+}
+
+.div1 img {
+    width: 40%;
 }
 
 .div2 {
@@ -34,14 +48,12 @@
 .div3 {
     width: 20%;
     height: 100%;
-    background-color: black;
-
 }
 
 
 .bck {
     position: absolute;
-    width: 310px;
+    width: 270px;
     height: 400px;
     top: 0;
     display: flex;
@@ -49,30 +61,30 @@
 }
 
 .cyl1 {
-    width: 70px;
-    height: 160px;
+    width: 60px;
+    height: 140px;
     background-color: #AFAFAF;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 
 .cyl2 {
-    width: 70px;
-    height: 210px;
+    width: 60px;
+    height: 180px;
     background-color: #FF3B22;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 .cyl3 {
-    width: 70px;
-    height: 100px;
+    width: 60px;
+    height: 80px;
     background-color: #fff;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 .cyl4 {
-    width: 70px;
-    height: 130px;
+    width: 60px;
+    height: 110px;
     background-color: #AFAFAF;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
@@ -100,7 +112,7 @@ footer {
     position: relative;
     display: block;
     width: calc(205% + 1.3px);
-    height: 340px;
+    height: 310px;
 }
 
 .custom-shape-divider-bottom-1684173583 .shape-fill {
@@ -111,16 +123,17 @@ footer {
 .eclipse1 {
     position: absolute;
     width: 280px;
-    bottom : 110px;
+    bottom : 75px;
     overflow: hidden;
     left: 30px;
 
 }
 
 .eclipse2 {
+    transform: scaleX(-1);
     position: absolute;
     width: 280px;
-    bottom : 210px;
+    bottom : 155px;
     overflow: hidden;
     right: 30px;
 
@@ -135,7 +148,7 @@ footer {
     .eclipse1 {
         position: absolute;
         width: 150px;
-        bottom : 100px;
+        bottom : 70px;
         overflow: hidden;
         left: 25px;
 
@@ -144,13 +157,21 @@ footer {
         width: calc(200% + 1.3px);
         height: 320px;
     }
+    .doc1 {
+        width : 100%;
+        height: 100%;
+    }
+    
+    .doc2 {
+        display: none;
+    }
 }
 
 @media (min-width: 768px) {
 
     .custom-shape-divider-bottom-1684173583 svg {
-        width: calc(160% + 1.3px);
-        height: 320px;
+        width: calc(200% + 1.3px);
+        height: 260px;
     }
 }
 
@@ -163,10 +184,17 @@ footer {
         display: none;
     }
 
+    .doc1 {
+        width : 100%;
+        height: 100%;
+    }
+    .doc2 {
+        display: none;
+    }
     .eclipse1 {
         position: absolute;
         width: 100px;
-        bottom : 70px;
+        bottom : 60px;
         overflow: hidden;
         left: 10px;
     }
