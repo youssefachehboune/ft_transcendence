@@ -2,10 +2,10 @@ export default function Text_svg()
 {
 	return (
 		<div>
-				 	<h1 className="z-10 text-white absolute left-[70%] top-[40%] text-[35px] w-[300px] duration-1000
-									for:left-[14rem] for:text-[15px] for:w-[130px] for:top-[18%]
-									one:text-[25px] one:w-[210px] one:top-[18%] one:left-[60%]
-									five:text-[25px] five:w-[210px] five:top-[18%]
+				 	<h1 className="z-10 text-white absolute left-[65%] top-[30%] text-[35px] w-[320px] duration-500 font-lato font-extrabold
+									phone:left-[50%] phone:text-[15px] phone:w-[130px] phone:top-[18%]
+									Large-phone:text-[25px] Large-phone:w-[210px] Large-phone:top-[18%] Large-phone:left-[60%]
+									laptop:text-[25px] laptop:w-[210px] laptop:top-[20%]
 						">
 						Yay, you're here! Let's get this show on the 
 						<span className="text-blue"> road</span>

@@ -9,22 +9,22 @@ function Login()
 {
 	return (
 		<div className="w-[378px] h-[475px] bg-white absolute z-[100] ml-[25%] mt-[10%] rounded-[20px]
-						for:w-[270px] for:h-[300px] for:ml-[15%] for:mt-[65%]
-						one:w-[300px] one:h-[340px] one:ml-[15%] one:mt-[40%]
-						five:w-[350px] five:h-[370px] five:ml-[15%] five:mt-[30%]
+						phone:w-[270px] phone:h-[300px] phone:ml-[15%] phone:mt-[65%]
+						Large-phone:w-[300px] Large-phone:h-[340px] Large-phone:ml-[15%] Large-phone:mt-[40%]
+						laptop:w-[350px] laptop:h-[370px] laptop:ml-[15%] laptop:mt-[30%]
 					">
-			<h1 className="absolute text-[25px] left-[90px] top-[20px]
-						   for:text-[15px] for:left-[70px]
-						   one:text-[18px] one:left-[75px]
-						   five:text-[20px] five:left-[90px]
+			<h1 className="absolute text-[25px] left-[70px] top-[20px] font-ibm-plex-sans-kr font-semibold
+						   phone:text-[15px] phone:left-[70px]
+						   Large-phone:text-[18px] Large-phone:left-[75px]
+						   laptop:text-[20px] laptop:left-[90px]
 					">
 				Join the movement!
 			</h1>
 			<Emoji/>
-			<h1 className="text-[25px] absolute top-[40%] left-[25%]
-						   for:text-[15px] for:left-[75px] for:top-[110px]
-						   one:text-[18px] one:left-[80px] one:top-[140px]
-						   five:text-[20px] five:left-[95px] five:top-[140px]
+			<h1 className="text-[25px] absolute top-[40%] left-[25%] font-ibm-plex-sans font-semibold
+						   phone:text-[15px] phone:left-[75px] phone:top-[110px]
+						   Large-phone:text-[18px] Large-phone:left-[80px] Large-phone:top-[140px]
+						   laptop:text-[20px] laptop:left-[95px] laptop:top-[140px]
 				">
 				Sign-in or sign-up
 			</h1>

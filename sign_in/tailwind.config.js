@@ -8,9 +8,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+		'mix': 'linear-gradient(180.7deg, #000000 27.28%, rgba(0, 0, 0, 0) 103.93%)',
+		'mix-tow': ' linear-gradient(181.51deg, #FF3B22 45.75%, rgba(0, 0, 0, 0) 130.08%)'
       },
     },
 	colors: 
@@ -20,17 +19,31 @@ module.exports = {
 		'blue': '#171926',
 		'green': '#05494a',
 		'Sky' : '#00BABC',
+		'test': 'rgba(255, 255, 255, 0.15)',
 
 	},
 	screens:
 	{
-		'for': {'raw': '(min-width: 100px) and (max-width: 540px)'},
-		'one': {'raw': '(min-width: 540px) and (max-width: 700px)'},
-		'five': {'raw': '(min-width: 700px) and (max-width: 1023px)'},
+		'phone': {'raw': '(min-width: 100px) and (max-width: 539px)'},
+		'Large-phone': {'raw': '(min-width: 540px) and (max-width: 700px)'},
+		'laptop': {'raw': '(min-width: 700px) and (max-width: 1023px)'},
 	},
 	boxShadow:
 	{
 		'shdow': '0px 40px 18px 0px rgba(0,0,0,0.1), 0px 10px 15px -3px rgba(0,0,0,0.1)',
+	},
+	fontFamily: 
+	{
+		'lato': ["Lato", "sans-serif"],
+		'fredoka': ["Fredoka", "sans-serif"],
+		'ibm-plex-sans': ["IBM Plex Sans", "sans-serif"],
+		'ibm-plex-sans-kr': ["IBM Plex Sans KR", "sans-serif"],
+	},
+	fontWeight:
+	{
+		extrabold: '800',
+		semibold: '600',
+		medium: '500',
 	},
   },
   plugins: [],
