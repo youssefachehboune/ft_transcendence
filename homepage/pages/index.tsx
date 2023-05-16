@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 
-import Logo from '../public/vercel.svg'
+import Logo from '../public/pipo.png'
 
 import Button from '@/components/button-lang';
 const inter = Inter({ subsets: ['latin'] })
@@ -10,12 +10,22 @@ export default function Home() {
   return (
 
     <div id='container' className='h-[100vh] w-[100%] bg-my-bg'>
-      <div className='bck'>
-        <div className='cyl1'></div>
-        <div className='cyl2'></div>
-        <div className='cyl3'></div>
-        <div className='cyl4'></div>
-      </div>
+        <div className='header'>
+          <div className='div1'>
+            <a href="##"><img src="pipo.png" alt="" className='w-[100px] mt-[40px] ml-[20px]'/></a>
+          </div>
+          <div className='div2'>
+          </div>
+          <div className='div3'>
+
+          </div>
+        </div>
+        <div className='bck'>
+            <div className='cyl1'></div>
+            <div className='cyl2'></div>
+            <div className='cyl3'></div>
+            <div className='cyl4'></div>
+          </div>
       <footer>
         <div className="custom-shape-divider-bottom-1684173583">
           <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -114,16 +124,6 @@ export default function Home() {
         </svg>
       </footer>
 
-      {/* <header className="flex flex-wrap justify-between">
-        <div className="flex items-center">
-          <a href="##"><img src="pipo.png" alt="" className='w-[200px]'/></a>
-          </div>
-        <div>
-        </div>
-        <div>
-          <Button />
-        </div>
-      </header> */}
     </div>
   )
 }

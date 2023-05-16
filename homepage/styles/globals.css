@@ -9,9 +9,39 @@
     justify-content: center;
 }
 
+.header {
+    width: 100%;
+    height: 12%;
+    z-index: 1;
+	display: flex;
+	/* flex-direction: row; */
+	/* justify-content: center; */
+	/* align-items: baseline; */
+	/* align-content: stretch; */
+}
+
+
+.div1 {
+    width: 20%;
+    height: 100%;
+}
+
+.div2 {
+    width: 60%;
+    height: 100%;
+}
+
+.div3 {
+    width: 20%;
+    height: 100%;
+    background-color: black;
+
+}
+
+
 .bck {
     position: absolute;
-    width: 370px;
+    width: 310px;
     height: 400px;
     top: 0;
     display: flex;
@@ -19,42 +49,34 @@
 }
 
 .cyl1 {
-    width: 80px;
-    height: 170px;
+    width: 70px;
+    height: 160px;
     background-color: #AFAFAF;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 
 .cyl2 {
-    width: 80px;
-    height: 220px;
+    width: 70px;
+    height: 210px;
     background-color: #FF3B22;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 .cyl3 {
-    width: 80px;
-    height: 110px;
+    width: 70px;
+    height: 100px;
     background-color: #fff;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 .cyl4 {
-    width: 80px;
-    height: 140px;
+    width: 70px;
+    height: 130px;
     background-color: #AFAFAF;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
-.cyl5 {
-    width: 80px;
-    height: 200px;
-    background-color: #FF3B22;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-}
-
 
 footer {
     position: absolute;
@@ -89,10 +111,10 @@ footer {
 .eclipse1 {
     position: absolute;
     width: 280px;
-    bottom : 90px;
+    bottom : 110px;
     overflow: hidden;
     left: 30px;
-    z-index: 1;
+
 }
 
 .eclipse2 {
@@ -101,7 +123,7 @@ footer {
     bottom : 210px;
     overflow: hidden;
     right: 30px;
-    z-index: 1;
+
 }
 
 
@@ -116,7 +138,7 @@ footer {
         bottom : 100px;
         overflow: hidden;
         left: 25px;
-        z-index: 1;
+
     }
     .custom-shape-divider-bottom-1684173583 svg {
         width: calc(200% + 1.3px);
@@ -144,14 +166,12 @@ footer {
     .eclipse1 {
         position: absolute;
         width: 100px;
-        bottom : 7vh;
+        bottom : 70px;
         overflow: hidden;
         left: 10px;
-        z-index: 1;
     }
     .custom-shape-divider-bottom-1684173583 svg {
         width: calc(260% + 1.3px);
         height: 240px;
     }
 }
-
