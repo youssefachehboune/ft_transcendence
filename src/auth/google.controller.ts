@@ -20,8 +20,13 @@ export class GoogleController {
       sameSite: 'lax',
     });
     return res.send({
-	  msg: 'Login successful',
-	  user: req.user
+	  token: accessToken,
 	});
+  }
+
+  @Get('profile')
+  @UseGuards(AuthGuard('jwt'))
+  profile(@Req() req: Request) {
+	return req.user;
   }
 }
