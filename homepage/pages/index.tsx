@@ -1,14 +1,44 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
-
+import { AiOutlineArrowRight } from "react-icons/ai";
 import Logo from '@/components/logo'
 import Lang from '@/components/button-lang'
 import Racket from '@/components/Racket'
-
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
-
+  const data = {
+    'english' : {
+        'h1' : 'Welcome to my website',
+        'p' : [
+            'This is my first website',
+            'I am learning React',
+            'I am learning TypeScript',
+            'I am learning how to use GitHub',
+            'I am learning how to use Netlify',
+            'I am learning how to use Vercel',
+            'I am learning how to use Heroku',
+            'I am learning how to use Firebase'
+        ],
+        'button' : 'Play now!'
+    },
+    'french' : {
+        'h1' : 'Bienvenue sur mon site web',
+        'p' : [
+            'Ping Pong',
+            'Ceci est mon premier site web',
+            'J\'apprends React',
+            'J\'apprends TypeScript',
+            'J\'apprends comment utiliser GitHub',
+            'J\'apprends comment utiliser Netlify',
+            'J\'apprends comment utiliser Vercel',
+            'J\'apprends comment utiliser Heroku',
+            'J\'apprends comment utiliser Firebase'
+        ],
+        'button' : 'Jouons'
+    }
+  }
   return (
 
     <div id='container' className='h-[100vh] w-[100%] bg-my-bg'>
@@ -16,6 +46,15 @@ export default function Home() {
         <Lang />
         <div className='main'>
           <div className='doc1'>
+            <div className='textHead'>
+              <h1>Lorem Ipsum</h1>
+              <div className='circleHead'></div>
+            </div>
+            <div className='textBody'>
+              <p><span>Lorem Ipsum</span> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+            </div>
+            <div className='lastbutton'>
+            </div>
           </div>
           <div className='doc2'>
             <Racket/>
@@ -124,7 +163,6 @@ export default function Home() {
           </defs>
         </svg>
       </footer>
-
     </div>
   )
 }

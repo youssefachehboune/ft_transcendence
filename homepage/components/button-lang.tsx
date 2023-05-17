@@ -47,28 +47,29 @@ import { useState } from 'react';
 
 export default function Language_icone()
 {
-    // const [isDivVisible, setDivVisible] = useState(false);
-    // const handleIconClick = () => {
-    //     setDivVisible(!isDivVisible);
-    // };
+    const [isDivVisible, setDivVisible] = useState(false);
+    const handleIconClick = () => {
+        setDivVisible(!isDivVisible);
+    };
 
     return(
         <div>
                 
-                <button><MdLanguage color={"white"} className="z-10 fixed right-[0] mr-[65px] top-[50px] w-[70px] h-[62px] rounded-[10px] duration-1000 bg-test
-                                                                                        phone:w-[45px] phone:h-[40px] phone:top-[30px] phone:mr-[15px]
+                <button><MdLanguage color={"white"} onClick={handleIconClick} className="z-10 fixed right-[0] mr-[65px] top-[50px] w-[49px] h-[49px] rounded-[10px] duration-1000 bg-test
+                                                                                        hover:cursor-pointer hover:bg-orange hover:duration-1000 hover:rounded-[10px] hover:shadow-2xl
+                                                                                        phone:w-[40px] phone:h-[40px] phone:top-[30px] phone:mr-[15px]
                                                                                         Large-phone:top-[30px] Large-phone:mr-[25px] Large-phone:w-[45px] Large-phone:h-[40px]
-                                                                                        laptop:top-[30px] laptop:mr-[25px] laptop:w-[55px] laptop:h-[50px] 
+                                                                                        laptop:top-[30px] laptop:mr-[25px] laptop:w-[55px] laptop:h-[50px]
                                                                                         "/>
                 </button>
-                {/* {
+                {
                     isDivVisible && 
-                    <ul className='w-[100px] h-[48px] bg-white absolute right-0 mr-[40px] mt-[5%] z-20 rounded-[3px]'>
+                    <ul className='w-[100px] h-[48px] bg-white absolute  top-0 right-0 mr-[40px] mt-[50px] z-20 rounded-[3px]'>
                         <button className='bg-Sky w-[100%]'>french</button>
                         <br />
                         <button className='bg-orange w-[100%]'>english</button>
                     </ul>
-                } */}
+                }
         </div>
     )
 }

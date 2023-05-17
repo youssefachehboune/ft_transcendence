@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,6 +32,56 @@
     align-items: center;
 }
 
+.textBody {
+    width: 70%;
+    height: 50%;
+    margin-left: 20%;
+    display: flex;
+    align-items: flex-start;
+}
+
+.textBody p {
+    margin-top: 20px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 26px;
+    color: #AFAFAF;
+    letter-spacing: 1px;
+}
+
+.textBody span {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    color: #AFAFAF;
+}
+
+.textHead {
+    width: 60%;
+    height: 10%;
+    /* background-color: #FF3B22; */
+    margin-left: 20%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.textHead h1 {
+    font-size: 45px;
+    color : #FFFF;
+    font-family: 'Lato', sans-serif;
+    font-weight: 800; 
+    margin-right: 10px;
+}
+
+.circleHead {
+    margin-top : 18px;
+    width: 18px;
+    height: 18px;
+    background-color: #FF3B22;
+    border-radius: 50%;
+}
 
 .div1 {
     width: 20%;
@@ -53,7 +105,7 @@
 
 .bck {
     position: absolute;
-    width: 270px;
+    width: 220px;
     height: 400px;
     top: 0;
     display: flex;
@@ -61,30 +113,30 @@
 }
 
 .cyl1 {
-    width: 60px;
-    height: 140px;
+    width: 50px;
+    height: 100px;
     background-color: #AFAFAF;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 
 .cyl2 {
-    width: 60px;
-    height: 180px;
+    width: 50px;
+    height: 140px;
     background-color: #FF3B22;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 .cyl3 {
-    width: 60px;
-    height: 80px;
+    width: 50px;
+    height: 60px;
     background-color: #fff;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
 }
 .cyl4 {
-    width: 60px;
-    height: 110px;
+    width: 50px;
+    height: 80px;
     background-color: #AFAFAF;
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
@@ -98,6 +150,49 @@ footer {
 
 }
 
+.lastbutton {
+    width: 80%;
+    height: 20%;
+    margin-top: 20px;
+    margin-left: 20%;
+    display: flex;
+    justify-content:flex-end;
+    align-items: center;
+}
+
+
+
+/* .lastbutton a {
+    height: 60px;
+    width: 240px;
+    background-color: #171926;
+    border-radius: 10px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    color: #fff;
+    border: 1.4px solid #FF3B22;
+    border-bottom: 4px solid #FF3B22;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    letter-spacing: 1px;
+    margin-right: 5px;
+    transition: all 0.52s ease-in-out;
+    font-size: 24px;
+}
+
+.lastbutton a:hover {
+    background-color: #ff3c22d4;
+    color: #fff;
+    border: 1.4px solid #FF3B22;
+    border-bottom: 4px solid #FF3B22;
+}
+
+.lastbutton a  h1 {
+    margin-right: 5px;
+} */
 
 .custom-shape-divider-bottom-1684173583 {
     position: absolute;
@@ -122,8 +217,8 @@ footer {
 
 .eclipse1 {
     position: absolute;
-    width: 280px;
-    bottom : 75px;
+    width: 240px;
+    bottom : 2.4rem;
     overflow: hidden;
     left: 30px;
 
@@ -132,23 +227,53 @@ footer {
 .eclipse2 {
     transform: scaleX(-1);
     position: absolute;
-    width: 280px;
-    bottom : 155px;
+    width: 240px;
+    bottom : 7rem;
     overflow: hidden;
     right: 30px;
 
 }
 
 
+@media (min-width: 1023px ) and (max-width: 1409px) {
+    .textBody {
+        width: 80%;
+    }
+    .textBody p {
+        font-size: 23px;
+    }
+}
+
 /** For tablet devices **/
-@media (min-width: 768px) and (max-width: 1023px) {
+
+@media (min-width: 768px) and (max-width: 1023px){
     .eclipse2 {
         display: none;
+    }
+    .textHead {
+        margin-left: 10%;
+    }
+    .textBody {
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .textBody p {
+        font-size: 23px;
+    }
+
+    .textHead h1 {
+        font-size: 40px;
+    }
+    .circleHead {
+        margin-top : 18px;
+        width: 13px;
+        height: 13px;
     }
     .eclipse1 {
         position: absolute;
         width: 150px;
-        bottom : 70px;
+        bottom : 2.3rem;
         overflow: hidden;
         left: 25px;
 
@@ -161,7 +286,9 @@ footer {
         width : 100%;
         height: 100%;
     }
-    
+    .lastbutton {
+        width: 70%;
+    }
     .doc2 {
         display: none;
     }
@@ -171,11 +298,14 @@ footer {
 
     .custom-shape-divider-bottom-1684173583 svg {
         width: calc(200% + 1.3px);
-        height: 260px;
+        height: 220px;
     }
 }
 
 @media (max-width: 768px) {
+    .lastbutton {
+        width: 70%;
+    }
     .bck {
         display: none;
     }
@@ -194,12 +324,35 @@ footer {
     .eclipse1 {
         position: absolute;
         width: 100px;
-        bottom : 60px;
+        bottom : 1.3rem;
         overflow: hidden;
         left: 10px;
     }
     .custom-shape-divider-bottom-1684173583 svg {
         width: calc(260% + 1.3px);
-        height: 240px;
+        height: 180px;
+    }
+    .textHead {
+        margin-left: 10%;
+    }
+
+    .textHead h1 {
+        font-size: 30px;
+        margin-right: 5px;
+    }
+    .circleHead {
+        margin-top : 14px;
+        width: 11px;
+        height: 11px;
+    }
+
+    .textBody {
+        margin-left: 10%;
+        width: 90%;
+        height: 60%;
+    }
+
+    .textBody p {
+        font-size: 18px;
     }
 }
