@@ -1,3 +1,5 @@
+// This is our Prisma schema file,
+
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
@@ -9,7 +11,7 @@ generator client {
 
 model User {
     id               Int      @id @default(autoincrement())
-    oauthId          String   @unique
+    email          String   @unique
     createdAt        DateTime @default(now())
     twoFactorEnabled Boolean
     role             Role
@@ -34,7 +36,6 @@ model UserProfile {
     id       Int    @id @default(autoincrement())
     user_id  Int
     username String @unique
-    email    String @unique
     bio      String
     location String
     avatar   String
