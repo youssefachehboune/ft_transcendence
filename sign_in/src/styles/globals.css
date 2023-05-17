@@ -1,3 +1,209 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.Logo
+{
+	@apply w-[170px] absolute top-[55px] left-[60px] duration-1000
+			phone:top-[40px] phone:w-[100px] phone:left-[40px]
+			Large-phone:top-[35px] Large-phone:w-[100px]
+			laptop:top-[40px] laptop:w-[130px]
+}
+
+.Language_icone
+{
+	@apply z-10 fixed right-[0] mr-[65px] top-[50px] w-[78px] h-[70px] rounded-[10px] duration-1000 bg-test
+			phone:w-[45px] phone:h-[40px] phone:top-[30px] phone:mr-[15px]
+			Large-phone:top-[30px] Large-phone:mr-[25px] Large-phone:w-[45px] Large-phone:h-[40px]
+			laptop:top-[30px] laptop:mr-[25px] laptop:w-[55px] laptop:h-[50px]
+}
+
+
+.rectangele_left_border
+{
+	@apply w-[230px] h-[490px] fixed ml-[-93px] mb-[-250px] bottom-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[-140.9deg] bg-mix-tow duration-1000
+		phone:w-[120px]  phone:h-[417px] phone:ml-[-106px] phone:mb-[-250px]
+		Large-phone:w-[120px]  Large-phone:h-[410px] Large-phone:ml-[-108px] Large-phone:mb-[-245px]
+		laptop:w-[170px]  laptop:h-[318px] laptop:ml-[-88px] laptop:mb-[-150px]
+}
+.rectangele_left_one
+{
+	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0]  rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
+		phone:w-[105px]  phone:h-[408px] phone:ml-[-102px]
+		Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
+		laptop:w-[154px]  laptop:h-[308px] laptop:ml-[-85px] laptop:mb-[-150px]
+}
+.rectangele_left_tow
+{
+	@apply w-[85px] h-[130px] fixed left-[-50px] mb-[170px] bottom-[0] rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-133.9deg] duration-1000
+			phone:w-[40px]  phone:h-[120px] phone:mb-[70px] phone:left-[-40px]
+			Large-phone:w-[40px]  Large-phone:h-[120px] Large-phone:mb-[70px] Large-phone:left-[-40px]
+			laptop:w-[65px]  laptop:h-[100px] laptop:mb-[140px] laptop:rotate-[-125.1deg]
+}
+.rectangele_left_tree
+{
+	@apply w-[91px] h-[180px] fixed mb-[-95px] ml-[200px] bottom-[0] left-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
+			phone:w-[40px]  phone:h-[150px] phone:ml-[60px]
+			Large-phone:w-[40px]  Large-phone:h-[150px] Large-phone:ml-[60px]
+			laptop:w-[65px]  laptop:h-[140px] laptop:ml-[100px]
+}
+
+
+.rectangele_right_border
+{
+	@apply w-[230px] h-[490px] fixed mr-[-94px] mt-[-250px] top-[0] right-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[40.1deg] bg-mix duration-1000
+			phone:w-[120px]  phone:h-[417px] phone:mr-[-108px] phone:mt-[-250px]
+			Large-phone:w-[120px]  Large-phone:h-[416px] Large-phone:mr-[-90px] Large-phone:ml-[-105px]
+			laptop:w-[165px]  laptop:h-[318px] laptop:mr-[-83px] laptop:mt-[-150px]
+}
+
+.rectangele_right_one
+{
+	@apply w-[205px] h-[478px] fixed mr-[-87px] mt-[-250px] top-[0] right-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[40.1deg] duration-1000
+			phone:w-[105px]  phone:h-[408px] phone:mr-[-105px]
+			Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
+			laptop:w-[155px]  laptop:h-[308px] laptop:mr-[-85px] laptop:mt-[-150px]
+}
+
+.rectangele_right_tow
+{
+	@apply w-[85px] h-[130px] fixed mr-[220px] mt-[-54px] top-[0] right-[0] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[41.1deg] duration-1000
+			phone:w-[30px]  phone:h-[100px] phone:mr-[70px]
+			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[100px]
+			laptop:w-[65px]  laptop:h-[100px] laptop:mr-[125px] laptop:mt-[-40px]
+}
+
+.rectangele_right_tree
+{
+	@apply w-[91px] h-[180px] fixed mr-[-30px] mt-[130px] right-[0] rounded-t-[0px] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[50.1deg] duration-1000
+			phone:w-[30px]  phone:h-[100px] phone:mr-[-20px] phone:mt-[60px]
+			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[-20px] Large-phone:mt-[40px] Large-phone:rotate-[45.1deg]
+			laptop:w-[65px]  laptop:h-[140px] laptop:mr-[-35px] laptop:mt-[85px] laptop:rotate-[55.1deg]
+}
+.rectangele_right_for
+{
+	@apply w-[80px] h-[190px] fixed mr-[27rem] mb-[-5rem] right-[0] bottom-[0] rounded-t-[0px] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[-143.55deg] duration-1000
+			phone:w-[40px]  phone:h-[150px] phone:mr-[7rem]
+			Large-phone:w-[40px]  Large-phone:h-[150px] Large-phone:mr-[9rem]
+			laptop:w-[60px]  laptop:h-[150px] laptop:mr-[10rem]
+}
+
+.Login
+{
+	@apply w-[378px] h-[475px] bg-white absolute z-[100] ml-[25%] mt-[10%] rounded-[20px]
+						phone:w-[270px] phone:h-[300px] phone:ml-[15%] phone:mt-[65%]
+						Large-phone:w-[300px] Large-phone:h-[340px] Large-phone:ml-[15%] Large-phone:mt-[40%]
+						laptop:w-[350px] laptop:h-[370px] laptop:ml-[17%] laptop:top-[10%]
+}
+.Login_join_text
+{
+	@apply absolute text-[25px] left-[70px] top-[20px] font-ibm-plex-sans-kr font-semibold
+			phone:text-[15px] phone:left-[70px]
+			Large-phone:text-[18px] Large-phone:left-[75px]
+			laptop:text-[20px] laptop:left-[90px]
+}
+
+.Login_sign_text
+{
+	@apply text-[25px] absolute top-[40%] left-[25%] font-ibm-plex-sans font-semibold
+			phone:text-[15px] phone:left-[75px] phone:top-[110px]
+			Large-phone:text-[18px] Large-phone:left-[80px] Large-phone:top-[140px]
+			laptop:text-[20px] laptop:left-[95px] laptop:top-[140px]
+}
+
+.Emoji
+{
+	@apply absolute left-[150px] top-[70px]
+			phone:top-[55px] phone:left-[110px]
+			Large-phone:top-[60px] Large-phone:left-[120px]
+			laptop:top-[60px] laptop:left-[140px]
+}
+.Emoji_icone
+{
+	@apply w-[90px] h-[90px] rounded-[50%] shadow-shdow
+			phone:w-[45px] phone:h-[45px] phone:left-[70px]
+			Large-phone:w-[65px] Large-phone:h-[65px] Large-phone:left-[70px]
+			laptop:w-[65px] laptop:h-[65px] laptop:left-[70px]
+}
+
+.Intra_button
+{
+	@apply w-[325px] h-[55px] bg-Sky rounded-[30px] absolute top-[55%] left-[8%]
+			hover:border-[2px] hover:border-green hover:border-solid
+			phone:w-[150px] phone:h-[30px] phone:left-[60px] phone:top-[160px]
+			Large-phone:w-[200px] Large-phone:h-[40px] Large-phone:left-[50px] Large-phone:top-[180px]
+			laptop:w-[250px] laptop:h-[50px] laptop:left-[50px] laptop:top-[190px]
+}
+
+.Intra_text
+{
+	@apply text-white absolute left-[33%] top-[25%] font-medium
+			phone:text-[10px] phone:left-[25%]
+			Large-phone:text-[14px] Large-phone:left-[25%]
+			laptop:text-[15px]
+}
+
+.Intra_icone
+{
+	@apply ml-[70px] phone:w-[15px] phone:ml-[20px] 
+			Large-phone:w-[20px] Large-phone:ml-[25px]
+			laptop:w-[20px] laptop:ml-[50px]
+}
+
+.Google_button
+{
+	@apply w-[325px] h-[55px] bg-white rounded-[30px] absolute top-[70%] left-[8%]
+			border-[1px] border-solid border-[#DADCE0]
+			hover:border-[2px] hover:border-green hover:border-solid
+			phone:w-[150px] phone:h-[30px] phone:left-[60px] phone:top-[200px]
+			Large-phone:w-[200px] Large-phone:h-[40px] Large-phone:left-[50px] Large-phone:top-[230px]
+			laptop:w-[250px] laptop:h-[50px] laptop:left-[50px] laptop:top-[250px]
+}
+.Google_text
+{
+	@apply  absolute left-[33%] top-[25%] font-medium 
+			phone:text-[10px] phone:left-[25%] 
+			Large-phone:text-[14px] Large-phone:left-[25%]
+			laptop:text-[15px] 
+}
+
+.Google_icone
+{
+	@apply ml-[70px] 
+			phone:w-[15px] phone:ml-[20px] 
+			Large-phone:ml-[25px]
+			laptop:w-[20px] laptop:ml-[50px] 
+}
+
+
+.go_back_icone
+{
+	@apply absolute top-[90%] left-[40%] w-[25px] h-[25px] 
+			phone:w-[15px] phone:top-[85%] 
+			Large-phone:top-[84%] Large-phone:left-[39%]
+}
+.go_back_text
+{
+	@apply absolute top-[90%] left-[48%] text-[15px] font-fredoka font-medium
+	phone:text-[8px] phone:top-[87%]
+	Large-phone:top-[84%]
+	laptop:text-[15px]
+}
+
+
+.svg_img
+{
+	@apply absolute h-[100%] right-[0] object-cover max-w-none
+			phone:left-[40%] 
+			Large-phone:left-[58%]
+			laptop:left-[64%]
+}
+
+.svg_text
+{
+	@apply z-10 text-white absolute left-[66%] top-[30%] text-[35px] w-[320px] duration-500 font-lato font-extrabold
+			phone:left-[50%] phone:text-[15px] phone:w-[130px] phone:top-[18%]
+			Large-phone:text-[20px] Large-phone:w-[200px] Large-phone:top-[18%] Large-phone:left-[64%]
+			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%]
+}
