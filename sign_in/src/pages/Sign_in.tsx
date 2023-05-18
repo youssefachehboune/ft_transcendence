@@ -1,8 +1,8 @@
 import React from "react";
-import Login from "./Login/Login";
-import Header from "./Header/Header";
-import Svg_image from "./svg/Svg_image";
-import Text from "./svg/text";
+import Login from "./component/sign_in/Login/Login";
+import Header from "./component/sign_in/Header/Header";
+import Svg_image from "./component/sign_in/svg/Svg_image";
+import Text from "./component/sign_in/text_svg/text";
 
 function Sign_in()
 {	

@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-		'mix': 'linear-gradient(180.7deg, #000000 27.28%, rgba(0, 0, 0, 0) 103.93%)',
-		'mix-tow': ' linear-gradient(181.51deg, #FF3B22 45.75%, rgba(0, 0, 0, 0) 130.08%)'
+		'mix': 'linear-gradient(180.7deg, #000000 27.28%, rgba(0, 0, 0, 0) 112.93%)',
+		'mix-tow': ' linear-gradient(181.51deg, #FF3B22 45.75%, rgba(0, 0, 0, 0) 105.08%)'
       },
     },
 	colors: 

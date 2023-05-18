@@ -13,8 +13,8 @@
 
 .Language_icone
 {
-	@apply z-10 fixed right-[0] mr-[65px] top-[50px] w-[78px] h-[70px] rounded-[10px] duration-1000 bg-test
-			phone:w-[45px] phone:h-[40px] phone:top-[30px] phone:mr-[15px]
+	@apply z-10 fixed right-[0] mr-[65px] top-[50px] w-[49px] h-[49px] rounded-[10px] duration-1000 bg-test
+			phone:w-[40px] phone:h-[40px] phone:top-[30px] phone:mr-[15px]
 			Large-phone:top-[30px] Large-phone:mr-[25px] Large-phone:w-[45px] Large-phone:h-[40px]
 			laptop:top-[30px] laptop:mr-[25px] laptop:w-[55px] laptop:h-[50px]
 }
