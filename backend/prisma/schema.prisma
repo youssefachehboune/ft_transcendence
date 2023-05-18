@@ -48,7 +48,7 @@ model CareerLog {
     user_id     Int
     opponent_id Int
     result      CareerLogResult
-    timestamp   DateTime        @default(now())
+    OccuredAt   DateTime        @default(now())
     User        User            @relation(name: "UserLog", fields: [user_id], references: [id])
     Opponent    User            @relation(name: "OpponentLog", fields: [opponent_id], references: [id])
 }
@@ -68,7 +68,7 @@ model AchievementLog {
     user_id        Int
     achievement_id Int
     score          Int
-    timestamp      DateTime    @default(now())
+    OccuredAt      DateTime    @default(now())
     User           User        @relation(fields: [user_id], references: [id])
     Achievement    Achievement @relation(fields: [achievement_id], references: [id])
 }
@@ -80,7 +80,7 @@ model Notification {
     type            String
     sender_id       Int
     recipient_id    Int
-    timestamp       DateTime          @default(now())
+    OccuredAt       DateTime          @default(now())
     User            User              @relation(name: "SentNotification", fields: [sender_id], references: [id])
     Recipient       User              @relation(name: "ReceivedNotification", fields: [recipient_id], references: [id])
     NotificationLog NotificationLog[]
@@ -112,7 +112,7 @@ model Chat {
     recipient_id Int
     message      String
     sentAt       DateTime  @default(now())
-    ReadAt       DateTime?
+    readAt       DateTime?
     User         User      @relation(name: "SentMessage", fields: [sender_id], references: [id])
     Recipient    User      @relation(name: "ReceivedMessage", fields: [recipient_id], references: [id])
 }
