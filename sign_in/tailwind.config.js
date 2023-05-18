@@ -25,8 +25,8 @@ module.exports = {
 	screens:
 	{
 		'phone': {'raw': '(min-width: 100px) and (max-width: 539px)'},
-		'Large-phone': {'raw': '(min-width: 540px) and (max-width: 700px)'},
-		'laptop': {'raw': '(min-width: 700px) and (max-width: 1240px)'},
+		'Large-phone': {'raw': '(min-width: 540px) and (max-width: 750px)'},
+		'laptop': {'raw': '(min-width: 750px) and (max-width: 1240px)'},
 	},
 	boxShadow:
 	{

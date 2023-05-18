@@ -6,14 +6,20 @@
 			laptop:top-[40px] laptop:w-[130px]
 }
 
-.Language_icone
-{
-	@apply z-10 fixed right-[0] mr-[65px] top-[50px] w-[49px] h-[49px] rounded-[10px] duration-1000 bg-test
-			phone:w-[40px] phone:h-[40px] phone:top-[30px] phone:mr-[15px]
-			Large-phone:top-[30px] Large-phone:mr-[25px] Large-phone:w-[45px] Large-phone:h-[40px]
-			laptop:top-[30px] laptop:mr-[25px] laptop:w-[55px] laptop:h-[50px]
+.button-lang {
+    @apply z-10 fixed right-[65px] top-[55px] w-[60px] h-[60px] bg-test flex items-center justify-center rounded-[10px] duration-1000
+	laptop:right-[30px] laptop:top-[35px] laptop:w-[50px] laptop:h-[50px]
+	phone:right-[25px] phone:top-[30px] phone:w-[45px] phone:h-[45px]
+	Large-phone:right-[30px] Large-phone:top-[30px] Large-phone:w-[45px] Large-phone:h-[45px]
+
 }
 
+.icon-lang {
+    @apply w-[35px] h-[30px]
+	laptop:w-[30px]  laptop:h-[25px]
+	phone:w-[30px] phone:h-[25px]
+	Large-phone:w-[30px] Large-phone:h-[25px]
+}
 
 .rectangele_left_border
 {
@@ -63,18 +69,18 @@
 
 .rectangele_right_tow
 {
-	@apply w-[85px] h-[130px] fixed mr-[220px] mt-[-54px] top-[0] right-[0] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[41.1deg] duration-1000
-			phone:w-[30px]  phone:h-[100px] phone:mr-[70px]
-			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[100px]
+	@apply w-[85px] h-[130px] fixed mr-[210px] mt-[-54px] top-[0] right-[0] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[41.1deg] duration-1000
+			phone:w-[30px]  phone:h-[100px] phone:right-[-145px]
+			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[90px]
 			laptop:w-[65px]  laptop:h-[100px] laptop:mr-[125px] laptop:mt-[-40px]
 }
 
 .rectangele_right_tree
 {
-	@apply w-[91px] h-[180px] fixed mr-[-30px] mt-[130px] right-[0] rounded-t-[0px] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[50.1deg] duration-1000
-			phone:w-[30px]  phone:h-[100px] phone:mr-[-20px] phone:mt-[60px]
-			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[-20px] Large-phone:mt-[40px] Large-phone:rotate-[45.1deg]
-			laptop:w-[65px]  laptop:h-[140px] laptop:mr-[-35px] laptop:mt-[85px] laptop:rotate-[55.1deg]
+	@apply w-[91px] h-[180px] absolute mr-[-37px] top-[145px] right-[0] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[50.1deg] duration-1000
+			phone:w-[30px]  phone:h-[100px] phone:mr-[-20px] phone:top-[85px]
+			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[-20px] Large-phone:top-[65px] Large-phone:rotate-[45.1deg]
+			laptop:w-[65px]  laptop:h-[140px] laptop:mr-[-35px] laptop:top-[110px] laptop:rotate-[55.1deg]
 }
 .rectangele_right_for
 {
