@@ -140,6 +140,19 @@ model ChannelLog {
     Channel    Channel  @relation(fields: [channel_id], references: [id])
 }
 
+model texts {
+    id          Int @id @default(autoincrement())
+    key         String
+    en          String
+    fr          String
+}
+
+model configs {
+    id          Int @id @default(autoincrement())
+    key         String
+    value       String
+}
+
 enum CareerLogResult {
     WON
     LOST
