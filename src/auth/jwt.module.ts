@@ -7,16 +7,7 @@ import { config } from 'dotenv';
 config();
 @Module({
   imports: [
-    JwtModule.registerAsync({
-      useFactory: async () => {
-        return {
-          secret: process.env.JWT_SECRET,
-          signOptions: {
-            expiresIn: process.env.JWT_EXPIRATION_TIME,
-          },
-        };
-      },
-    }),
+    JwtModule.register({}),
   ],
   providers: [JwtAuthStrategy, JwtAuthService],
   exports: [JwtModule, JwtAuthService],

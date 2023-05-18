@@ -26,7 +26,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       picture: photos[0].value,
       accessToken,
     }
-	let _user = await prisma.user.findFirst({
+	let _user = await prisma.user.findUnique({
 	  where: { email: user.email},
 	});
 	if (!_user) {
@@ -34,7 +34,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 		data: {
 		  email: user.email,
 		  name: user.firstName,
-		  profile: user.picture,
+		  picture: user.picture,
+		  twoFactorEnabled: false,
+		  role: 'USER',
+		  refreshToken: "",
 		},
 	  });
 	}
