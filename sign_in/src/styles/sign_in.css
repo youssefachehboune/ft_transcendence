@@ -3,91 +3,6 @@
 @tailwind utilities;
 
 
-.Logo
-{
-	@apply w-[170px] absolute top-[55px] left-[60px] duration-1000
-			phone:top-[40px] phone:w-[100px] phone:left-[40px]
-			Large-phone:top-[35px] Large-phone:w-[100px]
-			laptop:top-[40px] laptop:w-[130px]
-}
-
-.Language_icone
-{
-	@apply z-10 fixed right-[0] mr-[65px] top-[50px] w-[49px] h-[49px] rounded-[10px] duration-1000 bg-test
-			phone:w-[40px] phone:h-[40px] phone:top-[30px] phone:mr-[15px]
-			Large-phone:top-[30px] Large-phone:mr-[25px] Large-phone:w-[45px] Large-phone:h-[40px]
-			laptop:top-[30px] laptop:mr-[25px] laptop:w-[55px] laptop:h-[50px]
-}
-
-
-.rectangele_left_border
-{
-	@apply w-[230px] h-[490px] fixed ml-[-93px] mb-[-250px] bottom-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[-140.9deg] bg-mix-tow duration-1000
-		phone:w-[120px]  phone:h-[417px] phone:ml-[-106px] phone:mb-[-250px]
-		Large-phone:w-[120px]  Large-phone:h-[410px] Large-phone:ml-[-108px] Large-phone:mb-[-245px]
-		laptop:w-[170px]  laptop:h-[318px] laptop:ml-[-88px] laptop:mb-[-150px]
-}
-.rectangele_left_one
-{
-	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0]  rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
-		phone:w-[105px]  phone:h-[408px] phone:ml-[-102px]
-		Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
-		laptop:w-[154px]  laptop:h-[308px] laptop:ml-[-85px] laptop:mb-[-150px]
-}
-.rectangele_left_tow
-{
-	@apply w-[85px] h-[130px] fixed left-[-50px] mb-[170px] bottom-[0] rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-133.9deg] duration-1000
-			phone:w-[40px]  phone:h-[120px] phone:mb-[70px] phone:left-[-40px]
-			Large-phone:w-[40px]  Large-phone:h-[120px] Large-phone:mb-[70px] Large-phone:left-[-40px]
-			laptop:w-[65px]  laptop:h-[100px] laptop:mb-[140px] laptop:rotate-[-125.1deg]
-}
-.rectangele_left_tree
-{
-	@apply w-[91px] h-[180px] fixed mb-[-95px] ml-[200px] bottom-[0] left-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
-			phone:w-[40px]  phone:h-[150px] phone:ml-[60px]
-			Large-phone:w-[40px]  Large-phone:h-[150px] Large-phone:ml-[60px]
-			laptop:w-[65px]  laptop:h-[140px] laptop:ml-[100px]
-}
-
-
-.rectangele_right_border
-{
-	@apply w-[230px] h-[490px] fixed mr-[-94px] mt-[-250px] top-[0] right-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[40.1deg] bg-mix duration-1000
-			phone:w-[120px]  phone:h-[417px] phone:mr-[-108px] phone:mt-[-250px]
-			Large-phone:w-[120px]  Large-phone:h-[416px] Large-phone:mr-[-90px] Large-phone:ml-[-105px]
-			laptop:w-[165px]  laptop:h-[318px] laptop:mr-[-83px] laptop:mt-[-150px]
-}
-
-.rectangele_right_one
-{
-	@apply w-[205px] h-[478px] fixed mr-[-87px] mt-[-250px] top-[0] right-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[40.1deg] duration-1000
-			phone:w-[105px]  phone:h-[408px] phone:mr-[-105px]
-			Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
-			laptop:w-[155px]  laptop:h-[308px] laptop:mr-[-85px] laptop:mt-[-150px]
-}
-
-.rectangele_right_tow
-{
-	@apply w-[85px] h-[130px] fixed mr-[220px] mt-[-54px] top-[0] right-[0] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[41.1deg] duration-1000
-			phone:w-[30px]  phone:h-[100px] phone:mr-[70px]
-			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[100px]
-			laptop:w-[65px]  laptop:h-[100px] laptop:mr-[125px] laptop:mt-[-40px]
-}
-
-.rectangele_right_tree
-{
-	@apply w-[91px] h-[180px] fixed mr-[-30px] mt-[130px] right-[0] rounded-t-[0px] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[50.1deg] duration-1000
-			phone:w-[30px]  phone:h-[100px] phone:mr-[-20px] phone:mt-[60px]
-			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[-20px] Large-phone:mt-[40px] Large-phone:rotate-[45.1deg]
-			laptop:w-[65px]  laptop:h-[140px] laptop:mr-[-35px] laptop:mt-[85px] laptop:rotate-[55.1deg]
-}
-.rectangele_right_for
-{
-	@apply w-[80px] h-[190px] fixed mr-[27rem] mb-[-5rem] right-[0] bottom-[0] rounded-t-[0px] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[-143.55deg] duration-1000
-			phone:w-[40px]  phone:h-[150px] phone:mr-[7rem]
-			Large-phone:w-[40px]  Large-phone:h-[150px] Large-phone:mr-[9rem]
-			laptop:w-[60px]  laptop:h-[150px] laptop:mr-[10rem]
-}
 
 .Login
 {
@@ -202,8 +117,8 @@
 
 .svg_text
 {
-	@apply z-10 text-white absolute left-[66%] top-[30%] text-[35px] w-[320px] duration-500 font-lato font-extrabold
-			phone:left-[50%] phone:text-[15px] phone:w-[130px] phone:top-[18%]
+	@apply z-10 text-white absolute right-[5%] top-[30%] text-[50px] w-[470px] duration-500 font-lato font-extrabold
+			phone:left-[50%] phone:text-[20px] phone:w-[190px] phone:top-[18%]
 			Large-phone:text-[20px] Large-phone:w-[200px] Large-phone:top-[18%] Large-phone:left-[64%]
-			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%]
+			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%] laptop:left-[67%]
 }
