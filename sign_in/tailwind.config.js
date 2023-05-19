@@ -19,14 +19,15 @@ module.exports = {
 		'blue': '#171926',
 		'green': '#05494a',
 		'Sky' : '#00BABC',
-		'test': 'rgba(255, 255, 255, 0.15)',
+		'rgb-color': 'rgba(255, 255, 255, 0.15)',
 
 	},
 	screens:
 	{
-		'phone': {'raw': '(min-width: 100px) and (max-width: 539px)'},
-		'Large-phone': {'raw': '(min-width: 540px) and (max-width: 750px)'},
-		'laptop': {'raw': '(min-width: 750px) and (max-width: 1240px)'},
+		'phone': {'raw': '(min-width: 100px) and (max-width: 540px)'},
+		'Large-phone': {'raw': '(min-width: 541px) and (max-width: 700px)'},
+		'laptop': {'raw': '(min-width: 700px) and (max-width: 1024px)'},
+		'desktop': {'raw': '(min-width: 1025px) and (max-width: 1300px)'},
 	},
 	boxShadow:
 	{

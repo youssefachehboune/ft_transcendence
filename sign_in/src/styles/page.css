@@ -7,7 +7,7 @@
 }
 
 .button-lang {
-    @apply z-10 fixed right-[65px] top-[55px] w-[60px] h-[60px] bg-test flex items-center justify-center rounded-[10px] duration-1000
+    @apply z-10 fixed right-[65px] top-[55px] w-[60px] h-[60px] bg-rgb-color flex items-center justify-center rounded-[10px] duration-1000
 	laptop:right-[30px] laptop:top-[35px] laptop:w-[50px] laptop:h-[50px]
 	phone:right-[25px] phone:top-[30px] phone:w-[45px] phone:h-[45px]
 	Large-phone:right-[30px] Large-phone:top-[30px] Large-phone:w-[45px] Large-phone:h-[45px]
@@ -70,7 +70,7 @@
 .rectangele_right_tow
 {
 	@apply w-[85px] h-[130px] fixed mr-[210px] mt-[-54px] top-[0] right-[0] rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[41.1deg] duration-1000
-			phone:w-[30px]  phone:h-[100px] phone:right-[-145px]
+			phone:w-[30px]  phone:h-[100px] phone:right-[-135px]
 			Large-phone:w-[30px]  Large-phone:h-[100px] Large-phone:mr-[90px]
 			laptop:w-[65px]  laptop:h-[100px] laptop:mr-[125px] laptop:mt-[-40px]
 }
@@ -88,4 +88,5 @@
 			phone:w-[40px]  phone:h-[150px] phone:mr-[7rem]
 			Large-phone:w-[40px]  Large-phone:h-[150px] Large-phone:mr-[9rem]
 			laptop:w-[60px]  laptop:h-[150px] laptop:mr-[10rem]
+			desktop:mr-[15rem]
 }

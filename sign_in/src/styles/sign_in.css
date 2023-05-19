@@ -6,10 +6,11 @@
 
 .Login
 {
-	@apply w-[378px] h-[475px] bg-white absolute z-[100] ml-[25%] mt-[10%] rounded-[20px]
-						phone:w-[270px] phone:h-[300px] phone:ml-[15%] phone:mt-[65%]
-						Large-phone:w-[300px] Large-phone:h-[340px] Large-phone:ml-[15%] Large-phone:mt-[40%]
-						laptop:w-[350px] laptop:h-[370px] laptop:ml-[17%] laptop:top-[10%]
+	@apply w-[378px] h-[475px] bg-white absolute z-[100] right-[55%] bottom-[35%] rounded-[20px] duration-500
+						phone:w-[270px] phone:h-[300px] phone:right-[17%] phone:bottom-[20%]
+						Large-phone:w-[300px] Large-phone:h-[340px] Large-phone:right-[30%] Large-phone:bottom-[25%]
+						laptop:w-[350px] laptop:h-[370px] laptop:right-[40%] laptop:bottom-[20%]
+						desktop:w-[378px] desktop:h-[475px] desktop:right-[50%] desktop:bottom-[25%]
 }
 .Login_join_text
 {
@@ -61,7 +62,8 @@
 
 .Intra_icone
 {
-	@apply ml-[70px] phone:w-[15px] phone:ml-[20px] 
+	@apply ml-[70px] 
+			phone:w-[15px] phone:ml-[20px] 
 			Large-phone:w-[20px] Large-phone:ml-[25px]
 			laptop:w-[20px] laptop:ml-[50px]
 }
@@ -96,13 +98,13 @@
 {
 	@apply absolute top-[90%] left-[40%] w-[25px] h-[25px] 
 			phone:w-[15px] phone:top-[85%] 
-			Large-phone:top-[84%] Large-phone:left-[39%]
+			Large-phone:top-[84%] Large-phone:left-[39%] 
 }
 .go_back_text
 {
 	@apply absolute top-[90%] left-[48%] text-[15px] font-fredoka font-medium
 	phone:text-[8px] phone:top-[87%]
-	Large-phone:top-[84%]
+	Large-phone:top-[90%] Large-phone:text-[10px]
 	laptop:text-[15px]
 }
 
@@ -111,8 +113,9 @@
 {
 	@apply absolute h-[100%] right-[0] object-cover max-w-none
 			phone:left-[40%] 
-			Large-phone:left-[58%]
-			laptop:left-[64%]
+			Large-phone:left-[50%]
+			laptop:left-[57%]
+			desktop:left-[55%]
 }
 
 .svg_text
@@ -121,4 +124,5 @@
 			phone:left-[50%] phone:text-[20px] phone:w-[190px] phone:top-[18%]
 			Large-phone:text-[20px] Large-phone:w-[200px] Large-phone:top-[18%] Large-phone:left-[64%]
 			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%] laptop:left-[67%]
+			desktop:left-[62%] desktop:text-[40px] desktop:w-[400px]
 }
