@@ -251,10 +251,7 @@ footer {
     }
 
     .textBody {
-        margin-left: 10%;
-        width: 80%;
-        height: 60%;
-        @apply ml-[10%] w-[90%] h-[60%]
+        @apply ml-[10%] w-[80%] h-[60%]
     }
 
     .textBody p {
