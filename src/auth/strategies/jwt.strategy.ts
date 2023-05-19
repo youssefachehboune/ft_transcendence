@@ -7,10 +7,17 @@ config();
 export type JwtPayload = { sub: number; email: string };
 
 @Injectable()
-export class JwtAuthStrategy extends PassportStrategy(Strategy) {
+export class JwtAuthStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor() {
+	const extractJwtFromCookie = (req) => {
+	  let token = null;
+	  if (req && req.cookies && req.cookies['jwt']) {
+	    token = req.cookies['jwt'];
+	  }
+	  return token;
+	};
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: extractJwtFromCookie,
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET,
     });

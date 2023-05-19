@@ -1,14 +1,15 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from './jwt.strategy';
+import { JwtPayload } from './strategies/jwt.strategy';
 import { config } from 'dotenv';
 import { PrismaClient } from "@prisma/client";
+import * as bcrypt from 'bcrypt';
 
 config();
 const prisma = new PrismaClient();
 
 @Injectable()
-export class JwtAuthService {
+export class AuthService {
   constructor(private jwtService: JwtService) {}
 
   async login(user) {
@@ -23,7 +24,7 @@ export class JwtAuthService {
 	});
 	await prisma.user.update({
 	  where: { email: user.email },
-	  data: { refreshToken: refreshtoken }
+	  data: { refreshToken: await bcrypt.hash(refreshtoken, 10) }
 	});
 	return { accessToken: accesstoken, refreshToken: refreshtoken };
   }
@@ -35,9 +36,21 @@ export class JwtAuthService {
 	if (!user) {
 	  throw new ForbiddenException('Forbidden');
 	}
-	if (user.refreshToken != refreshtoken) {
+	if (!bcrypt.compare(user.refreshToken, refreshtoken)) {
 	  throw new ForbiddenException('Forbidden');
 	}
-	return this.login(user);
+    const payload: JwtPayload = { email: user.email, sub: user.id };
+	const accesstoken = this.jwtService.sign(payload, {
+	  secret: process.env.JWT_SECRET,
+	  expiresIn: process.env.JWT_EXPIRATION_TIME
+	});
+	return { newaccessToken: accesstoken };
+  }
+
+  async logout(email: string) {
+	await prisma.user.update({
+      where: { email: email },
+      data: { refreshToken: null },
+    });
   }
 }

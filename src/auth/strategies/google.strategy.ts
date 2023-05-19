@@ -18,29 +18,37 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     });
   }
   async validate (accessToken: string, refreshToken: string, profile: Profile): Promise<any> {
-    const { name, emails, photos } = profile
-    const user = {
+    const { emails, photos } = profile
+    const googleuser = {
       email: emails[0].value,
-      firstName: name.givenName,
-      lastName: name.familyName,
       picture: photos[0].value,
       accessToken,
     }
-	let _user = await prisma.user.findUnique({
-	  where: { email: user.email},
+	let dbuser = await prisma.user.findUnique({
+	  where: { email: googleuser.email},
 	});
-	if (!_user) {
-	  _user = await prisma.user.create({
+	if (!dbuser) {
+	  dbuser = await prisma.user.create({
 		data: {
-		  email: user.email,
-		  name: user.firstName,
-		  picture: user.picture,
+		  email: googleuser.email,
 		  twoFactorEnabled: false,
 		  role: 'USER',
-		  refreshToken: "",
 		},
 	  });
+	  let dbprofile = await prisma.userProfile.findFirst({
+		  where: {User: dbuser},
+	  });
+	  dbprofile = await prisma.userProfile.create({
+		  data: {
+			  user_id: dbuser.id,
+			  username: googleuser.email.substring(0, googleuser.email.indexOf('@')),
+			  bio: undefined,
+			  location: undefined,
+			  avatar: googleuser.picture,
+			  level: 0,
+		  }
+	  })
 	}
-    return user;
+    return googleuser;
   }
 }
