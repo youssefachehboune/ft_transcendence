@@ -41,7 +41,7 @@
 }
 
 .textHead h1 {
-    @apply font-lato font-bold text-[45px] text-white tracking-wider
+    @apply font-lato font-bold text-[45px] text-white tracking-wider mr-[10px]
 }
 
 .circleHead {
@@ -252,7 +252,7 @@ footer {
 
     .textBody {
         margin-left: 10%;
-        width: 90%;
+        width: 80%;
         height: 60%;
         @apply ml-[10%] w-[90%] h-[60%]
     }
