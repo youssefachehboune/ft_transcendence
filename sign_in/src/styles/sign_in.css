@@ -6,7 +6,7 @@
 
 .Login
 {
-	@apply w-[378px] h-[475px] bg-white absolute z-[100] right-[55%] bottom-[35%] rounded-[20px] duration-500
+	@apply w-[378px] h-[475px] bg-white absolute z-[100] right-[55%] bottom-[35%] rounded-[20px]
 						phone:w-[270px] phone:h-[300px] phone:right-[17%] phone:bottom-[20%]
 						Large-phone:w-[300px] Large-phone:h-[340px] Large-phone:right-[30%] Large-phone:bottom-[25%]
 						laptop:w-[350px] laptop:h-[370px] laptop:right-[40%] laptop:bottom-[20%]
@@ -98,13 +98,13 @@
 {
 	@apply absolute top-[90%] left-[40%] w-[25px] h-[25px] 
 			phone:w-[15px] phone:top-[85%] 
-			Large-phone:top-[84%] Large-phone:left-[39%] 
+			Large-phone:top-[89%] Large-phone:left-[40%] Large-phone:w-[20px]
 }
 .go_back_text
 {
 	@apply absolute top-[90%] left-[48%] text-[15px] font-fredoka font-medium
 	phone:text-[8px] phone:top-[87%]
-	Large-phone:top-[90%] Large-phone:text-[10px]
+	Large-phone:top-[90%] Large-phone:text-[11px]
 	laptop:text-[15px]
 }
 

@@ -21,6 +21,29 @@
 	Large-phone:w-[30px] Large-phone:h-[25px]
 }
 
+.div-en-fr
+{
+	@apply w-[100px] h-[70px] bg-rgb-color absolute right-[90px] top-[120px] z-20 rounded-[5px] 
+			phone:right-[50px] phone:top-[80px] phone:w-[80px] phone:h-[60px]
+			Large-phone:right-[50px] Large-phone:top-[80px] Large-phone:w-[85px] Large-phone:h-[65px]
+			laptop:right-[55px] laptop:top-[90px] laptop:w-[90px] laptop:h-[70px]
+}
+
+.button-en
+{
+	@apply w-[100px] h-[35px] text-white text-sm
+				phone:w-[80px] phone:h-[30px]
+				Large-phone:w-[85px] Large-phone:h-[35px]
+				laptop:w-[84px] laptop:h-[35px]
+}
+
+.button-fr
+{
+	@apply w-[100px] h-[35px] text-white text-sm
+			phone:w-[80px] phone:h-[30px]
+			Large-phone:w-[85px] Large-phone:h-[35px]
+			laptop:w-[84px] laptop:h-[35px]
+}
 .rectangele_left_border
 {
 	@apply w-[230px] h-[490px] fixed ml-[-93px] mb-[-250px] bottom-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[-140.9deg] bg-mix-tow duration-1000
