@@ -11,7 +11,6 @@ export default function Logo()
                         laptop:top-[45px] laptop:w-[110px]">
                     </img>
                 </Link>
-
             </div>
     )
 }
