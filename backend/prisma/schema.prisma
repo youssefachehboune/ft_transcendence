@@ -15,7 +15,7 @@ model User {
     createdAt        DateTime @default(now())
     twoFactorEnabled Boolean
     role             Role
-	refreshToken	 String?
+	  refreshToken	 String?
 
     // Relations
     userProfile          UserProfile[]
@@ -177,3 +177,4 @@ enum ChannelType {
     PUBLIC
     PRIVATE
 }
+
