@@ -46,6 +46,7 @@ export class AuthController {
   @UseGuards(JwtGuard)
   async logout(@Req() req: Request, @Res() res: Response) {
 	res.clearCookie('jwt');
+	res.clearCookie('refresh');
 	await this.AuthService.logout(req.user['email']);
 	res.send({ msg: 'Logged out!' });
   }
