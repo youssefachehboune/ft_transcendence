@@ -15,8 +15,8 @@ model User {
     createdAt        DateTime @default(now())
     twoFactorEnabled Boolean
     role             Role
-    hashedRt        String?
-    
+	refreshToken	 String?
+
     // Relations
     userProfile          UserProfile[]
     careerLog            CareerLog[]       @relation("UserLog")
@@ -36,7 +36,7 @@ model User {
 model UserProfile {
     id       Int    @id @default(autoincrement())
     user_id  Int
-    username String @unique
+    username String
     bio      String
     location String
     avatar   String

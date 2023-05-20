@@ -1,19 +1,15 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './controllers/auth/auth.controller';
-import { AuthService } from './services/auth/auth.service';
-import { AtStrategy, IntraStrategy, RtStrategy } from './strategy';
-import { PrismaService } from '../prisma/prisma.service';
-import { SessionSerializer } from './utils/Serializer';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthenticatedGuard } from './guards';
+import { AuthController } from './auth.controller';
+import { GoogleStrategy } from './strategies/google.strategy';
+import { JwtRefreshTokenStrategy } from './strategies/jwtrefresh.strategy';
+import { JwtAuthStrategy } from './strategies/jwt.strategy';
+import { AuthService } from './auth.service';
+import { IntraStrategy } from './strategies/intra.strategy';
 
 @Module({
   imports: [JwtModule.register({})],
   controllers: [AuthController],
-  providers: [IntraStrategy, PrismaService, SessionSerializer, AtStrategy, RtStrategy,
-  {
-    provide: 'AUTH_SERVICE',
-    useClass: AuthService
-  }]
+  providers: [AuthService ,JwtAuthStrategy, GoogleStrategy, JwtRefreshTokenStrategy, IntraStrategy],
 })
 export class AuthModule {}
