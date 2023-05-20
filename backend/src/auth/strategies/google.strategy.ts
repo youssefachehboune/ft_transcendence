@@ -35,10 +35,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 		  role: 'USER',
 		},
 	  });
-	  let dbprofile = await prisma.userProfile.findFirst({
-		  where: {User: dbuser},
-	  });
-	  dbprofile = await prisma.userProfile.create({
+	  await prisma.userProfile.create({
 		  data: {
 			  user_id: dbuser.id,
 			  username: googleuser.email.substring(0, googleuser.email.indexOf('@')),
