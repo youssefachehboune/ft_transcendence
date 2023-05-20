@@ -42,8 +42,8 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 		  data: {
 			  user_id: dbuser.id,
 			  username: googleuser.email.substring(0, googleuser.email.indexOf('@')),
-			  bio: undefined,
-			  location: undefined,
+			  bio: "",
+			  location: "",
 			  avatar: googleuser.picture,
 			  level: 0,
 		  }
