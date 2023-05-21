@@ -18,12 +18,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     });
   }
   async getUsername(username: string): Promise<string> {
-    const user = await prisma.userProfile.findFirst({
+    const user = await prisma.userProfile.findUnique({
       where: { username }
     })
     if(user) {        
       username +=  Math.floor(Math.random() * 9);
-	  this.getUsername(username);
+	  return this.getUsername(username);
     }
     return username;
   }
