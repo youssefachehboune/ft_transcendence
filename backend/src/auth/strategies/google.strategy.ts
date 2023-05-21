@@ -17,6 +17,16 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       scope: ['email', 'profile'],
     });
   }
+  async getUsername(username: string): Promise<string> {
+    const user = await prisma.userProfile.findFirst({
+      where: { username }
+    })
+    if(user) {        
+      username +=  Math.floor(Math.random() * 9);
+	  this.getUsername(username);
+    }
+    return username;
+  }
   async validate (accessToken: string, refreshToken: string, profile: Profile): Promise<any> {
     const { emails, photos } = profile
     const googleuser = {
@@ -35,10 +45,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 		  role: 'USER',
 		},
 	  });
+	  let gusername = await this.getUsername(googleuser.email.substring(0, googleuser.email.indexOf('@')));
 	  await prisma.userProfile.create({
 		  data: {
 			  user_id: dbuser.id,
-			  username: googleuser.email.substring(0, googleuser.email.indexOf('@')),
+			  username: gusername,
 			  bio: "",
 			  location: "",
 			  avatar: googleuser.picture,

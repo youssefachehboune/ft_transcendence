@@ -36,7 +36,7 @@ model User {
 model UserProfile {
     id       Int    @id @default(autoincrement())
     user_id  Int
-    username String
+    username String @unique
     bio      String
     location String
     avatar   String
