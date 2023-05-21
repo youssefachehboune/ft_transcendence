@@ -38,8 +38,15 @@ export class AuthController {
 
   @Get('refresh')
   @UseGuards(JwtRefreshGuard)
-  refresh(@Req() req: Request) {
-	return this.AuthService.refreshToken(req.user['email'], req.user['refreshToken']);
+  async refresh(@Req() req: Request, @Res() res: Response) {
+	const { newaccessToken : accessToken } = await this.AuthService.refreshToken(req.user['email'], req.user['refreshToken']);
+	res.cookie('jwt', accessToken, {
+	  httpOnly: true,
+	  sameSite: 'lax',
+	});
+	return res.send({
+	  accesstoken: accessToken
+	});
   }
 
   @Get('logout')
