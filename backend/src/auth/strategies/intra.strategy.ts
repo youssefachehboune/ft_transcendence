@@ -20,7 +20,20 @@ export class IntraStrategy extends PassportStrategy(Strategy, '42') {
             scope: ['public'],
         });
     }
-
+    async getUsername(username: string): Promise<string>
+    {
+      const user = await prisma.userProfile.findUnique({
+            where: {
+                username
+              }
+      })
+      if(user)
+      {		
+          username +=  Math.floor(Math.random() * 9);
+          return this.getUsername(username);
+      }
+      return username;
+    }
     async validate(accessToken: string, refreshToken: string, profile: any): Promise<any>
     {
         const intraUser = {email: profile._json.email, username: profile._json.login, avatar: profile._json.image.link};
@@ -35,10 +48,12 @@ export class IntraStrategy extends PassportStrategy(Strategy, '42') {
                     role: 'USER',
                 },
             });
+            let username1 =  await this.getUsername(intraUser.username);
+            console.log(username1);
             await prisma.userProfile.create({
                 data: {
                     user_id: dbuser.id,
-                    username: intraUser.username,
+                    username: username1,
                     bio: "",
                     location: "",
                     avatar: intraUser.avatar,
