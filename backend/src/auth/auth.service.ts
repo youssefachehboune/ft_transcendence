@@ -1,17 +1,37 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './strategies/jwt.strategy';
 import { config } from 'dotenv';
 import { PrismaClient } from "@prisma/client";
 import * as bcrypt from 'bcrypt';
+import { TokenError } from 'passport-oauth2';
 
 config();
 const prisma = new PrismaClient();
 
+@Catch(TokenError)
+export class TokenErrorFilter implements ExceptionFilter {
+  catch(exception: TokenError, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse();
+
+    if (exception.name === 'TokenError') {
+      if (exception.message === 'Malformed auth code.') {
+        response.status(400).json({ error: 'Malformed auth code' });
+      } else if (exception.message === 'Bad Request') {
+        response.status(400).json({ error: 'Bad Request' });
+      } else {
+        response.status(500).json({ error: 'Internal Server Error' });
+      }
+    } else {
+      response.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+}
+
 @Injectable()
 export class AuthService {
   constructor(private jwtService: JwtService) {}
-
   async login(user) {
     const payload: JwtPayload = { email: user.email, sub: user.id };
 	const accesstoken = this.jwtService.sign(payload, {
