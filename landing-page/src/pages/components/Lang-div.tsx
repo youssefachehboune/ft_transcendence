@@ -5,11 +5,11 @@ export default function LangDiv() {
         <div className='lang-div'>
             <button className='fr-button'>
                 <ReactCountryFlag countryCode="FR" className='mr-[8px]'/>
-                french
+                &nbsp; french
             </button>
             <button className='en-button'>
-                    <ReactCountryFlag countryCode="US" className='mr-[8px]'/>
-                    english
+                    <ReactCountryFlag countryCode="US" className='ml-[8px]'/>
+                    &nbsp; english
             </button>
         </div>
     );

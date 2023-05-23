@@ -7,7 +7,7 @@
 
 
 #container {
-    @apply relative flex justify-center items-center
+    @apply relative flex justify-center items-center h-[100vh] w-[100%] bg-my-bg
 }
 
 
@@ -298,4 +298,10 @@ footer {
     phone:w-[80px] phone:h-[30px]
     Large-phone:w-[85px] Large-phone:h-[35px]
     laptop:w-[84px] laptop:h-[35px]
+}
+
+
+.logo {
+    @apply w-[160px] absolute top-[55px] left-[60px] duration-1000 phone:top-[40px] phone:w-[100px] phone:left-[40px] Large-phone:top-[35px] Large-phone:w-[100px]
+    laptop:top-[45px] laptop:w-[110px]
 }

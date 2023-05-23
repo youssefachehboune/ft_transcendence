@@ -1,5 +1,5 @@
-import Racket from '@/components/Racket'
-import LeftSide from '@/components/left-side'
+import Racket from './Racket'
+import LeftSide from './left-side'
 
 export default function Main() {
     return (
