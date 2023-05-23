@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "Nest TypeScript starter repository",
   "license": "MIT",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -22,6 +25,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.5",
     "@nestjs/platform-express": "^9.0.0",
+    "@prisma/client": "^4.14.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5"
   },
