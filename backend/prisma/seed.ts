@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 const csvText = './prisma/csv/texts.csv';
 const csvConfig = './prisma/csv/configs.csv';
 
+
 async function seedData(): Promise<void> {
     try {
         const [textContents, configContents] = await Promise.all([
@@ -18,7 +19,7 @@ async function seedData(): Promise<void> {
 
         for (const line of textlines) {
             const [key, en, fr] = line.split(',');
-            const existingText = await prisma.texts.findFirst({ where: { key } });
+            const existingText = await prisma.texts.findUnique({ where: { key } });
             if (!existingText) {
                 await prisma.texts.create({
                     data: { key, en, fr }
@@ -30,7 +31,7 @@ async function seedData(): Promise<void> {
 
         for (const line of configlines) {
             const [key, value] = line.split(',');
-            const existingConfig = await prisma.texts.findFirst({ where: { key } });
+            const existingConfig = await prisma.configs.findUnique({ where: { key } });
             if (!existingConfig)
             {
                 await prisma.configs.create({
