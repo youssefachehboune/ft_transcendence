@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+#container {
+    @apply relative flex justify-center items-center h-[100vh] w-[100%] bg-my-bg
+}
+
+
+.main {
+    @apply w-[100%] h-[60%]
+}
+
+.doc1 {
+    @apply float-left w-[50%] h-[100%]
+}
+
+.doc2 {
+     @apply float-right w-1/2 h-full flex justify-center items-center
+}
+
+.textBody {
+    @apply w-[80%] h-1/2 ml-[20%]
+}
+
+.textBody p {
+    @apply mt-[20px] font-lato font-light text-[25px] text-gray-400 tracking-wider
+}
+
+.textBody span {
+
+    @apply font-lato font-semibold text-gray-400
+}
+
+.textHead {
+    @apply w-[60%] h-[10%] ml-[20%] flex justify-start items-center
+}
+
+.textHead h1 {
+    @apply font-lato font-bold text-[45px] text-white tracking-wider mr-[10px]
+}
+
+.circleHead {
+    @apply mt-[18px] w-[16px] h-[16px] bg-[#FF3B22] rounded-[50%]
+}
+
+.bck {
+    @apply absolute w-[220px] h-[400px] top-[0] flex justify-between
+}
+
+.cyl1 {
+    @apply w-[50px] h-[100px] bg-[#AFAFAF] rounded-bl-[50px] rounded-br-[50px]
+}
+
+.cyl2 {
+    @apply w-[50px] h-[140px] bg-[#FF3B22] rounded-bl-[50px] rounded-br-[50px]
+}
+.cyl3 {
+    @apply w-[50px] h-[60px] bg-[#fff] rounded-bl-[50px] rounded-br-[50px]
+}
+.cyl4 {
+    @apply w-[50px] h-[80px] bg-[#AFAFAF] rounded-bl-[50px] rounded-br-[50px]
+}
+
+footer {
+    @apply min-h-[1px] absolute bottom-[0] w-[100%]
+}
+
+
+.lastbutton a {
+    @apply h-[60px] w-[240px] bg-[#171926] rounded-[10px] font-lato font-semibold text-[#fff] border-[1.4px] 
+    border-[#FF3B22] border-b-[6px] flex justify-center items-center cursor-pointer text-[20px]
+    tracking-wider transition-all duration-300 hover:bg-[#ff3c22d4] hover:text-[#fff]
+    hover:border-[1.4px] hover:border-[#FF3B22] hover:border-b-[0px]
+}
+
+
+
+.git {
+    @apply absolute bottom-[8rem] overflow-hidden right-[250px] flex justify-center items-center font-lato font-semibold text-[20px]
+}
+
+.git h1 {
+    @apply mr-[10px]
+}
+
+
+.lastbutton a  h1 {
+    @apply mr-[5px]
+}
+.lastbutton {
+    @apply ml-[30vw]
+}
+.custom-shape-divider-bottom-1684173583 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-bottom-1684173583 svg {
+    position: relative;
+    display: block;
+    width: calc(205% + 1.3px);
+    height: 310px;
+}
+
+.custom-shape-divider-bottom-1684173583 .shape-fill {
+    fill: #FF3B22;
+}
+
+
+.eclipse1 {
+    @apply absolute w-[240px] bottom-[2.7rem] overflow-hidden left-[30px]
+}
+
+.eclipse2 {
+    transform: scaleX(-1);
+    @apply absolute w-[240px] bottom-[7.2rem] overflow-hidden right-[30px]
+}
+
+
+.button-lang {
+    @apply z-10 fixed right-[90px] top-[55px] w-[60px] h-[60px] bg-test flex items-center justify-center rounded-[10px]
+
+}
+
+.icon-lang {
+    @apply w-[35px] h-[30px]
+}
+
+@media (min-width: 1023px ) and (max-width: 1409px) {
+    .textBody {
+        width: 80%;
+    }
+    .textBody p {
+        font-size: 23px;
+    }
+    .lastbutton {
+        margin-top: 12%;
+    }
+    
+}
+
+/** For tablet devices **/
+
+@media (min-width: 768px) and (max-width: 1023px){
+    .eclipse2 {
+        @apply hidden
+    }
+    .textHead {
+        @apply ml-[10%]
+    }
+    .textBody {
+        @apply w-[80%] ml-[10%]
+    }
+
+    .textBody p {
+        @apply text-[23px]
+    }
+
+    .textHead h1 {
+        @apply text-[40px]
+    }
+    .circleHead {
+        @apply mt-[18px] w-[13px] h-[13px]
+    }
+    .eclipse1 {
+        @apply absolute w-[150px] bottom-[2.4rem] overflow-hidden left-[25px]
+
+    }
+    .custom-shape-divider-bottom-1684173583 svg {
+        width: calc(200% + 1.3px);
+        height: 320px;
+    }
+    .doc1 {
+        @apply w-[100%] h-[100%]
+    }
+    .lastbutton {
+        @apply w-[70%] 
+    }
+    .doc2 {
+        @apply hidden
+    }
+    .lastbutton {
+        @apply mt-[5%] w-[66%]
+    }
+    .lastbutton a {
+        @apply ml-[50%]
+    }
+    .git {
+        @apply bottom-[9.3rem] right-[45px]
+    }
+    .button-lang {
+        @apply z-10 fixed right-[60px] top-[35px] w-[50px] h-[50px]
+    }
+    .icon-lang {
+        @apply w-[30px] h-[25px]
+    }
+}
+
+@media (min-width: 768px) {
+
+    .custom-shape-divider-bottom-1684173583 svg {
+        width: calc(200% + 1.3px);
+        height: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .lastbutton {
+        @apply w-[70%]
+    }
+
+    .bck {
+        @apply hidden
+    }
+
+    .eclipse2 {
+        @apply hidden
+    }
+
+    .doc1 {
+        @apply w-[100%] h-[100%]
+    }
+    .doc2 {
+        @apply hidden
+    }
+    .eclipse1 {
+        @apply absolute w-[90px] bottom-[1.5rem] overflow-hidden left-[10px]
+    }
+    .custom-shape-divider-bottom-1684173583 svg {
+        width: calc(260% + 1.3px);
+        height: 180px;
+    }
+    .textHead {
+        @apply ml-[10%]
+    }
+
+    .textHead h1 {
+        @apply text-[30px] mr-[5px]
+    }
+    .circleHead {
+        @apply mt-[14px] w-[11px] h-[11px]
+    }
+
+    .textBody {
+        @apply ml-[10%] w-[80%] h-[60%]
+    }
+
+    .textBody p {
+        @apply text-base
+    }
+    .lastbutton a {
+        @apply  ml-[24%]
+    }
+
+    .lastbutton a {
+        @apply h-[50px] w-[190px] text-sm
+    }
+
+    .lastbutton {
+        @apply w-[70%] mt-[5%]
+    }
+    .git {
+        @apply bottom-[4.3rem] right-[25px]
+    }
+    .button-lang {
+        @apply z-10 fixed right-[50px] top-[30px] w-[45px] h-[45px]
+    }
+    .icon-lang {
+        @apply w-[30px] h-[25px]
+    }
+}
+
+.lang-div {
+    @apply w-[100px] h-[70px] bg-test absolute right-[90px] top-[120px] z-20 rounded-[5px] 
+    phone:right-[50px] phone:top-[80px] phone:w-[80px] phone:h-[60px]
+    Large-phone:right-[50px] Large-phone:top-[80px] Large-phone:w-[85px] Large-phone:h-[65px]
+    laptop:right-[55px] laptop:top-[90px] laptop:w-[90px] laptop:h-[70px]
+}
+
+.fr-button {
+    @apply w-[100px] h-[35px] text-white text-sm
+    phone:w-[80px] phone:h-[30px]
+    Large-phone:w-[85px] Large-phone:h-[35px]
+    laptop:w-[84px] laptop:h-[35px]
+}
+
+.en-button {
+    @apply w-[100px] h-[35px] text-white text-sm
+    phone:w-[80px] phone:h-[30px]
+    Large-phone:w-[85px] Large-phone:h-[35px]
+    laptop:w-[84px] laptop:h-[35px]
+}
+
+
+.logo {
+    @apply w-[160px] absolute top-[55px] left-[60px] duration-1000 phone:top-[40px] phone:w-[100px] phone:left-[40px] Large-phone:top-[35px] Large-phone:w-[100px]
+    laptop:top-[45px] laptop:w-[110px]
+}
