@@ -1,40 +1,45 @@
-
 ## Installation
+
+1. Clone the repository to your local machine:
+
+```bash
+$ git clone <repository_url>
+```
+
+2. Navigate to the project directory backend:
+
+```bash
+$ cd project-directory/backend
+```
+
+3. Install the required dependencies:
 
 ```bash
 $ npm install
 ```
 
-## Preparing the database
-check the README in the database folder
-running that container will result in the creation and initialization of 2 tables (texts and configs), to create the rest run:
-``` 
-npx prisma db push
-```
+4. Create a .env file in this directory and fill it (you can refer to .env.example for guidance).
 
-## Running the app
+
+## Database Setup
+
+1. Push the Prisma migrations to your database:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-## Checking the database
-you can monitor your database by prisma studio, run:
-```bash
-$ npx prisma studio
+$ npx prisma db push
 ```
 ## Testing
 
-http://localhost:3000/google shoud log you in using your Google account, create cookies for access token and refresh token and store the refresh token in the database.
+2. Seed the database with initial data (if applicable):
 
-http://localhost:3000/profile should return some user information if the access token is still valid or Unauthorized if the access token has expired.
+```bash
+npx prisma db seed
+```
 
-http://localhost:3000/refresh should return a new access token if the refresh token is still valid or Unauthorized if the refresh token has expired.
+3. Launch Prisma Studio to interact with the database:
 
-http://localhost:3000/logout should clear the cookies and remove the refresh token from the database if the access token is still valid.
+```bash
+npx prisma studio
+```
+
+ Please note that I adjusted the wording slightly for clarity. Make sure to replace `<repository_url>` with the actual URL of your repository and update the `project-directory` accordingly. 👍
