@@ -396,3 +396,9 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Local
+.env
+dist
+.webpack
+.serverless/**/*.zip
