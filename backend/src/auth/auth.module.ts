@@ -5,10 +5,11 @@ import { GoogleStrategy } from './strategies/google.strategy';
 import { JwtRefreshTokenStrategy } from './strategies/jwtrefresh.strategy';
 import { JwtAuthStrategy } from './strategies/jwt.strategy';
 import { AuthService } from './auth.service';
+import { IntraStrategy } from './strategies/intra.strategy';
 
 @Module({
   imports: [JwtModule.register({})],
   controllers: [AuthController],
-  providers: [AuthService ,JwtAuthStrategy, GoogleStrategy, JwtRefreshTokenStrategy],
+  providers: [AuthService ,JwtAuthStrategy, GoogleStrategy, JwtRefreshTokenStrategy, IntraStrategy],
 })
 export class AuthModule {}

@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { GoogleGuard } from './guards/google.guard';
 import { JwtGuard } from './guards/jwt.guard';
 import { JwtRefreshGuard } from './guards/jwtrefresh.guard';
+import { IntraGuard } from './guards/intra.guard';
 
 @Controller()
 export class AuthController {
@@ -30,6 +31,27 @@ export class AuthController {
 	});
   }
 
+  @Get('intra')
+  @UseGuards(IntraGuard)
+  async intraAuth() {}
+
+  @Get('intra/redirect')
+  @UseGuards(IntraGuard)
+  async intraAuthRedirect(@Req() req: Request, @Res() res: Response) {
+    const { accessToken, refreshToken } = await this.AuthService.login(req.user);
+    res.cookie('jwt', accessToken, {
+      httpOnly: true,
+      sameSite: 'lax',
+    }).cookie('refresh', refreshToken, {
+      httpOnly: true,
+      sameSite: 'lax',
+    })
+      return res.send({
+      accesstoken: accessToken,
+      refreshtoken: refreshToken
+    });
+  }
+  
   @Get('profile')
   @UseGuards(JwtGuard)
   profile(@Req() req: Request) {

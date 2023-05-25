@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, Catch, ExceptionFilter, ArgumentsHost } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './strategies/jwt.strategy';
 import { config } from 'dotenv';
