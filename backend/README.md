@@ -18,7 +18,6 @@ $ cd project-directory/backend
 $ npm install
 ```
 
-
 4. Create a .env file in this directory and fill it (you can refer to .env.example for guidance).
 
 
@@ -29,6 +28,7 @@ $ npm install
 ```bash
 $ npx prisma db push
 ```
+## Testing
 
 2. Seed the database with initial data (if applicable):
 
@@ -41,6 +41,5 @@ npx prisma db seed
 ```bash
 npx prisma studio
 ```
-
 
  Please note that I adjusted the wording slightly for clarity. Make sure to replace `<repository_url>` with the actual URL of your repository and update the `project-directory` accordingly. 👍

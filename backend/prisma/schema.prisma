@@ -15,6 +15,7 @@ model User {
     createdAt        DateTime @default(now())
     twoFactorEnabled Boolean
     role             Role
+	refreshToken	 String?
 
     // Relations
     userProfile          UserProfile[]
