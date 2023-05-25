@@ -15,6 +15,7 @@ model User {
     createdAt        DateTime @default(now())
     twoFactorEnabled Boolean
     role             Role
+	  refreshToken	 String?
 
     // Relations
     userProfile          UserProfile[]
@@ -142,14 +143,14 @@ model ChannelLog {
 
 model texts {
     id          Int @id @default(autoincrement())
-    key         String
+    key         String @unique
     en          String
     fr          String
 }
 
 model configs {
     id          Int @id @default(autoincrement())
-    key         String
+    key         String @unique
     value       String
 }
 
@@ -176,3 +177,4 @@ enum ChannelType {
     PUBLIC
     PRIVATE
 }
+
