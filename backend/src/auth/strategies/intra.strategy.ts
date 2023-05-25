@@ -49,7 +49,6 @@ export class IntraStrategy extends PassportStrategy(Strategy, '42') {
                 },
             });
             let username1 =  await this.getUsername(intraUser.username);
-            console.log(username1);
             await prisma.userProfile.create({
                 data: {
                     user_id: dbuser.id,
