@@ -1,4 +1,4 @@
-.Logo
+.Logo-sign
 {
 	@apply w-[170px] absolute top-[55px] left-[60px] duration-1000
 			phone:top-[40px] phone:w-[100px] phone:left-[40px]
@@ -6,7 +6,7 @@
 			laptop:top-[40px] laptop:w-[130px]
 }
 
-.button-lang {
+.button-lang-sign {
     @apply z-10 fixed right-[65px] top-[55px] w-[60px] h-[60px] bg-rgb-color flex items-center justify-center rounded-[10px] duration-1000
 	laptop:right-[30px] laptop:top-[35px] laptop:w-[50px] laptop:h-[50px]
 	phone:right-[25px] phone:top-[30px] phone:w-[45px] phone:h-[45px]
@@ -14,14 +14,14 @@
 
 }
 
-.icon-lang {
+.icon-lang-sign {
     @apply w-[35px] h-[30px]
 	laptop:w-[30px]  laptop:h-[25px]
 	phone:w-[30px] phone:h-[25px]
 	Large-phone:w-[30px] Large-phone:h-[25px]
 }
 
-.div-en-fr
+.div-en-fr-sign
 {
 	@apply w-[100px] h-[70px] bg-rgb-color absolute right-[65px] top-[120px] z-20 rounded-[5px] 
 			phone:right-[25px] phone:top-[80px] phone:w-[80px] phone:h-[60px]
@@ -29,7 +29,7 @@
 			laptop:right-[30px] laptop:top-[90px] laptop:w-[90px] laptop:h-[70px]
 }
 
-.button-en
+.button-en-sign
 {
 	@apply w-[100px] h-[35px] text-white text-sm
 				phone:w-[80px] phone:h-[30px]
@@ -37,7 +37,7 @@
 				laptop:w-[84px] laptop:h-[35px]
 }
 
-.button-fr
+.button-fr-sign
 {
 	@apply w-[100px] h-[35px] text-white text-sm
 			phone:w-[80px] phone:h-[30px]

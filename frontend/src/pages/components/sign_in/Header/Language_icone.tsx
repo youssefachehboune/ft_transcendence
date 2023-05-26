@@ -11,9 +11,9 @@ export default function Language_icone()
 
 	return(
 		<div>
-                <button onClick={handleIconClick} className='button-lang'><TfiWorld color='white'  className='icon-lang'/></button>
+                <button onClick={handleIconClick} className='button-lang-sign'><TfiWorld color='white'  className='icon-lang-sign'/></button>
 				{
-					isDivVisible && <Div_fr_en/>
+					isDivVisible && <Div_fr_en setDivVisible={setDivVisible}/>
 				}
 		</div>
 	)
