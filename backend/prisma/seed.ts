@@ -18,7 +18,7 @@ async function seedData(): Promise<void> {
         const configlines = configContents.trim().split('\n').slice(1);
 
         for (const line of textlines) {
-            const [key, en, fr] = line.split(',');
+            const [u1, key, u2, en, u3, fr, u4] = line.split('\"');
             const existingText = await prisma.texts.findUnique({ where: { key } });
             if (!existingText) {
                 await prisma.texts.create({
@@ -30,7 +30,7 @@ async function seedData(): Promise<void> {
         console.log('✅  All Data from ' + csvText + ' seeded successfully');
 
         for (const line of configlines) {
-            const [key, value] = line.split(',');
+            const [u1, key, u2, value, u3] = line.split('\"');
             const existingConfig = await prisma.configs.findUnique({ where: { key } });
             if (!existingConfig)
             {
