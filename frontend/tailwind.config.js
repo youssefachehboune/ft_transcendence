@@ -53,6 +53,25 @@ module.exports = {
 		{
 			'shdow': '0px 40px 18px 0px rgba(0,0,0,0.1), 0px 10px 15px -3px rgba(0,0,0,0.1)',
 		},
+		keyframes: {
+			'rectangel-right': {
+				'from': { top: '-200px', marginRight: '-350px' },
+				'to': { top: '0px' },
+			},
+			'rectangel-left': {
+				'from': {bottom: '-200px', marginLeft: '-250px'},
+				'to': {bottom: '0px'},
+			},
+			'text-animation': {
+				'from': {right: '-200px'},
+				'to': {right: '5%'},
+			},
+     	},
+		animation: {
+        	'rectangel-right': 'rectangel-right 1.4s ease',
+			'rectangel-left': 'rectangel-left 1.4s ease',
+			'text-animation': 'text-animation 1.4s ease',
+      	},
     },
   },
   plugins: [],

@@ -46,14 +46,14 @@
 }
 .rectangele_left_border
 {
-	@apply w-[230px] h-[490px] fixed ml-[-93px] mb-[-250px] bottom-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[-140.9deg] bg-mix-tow duration-1000
+	@apply w-[230px] h-[490px] fixed ml-[-93px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[-140.9deg] bg-mix-tow duration-1000
 		phone:w-[120px]  phone:h-[417px] phone:ml-[-106px] phone:mb-[-250px]
 		Large-phone:w-[120px]  Large-phone:h-[410px] Large-phone:ml-[-108px] Large-phone:mb-[-245px]
 		laptop:w-[170px]  laptop:h-[318px] laptop:ml-[-88px] laptop:mb-[-150px]
 }
 .rectangele_left_one
 {
-	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0]  rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
+	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
 		phone:w-[105px]  phone:h-[408px] phone:ml-[-102px]
 		Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
 		laptop:w-[154px]  laptop:h-[308px] laptop:ml-[-85px] laptop:mb-[-150px]
@@ -76,7 +76,7 @@
 
 .rectangele_right_border
 {
-	@apply w-[230px] h-[490px] fixed mr-[-94px] mt-[-250px] top-[0] right-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[40.1deg] bg-mix duration-1000
+	@apply w-[230px] h-[490px] fixed mr-[-94px] mt-[-250px] top-[0] right-[0] animate-rectangel-right rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[40.1deg] bg-mix duration-1000
 			phone:w-[120px]  phone:h-[417px] phone:mr-[-108px] phone:mt-[-250px]
 			Large-phone:w-[120px]  Large-phone:h-[416px] Large-phone:mr-[-90px] Large-phone:ml-[-105px]
 			laptop:w-[169px]  laptop:h-[310px] laptop:mr-[-86px] laptop:mt-[-145px]
@@ -84,7 +84,7 @@
 
 .rectangele_right_one
 {
-	@apply w-[205px] h-[478px] fixed mr-[-87px] mt-[-250px] top-[0] right-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[40.1deg] duration-1000
+	@apply w-[205px] h-[478px] fixed mr-[-87px] mt-[-250px] top-[0] right-[0] animate-rectangel-right rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-blue rotate-[40.1deg] duration-1000
 			phone:w-[105px]  phone:h-[408px] phone:mr-[-105px]
 			Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
 			laptop:w-[155px]  laptop:h-[308px] laptop:mr-[-85px] laptop:mt-[-150px]
