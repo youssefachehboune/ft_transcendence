@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+	  './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+	  './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
@@ -16,6 +16,7 @@ module.exports = {
         'Sky' : '#00BABC',
         'test': 'rgba(255, 255, 255, 0.15)',
         'my-bg' : '#171926',
+		'rgb-color': 'rgba(255, 255, 255, 0.15)',
 
       },
       textColor: {
@@ -25,26 +26,52 @@ module.exports = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+		  'mix': 'linear-gradient(180.7deg, #000000 27.28%, rgba(0, 0, 0, 0) 112.93%)',
+		  'mix-tow': ' linear-gradient(181.51deg, #FF3B22 45.75%, rgba(0, 0, 0, 0) 105.08%)'
       },
       screens:
       {
           'phone': {'raw': '(min-width: 100px) and (max-width: 540px)'},
-          'Large-phone': {'raw': '(min-width: 540px) and (max-width: 700px)'},
+          'Large-phone': {'raw': '(min-width: 541px) and (max-width: 700px)'},
           'laptop': {'raw': '(min-width: 700px) and (max-width: 1024px)'},
+		  'desktop': {'raw': '(min-width: 1025px) and (max-width: 1300px)'},
       },
       fontFamily: 
       {
-          'lato': ["Lato", "sans-serif"],
+		  'lato': ["Lato", "sans-serif"],
           'fredoka': ["Fredoka", "sans-serif"],
           'ibm-plex-sans': ["IBM Plex Sans", "sans-serif"],
           'ibm-plex-sans-kr': ["IBM Plex Sans KR", "sans-serif"],
-      },
-      fontWeight:
-      {
-          extrabold: '800',
-          semibold: '600',
-          medium: '500',
-      },
+		},
+		fontWeight:
+		{
+			extrabold: '800',
+			semibold: '600',
+			medium: '500',
+		},
+		boxShadow:
+		{
+			'shdow': '0px 40px 18px 0px rgba(0,0,0,0.1), 0px 10px 15px -3px rgba(0,0,0,0.1)',
+		},
+		keyframes: {
+			'rectangel-right': {
+				'from': { top: '-200px', marginRight: '-350px' },
+				'to': { top: '0px' },
+			},
+			'rectangel-left': {
+				'from': {bottom: '-200px', marginLeft: '-250px'},
+				'to': {bottom: '0px'},
+			},
+			'text-animation': {
+				'from': {right: '-200px'},
+				'to': {right: '5%'},
+			},
+     	},
+		animation: {
+        	'rectangel-right': 'rectangel-right 1.4s ease',
+			'rectangel-left': 'rectangel-left 1.4s ease',
+			'text-animation': 'text-animation 1.4s ease',
+      	},
     },
   },
   plugins: [],
