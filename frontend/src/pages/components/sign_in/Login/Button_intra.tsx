@@ -1,8 +1,12 @@
+import { useRouter } from "next/router";
+import { getText } from "../../../api/lang";
+
 export default function Button_intra()
 {
+	const router = useRouter();
 	return (
-		<button className="Intra_button">
-			<h1 className="Intra_text">Continue with Intra</h1>
+		<button onClick={() => { router.push('http://localhost:3000/intra') }} className="Intra_button">
+			<h1 className="Intra_text">{getText('INTRA_AUTH')}</h1>
 			<img src="g3.svg" className="Intra_icone"/>
 		</button>
 	)

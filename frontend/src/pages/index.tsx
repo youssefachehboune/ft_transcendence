@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>PIPO , Ping Pong Game</title>
+        <title>PIPO , Pong Game</title>
       </Head>
     <div id='container' className=''>
         <Logo />

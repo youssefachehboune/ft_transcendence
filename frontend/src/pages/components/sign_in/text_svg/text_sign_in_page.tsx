@@ -1,9 +1,10 @@
+import { getText } from "../../../api/lang";
 
 export default function Text()
 {
 	return (
 		<div>
-				<h1 className="svg_text">Yay, you're here! Let's get this show on the <span className="text-blue"> road</span></h1>
+				<h1 className="svg_text">{getText('EAGER')}<span className="text-blue"> {getText('ROAD')}</span></h1>
 		</div>
 	)
 }
