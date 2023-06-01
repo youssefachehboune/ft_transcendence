@@ -8,7 +8,7 @@ export default function LangDiv() {
                 &nbsp; français
             </button>
             <button onClick={() => {document.cookie = "lang=en";location.reload()}} className='en-button'>
-                    <ReactCountryFlag countryCode="US" className='ml-[8px]'/>
+                    <ReactCountryFlag countryCode="US" className='mr-[8px]'/>
                     &nbsp; english
             </button>
         </div>
