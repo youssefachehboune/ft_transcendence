@@ -14,27 +14,20 @@
 }
 .Login_join_text
 {
-	@apply absolute text-[25px] left-[70px] top-[20px] font-ibm-plex-sans-kr font-semibold
-			phone:text-[15px] phone:left-[70px]
-			Large-phone:text-[18px] Large-phone:left-[75px]
-			laptop:text-[20px] laptop:left-[90px]
+	@apply text-[25px] font-ibm-plex-sans-kr font-semibold
+			phone:text-[15px]
+			Large-phone:text-[18px]
+			laptop:text-[20px]
 }
 
 .Login_sign_text
 {
-	@apply text-[25px] absolute top-[40%] left-[25%] font-ibm-plex-sans font-semibold
-			phone:text-[15px] phone:left-[75px] phone:top-[110px]
-			Large-phone:text-[18px] Large-phone:left-[80px] Large-phone:top-[140px]
-			laptop:text-[20px] laptop:left-[95px] laptop:top-[140px]
+	@apply text-[25px]  font-ibm-plex-sans font-semibold
+			phone:text-[15px] 
+			Large-phone:text-[18px]
+			laptop:text-[20px]
 }
 
-.Emoji
-{
-	@apply absolute left-[150px] top-[70px]
-			phone:top-[55px] phone:left-[110px]
-			Large-phone:top-[60px] Large-phone:left-[120px]
-			laptop:top-[60px] laptop:left-[140px]
-}
 .Emoji_icone
 {
 	@apply w-[90px] h-[90px] rounded-[50%] shadow-shdow
@@ -45,7 +38,7 @@
 
 .Intra_button
 {
-	@apply w-[325px] h-[55px] bg-Sky rounded-[30px] absolute top-[55%] left-[8%]
+	@apply w-[325px] h-[55px] bg-Sky rounded-[30px] flex justify-center items-center
 			hover:border-[2px] hover:border-green hover:border-solid
 			phone:w-[150px] phone:h-[30px] phone:left-[60px] phone:top-[160px]
 			Large-phone:w-[200px] Large-phone:h-[40px] Large-phone:left-[50px] Large-phone:top-[180px]
@@ -54,7 +47,7 @@
 
 .Intra_text
 {
-	@apply text-white absolute left-[33%] top-[25%] font-medium
+	@apply text-white font-medium
 			phone:text-[10px] phone:left-[25%]
 			Large-phone:text-[14px] Large-phone:left-[25%]
 			laptop:text-[15px]
@@ -62,24 +55,24 @@
 
 .Intra_icone
 {
-	@apply ml-[70px] 
-			phone:w-[15px] phone:ml-[20px] 
-			Large-phone:w-[20px] Large-phone:ml-[25px]
-			laptop:w-[20px] laptop:ml-[50px]
+	@apply mr-[10px] 
+			phone:w-[15px]
+			Large-phone:w-[20px]
+			laptop:w-[20px]
 }
 
 .Google_button
-{
-	@apply w-[325px] h-[55px] bg-white rounded-[30px] absolute top-[70%] left-[8%]
+{ 
+	@apply w-[325px] h-[55px] bg-white rounded-[30px] flex justify-center items-center
 			border-[1px] border-solid border-[#DADCE0]
 			hover:border-[2px] hover:border-green hover:border-solid
-			phone:w-[150px] phone:h-[30px] phone:left-[60px] phone:top-[200px]
-			Large-phone:w-[200px] Large-phone:h-[40px] Large-phone:left-[50px] Large-phone:top-[230px]
-			laptop:w-[250px] laptop:h-[50px] laptop:left-[50px] laptop:top-[250px]
+			phone:w-[150px] phone:h-[30px]
+			Large-phone:w-[200px] Large-phone:h-[40px]
+			laptop:w-[250px] laptop:h-[50px]
 }
 .Google_text
 {
-	@apply  absolute left-[33%] top-[25%] font-medium 
+	@apply  font-medium 
 			phone:text-[10px] phone:left-[25%] 
 			Large-phone:text-[14px] Large-phone:left-[25%]
 			laptop:text-[15px] 
@@ -87,24 +80,23 @@
 
 .Google_icone
 {
-	@apply ml-[70px] 
-			phone:w-[15px] phone:ml-[20px] 
-			Large-phone:ml-[25px]
-			laptop:w-[20px] laptop:ml-[50px] 
+	@apply mr-[10px] 
+			phone:w-[15px] 
+			laptop:w-[20px]
 }
 
 
 .go_back_icone
 {
-	@apply absolute top-[90%] left-[40%] w-[25px] h-[25px] 
-			phone:w-[15px] phone:top-[85%] 
-			Large-phone:top-[89%] Large-phone:left-[40%] Large-phone:w-[20px]
+	@apply  w-[25px] h-[25px] 
+			phone:w-[15px]
+			Large-phone:w-[20px]
 }
 .go_back_text
 {
-	@apply absolute top-[90%] left-[48%] text-[15px] font-fredoka font-medium
-	phone:text-[8px] phone:top-[87%]
-	Large-phone:top-[90%] Large-phone:text-[11px]
+	@apply  text-[15px] font-fredoka font-medium
+	phone:text-[8px]
+	 Large-phone:text-[11px]
 	laptop:text-[15px]
 }
 
