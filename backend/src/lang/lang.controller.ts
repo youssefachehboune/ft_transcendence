@@ -7,7 +7,7 @@ export class LangController {
 	constructor(private readonly langService: LangService) {}
 
 	@Get(':key')
-	@Header('Cache-Control', 'no-cache')
+	@Header('Cache-Control', 'no-store')
 	async getText(@Req() req: Request , @Param() params: any) {
 		const ret = await this.langService.getText(req, params.key);
 		return ret;
