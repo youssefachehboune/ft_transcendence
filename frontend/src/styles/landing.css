@@ -1,10 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+* {
+    cursor: none;
+}
 
 * {
     cursor: none;
@@ -33,6 +38,7 @@
 
 .textBody p {
     @apply mt-[20px] font-sora font-light text-[25px] text-gray-400 tracking-wider
+    @apply mt-[20px] font-sora font-light text-[25px] text-gray-400 tracking-wider
 }
 
 .textBody span {
@@ -46,9 +52,11 @@
 
 .textHead h1 {
     @apply font-sora font-bold text-[56px] text-white tracking-wider mr-[5px]
+    @apply font-sora font-bold text-[45px] text-white tracking-wider mr-[10px]
 }
 
 .circleHead {
+    @apply mt-[18px] w-[16px] h-[16px] bg-[#00DAEA] rounded-[50%]
     @apply mt-[18px] w-[16px] h-[16px] bg-[#00DAEA] rounded-[50%]
 }
 
@@ -61,6 +69,7 @@
 }
 
 .cyl2 {
+    @apply w-[50px] h-[140px] bg-[#00DAEA] rounded-bl-[50px] rounded-br-[50px]
     @apply w-[50px] h-[140px] bg-[#00DAEA] rounded-bl-[50px] rounded-br-[50px]
 }
 .cyl3 {
@@ -79,11 +88,16 @@ footer {
     @apply  ml-[40px] h-[60px] w-[240px] bg-[#171926] rounded-[10px] font-lato font-semibold text-[#fff] border-[1.4px] 
     border-[#00DAEA] border-b-[6px] flex  justify-center space-x-2 items-center text-[20px]
     tracking-wider transition-all duration-1000
+    @apply  ml-[40px] h-[60px] w-[240px] bg-[#171926] rounded-[10px] font-lato font-semibold text-[#fff] border-[1.4px] 
+    border-[#00DAEA] border-b-[6px] flex  justify-center space-x-2 items-center text-[20px]
+    hover:space-x-4
+    tracking-wider transition-all duration-1000
 }
 
 
 .git {
     @apply absolute bottom-[9.5rem] w-[150px] h-[40px] overflow-hidden right-[17%] flex justify-center items-center font-sora font-regular text-[22px]
+    @apply absolute bottom-[9.5rem] overflow-hidden right-[18%] flex justify-center items-center font-sora font-regular text-[22px]
 }
 
 .git h1 {
@@ -93,6 +107,8 @@ footer {
 
 .lastbutton a  h1 {
     @apply mr-[5px] font-sora font-light text-[19px]
+    phone:text-[15px]
+    @apply mr-[5px] font-sora font-light text-[18px]
     phone:text-[15px]
 }
 .lastbutton {
@@ -116,6 +132,7 @@ footer {
 
 .custom-shape-divider-bottom-1684173583 .shape-fill {
     fill: #00DAEA;
+    fill: #00DAEA;
 }
 
 
@@ -131,6 +148,7 @@ footer {
 
 .button-lang {
     @apply z-10 fixed right-[90px] bg-[#4142434D] top-[55px] w-[78px] h-[70px] flex items-center justify-center rounded-[10px] cursor-none
+    @apply z-10 fixed right-[90px] bg-[#4142434D] top-[55px] w-[60px] h-[60px] flex items-center justify-center rounded-[10px] cursor-none
 
 }
 
@@ -193,6 +211,7 @@ footer {
 
 .icon-play-git {
     @apply w-[23px] h-[23px] transform transition-transform duration-500
+    @apply w-[35px] h-[30px] cursor-none
 }
 
 @media (min-width: 1023px ) and (max-width: 1409px) {
@@ -250,6 +269,7 @@ footer {
     }
     .git {
         @apply bottom-[9.3rem] right-[75px]
+        @apply bottom-[9.3rem] right-[75px]
     }
     .button-lang {
         @apply z-10 fixed right-[60px] top-[35px] w-[50px] h-[50px]
@@ -262,6 +282,7 @@ footer {
 @media (min-width: 768px) {
 
     .custom-shape-divider-bottom-1684173583 svg {
+        width: calc(150% + 1.3px);
         width: calc(150% + 1.3px);
         height: 220px;
     }
@@ -329,6 +350,7 @@ footer {
     }
     .git h1 {
         cursor: pointer;
+        @apply bottom-[4.3rem] right-[35px]
     }
     .button-lang {
         @apply z-10 fixed right-[50px] top-[30px] w-[45px] h-[45px] cursor-pointer
@@ -348,9 +370,53 @@ footer {
     .en-button {
         @apply cursor-pointer
     }
+}
+
+.lang-div {
+    @apply w-[100px] h-[70px] bg-[#4142434D] absolute right-[70px] top-[120px] z-20 rounded-[5px] 
+    phone:right-[40px] phone:top-[80px] phone:w-[90px] phone:h-[60px]
+    Large-phone:right-[40px] Large-phone:top-[80px] Large-phone:w-[85px] Large-phone:h-[65px]
+    laptop:right-[35px] laptop:top-[80px] laptop:w-[90px] laptop:h-[70px]
+}
+
+.fr-button {
+    @apply w-[100px] h-[35px] text-white text-sm cursor-none flex justify-center items-center
+    hover:bg-[#00DAEA] rounded-t-[5px]
+    phone:w-[90px] phone:h-[30px]
+    Large-phone:w-[85px] Large-phone:h-[35px]
+    laptop:w-[84px] laptop:h-[35px]
+}
 
     .logo {
         cursor: pointer;
     }
+.en-button {
+    @apply w-[100px] h-[35px] text-white text-sm cursor-none flex justify-center items-center
+    hover:bg-[#00DAEA] rounded-b-[5px]
+    phone:w-[90px] phone:h-[30px]
+    Large-phone:w-[85px] Large-phone:h-[35px]
+    laptop:w-[84px] laptop:h-[35px]
 }
 
+.en-button img {
+    @apply w-[20px]  h-[20px] rounded-full
+}
+.fr-button img {
+    @apply w-[20px]  h-[20px] rounded-full
+}
+
+
+.logo {
+    @apply w-[110px]  h-[29px] absolute top-[55px] left-[60px] duration-1000 phone:top-[40px] phone:w-[80px] phone:h-[20px] phone:left-[40px] Large-phone:top-[35px] Large-phone:w-[100px]
+    laptop:top-[45px] laptop:w-[90px] laptop:h-[22px]
+}
+
+.circleCursor {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.2s ease-in-out;
+  }
