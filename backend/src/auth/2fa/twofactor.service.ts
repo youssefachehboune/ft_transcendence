@@ -67,4 +67,41 @@ export class TwoFactorService {
         }
         return false;
     }
+
+    async verifyTwoFactor(@Req() req: Request)
+    {
+        const user = await prisma.user.findUnique({
+            where: {
+                email: req.user['email']
+            }
+        })
+        if(!user.twoFactorSecret) {
+            return false;
+        }
+        const token = req.body['token'];
+        const isValid = authenticator.verify({token , secret: user.twoFactorSecret });
+        if (isValid) {
+            return true;
+        }
+        return false;
+    }
+
+    async disableTwoFactor(@Req() req: Request)
+    {
+        const user = await prisma.user.findUnique({
+            where: {
+                email: req.user['email']
+            }
+        })
+        await prisma.user.update({
+            where: {
+                email: req.user['email']
+            },
+            data: {
+                twoFactorEnabled: false,
+                twoFactorSecret: null
+            }
+        })
+        return true;
+    }
 }

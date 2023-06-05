@@ -32,4 +32,22 @@ export class TwoFactorController {
     {
         return this.twoFactorService.validateTwoFactor(req);
     }
+
+    // 2FA verify endpoint (GET /2fa/verify)
+    // This endpoint should return boolean value of token is valid or not
+    @Get('verify')
+    @UseGuards(JwtGuard)
+    async verifyTwoFactor(@Req() req: Request)
+    {
+        return this.twoFactorService.verifyTwoFactor(req);
+    }
+
+    // 2FA disable endpoint (GET /2fa/disable)
+    // This endpoint should disable 2FA for user
+    @Get('disable')
+    @UseGuards(JwtGuard)
+    async disableTwoFactor(@Req() req: Request)
+    {
+        return this.twoFactorService.disableTwoFactor(req);
+    }
 }
