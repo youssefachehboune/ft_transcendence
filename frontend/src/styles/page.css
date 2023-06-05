@@ -53,21 +53,21 @@
 }
 .rectangele_left_one
 {
-	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
+	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-b-[135px] rounded-l-[135px] bg-[#00DAEA] rotate-[-140.9deg] duration-1000
 		phone:w-[105px]  phone:h-[408px] phone:ml-[-102px]
 		Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
 		laptop:w-[154px]  laptop:h-[308px] laptop:ml-[-85px] laptop:mb-[-150px]
 }
 .rectangele_left_tow
 {
-	@apply w-[85px] h-[130px] fixed left-[-50px] mb-[170px] bottom-[0] rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-133.9deg] duration-1000
+	@apply w-[85px] h-[130px] fixed left-[-50px] mb-[170px] bottom-[0] rounded-b-[135px] rounded-l-[135px] bg-[#00DAEA] rotate-[-133.9deg] duration-1000
 			phone:w-[40px]  phone:h-[120px] phone:mb-[70px] phone:left-[-40px]
 			Large-phone:w-[40px]  Large-phone:h-[120px] Large-phone:mb-[70px] Large-phone:left-[-40px]
 			laptop:w-[65px]  laptop:h-[100px] laptop:mb-[140px] laptop:rotate-[-125.1deg]
 }
 .rectangele_left_tree
 {
-	@apply w-[91px] h-[180px] fixed mb-[-95px] ml-[200px] bottom-[0] left-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
+	@apply w-[91px] h-[180px] fixed mb-[-95px] ml-[200px] bottom-[0] left-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-[#00DAEA] rotate-[-140.9deg] duration-1000
 			phone:w-[40px]  phone:h-[150px] phone:ml-[60px]
 			Large-phone:w-[40px]  Large-phone:h-[150px] Large-phone:ml-[60px]
 			laptop:w-[65px]  laptop:h-[140px] laptop:ml-[100px]

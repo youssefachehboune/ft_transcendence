@@ -12,7 +12,7 @@ key, en, fr
 "HELLO", "Hello", "Bonjour"
 "FINALIZE", "Let's Finish Setting Up!", "Terminons la configuration!"
 "AVATAR", "Upload an Avatar", "Choisir un Avatar"
-"USERNAME", "Let us know the username you prefer", "Faites-nous savoir le nom d'utilisateur que vous préférez"
+"USERNAME", "Let us know the username you prefer", "Quel est votre nom d'utilisateur préféré ?"
 "BIO", "Tell us a little about yourself", "Parlez-nous un peu de vous"
 "LOCATION", "Select your country", "Sélectionnez votre pays"
 "GO", "All set, Let's go", "C'est parti !"
