@@ -7,8 +7,6 @@ import { Request , Response} from 'express';
 export class TwoFactorController {
     constructor(private twoFactorService: TwoFactorService){}
     
-    // 2FA status endpoint (GET /2fa/status)
-    // This endpoint should return boolean value
     @Get('status')
     @UseGuards(JwtGuard)
     async getTwoFactorStatus(@Req() req: Request): Promise<boolean>
@@ -16,16 +14,12 @@ export class TwoFactorController {
         return this.twoFactorService.getTwoFactorStatus(req);
     }
 
-    // 2FA generate secret endpoint (GET /2fa/generate)
-    // This endpoint should return QR code image
     @Get('generate')
     @UseGuards(JwtGuard)
     async generateSecret(@Req() req: Request, @Res() res: Response) {
         return this.twoFactorService.generateSecret(req, res);
     }
 
-    // 2FA validate token endpoint (POST /2fa/validate)
-    // This endpoint should return boolean value of token is valid or not
     @Get('validate')
     @UseGuards(JwtGuard)
     async validateTwoFactor(@Req() req: Request): Promise<boolean>
@@ -33,8 +27,6 @@ export class TwoFactorController {
         return this.twoFactorService.validateTwoFactor(req);
     }
 
-    // 2FA verify endpoint (GET /2fa/verify)
-    // This endpoint should return boolean value of token is valid or not
     @Get('verify')
     @UseGuards(JwtGuard)
     async verifyTwoFactor(@Req() req: Request)
@@ -42,8 +34,6 @@ export class TwoFactorController {
         return this.twoFactorService.verifyTwoFactor(req);
     }
 
-    // 2FA disable endpoint (GET /2fa/disable)
-    // This endpoint should disable 2FA for user
     @Get('disable')
     @UseGuards(JwtGuard)
     async disableTwoFactor(@Req() req: Request)

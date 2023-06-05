@@ -11,10 +11,8 @@ import { UserModule } from './user/user.module';
 @Module({
   imports: [
     TwoFactorModule, AuthModule, LangModule, UserModule],
-  controllers: [
-    TwoFactorController, AppController],
-  providers: [
-    TwoFactorService, AppService],
+  controllers: [AppController],
+  providers: [ AppService],
 })
 export class AppModule { }
 

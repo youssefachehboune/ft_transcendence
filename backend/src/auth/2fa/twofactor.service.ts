@@ -20,7 +20,7 @@ export class TwoFactorService {
         return user.twoFactorEnabled;
     }
 
-    async pipeQrCodeStream(stream: Response, otpauthUrl: string) {
+    pipeQrCodeStream(stream: Response, otpauthUrl: string) {
         return toFileStream(stream, otpauthUrl);
     }
     async generateSecret(@Req() req: Request, @Res() res: Response) {
@@ -88,11 +88,6 @@ export class TwoFactorService {
 
     async disableTwoFactor(@Req() req: Request)
     {
-        const user = await prisma.user.findUnique({
-            where: {
-                email: req.user['email']
-            }
-        })
         await prisma.user.update({
             where: {
                 email: req.user['email']
