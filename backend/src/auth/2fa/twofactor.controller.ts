@@ -1,19 +1,16 @@
-/*
-https://docs.nestjs.com/controllers#controllers
-*/
-
-import { Controller , Get, UseGuards} from '@nestjs/common';
+import { Controller , Get, Req, UseGuards} from '@nestjs/common';
 import { TwoFactorService } from './twofactor.service';
 import { JwtGuard } from '../guards/jwt.guard';
+import { Request } from 'express';
 
 @Controller('2fa')
 export class TwoFactorController {
     constructor(private twoFactorService: TwoFactorService){}
     
-    
-    @Get()
+    @Get('status')
     @UseGuards(JwtGuard)
-    getHello(): string {
-        return this.twoFactorService.getHello();
+    async getTwoFactorStatus(@Req() req: Request)
+    {
+        return this.twoFactorService.getTwoFactorStatus(req);
     }
 }

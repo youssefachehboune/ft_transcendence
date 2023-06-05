@@ -1,12 +1,18 @@
-/*
-https://docs.nestjs.com/providers#services
-*/
+import { Injectable, Req } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+import { Request } from 'express';
 
-import { Injectable } from '@nestjs/common';
+const prisma = new PrismaClient();
 
 @Injectable()
 export class TwoFactorService {
-    getHello(): string {
-        return 'Hello 2FA!';
+    async getTwoFactorStatus(@Req() req: Request)
+    {
+        const user = await prisma.user.findUnique({
+            where: {
+                email: req.user['email']
+            }
+        })
+        return user.twoFactorEnabled;
     }
 }
