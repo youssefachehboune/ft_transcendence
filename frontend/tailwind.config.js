@@ -15,7 +15,7 @@ module.exports = {
         'green': '#05494a',
         'Sky' : '#00BABC',
         'test': 'rgba(255, 255, 255, 0.15)',
-        'my-bg' : '#171926',
+        'my-bg' : '#070012',
 		'rgb-color': 'rgba(255, 255, 255, 0.15)',
 
       },
@@ -39,15 +39,20 @@ module.exports = {
       fontFamily: 
       {
 		  'lato': ["Lato", "sans-serif"],
-          'fredoka': ["Fredoka", "sans-serif"],
-          'ibm-plex-sans': ["IBM Plex Sans", "sans-serif"],
-          'ibm-plex-sans-kr': ["IBM Plex Sans KR", "sans-serif"],
+      'fredoka': ["Fredoka", "sans-serif"],
+      'ibm-plex-sans': ["IBM Plex Sans", "sans-serif"],
+      'ibm-plex-sans-kr': ["IBM Plex Sans KR", "sans-serif"],
+      'sora': ["Sora", "sans-serif"],
+
 		},
 		fontWeight:
 		{
 			extrabold: '800',
 			semibold: '600',
 			medium: '500',
+      light: '300',
+      regular: '400',
+      bold: '700',
 		},
 		boxShadow:
 		{

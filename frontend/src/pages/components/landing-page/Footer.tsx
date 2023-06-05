@@ -1,13 +1,20 @@
 import GithubButton from "./Github-button";
 import Eclipse from "./Eclipse";
 import Shape from "./Shape";
-export default function Footer() {
+
+interface colorProp {
+  color: boolean;
+  setColor : (color : boolean) => void;
+}
+
+
+const Footer  = (props : colorProp) => {
     return (
         <footer>
-          <Shape />
-          <Eclipse  EclipseName='eclipse1'/>
-          <Eclipse  EclipseName='eclipse2'/>
+          <Shape color={props.color} setColor={props.setColor}/>
           <GithubButton />
       </footer>
     );
 }
+
+export default Footer;

@@ -1,11 +1,19 @@
 import { useState, useRef, useEffect, RefObject } from 'react';
-import { TfiWorld } from 'react-icons/tfi';
 import LangDiv from './Lang-div';
-
+import { BsGlobe2 } from "react-icons/bs";
+import LeftSide from './left-side';
 export default function LanguageIcon() {
   const [isDivVisible, setDivVisible] = useState(false);
   const langDivRef: RefObject<HTMLButtonElement> = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   const handleIconClick = () => {
     setDivVisible(!isDivVisible);
   };
@@ -26,7 +34,14 @@ export default function LanguageIcon() {
   return (
     <div>
       <button onClick={handleIconClick} className="button-lang" ref={langDivRef}>
-        <TfiWorld color="white" className="icon-lang" />
+        <BsGlobe2 onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave} 
+        color="white"
+        className="icon-lang"
+        style={{
+          color: isHovered ? "#00DAEA" : "white",
+          transition: "color 0.5s",
+        }}/>
       </button>
       {isDivVisible && <LangDiv />}
     </div>
