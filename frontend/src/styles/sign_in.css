@@ -92,7 +92,7 @@
 			phone:w-[15px]
 			Large-phone:w-[20px]
 }
-.go_back_text
+.go_back_text 
 {
 	@apply  text-[15px] font-fredoka font-medium
 	phone:text-[8px]

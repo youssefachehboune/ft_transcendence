@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { getText } from "../../api/lang";
 import getUser from "../../api/user";
 import Image from 'next/image';
+import updateUser from '@/pages/api/updateuser';
 
 interface FormData {
 	name: string;
@@ -53,12 +54,13 @@ const Sign_up_page = () =>
 
 	  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// console.log(name_countrie);
-		// console.log(formData.bio)
-		// console.log(formData.name)
-		// { "avatar": "htppdhfgjf"}
+
 		if (formData.name && formData.bio) {
-		  router.push('#'); 
+			updateUser({ bio: formData.bio });
+			updateUser({ avatar: avatar });
+			updateUser({ username: formData.name });
+			updateUser({ location: name_countrie });
+		    router.push('/Success_page'); 
 		}
 
 	  };
@@ -128,8 +130,8 @@ const Sign_up_page = () =>
 				
 				<div>
 
-						<button type={'submit'}  className='w-[222px] h-[40px] relative bg-[#00DAEA] mt-[15px] rounded-[10px] border-current border-2 border-b-[4px] phone:w-[180px] phone:mt-[5px] phone:h-[30px] Large-phone:w-[180px] Large-phone:h-[30px]'>
-							<AiOutlineArrowRight color='black' className='absolute bottom-[25%] right-[30px]
+						<button type={'submit'}  className='w-[222px] h-[40px] relative bg-[#00DAEA] mt-[15px] rounded-[10px] border-current  border-2 border-b-[4px] phone:w-[180px] phone:mt-[5px] phone:h-[30px] Large-phone:w-[180px] Large-phone:h-[30px]'>
+							<AiOutlineArrowRight color='black' className='absolute bottom-[25%] right-[30px] hover:mr-[-8px]
 																			phone:bottom-[12%] phone:right-[30px] phone:w-[12px]
 																			Large-phone:bottom-[12%] Large-phone:right-[30px] Large-phone:w-[12px]
 																			laptop:bottom-[25%] laptop:right-[30px]
@@ -137,7 +139,7 @@ const Sign_up_page = () =>
 							<h1 className='text-black  text-[14px] font-sora font-[700] tracking-[0.02em] phone:text-[10px] phone:p-[5px] Large-phone:text-[10px] Large-phone:p-[5px]'>{getText('GO')}</h1>
 						</button>
 				</div>
-				<Link href={'/dashboard'}  className='text-[#00DAEA] mb-[-10px] tracking-[0.02em]  text-[14px] font-ibm-plex-sans font-[600] phone:text-[10px] phone:mb-[5px] Large-phone:text-[10px] Large-phone:tracking-[0] desktop:mt-[5px]'>{getText('SKIP')}</Link>
+				<Link href={'/2fa'}  className='text-[#00DAEA] mb-[-10px] tracking-[0.02em]  text-[14px] font-ibm-plex-sans font-[600] phone:text-[10px] phone:mb-[5px] Large-phone:text-[10px] Large-phone:tracking-[0] desktop:mt-[5px]'>{getText('SKIP')}</Link>
 			</form>
 		</div>
 	)

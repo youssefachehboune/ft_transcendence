@@ -1,4 +1,4 @@
-import { getText } from "../../../api/lang";
+import { getText } from "../../api/lang";
 
 export default function Text_sign_up()
 {

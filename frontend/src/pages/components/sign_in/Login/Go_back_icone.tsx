@@ -5,7 +5,7 @@ import { getText } from "../../../api/lang";
 export default function Go_back_icone()
 {
 	return (
-		<div className='w-[90px] h-[50px] phone:w-[50px] Large-phone:w-[70px] flex items-center justify-between '>
+		<div className='w-[90px] h-[50px] phone:w-[50px] Large-phone:w-[70px] flex items-center justify-between  hover:ml-[-10px]'>
 
 			<Link href={'/'}>
 				<IoArrowBackCircle className="go_back_icone"/>

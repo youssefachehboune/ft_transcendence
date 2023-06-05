@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.success
+{
+	@apply w-[378px] h-[475px] bg-white absolute z-[100] right-[55%] bottom-[35%] rounded-[20px]
+						phone:w-[270px] phone:h-[300px] phone:right-[17%] phone:bottom-[20%]
+						Large-phone:w-[300px] Large-phone:h-[340px] Large-phone:right-[30%] Large-phone:bottom-[25%]
+						laptop:w-[350px] laptop:h-[370px] laptop:right-[40%] laptop:bottom-[20%]
+						desktop:w-[378px] desktop:h-[475px] desktop:right-[50%] desktop:bottom-[25%]
+}
+.test:before
+{
+	content: "";
+	background: #FFF;
+	width: 10%;
+	height: 100%;
+	position: absolute;
+	right: -5px;
+	animation: a 1s linear infinite;
+}
+
+@keyframes a
+{
+	100%
+	{
+		right: -25px;
+	}
+}
+.emoji_icone
+{
+	@apply w-[116px] h-[116px] absolute bottom-[50%] left-[35%]
+			phone:w-[80px] phone:h-[80px]
+			Large-phone:w-[85px] Large-phone:h-[85px]
+}
+
+.success_title
+{
+	@apply font-fredoka text-[50px] font-semibold leading-[79px] absolute bottom-[30%] left-[18%]
+			phone:text-[35px] phone:left-[20%] phone:bottom-[25%]
+			Large-phone:text-[35px] Large-phone:left-[23%] Large-phone:bottom-[27%]
+			laptop:bottom-[27%]
+}
+
+.success_text
+{
+	@apply font-fredoka text-[20px] leading-[24px] font-normal absolute bottom-[25%] left-[17%]
+			phone:text-[15px] phone:bottom-[20%]
+			Large-phone:text-[15px] Large-phone:left-[22%]
+			laptop:bottom-[20%]
+}
