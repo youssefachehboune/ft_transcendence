@@ -61,7 +61,7 @@ export class AuthController {
   @Get('refresh')
   @UseGuards(JwtRefreshGuard)
   async refresh(@Req() req: Request, @Res() res: Response) {
-	const { newaccessToken : accessToken } = await this.AuthService.refreshToken(req.user['email'], req.user['refreshToken']);
+	const { newaccessToken : accessToken } = await this.AuthService.refreshToken(req.user['email'], req.cookies['refresh']);
 	res.cookie('jwt', accessToken, {
 	  httpOnly: true,
 	  sameSite: 'lax',
@@ -74,9 +74,9 @@ export class AuthController {
   @Get('logout')
   @UseGuards(JwtGuard)
   async logout(@Req() req: Request, @Res() res: Response) {
-	res.clearCookie('jwt');
-	res.clearCookie('refresh');
-	await this.AuthService.logout(req.user['email']);
-	res.send({ msg: 'Logged out!' });
+		res.clearCookie('jwt');
+		res.clearCookie('refresh');
+		await this.AuthService.logout(req.user['email']);
+		res.send({ msg: 'Logged out!' });
   }
 }

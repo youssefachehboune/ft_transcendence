@@ -31,14 +31,6 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(
   }
 
   async validate(request: Request, payload: JwtPayload) {
-	let refreshtoken = request?.cookies?.refresh;
-	const user = await prisma.user.findFirst({
-		where: {id: payload.sub}
-  	});
-	if (user && bcrypt.compare(refreshtoken, user.refreshToken)) {
-		return user;
-	} else {
-		throw new UnauthorizedException;
-	}
+		return payload;
   }
 }

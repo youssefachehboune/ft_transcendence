@@ -28,10 +28,11 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     return username;
   }
   async validate (accessToken: string, refreshToken: string, profile: Profile): Promise<any> {
-    const { emails, photos } = profile
+    const { name, emails, photos } = profile
     const googleuser = {
       email: emails[0].value,
       picture: photos[0].value,
+			firstName: name.givenName,
       accessToken,
     }
 	let dbuser = await prisma.user.findUnique({
@@ -50,6 +51,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 		  data: {
 			  user_id: dbuser.id,
 			  username: gusername,
+				firstName: googleuser.firstName,
 			  bio: "",
 			  location: "",
 			  avatar: googleuser.picture,
