@@ -39,7 +39,7 @@
 
 .success_title
 {
-	@apply font-fredoka text-[50px] font-semibold leading-[79px] absolute bottom-[30%] left-[18%]
+	@apply font-fredoka text-[50px] font-semibold leading-[79px] absolute bottom-[30%] left-[25%]
 			phone:text-[35px] phone:left-[20%] phone:bottom-[25%]
 			Large-phone:text-[35px] Large-phone:left-[23%] Large-phone:bottom-[27%]
 			laptop:bottom-[27%]
@@ -47,7 +47,7 @@
 
 .success_text
 {
-	@apply font-fredoka text-[20px] leading-[24px] font-normal absolute bottom-[25%] left-[17%]
+	@apply font-fredoka text-[20px] leading-[24px] font-normal absolute bottom-[25%] left-[22%]
 			phone:text-[15px] phone:bottom-[20%]
 			Large-phone:text-[15px] Large-phone:left-[22%]
 			laptop:bottom-[20%]

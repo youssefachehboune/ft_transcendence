@@ -6,13 +6,13 @@ function Success_div()
 {
 	const router = useRouter();
 
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-		  router.push('/2fa');
-		}, 6000); 
+	// useEffect(() => {
+	// 	const timeout = setTimeout(() => {
+	// 	  router.push('/2fa');
+	// 	}, 6000); 
 	
-		return () => clearTimeout(timeout);
-	}, []);
+	// 	return () => clearTimeout(timeout);
+	// }, []);
 
 	return (
 		<div className="success">
