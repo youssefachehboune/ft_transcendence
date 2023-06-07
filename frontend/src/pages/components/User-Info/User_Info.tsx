@@ -14,7 +14,7 @@ interface FormData {
   bio: string;
 }
 
-const Sign_up_page = () => {
+const Sign_up_page = ({setShowFirstComponent, setShowSecondComponent} : any) => {
   const [errormssage, seterrormssage] = useState<string>('');
   const return_avatar = getUser("avatar");
   const [name_countrie, setname_countrie] = useState<string>("");
@@ -53,12 +53,11 @@ const Sign_up_page = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		
-		updateUser({ bio: formData.bio });
-		updateUser({ avatar: avatar });
-		updateUser({ username: formData.name, hello: seterrormssage });
-		updateUser({ location: name_countrie });
-
+		seterrormssage('');
+		await updateUser({ bio: formData.bio });
+		await updateUser({ avatar: avatar });
+		await updateUser({ username: formData.name, hello: seterrormssage, first:  setShowFirstComponent, second: setShowSecondComponent});
+		await updateUser({ location: name_countrie });
   };
 
   return (

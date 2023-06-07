@@ -1,8 +1,7 @@
-function updateUser(data : any) {
+async function updateUser(data : any) {
 
     const fetchuser = async () => {
       try {
-			console.log(data)
 		  const response = await fetch('http://localhost:3000/user/', {
 			  credentials: "include",
 			  method: 'PUT',
@@ -12,7 +11,10 @@ function updateUser(data : any) {
 			if(response.status == 200) {
 			{
 				if (data.username)
-					window.location.href = "/success_page";
+				{
+					data.first(false);
+					data.second(true);
+				}
 			}
 			} else {
 				const result = await response.json();
@@ -26,7 +28,7 @@ function updateUser(data : any) {
 			console.log('Error fetching user:', error);
 		}
     };
-    fetchuser();
+    await fetchuser();
 }
 
 export default updateUser;
