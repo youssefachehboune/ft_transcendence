@@ -14,33 +14,47 @@ interface FormData {
   bio: string;
 }
 
-const Sign_up_page = ({setShowFirstComponent, setShowSecondComponent} : any) => {
-  const [errormssage, seterrormssage] = useState<string>('');
+const Sign_up_page = ({
+  setShowFirstComponent,
+  setShowSecondComponent,
+}: any) => {
+  const [errormssage, seterrormssage] = useState<string>("");
   const return_avatar = getUser("avatar");
   const [name_countrie, setname_countrie] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [selectedAvatar, setSelectedAvatar] = useState<string>("");
   const router = useRouter();
   const avatar = selectedAvatar ? selectedAvatar : return_avatar;
+  const [errorLargeimg, seterrorLargeimg] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
-	  name: "",
-	  bio: "",
-	});
+    name: "",
+    bio: "",
+  });
+
+  const MAX_IMAGE_SIZE = 80000;
 
   const handleAvatarSelection = (avatarUrl: string) => {
+	seterrorLargeimg(false);
     setSelectedAvatar(avatarUrl);
   };
 
   const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    setSelectedAvatar("");
+    seterrorLargeimg(false);
     const file = event.target.files?.[0];
     const reader = new FileReader();
 
     reader.onload = () => {
       setSelectedAvatar(reader.result as string);
+      console.log(selectedAvatar);
     };
-
     if (file) {
-      reader.readAsDataURL(file);
+      if (file.size > MAX_IMAGE_SIZE) {
+        seterrorLargeimg(true);
+        event.target.value = "";
+      }
+	  else
+      	reader.readAsDataURL(file);
     }
   };
 
@@ -52,12 +66,19 @@ const Sign_up_page = ({setShowFirstComponent, setShowSecondComponent} : any) => 
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-		seterrormssage('');
-		await updateUser({ bio: formData.bio });
-		await updateUser({ avatar: avatar });
-		await updateUser({ username: formData.name, hello: seterrormssage, first:  setShowFirstComponent, second: setShowSecondComponent});
-		await updateUser({ location: name_countrie });
+    e.preventDefault();
+    seterrormssage("");
+    if (!errorLargeimg) {
+      await updateUser({ bio: formData.bio });
+      await updateUser({ avatar: avatar });
+      await updateUser({
+        username: formData.name,
+        hello: seterrormssage,
+        first: setShowFirstComponent,
+        second: setShowSecondComponent,
+      });
+      await updateUser({ location: name_countrie });
+    }
   };
 
   return (
@@ -74,7 +95,7 @@ const Sign_up_page = ({setShowFirstComponent, setShowSecondComponent} : any) => 
           {getText("HELLO")}{" "}
           <span className="text-[#00DAEA]">{getUser("firstName")}</span>
         </h1>
-        <h1 className="font-sora text-[27px] font-[700] phone:text-[17px] Large-phone:text-[20px] laptop:text-[24px]">
+        <h1 className="font-sora text-[26px] font-[700] phone:text-[17px] Large-phone:text-[18px] laptop:text-[24px]">
           {getText("FINALIZE")}
         </h1>
         <div className="w-[130px] h-[130px] phone:w-[70px] phone:h-[70px] Large-phone:w-[80px] Large-phone:h-[80px] desktop:w-[120px]  desktop:h-[120px] laptop:w-[90px] laptop:h-[90px]">
@@ -83,32 +104,55 @@ const Sign_up_page = ({setShowFirstComponent, setShowSecondComponent} : any) => 
             src={avatar}
           />
         </div>
+        {errorLargeimg && (
+          <p className="text-red-500 text-[10px] mt-[15px]">
+            {"the image is to large: max size(80kb)"}
+          </p>
+        )}
       </div>
 
       <div className="flex w-[220px] h-[70px] ml-[80px] justify-around items-center phone:w-[180px] phone:h-[35px] phone:ml-[35px] Large-phone:w-[180px] Large-phone:h-[40px] Large-phone:ml-[45px] laptop:h-[45px] laptop:w-[180px] laptop:ml-[90px] desktop:h-[50px]">
         <img
-          src="test.svg"
-          onClick={() => handleAvatarSelection("test.svg")}
+          src="https://api.dicebear.com/6.x/miniavs/svg?seed=Felix"
+          onClick={() =>
+            handleAvatarSelection(
+              "https://api.dicebear.com/6.x/miniavs/svg?seed=Felix"
+            )
+          }
           className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
         />
         <img
-          src="test-tree.svg"
-          onClick={() => handleAvatarSelection("test-tree.svg")}
+          src="https://api.dicebear.com/6.x/miniavs/svg"
+          onClick={() =>
+            handleAvatarSelection("https://api.dicebear.com/6.x/miniavs/svg")
+          }
           className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
         />
         <img
-          src="test-one.svg"
-          onClick={() => handleAvatarSelection("test-one.svg")}
+          src="https://api.dicebear.com/6.x/adventurer/svg?seed=Aneka"
+          onClick={() =>
+            handleAvatarSelection(
+              "https://api.dicebear.com/6.x/adventurer/svg?seed=Aneka"
+            )
+          }
           className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
         />
         <img
-          src="test-tow.svg"
-          onClick={() => handleAvatarSelection("test-tow.svg")}
+          src="https://api.dicebear.com/6.x/adventurer/svg?seed=Felix"
+          onClick={() =>
+            handleAvatarSelection(
+              "https://api.dicebear.com/6.x/adventurer/svg?seed=Felix"
+            )
+          }
           className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
         />
         <img
-          src="test-tree.svg"
-          onClick={() => handleAvatarSelection("test-tree.svg")}
+          src="https://api.dicebear.com/6.x/adventurer/svg?backgroundRotation=0,360"
+          onClick={() =>
+            handleAvatarSelection(
+              "https://api.dicebear.com/6.x/adventurer/svg?backgroundRotation=0,360"
+            )
+          }
           className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
         />
       </div>
@@ -151,8 +195,8 @@ const Sign_up_page = ({setShowFirstComponent, setShowSecondComponent} : any) => 
             className="w-[305px] h-[31px] text-[12px] border-current border-2 rounded-full p-[15px] phone:w-[200px] phone:h-[20px] phone:text-[10px] Large-phone:w-[220px] Large-phone:h-[40px] Large-phone:text-[10px]
 																		laptop:h-[40px] laptop:text-[15px]"
             required
-          	style={{borderColor: !errormssage ? 'black' : 'red'}}
-			></input>
+            style={{ borderColor: !errormssage ? "black" : "red" }}
+          ></input>
           {errormssage && (
             <p className="text-red-500 text-[10px]">{errormssage}</p>
           )}

@@ -39,7 +39,7 @@
 .Intra_button
 {
 	@apply w-[325px] h-[55px] bg-Sky rounded-[30px] flex justify-center items-center
-			hover:border-[2px] hover:border-green hover:border-solid
+			hover:border-[2px] hover:bg-[#00DAEA] hover:border-solid
 			phone:w-[150px] phone:h-[30px] phone:left-[60px] phone:top-[160px]
 			Large-phone:w-[200px] Large-phone:h-[40px] Large-phone:left-[50px] Large-phone:top-[180px]
 			laptop:w-[250px] laptop:h-[50px] laptop:left-[50px] laptop:top-[190px]
@@ -65,7 +65,7 @@
 { 
 	@apply w-[325px] h-[55px] bg-white rounded-[30px] flex justify-center items-center
 			border-[1px] border-solid border-[#DADCE0]
-			hover:border-[2px] hover:border-green hover:border-solid
+			hover:border-[2px] hover:bg-[#00DAEA] hover:border-solid
 			phone:w-[150px] phone:h-[30px]
 			Large-phone:w-[200px] Large-phone:h-[40px]
 			laptop:w-[250px] laptop:h-[50px]
@@ -99,6 +99,5 @@
 	 Large-phone:text-[11px]
 	laptop:text-[15px]
 }
-
 
 
