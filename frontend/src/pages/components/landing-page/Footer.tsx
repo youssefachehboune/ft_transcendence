@@ -1,5 +1,4 @@
 import GithubButton from "./Github-button";
-import Eclipse from "./Eclipse";
 import Shape from "./Shape";
 
 interface colorProp {
