@@ -4,12 +4,12 @@ export default function LangDiv() {
     return (
         <div className='lang-div'>
             <button onClick={() => {document.cookie = "lang=fr";location.reload()}} className='fr-button'>
-                <ReactCountryFlag countryCode="FR" className='mr-[8px]'/>
-                &nbsp; français
+            <img src="france.png" alt="" />
+                Francais
             </button>
             <button onClick={() => {document.cookie = "lang=en";location.reload()}} className='en-button'>
-                    <ReactCountryFlag countryCode="US" className='mr-[8px]'/>
-                    &nbsp; english
+                    <img src="english.png" alt="" />
+                    English
             </button>
         </div>
     );
