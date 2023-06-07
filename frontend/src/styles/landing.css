@@ -37,7 +37,7 @@
 
 .textBody span {
 
-    @apply font-lato font-semibold text-gray-400
+    @apply font-sora font-regular
 }
 
 .textHead {
@@ -45,7 +45,7 @@
 }
 
 .textHead h1 {
-    @apply font-sora font-bold text-[45px] text-white tracking-wider mr-[10px]
+    @apply font-sora font-bold text-[56px] text-white tracking-wider mr-[5px]
 }
 
 .circleHead {
@@ -78,13 +78,12 @@ footer {
 .lastbutton a {
     @apply  ml-[40px] h-[60px] w-[240px] bg-[#171926] rounded-[10px] font-lato font-semibold text-[#fff] border-[1.4px] 
     border-[#00DAEA] border-b-[6px] flex  justify-center space-x-2 items-center text-[20px]
-    hover:space-x-4
     tracking-wider transition-all duration-1000
 }
 
 
 .git {
-    @apply absolute bottom-[9.5rem] overflow-hidden right-[18%] flex justify-center items-center font-sora font-regular text-[22px]
+    @apply absolute bottom-[9.5rem] w-[150px] h-[40px] overflow-hidden right-[17%] flex justify-center items-center font-sora font-regular text-[22px]
 }
 
 .git h1 {
@@ -93,7 +92,7 @@ footer {
 
 
 .lastbutton a  h1 {
-    @apply mr-[5px] font-sora font-light text-[18px]
+    @apply mr-[5px] font-sora font-light text-[19px]
     phone:text-[15px]
 }
 .lastbutton {
@@ -131,12 +130,69 @@ footer {
 
 
 .button-lang {
-    @apply z-10 fixed right-[90px] bg-[#4142434D] top-[55px] w-[60px] h-[60px] flex items-center justify-center rounded-[10px] cursor-none
+    @apply z-10 fixed right-[90px] bg-[#4142434D] top-[55px] w-[78px] h-[70px] flex items-center justify-center rounded-[10px] cursor-none
 
 }
 
 .icon-lang {
-    @apply w-[35px] h-[30px] cursor-none
+    @apply w-[40px] h-[40px] cursor-none
+}
+
+.lang-div {
+    @apply w-[138px] h-[77px] bg-[#000] absolute right-[60px] top-[129px] z-20 rounded-[10px] 
+    phone:right-[40px] phone:top-[80px] phone:w-[90px] phone:h-[60px]
+    Large-phone:right-[40px] Large-phone:top-[80px] Large-phone:w-[85px] Large-phone:h-[65px]
+    laptop:right-[35px] laptop:top-[80px] laptop:w-[90px] laptop:h-[70px]
+}
+
+.fr-button {
+    @apply w-[100%] h-1/2 text-white text-[12px] font-sora font-regular gap-[14px] cursor-none flex justify-center items-center
+    hover:bg-[#00DAEA] rounded-t-[5px]
+    phone:w-[90px] phone:h-[30px]
+    Large-phone:w-[85px] Large-phone:h-[35px]
+    laptop:w-[84px] laptop:h-[35px]
+}
+
+.en-button {
+    @apply w-[100%] h-1/2 text-white text-[12px] font-sora font-regular gap-[14px] cursor-none flex justify-center items-center
+    hover:bg-[#00DAEA] rounded-b-[5px]
+    phone:w-[90px] phone:h-[30px]
+    Large-phone:w-[85px] Large-phone:h-[35px]
+    laptop:w-[84px] laptop:h-[35px]
+}
+
+
+.en-button img {
+    @apply w-[20px]  h-[20px] rounded-full
+}
+.fr-button img {
+    @apply w-[20px]  h-[20px] rounded-full
+}
+
+
+.logo {
+    @apply w-[110px]  h-[29px] absolute top-[55px] left-[60px] duration-1000 phone:top-[40px] phone:w-[80px] phone:h-[20px] phone:left-[40px] Large-phone:top-[35px] Large-phone:w-[100px]
+    laptop:top-[45px] laptop:w-[90px] laptop:h-[22px]
+}
+
+.circleCursor {
+    @apply w-[20px] h-[20px] rounded-full fixed z-[9999] transition-transform duration-200 ease-in-out
+  }
+
+.icon-play-hover {
+    @apply w-[28px] h-[28px]  translate-x-2
+}
+
+.icon-play {
+    @apply w-[28px] h-[28px] transform transition-transform duration-500
+}
+
+.icon-play-git-hover {
+    @apply w-[23px] h-[23px]  translate-x-2
+}
+
+.icon-play-git {
+    @apply w-[23px] h-[23px] transform transition-transform duration-500
 }
 
 @media (min-width: 1023px ) and (max-width: 1409px) {
@@ -191,12 +247,6 @@ footer {
     }
     .doc2 {
         @apply hidden
-    }
-    .lastbutton {
-        @apply mt-[5%] w-[66%]
-    }
-    .lastbutton a {
-        @apply ml-[50%]
     }
     .git {
         @apply bottom-[9.3rem] right-[75px]
@@ -266,65 +316,41 @@ footer {
     }
 
     .lastbutton a {
-        @apply h-[50px] w-[190px] text-sm
+        @apply h-[50px] w-[190px] text-sm cursor-pointer
     }
-
+    .lastbutton a h1 {
+        @apply cursor-pointer
+    }
     .lastbutton {
         @apply w-[70%] mt-[5%]
     }
     .git {
-        @apply bottom-[4.3rem] right-[35px]
+        @apply bottom-[3.6rem] right-[15px] cursor-pointer
+    }
+    .git h1 {
+        cursor: pointer;
     }
     .button-lang {
-        @apply z-10 fixed right-[50px] top-[30px] w-[45px] h-[45px]
+        @apply z-10 fixed right-[50px] top-[30px] w-[45px] h-[45px] cursor-pointer
     }
     .icon-lang {
-        @apply w-[30px] h-[25px]
+        @apply w-[30px] h-[25px] cursor-pointer
+    }
+    .circleCursor {
+        display: none;
+    }
+    * {
+        cursor: auto;
+    }
+    .fr-button {
+        @apply cursor-pointer
+    }
+    .en-button {
+        @apply cursor-pointer
+    }
+
+    .logo {
+        cursor: pointer;
     }
 }
 
-.lang-div {
-    @apply w-[100px] h-[70px] bg-[#4142434D] absolute right-[70px] top-[120px] z-20 rounded-[5px] 
-    phone:right-[40px] phone:top-[80px] phone:w-[90px] phone:h-[60px]
-    Large-phone:right-[40px] Large-phone:top-[80px] Large-phone:w-[85px] Large-phone:h-[65px]
-    laptop:right-[35px] laptop:top-[80px] laptop:w-[90px] laptop:h-[70px]
-}
-
-.fr-button {
-    @apply w-[100px] h-[35px] text-white text-sm cursor-none flex justify-center items-center
-    hover:bg-[#00DAEA] rounded-t-[5px]
-    phone:w-[90px] phone:h-[30px]
-    Large-phone:w-[85px] Large-phone:h-[35px]
-    laptop:w-[84px] laptop:h-[35px]
-}
-
-.en-button {
-    @apply w-[100px] h-[35px] text-white text-sm cursor-none flex justify-center items-center
-    hover:bg-[#00DAEA] rounded-b-[5px]
-    phone:w-[90px] phone:h-[30px]
-    Large-phone:w-[85px] Large-phone:h-[35px]
-    laptop:w-[84px] laptop:h-[35px]
-}
-
-.en-button img {
-    @apply w-[20px]  h-[20px] rounded-full
-}
-.fr-button img {
-    @apply w-[20px]  h-[20px] rounded-full
-}
-
-
-.logo {
-    @apply w-[110px]  h-[29px] absolute top-[55px] left-[60px] duration-1000 phone:top-[40px] phone:w-[80px] phone:h-[20px] phone:left-[40px] Large-phone:top-[35px] Large-phone:w-[100px]
-    laptop:top-[45px] laptop:w-[90px] laptop:h-[22px]
-}
-
-.circleCursor {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.2s ease-in-out;
-  }
