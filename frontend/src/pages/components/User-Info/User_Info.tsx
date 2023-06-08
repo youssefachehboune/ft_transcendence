@@ -32,7 +32,15 @@ const Sign_up_page = ({
   });
 
   const MAX_IMAGE_SIZE = 80000;
+  const [isHovered, setIsHovered] = useState<boolean>(false);
 
+  const handleMouseEnter = () => {
+	setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+	setIsHovered(false);
+  };
   const handleAvatarSelection = (avatarUrl: string) => {
 	seterrorLargeimg(false);
     setSelectedAvatar(avatarUrl);
@@ -51,6 +59,7 @@ const Sign_up_page = ({
     if (file) {
       if (file.size > MAX_IMAGE_SIZE) {
         seterrorLargeimg(true);
+		setSelectedAvatar(avatar)
         event.target.value = "";
       }
 	  else
@@ -105,7 +114,7 @@ const Sign_up_page = ({
           />
         </div>
         {errorLargeimg && (
-          <p className="text-red-500 text-[10px] mt-[15px]">
+          <p className="text-red-500 text-[10px] mt-[15px] phone:mt-[9px] phone:text-[8px] Large-phone:mt-[9px] Large-phone:text-[8px]">
             {"the image is to large: max size(80kb)"}
           </p>
         )}
@@ -230,21 +239,22 @@ const Sign_up_page = ({
         </div>
 
         <div>
-          <button
+          <button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
             type={"submit"}
-            className="w-[222px] h-[40px] relative bg-[#00DAEA] mt-[15px] rounded-[10px] border-current  border-2 border-b-[4px] phone:w-[180px] phone:mt-[5px] phone:h-[30px] Large-phone:w-[180px] Large-phone:h-[30px]"
-          >
-            <AiOutlineArrowRight
-              color="black"
-              className="absolute bottom-[25%] right-[30px] hover:mr-[-8px]
-																			phone:bottom-[12%] phone:right-[30px] phone:w-[12px]
-																			Large-phone:bottom-[12%] Large-phone:right-[30px] Large-phone:w-[12px]
-																			laptop:bottom-[25%] laptop:right-[30px]
-																			desktop:bottom-[20%]"
-            />
-            <h1 className="text-black  text-[14px] font-sora font-[700] tracking-[0.02em] phone:text-[10px] phone:p-[5px] Large-phone:text-[10px] Large-phone:p-[5px]">
-              {getText("GO")}
-            </h1>
+            className={`w-[222px] h-[40px] relative bg-[#00DAEA] mt-[15px] rounded-[10px] border-current  border-2 border-b-[4px] phone:w-[180px] phone:mt-[5px] phone:h-[30px] Large-phone:w-[180px] Large-phone:h-[30px]`}>
+			<AiOutlineArrowRight
+			color="black"
+			className={`absolute bottom-[25%] right-[30px] transform transition-transform duration-700 ${isHovered ? 'translate-x-[5px]' : '' }
+						phone:bottom-[12%] phone:right-[30px] phone:w-[12px]
+						Large-phone:bottom-[12%] Large-phone:right-[30px] Large-phone:w-[12px]
+						laptop:bottom-[25%] laptop:right-[30px]
+						desktop:bottom-[20%]`}
+			/>
+            <h1 className={`text-black  text-[14px] font-sora font-[700] tracking-[0.02em]
+							 phone:text-[10px] phone:p-[5px] Large-phone:text-[10px] Large-phone:p-[5px]`}>
+
+              		{getText("GO")}
+					</h1>
           </button>
         </div>
         <Link
