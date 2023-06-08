@@ -1,8 +1,9 @@
-import { Injectable, Req , Res} from '@nestjs/common';
+import { Body, Injectable, Req , Res} from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Response, Request } from 'express';
 import { authenticator } from 'otplib';
 import { toFileStream } from 'qrcode';
+import { tokenDto } from './token.dto';
 
 
 const prisma = new PrismaClient();
@@ -42,7 +43,7 @@ export class TwoFactorService {
         return this.pipeQrCodeStream(res, otpauthUrl)
     }
 
-    async validateTwoFactor(@Req() req: Request): Promise<boolean>
+    async validateTwoFactor(@Req() req: Request, @Body() body: tokenDto): Promise<boolean>
     {
         const user = await prisma.user.findUnique({
             where: {
@@ -52,7 +53,7 @@ export class TwoFactorService {
         if(user === null || user.twoFactorSecret === null) {
             return false;
         }
-        const token = req.body['token'];
+				const token: string = body.token;
         const isValid = authenticator.verify({token , secret: user.twoFactorSecret });
         if (isValid) {
             await prisma.user.update({
@@ -68,7 +69,7 @@ export class TwoFactorService {
         return false;
     }
 
-    async verifyTwoFactor(@Req() req: Request)
+    async verifyTwoFactor(@Req() req: Request, @Body() body: tokenDto)
     {
         const user = await prisma.user.findUnique({
             where: {
@@ -78,7 +79,7 @@ export class TwoFactorService {
         if(!user.twoFactorSecret) {
             return false;
         }
-        const token = req.body['token'];
+        const token: string = body.token;
         const isValid = authenticator.verify({token , secret: user.twoFactorSecret });
         if (isValid) {
             return true;

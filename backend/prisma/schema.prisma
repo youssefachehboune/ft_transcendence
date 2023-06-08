@@ -11,12 +11,12 @@ generator client {
 
 model User {
     id               Int      @id @default(autoincrement())
-    email          String   @unique
+    email            String   @unique
     createdAt        DateTime @default(now())
     twoFactorEnabled Boolean
     role             Role
-	refreshToken	 String?
-    twoFactorSecret     String?
+    refreshToken     String?
+    twoFactorSecret  String?
 
     // Relations
     userProfile          UserProfile[]
@@ -35,25 +35,29 @@ model User {
 }
 
 model UserProfile {
-    id       Int    @id @default(autoincrement())
-    user_id  Int
-    username String @unique
-		firstName String
-    bio      String
-    location String
-    avatar   String
-    level    Float
-    User     User   @relation(fields: [user_id], references: [id])
+    id        Int    @id @default(autoincrement())
+    user_id   Int
+    username  String @unique
+    firstName String
+    lastName  String
+    bio       String
+    location  String
+    avatar    String
+    level     Float
+    points    Int
+    User      User   @relation(fields: [user_id], references: [id])
 }
 
 model CareerLog {
-    id          Int             @id @default(autoincrement())
-    user_id     Int
-    opponent_id Int
-    result      CareerLogResult
-    occuredAt   DateTime        @default(now())
-    User        User            @relation(name: "UserLog", fields: [user_id], references: [id])
-    Opponent    User            @relation(name: "OpponentLog", fields: [opponent_id], references: [id])
+    id             Int             @id @default(autoincrement())
+    user_id        Int
+    opponent_id    Int
+    userPoints     Int
+    opponentPoints Int
+    result         CareerLogResult
+    occuredAt      DateTime        @default(now())
+    User           User            @relation(name: "UserLog", fields: [user_id], references: [id])
+    Opponent       User            @relation(name: "OpponentLog", fields: [opponent_id], references: [id])
 }
 
 model Achievement {
@@ -61,7 +65,8 @@ model Achievement {
     name           String           @unique
     avatar         String
     description    String
-    condition      String           @unique
+    points         String
+    milestone      String
     type           String
     AchievementLog AchievementLog[]
 }
@@ -71,7 +76,7 @@ model AchievementLog {
     user_id        Int
     achievement_id Int
     score          Int
-    occuredAt      DateTime    @default(now())
+    occuredAt      DateTime
     User           User        @relation(fields: [user_id], references: [id])
     Achievement    Achievement @relation(fields: [achievement_id], references: [id])
 }
@@ -144,22 +149,21 @@ model ChannelLog {
 }
 
 model texts {
-    id          Int @id @default(autoincrement())
-    key         String @unique
-    en          String
-    fr          String
+    id  Int    @id @default(autoincrement())
+    key String @unique
+    en  String
+    fr  String
 }
 
 model configs {
-    id          Int @id @default(autoincrement())
-    key         String @unique
-    value       String
+    id    Int    @id @default(autoincrement())
+    key   String @unique
+    value String
 }
 
 enum CareerLogResult {
     WON
     LOST
-    TIE
 }
 
 enum Role {
@@ -170,13 +174,12 @@ enum Role {
 
 enum FriendshipStatus {
     REQUESTED
-    ACCEPTED
+    FRIENDS
+    NOTFRIENDS
     BLOCKED
-    UNFRIEND
 }
 
 enum ChannelType {
     PUBLIC
     PRIVATE
 }
-
