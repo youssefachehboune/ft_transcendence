@@ -36,7 +36,7 @@ export class IntraStrategy extends PassportStrategy(Strategy, '42') {
     }
     async validate(accessToken: string, refreshToken: string, profile: any): Promise<any>
     {
-        const intraUser = {firstName: profile._json.first_name ,email: profile._json.email, username: profile._json.login, avatar: profile._json.image.link};
+        const intraUser = {firstName: profile._json.first_name, lastName: profile._json.last_name ,email: profile._json.email, username: profile._json.login, avatar: profile._json.image.link};
 				let dbuser = await prisma.user.findUnique({
             where: {email: intraUser.email},
         });
@@ -54,10 +54,12 @@ export class IntraStrategy extends PassportStrategy(Strategy, '42') {
                     user_id: dbuser.id,
                     username: username1,
 										firstName: intraUser.firstName,
+										lastName: intraUser.lastName,
                     bio: "",
                     location: "",
                     avatar: intraUser.avatar,
                     level: 0,
+										points: 0,
                 }
             })
         }

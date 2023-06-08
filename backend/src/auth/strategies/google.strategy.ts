@@ -33,6 +33,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       email: emails[0].value,
       picture: photos[0].value,
 			firstName: name.givenName,
+			lastName: name.familyName,
       accessToken,
     }
 	let dbuser = await prisma.user.findUnique({
@@ -52,10 +53,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 			  user_id: dbuser.id,
 			  username: gusername,
 				firstName: googleuser.firstName,
+				lastName: googleuser.lastName,
 			  bio: "",
 			  location: "",
 			  avatar: googleuser.picture,
 			  level: 0,
+				points: 0
 		  }
 	  })
 	}

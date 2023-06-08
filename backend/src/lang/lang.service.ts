@@ -5,7 +5,7 @@ import { Request } from 'express';
 const prisma = new PrismaClient();
 @Injectable()
 export class LangService {
-	async getText(req: Request, key : any) {
+	async getText(req: Request, key : string) {
 		const text = await prisma.texts.findUnique({
 			where: { key }
 		});
