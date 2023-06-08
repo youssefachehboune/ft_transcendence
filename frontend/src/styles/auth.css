@@ -1,0 +1,20 @@
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    display: none;
+}
+
+input {
+    @apply w-[40px] h-[40px] outline-none text-[16px] font-sora font-semibold text-black leading-[20px] text-center	border-[0.75px] rounded-[3px]
+}
+
+button {
+    @apply w-[245px] h-[42px] text-white rounded-[8px]  border-[#000000] font-sora font-semibold text-[15px] leading-[19px] cursor-none
+}
+
+button.active {
+    @apply cursor-pointer
+}
+
+input:valid {
+    @apply border-[#24BD86]
+}
