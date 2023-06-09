@@ -1,23 +1,14 @@
 import React, { useState, useEffect } from 'react';
+async function getUser() {
+	try {
+	  const response = await fetch('http://localhost:3000/user', { credentials: "include" });
+	  const res = await response.json();
+	  return await res;
+	} catch (error) {
+	  console.log('Error fetching user:', error);
+	  throw error;
+	}
+  }
 
-function getUser(key : string) {
-  const [user, setuser] = useState<string>('');
-
-  useEffect(() => {
-    const fetchuser = async () => {
-      try {
-		const url = 'http://localhost:3000/user/' + key;
-        const response = await fetch(url, {credentials: "include"});
-        const result = await response.json();
-        setuser(result.msg);
-      } catch (error) {
-        console.log('Error fetching user:', error);
-      }
-    };
-
-    fetchuser();
-}, []);
-return user;
-}
-
-export default getUser;
+  export default getUser;
+  
