@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsInt, IsString } from "class-validator";
 
 export class historyDto {
 	@ApiProperty({
@@ -11,15 +11,15 @@ export class historyDto {
 
 	@ApiProperty({
 		description: 'the points that the user has scored',
-		example: '10'
+		example: 10
 	})
-	@IsString()
-	userPoints: string
+	@IsInt()
+	userPoints: number
 
 	@ApiProperty({
 		description: 'the points that the oppenent player has scored',
-		example: '8'
+		example: 8
 	})
-	@IsString()
-	opponentPoints: string
+	@IsInt()
+	opponentPoints: number
 }
