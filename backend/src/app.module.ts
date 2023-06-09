@@ -1,3 +1,4 @@
+import { SearchModule } from './search/search.module';
 import { TwoFactorService } from './auth/2fa/twofactor.service';
 import { TwoFactorController } from './auth/2fa/twofactor.controller';
 import { TwoFactorModule } from './auth/2fa/twofactor.module';
@@ -9,10 +10,9 @@ import { LangModule } from './lang/lang.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [
-    TwoFactorModule, AuthModule, LangModule, UserModule],
+  imports: [SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
   controllers: [AppController],
-  providers: [ AppService],
+  providers: [AppService],
 })
 export class AppModule { }
 
