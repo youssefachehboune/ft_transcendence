@@ -6,7 +6,7 @@ import { ApiBadRequestResponse, ApiTags } from '@nestjs/swagger';
 import { historyDto } from './history.dto';
 
 @ApiTags('history')
-@ApiBadRequestResponse({description: 'The username provided belongs to no user'})
+@ApiBadRequestResponse({description: 'invalid username'})
 @Controller('history')
 export class HistoryController {
 	constructor(private readonly historyService: HistoryService) {}
