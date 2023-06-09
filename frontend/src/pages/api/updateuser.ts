@@ -2,6 +2,7 @@ async function updateUser(data : any, dep: any) {
 
     const fetchuser = async () => {
       try {
+		console.log(dep.tree)
 		  const response = await fetch('http://localhost:3000/user/', {
 			  credentials: "include",
 			  method: 'PUT',
@@ -10,7 +11,7 @@ async function updateUser(data : any, dep: any) {
 			});
 			if(response.status == 200) {
 			{
-				if (data.username && dep.tree)
+				if (data.username && dep.tree && dep.for)
 				{
 					dep.first(false);
 					dep.second(true);

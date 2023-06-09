@@ -9,7 +9,7 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
 	seterrormssage('')
     if (value.length > 15) {
 		setUsername(value.substring(0, 15));
-		setError('Username must be a maximum of 15 characters');
+		setError('maximum Username is 200 characters');
 		seterroruser(false);
 	  } else {
 		let containsNonAlphanumeric = false;
@@ -45,6 +45,7 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
         className="text-[10px] font-[400] font-sora phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]"
       >
         {getText('USERNAME')}
+		<span className='text-orange'> *</span>
       </label>
       <input
         id="one"
@@ -57,9 +58,9 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
         required
         style={{ borderColor: !error ? 'black' : 'red' }}
       />
-      {error && <p className="text-red-500 text-[10px]">{error}</p>}
+      {error && <p className="text-red-500 text-[10px] phone:text-[7px] Large-phone:text-[8px]">{error}</p>}
 	  {errormssage && (
-			<p className="text-red-500 text-[10px]">{errormssage}</p>
+			<p className="text-red-500 text-[10px] phone:text-[7px] Large-phone:text-[8px]">{errormssage}</p>
 			)}
     </div>
   );

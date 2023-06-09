@@ -9,6 +9,7 @@
 	import Image from "next/image";
 	import updateUser from "@/pages/api/updateuser";
 import UsernameInput from "./username";
+import Bioinpute from "./Bio";
 
 	interface FormData {
 	name: string;
@@ -17,6 +18,7 @@ import UsernameInput from "./username";
 
 	const Sign_up_page = ({ setShowFirstComponent, setShowSecondComponent,}: any) => {
 	const [erroruser , seterroruser] = useState<boolean>(true);
+	const [ErrorBio , setErrorBio] = useState<boolean>(true);
 	const [data, setdata] = useState<any>('');
 	useEffect(() => {
 		const fetchData = async () => {
@@ -90,19 +92,18 @@ import UsernameInput from "./username";
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();
 	seterrormssage("");
-	if (!errorLargeimg)
-		await updateUser({ bio: formData.bio,  avatar: avatar, username: formData.name, location: name_countrie}, {error: seterrormssage,first: setShowFirstComponent,second: setShowSecondComponent,tree: erroruser});
+	if (!errorLargeimg && erroruser && ErrorBio)
+		await updateUser({ bio: formData.bio,  avatar: avatar, username: formData.name, location: name_countrie}, {error: seterrormssage,first: setShowFirstComponent,second: setShowSecondComponent,tree: erroruser, for: ErrorBio});
 	};
 
 	return (
-	<div
-		className="w-[378px] h-[675px] bg-white absolute z-[100] right-[55%] bottom-[20%] rounded-[20px]
-							phone:w-[250px] phone:h-[420px] phone:right-[20%] phone:bottom-[10%]
-							Large-phone:w-[270px] Large-phone:h-[500px] Large-phone:right-[30%] Large-phone:bottom-[10%]
-							laptop:w-[358px] laptop:h-[540px] laptop:right-[40%] laptop:bottom-[5%]
-							desktop:w-[378px] desktop:h-[575px] desktop:right-[50%] desktop:bottom-[10%]
-						"
-	>
+	<div className="w-[378px] h-[675px] bg-white absolute z-[100] right-[55%] bottom-[20%] rounded-[20px]
+							phone:w-[250px] phone:h-[450px] phone:right-[20%] phone:bottom-[5%]
+							Large-phone:w-[270px] Large-phone:h-[510px] Large-phone:right-[30%] Large-phone:bottom-[10%]
+							laptop:w-[358px] laptop:h-[550px] laptop:right-[40%] laptop:bottom-[5%]
+							desktop:w-[378px] desktop:h-[575px] desktop:right-[50%] desktop:bottom-[10%]">
+
+
 		<div className="w-full h-[250px] flex items-center flex-col phone:h-[145px] Large-phone:h-[160px] desktop:h-[230px] laptop:h-[190px]">
 		<h1 className="mt-[15px] font-sora text-[24px] font-[600] phone:text-[12px] Large-phone:text-[15px] desktop:text-[20px] laptop:text-[18px] ">
 			{getText("HELLO")}{" "}
@@ -188,35 +189,13 @@ import UsernameInput from "./username";
 		<AiOutlineUpload className="mr-[-5px] phone:mr-0 Large-phone:mr-0 laptop:mr-0" />
 		</div>
 
-		<form
-		onSubmit={handleSubmit}
-		className="w-full h-[291px]  flex flex-col justify-around items-center mt-[10px] phone:h-[230px] phone:mt-[-5px] Large-phone:h-[260px] desktop:h-[260px] laptop:h-[275px] laptop:mt-0 desktop:mt-0 "
-		>
+		<form onSubmit={handleSubmit} className="w-full h-[291px]  flex flex-col justify-around items-center mt-[10px] phone:h-[260px] phone:mt-[-5px] Large-phone:h-[260px] desktop:h-[260px] laptop:h-[285px] laptop:mt-0 desktop:mt-0 ">
 		<UsernameInput handleFormChange={handleFormChange} data={data} getText={getText} errormssage={errormssage} seterrormssage={seterrormssage} seterroruser={seterroruser}/>
-		<div className="ml-[30px]">
-			<label
-			htmlFor="tow"
-			className=" text-[10px] font-[400] phone:text-[9px] phone:mr-[80px] Large-phone:text-[10px] laptop:text-[10px]"
-			>
-			{getText("BIO")}
-			</label>
-			<input
-			id="tow"
-			onChange={handleFormChange}
-			name="bio"
-			type="text"
-			className="w-[305px] h-[31px] border-current border-2  text-[12px] rounded-full p-[15px] phone:w-[200px] phone:h-[30px] phone:text-[10px] Large-phone:w-[220px] Large-phone:h-[40px] Large-phone:text-[10px] laptop:h-[40px]"
-			required
-			/>
-		</div>
+		<Bioinpute handleFormChange={handleFormChange}  getText={getText} setErrorBio={setErrorBio}/>
+
 
 		<div className="ml-[30px]">
-			<label
-			htmlFor="tree"
-			className="text-[10px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]"
-			>
-			{getText("LOCATION")}
-			</label>
+			<label htmlFor="tree" className="text-[10px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]">{getText("LOCATION")}<span className='text-orange'> *</span></label>
 			<CountryDropdown setCountry={setname_countrie} />
 		</div>
 
