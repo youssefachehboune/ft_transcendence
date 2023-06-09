@@ -14,4 +14,10 @@ export class FriendsController {
     async getFriends(@Req() req: Request) {
         return await this.friendsService.getFriends(req);
     }
+
+    @Get('requests')
+    @UseGuards(JwtGuard)
+    async getFriendRequests(@Req() req: Request) {
+        return await this.friendsService.getFriendRequests(req);
+    }
 }
