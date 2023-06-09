@@ -2,7 +2,6 @@ async function updateUser(data : any, dep: any) {
 
     const fetchuser = async () => {
       try {
-		console.log(dep.tree)
 		  const response = await fetch('http://localhost:3000/user/', {
 			  credentials: "include",
 			  method: 'PUT',
