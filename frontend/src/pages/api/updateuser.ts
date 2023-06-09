@@ -1,4 +1,4 @@
-async function updateUser(data : any) {
+async function updateUser(data : any, dep: any) {
 
     const fetchuser = async () => {
       try {
@@ -12,16 +12,16 @@ async function updateUser(data : any) {
 			{
 				if (data.username)
 				{
-					data.first(false);
-					data.second(true);
+					dep.first(false);
+					dep.second(true);
 				}
 			}
 			} else {
 				const result = await response.json();
-				if (result.statusCode == 409)
+				if (result.statusCode == 400)
 				{
 					if (data.username)
-						data.hello(result.message)
+						dep.error("this username is already exist")
 				}
 			}
 		} catch (error) {

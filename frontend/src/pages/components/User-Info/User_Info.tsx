@@ -92,17 +92,8 @@
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();
 	seterrormssage("");
-	if (!errorLargeimg) {
-		await updateUser({ bio: formData.bio });
-		await updateUser({ avatar: avatar });
-		await updateUser({
-		username: formData.name,
-		hello: seterrormssage,
-		first: setShowFirstComponent,
-		second: setShowSecondComponent,
-		});
-		await updateUser({ location: name_countrie });
-	}
+	if (!errorLargeimg)
+		await updateUser({ bio: formData.bio,  avatar: avatar, username: formData.name, location: name_countrie}, {error: seterrormssage,first: setShowFirstComponent,second: setShowSecondComponent});
 	};
 
 	return (
