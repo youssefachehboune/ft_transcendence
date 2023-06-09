@@ -128,10 +128,10 @@
 
 		<div className="flex w-[220px] h-[70px] ml-[80px] justify-around items-center phone:w-[180px] phone:h-[35px] phone:ml-[35px] Large-phone:w-[180px] Large-phone:h-[40px] Large-phone:ml-[45px] laptop:h-[45px] laptop:w-[180px] laptop:ml-[90px] desktop:h-[50px]">
 		<img
-			src="https://api.dicebear.com/6.x/miniavs/svg?seed=Felix"
+			src={avatar == return_avatar ? "https://api.dicebear.com/6.x/miniavs/svg?seed=Felix" : return_avatar}
 			onClick={() =>
 			handleAvatarSelection(
-				"https://api.dicebear.com/6.x/miniavs/svg?seed=Felix"
+				avatar == return_avatar ? "https://api.dicebear.com/6.x/miniavs/svg?seed=Felix" : return_avatar
 			)
 			}
 			className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
@@ -241,7 +241,7 @@
 			>
 			{getText("LOCATION")}
 			</label>
-			<CountryDropdown setcountriey={setname_countrie} />
+			<CountryDropdown setCountry={setname_countrie} />
 		</div>
 
 		<div>
