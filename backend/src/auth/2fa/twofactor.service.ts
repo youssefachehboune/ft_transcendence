@@ -50,10 +50,11 @@ export class TwoFactorService {
                 email: req.user['email']
             }
         })
+
         if(user === null || user.twoFactorSecret === null) {
             return false;
         }
-				const token: string = body.token;
+		const token: string = body.token;
         const isValid = authenticator.verify({token , secret: user.twoFactorSecret });
         if (isValid) {
             await prisma.user.update({

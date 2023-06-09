@@ -67,7 +67,6 @@ model Achievement {
     description    String
     points         String
     milestone      String
-    type           String
     AchievementLog AchievementLog[]
 }
 

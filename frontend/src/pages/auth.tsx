@@ -13,6 +13,7 @@ export default function auth() {
             <Logo/>
             <Lang />
             <Generate />
+
         </div>
     );
 }

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import OTPField from './otp';
 const MyComponent = () => {
 
-    const [isValid, setIsValid] = useState(false);
   return (
     <div className="w-[378px] h-[543px] bg-white absolute top-1/4 left-[20%] rounded-[15px]">
         <div className="w-[100%] h-[157px] flex items-center justify-center">
@@ -22,7 +21,7 @@ const MyComponent = () => {
         </div>
         <OTPField/>
         <div className="w-[100%] h-[40px] flex items-end justify-center ">
-            <a className="font-sora font-semibold text-[12px] text-[#24BD86] leading-[15px] cursor-none">Skip for now</a>
+            <a className="font-sora font-regular text-[12px] text-[#24BD86] leading-[15px] cursor-none">Skip for now</a>
         </div>
     </div>
 );
