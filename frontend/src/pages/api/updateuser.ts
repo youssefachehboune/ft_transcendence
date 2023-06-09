@@ -10,7 +10,7 @@ async function updateUser(data : any, dep: any) {
 			});
 			if(response.status == 200) {
 			{
-				if (data.username)
+				if (data.username && dep.tree)
 				{
 					dep.first(false);
 					dep.second(true);

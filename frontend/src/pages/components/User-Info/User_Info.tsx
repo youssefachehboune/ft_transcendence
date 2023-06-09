@@ -8,17 +8,15 @@
 	import getUser from "../../api/user";
 	import Image from "next/image";
 	import updateUser from "@/pages/api/updateuser";
+import UsernameInput from "./username";
 
 	interface FormData {
 	name: string;
 	bio: string;
 	}
 
-	const Sign_up_page = ({
-	setShowFirstComponent,
-	setShowSecondComponent,
-	}: any) => {
-
+	const Sign_up_page = ({ setShowFirstComponent, setShowSecondComponent,}: any) => {
+	const [erroruser , seterroruser] = useState<boolean>(true);
 	const [data, setdata] = useState<any>('');
 	useEffect(() => {
 		const fetchData = async () => {
@@ -93,7 +91,7 @@
 	e.preventDefault();
 	seterrormssage("");
 	if (!errorLargeimg)
-		await updateUser({ bio: formData.bio,  avatar: avatar, username: formData.name, location: name_countrie}, {error: seterrormssage,first: setShowFirstComponent,second: setShowSecondComponent});
+		await updateUser({ bio: formData.bio,  avatar: avatar, username: formData.name, location: name_countrie}, {error: seterrormssage,first: setShowFirstComponent,second: setShowSecondComponent,tree: erroruser});
 	};
 
 	return (
@@ -194,29 +192,7 @@
 		onSubmit={handleSubmit}
 		className="w-full h-[291px]  flex flex-col justify-around items-center mt-[10px] phone:h-[230px] phone:mt-[-5px] Large-phone:h-[260px] desktop:h-[260px] laptop:h-[275px] laptop:mt-0 desktop:mt-0 "
 		>
-		<div className="ml-[30px]">
-			<label
-			htmlFor="one"
-			className="text-[10px] font-[400]  font-sora phone:text-[9px]  Large-phone:text-[10px] laptop:text-[10px]"
-			>
-			{getText("USERNAME")}
-			</label>
-			<input
-			id="one"
-			onChange={handleFormChange}
-			name="name"
-			placeholder={data.username}
-			type="text"
-			className="w-[305px] h-[31px] text-[12px] border-current border-2 rounded-full p-[15px] phone:w-[200px] phone:h-[20px] phone:text-[10px] Large-phone:w-[220px] Large-phone:h-[40px] Large-phone:text-[10px]
-																		laptop:h-[40px] laptop:text-[15px]"
-			required
-			style={{ borderColor: !errormssage ? "black" : "red" }}
-			></input>
-			{errormssage && (
-			<p className="text-red-500 text-[10px]">{errormssage}</p>
-			)}
-		</div>
-
+		<UsernameInput handleFormChange={handleFormChange} data={data} getText={getText} errormssage={errormssage} seterrormssage={seterrormssage} seterroruser={seterroruser}/>
 		<div className="ml-[30px]">
 			<label
 			htmlFor="tow"
