@@ -8,6 +8,7 @@ import Sign_up_page from "./components/User-Info/User_Info";
 import Success_div from "./components/success/Success";
 import Text_success from "./components/text_svg/text_success";
 import Cursor from "./components/landing-page/Cursor";
+import Head from "next/head";
 
 function Sign_up()
 {
@@ -15,6 +16,10 @@ function Sign_up()
 	const [showSecondComponent, setShowSecondComponent] = useState(false);
 	const [changeColor, setChangeColor] = useState(false);
 	return (
+		<div>
+			<Head>
+				<title>Pong Game ,sign-up Page</title>
+			</Head>
 			<div className="m-0 h-[100vh] w-[100%] relative overflow-hidden overscroll-none bg-[#070012]">
 						<Cursor setColor={setChangeColor} color={changeColor}/>
 						<Svg_image setColor={setChangeColor} color={changeColor}/>
@@ -26,6 +31,7 @@ function Sign_up()
 						{showFirstComponent && <Sign_up_page setShowFirstComponent={setShowFirstComponent} setShowSecondComponent={setShowSecondComponent}/>}
 						{showSecondComponent && <Success_div/>}
 			 </div>
+		</div>
 		)
 }
 
