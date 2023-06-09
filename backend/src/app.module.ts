@@ -1,5 +1,4 @@
-import { TwoFactorService } from './auth/2fa/twofactor.service';
-import { TwoFactorController } from './auth/2fa/twofactor.controller';
+import { FriendsModule } from './friend/friends.module';
 import { TwoFactorModule } from './auth/2fa/twofactor.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -9,10 +8,9 @@ import { LangModule } from './lang/lang.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [
-    TwoFactorModule, AuthModule, LangModule, UserModule],
+  imports: [ FriendsModule, TwoFactorModule, AuthModule, LangModule, UserModule],
   controllers: [AppController],
-  providers: [ AppService],
+  providers: [AppService],
 })
 export class AppModule { }
 
