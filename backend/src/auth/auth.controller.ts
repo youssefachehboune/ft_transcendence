@@ -5,7 +5,9 @@ import { GoogleGuard } from './guards/google.guard';
 import { JwtGuard } from './guards/jwt.guard';
 import { JwtRefreshGuard } from './guards/jwtrefresh.guard';
 import { IntraGuard } from './guards/intra.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('authentication')
 @Controller()
 export class AuthController {
   constructor(private AuthService: AuthService) {}
