@@ -11,67 +11,70 @@ const prisma = new PrismaClient();
 
 @Catch(TokenError)
 export class TokenErrorFilter implements ExceptionFilter {
-  catch(exception: TokenError, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse();
+	catch(exception: TokenError, host: ArgumentsHost) {
+		const ctx = host.switchToHttp();
+		const response = ctx.getResponse();
 
-    if (exception.name === 'TokenError') {
-      if (exception.message === 'Malformed auth code.') {
-        response.status(400).json({ error: 'Malformed auth code' });
-      } else if (exception.message === 'Bad Request') {
-        response.status(400).json({ error: 'Bad Request' });
-      } else {
-        response.status(500).json({ error: 'Internal Server Error' });
-      }
-    } else {
-      response.status(500).json({ error: 'Internal Server Error' });
-    }
-  }
+		if (exception.name === 'TokenError') {
+			if (exception.message === 'Malformed auth code.') {
+				response.status(400).json({ error: 'Malformed auth code' });
+			} else if (exception.message === 'Bad Request') {
+				response.status(400).json({ error: 'Bad Request' });
+			} else {
+				response.status(500).json({ error: 'Internal Server Error' });
+			}
+		} else {
+			response.status(500).json({ error: 'Internal Server Error' });
+		}
+	}
 }
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService) {}
+	constructor(private jwtService: JwtService) { }
 
-  async login(user) {
-  	const payload: JwtPayload = { email: user.email, sub: user.id };
+	async login(user) {
+		const dbuser = await prisma.user.findUnique({
+			where: { email: user.email }
+		})
+		const payload: JwtPayload = { email: dbuser.email, sub: dbuser.id };
 		const accesstoken = this.jwtService.sign(payload, {
-		  secret: process.env.JWT_SECRET,
-		  expiresIn: process.env.JWT_EXPIRATION_TIME
+			secret: process.env.JWT_SECRET,
+			expiresIn: process.env.JWT_EXPIRATION_TIME
 		});
-		const refreshtoken = this.jwtService.sign(payload,{
-		  secret: process.env.JWT_REFRESH_SECRET,
-		  expiresIn: process.env.JWT_REFRESH_EXPIRATION_TIME
+		const refreshtoken = this.jwtService.sign(payload, {
+			secret: process.env.JWT_REFRESH_SECRET,
+			expiresIn: process.env.JWT_REFRESH_EXPIRATION_TIME
 		});
 		await prisma.user.update({
-		  where: { email: user.email },
-		  data: { refreshToken: await bcrypt.hash(refreshtoken, 10) }
+			where: { email: user.email },
+			data: { refreshToken: await bcrypt.hash(refreshtoken, 10) }
 		});
 		return { accessToken: accesstoken, refreshToken: refreshtoken };
-  }
+	}
 
-  async refreshToken(email:string, refreshtoken:string) {
+	async refreshToken(email: string, refreshtoken: string) {
 		const user = await prisma.user.findUnique({
-		  where: { email: email },
+			where: { email: email },
 		});
 		if (!user) {
 			throw new ForbiddenException('Forbidden');
 		}
 		if (! await bcrypt.compare(refreshtoken, user.refreshToken)) {
-		  throw new ForbiddenException('Forbidden');
+			throw new ForbiddenException('Forbidden');
 		}
-  	const payload: JwtPayload = { email: user.email, sub: user.id };
+		const payload: JwtPayload = { email: user.email, sub: user.id };
 		const accesstoken = this.jwtService.sign(payload, {
-		  secret: process.env.JWT_SECRET,
-		  expiresIn: process.env.JWT_EXPIRATION_TIME
+			secret: process.env.JWT_SECRET,
+			expiresIn: process.env.JWT_EXPIRATION_TIME
 		});
 		return { newaccessToken: accesstoken };
-  }
+	}
 
-  async logout(email: string) {
-	await prisma.user.update({
-      where: { email: email },
-      data: { refreshToken: null },
-    });
-  }
+	async logout(email: string) {
+		await prisma.user.update({
+			where: { email: email },
+			data: { refreshToken: null },
+		});
+	}
 }

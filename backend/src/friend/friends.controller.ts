@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiTags , ApiParam} from '@nestjs/swagger';
 import { FriendsService } from './friends.service';
 import { Request } from 'express';
@@ -20,5 +20,12 @@ export class FriendsController {
     @ApiParam({name: 'status', enum: ['REQUESTED', 'BLOCKED'], type: 'string', description: 'The status of friend requests', })
     async getFriendRequests(@Req() req: Request, @Param('status') status: 'REQUESTED' | 'BLOCKED') {
         return await this.friendsService.getFriendsByStatus(req, status);
+    }
+
+    @Post(':username')
+    @ApiParam({name: 'username', type: 'string', description: 'The username of the user to add as a friend', })
+    @UseGuards(JwtGuard)
+    async addFriend(@Req() req: Request, @Param('username') username: string) {
+        return await this.friendsService.addFriend(req, username);
     }
 }
