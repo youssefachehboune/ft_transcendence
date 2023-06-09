@@ -9,7 +9,7 @@ export class FriendsService {
   constructor() {
     this.prisma = new PrismaClient();
   }
-  async getFriends(req: Request) {
+  async getFriendsList(req: Request) {
     try {
       const user: User = await this.prisma.user.findUnique({
         where: { email: req.user["email"] },
@@ -57,24 +57,26 @@ export class FriendsService {
     }
   }
 
-  async getFriendRequests(req: Request) {
+  async getFriendsByStatus(req: Request, status: "REQUESTED" | "BLOCKED") {
     try {
       const user: User = await this.prisma.user.findUnique({
         where: { email: req.user["email"] },
       });
-
-      const friendRequests = await this.prisma.friendship.findMany({
+  
+      const friends = await this.prisma.friendship.findMany({
         where: {
-          friend_id: user.id,
-          status: "REQUESTED"
-        }
+          [status === "REQUESTED" ? "friend_id" : "user_id"]: user.id,
+          status: status,
+        },
       });
-
-      const friendIds = friendRequests.map(element => element.user_id);
-
+  
+      const friendIds = friends.map((element) =>
+        status === "REQUESTED" ? element.user_id : element.friend_id
+      );
+  
       const profileFriends = await this.prisma.userProfile.findMany({
         where: {
-          user_id: { in: friendIds }
+          user_id: { in: friendIds },
         },
         select: {
           user_id: true,
@@ -82,9 +84,9 @@ export class FriendsService {
           firstName: true,
           lastName: true,
           username: true,
-        }
+        },
       });
-
+  
       return profileFriends;
     } catch (error) {
       console.error("An error occurred:", error);
@@ -93,4 +95,6 @@ export class FriendsService {
       };
     }
   }
+  
+  
 }
