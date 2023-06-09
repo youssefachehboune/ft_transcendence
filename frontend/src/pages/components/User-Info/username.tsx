@@ -42,7 +42,7 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
     <div className="ml-[30px]">
       <label
         htmlFor="one"
-        className="text-[10px] font-[400] font-sora phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]"
+        className="text-[10px] font-sora font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]"
       >
         {getText('USERNAME')}
 		<span className='text-orange'> *</span>

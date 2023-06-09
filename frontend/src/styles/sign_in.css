@@ -14,7 +14,7 @@
 }
 .Login_join_text
 {
-	@apply text-[25px] font-ibm-plex-sans-kr font-semibold
+	@apply text-[25px] font-sora  font-semibold
 			phone:text-[15px]
 			Large-phone:text-[18px]
 			laptop:text-[20px]
@@ -22,7 +22,7 @@
 
 .Login_sign_text
 {
-	@apply text-[25px]  font-ibm-plex-sans font-semibold
+	@apply text-[25px]  font-sora  font-semibold
 			phone:text-[15px] 
 			Large-phone:text-[18px]
 			laptop:text-[20px]
@@ -30,7 +30,7 @@
 
 .Emoji_icone
 {
-	@apply w-[90px] h-[90px] rounded-[50%] shadow-shdow
+	@apply w-[90px] h-[90px] rounded-[50%] shadow-shdow 
 			phone:w-[45px] phone:h-[45px] phone:left-[70px]
 			Large-phone:w-[65px] Large-phone:h-[65px] Large-phone:left-[70px]
 			laptop:w-[65px] laptop:h-[65px] laptop:left-[70px]
@@ -55,7 +55,7 @@
 
 .Intra_icone
 {
-	@apply mr-[10px] 
+	@apply mr-[10px] select-none
 			phone:w-[15px]
 			Large-phone:w-[20px]
 			laptop:w-[20px]
@@ -78,9 +78,9 @@
 			laptop:text-[15px] 
 }
 
-.Google_icone
+.Google_icone 
 {
-	@apply mr-[10px] 
+	@apply mr-[10px] select-none
 			phone:w-[15px] 
 			laptop:w-[20px]
 }
@@ -94,7 +94,7 @@
 }
 .go_back_text 
 {
-	@apply  text-[15px] font-fredoka font-medium
+	@apply  text-[15px] font-sora  font-medium
 	phone:text-[8px]
 	 Large-phone:text-[11px]
 	laptop:text-[15px]

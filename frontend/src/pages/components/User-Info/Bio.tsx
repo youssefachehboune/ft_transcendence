@@ -41,7 +41,7 @@ const Bioinpute = ({ handleFormChange, getText, setErrorBio} : any) => {
 	<div className="ml-[30px]">
 	<label
 	htmlFor="tow"
-	className=" text-[10px] font-[400] phone:text-[9px] phone:mr-[80px] Large-phone:text-[10px] laptop:text-[10px]"
+	className=" text-[10px] font-[400] font-sora  phone:text-[9px] phone:mr-[80px] Large-phone:text-[10px] laptop:text-[10px]"
 	>
 	{getText("BIO")}
 	<span className='text-orange'> *</span>

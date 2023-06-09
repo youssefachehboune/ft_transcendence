@@ -19,7 +19,7 @@ const  Svg_image = (props : colorProp) =>
 	}
 	return(
 		<div>
-				<img src="Vector.svg" onMouseLeave={changeValueColorFalse} onMouseEnter={changeValueColorTrue} className="svg_img" />
+				<img src="Vector.svg" onMouseLeave={changeValueColorFalse} onMouseEnter={changeValueColorTrue} className="svg_img select-none" />
 		</div>
 	)
 }

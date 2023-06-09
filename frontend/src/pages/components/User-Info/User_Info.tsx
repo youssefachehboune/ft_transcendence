@@ -220,7 +220,7 @@ import Bioinpute from "./Bio";
 		</div>
 		<Link
 			href={"/2fa"}
-			className="text-[#00DAEA] mb-[-10px] tracking-[0.02em]  text-[14px] font-ibm-plex-sans font-[600] phone:text-[10px] phone:mb-[5px] Large-phone:text-[10px] Large-phone:tracking-[0] desktop:mt-[5px]"
+			className="text-[#00DAEA] mb-[-10px] tracking-[0.02em]  text-[14px] font-sora font-[600] phone:text-[10px] phone:mb-[5px] Large-phone:text-[10px] Large-phone:tracking-[0] desktop:mt-[5px]"
 		>
 			{getText("SKIP")}
 		</Link>
