@@ -115,7 +115,7 @@ import Bioinpute from "./Bio";
 		</h1>
 		<div className="w-[130px] h-[130px] phone:w-[70px] phone:h-[70px] Large-phone:w-[80px] Large-phone:h-[80px] desktop:w-[120px]  desktop:h-[120px] laptop:w-[90px] laptop:h-[90px]">
 			<img
-			className="w-full h-full rounded-full border-[#00DAEA] border-[1.5px] mt-[10px]"
+			className="w-full h-full rounded-full border-[#00DAEA] border-[1.5px] mt-[10px] select-none"
 			src={avatar}
 			/>
 		</div>
@@ -128,47 +128,47 @@ import Bioinpute from "./Bio";
 
 		<div className="flex w-[220px] h-[70px] ml-[80px] justify-around items-center phone:w-[180px] phone:h-[35px] phone:ml-[35px] Large-phone:w-[180px] Large-phone:h-[40px] Large-phone:ml-[45px] laptop:h-[45px] laptop:w-[180px] laptop:ml-[90px] desktop:h-[50px]">
 		<img
-			src={avatar == return_avatar ? "https://api.dicebear.com/6.x/miniavs/svg?seed=Felix" : return_avatar}
+			src={avatar == return_avatar ? "https://api.dicebear.com/6.x/bottts/svg?eyes=bulging,dizzy,eva" : return_avatar}
 			onClick={() =>
 			handleAvatarSelection(
-				avatar == return_avatar ? "https://api.dicebear.com/6.x/miniavs/svg?seed=Felix" : return_avatar
+				avatar == return_avatar ? "https://api.dicebear.com/6.x/bottts/svg?eyes=bulging,dizzy,eva" : return_avatar
 			)
 			}
-			className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
+			className="w-[32px] h-[32px] select-none rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
 		/>
 		<img
-			src="https://api.dicebear.com/6.x/miniavs/svg"
+			src="https://api.dicebear.com/6.x/bottts/svg?baseColor=00acc1,1e88e5,5e35b1"
 			onClick={() =>
-			handleAvatarSelection("https://api.dicebear.com/6.x/miniavs/svg")
+			handleAvatarSelection("https://api.dicebear.com/6.x/bottts/svg?baseColor=00acc1,1e88e5,5e35b1")
 			}
-			className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
+			className="w-[32px] select-none h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
 		/>
 		<img
-			src="https://api.dicebear.com/6.x/adventurer/svg?seed=Aneka"
-			onClick={() =>
-			handleAvatarSelection(
-				"https://api.dicebear.com/6.x/adventurer/svg?seed=Aneka"
-			)
-			}
-			className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
-		/>
-		<img
-			src="https://api.dicebear.com/6.x/adventurer/svg?seed=Felix"
+			src="https://api.dicebear.com/6.x/bottts/svg?backgroundType=gradientLinear,solid"
 			onClick={() =>
 			handleAvatarSelection(
-				"https://api.dicebear.com/6.x/adventurer/svg?seed=Felix"
+				"https://api.dicebear.com/6.x/bottts/svg?backgroundType=gradientLinear,solid"
 			)
 			}
-			className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
+			className="w-[32px] select-none h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
 		/>
 		<img
-			src="https://api.dicebear.com/6.x/adventurer/svg?backgroundRotation=0,360"
+			src="https://api.dicebear.com/6.x/bottts/svg?seed=Aneka"
 			onClick={() =>
 			handleAvatarSelection(
-				"https://api.dicebear.com/6.x/adventurer/svg?backgroundRotation=0,360"
+				"https://api.dicebear.com/6.x/bottts/svg?seed=Aneka"
 			)
 			}
-			className="w-[32px] h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
+			className="w-[32px] select-none h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
+		/>
+		<img
+			src="https://api.dicebear.com/6.x/bottts/svg?seed=Felix"
+			onClick={() =>
+			handleAvatarSelection(
+				"https://api.dicebear.com/6.x/bottts/svg?seed=Felix"
+			)
+			}
+			className="w-[32px] select-none h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
 		/>
 		</div>
 

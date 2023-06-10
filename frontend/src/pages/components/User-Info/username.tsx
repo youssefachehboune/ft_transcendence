@@ -5,13 +5,13 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
   const [error, setError] = useState('');
   const error_user_alredy_exist = getText('USERALREDYEXIST');
   const error_user_alphanumeric = getText('USERALPHANUMERIC')
-  const error_user_max_charcterc  = getText('USERMAXCARACTER')
+  const error_user_max_charcter  = getText('USERMAXCARACTER')
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 	seterrormssage('')
     if (value.length > 15) {
 		setUsername(value.substring(0, 15));
-		setError( error_user_alphanumeric);
+		setError( error_user_max_charcter);
 		seterroruser(false);
 	  } else {
 		let containsNonAlphanumeric = false;
@@ -29,7 +29,7 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
   
 		if (containsNonAlphanumeric) {
 		  setUsername(value);
-		  setError(error_user_max_charcterc);
+		  setError(error_user_alphanumeric);
 		  seterroruser(false);
 		} else {
 		  setUsername(value);
