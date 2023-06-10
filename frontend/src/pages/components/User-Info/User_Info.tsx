@@ -98,7 +98,7 @@ import Bioinpute from "./Bio";
 	};
 
 	return (
-	<div className="w-[378px] h-[675px] bg-white absolute z-[100] right-[55%] bottom-[20%] rounded-[20px]
+	<div className="w-[378px] h-[675px] bg-white absolute z-[100] right-[55%] bottom-[20%] rounded-[15px]
 							phone:w-[250px] phone:h-[450px] phone:right-[20%] phone:bottom-[5%]
 							Large-phone:w-[270px] Large-phone:h-[510px] Large-phone:right-[30%] Large-phone:bottom-[10%]
 							laptop:w-[358px] laptop:h-[550px] laptop:right-[40%] laptop:bottom-[5%]
