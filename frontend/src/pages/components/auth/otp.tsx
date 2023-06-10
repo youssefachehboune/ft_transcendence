@@ -5,8 +5,12 @@ import { useRouter } from "next/router";
     isValid: boolean;
   }
 
+  interface Prop {
+    val: boolean;
+    setVal : (val : boolean) => void;
+  }
 let currentOTPIndex:number = 0;
-const OTPField = () => {
+const OTPField = (props : Prop) => {
     const router = useRouter();
     const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
     const [activeOTPIndex, setactiveOTPIndex] = useState<number>(0);
@@ -46,6 +50,7 @@ const OTPField = () => {
       {
         setIsValid(true);
         a = true;
+        props.setVal(false);
       }
       else
       {

@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import Verfie from './Verification';
 import OTPField from './otp';
-const MyComponent = () => {
+
+interface Prop {
+    val: boolean;
+    setVal : (val : boolean) => void;
+  }
+
+const MyComponent = (props : Prop) => {
 
   return (
     <div className="generate">
@@ -16,7 +22,7 @@ const MyComponent = () => {
             </div>
         </div>
         <Verfie/>
-        <OTPField/>
+        <OTPField setVal={props.setVal} val={props.val}/>
         <div className="w-[100%] h-[7.4%] flex items-end justify-center ">
             <a className="font-sora font-regular text-[12px] text-[#24BD86] leading-[15px] cursor-none">Skip for now</a>
         </div>
