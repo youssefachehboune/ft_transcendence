@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiTags , ApiParam} from '@nestjs/swagger';
-import { FriendsService } from './friends.service';
+import { FriendsService, FriendshipUpdateData, Status } from './friends.service';
 import { Request } from 'express';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
@@ -22,10 +22,11 @@ export class FriendsController {
         return await this.friendsService.getFriendsByStatus(req, status);
     }
 
-    @Post(':username')
-    @ApiParam({name: 'username', type: 'string', description: 'The username of the user to add as a friend', })
+    @Post(':username/:status')
+    @ApiParam({name: 'status', enum: Status, type: 'string', description: 'the new status of the friendship', })
+    @ApiParam({name: 'username', type: 'string', description: 'The username of the user to update status', })
     @UseGuards(JwtGuard)
-    async addFriend(@Req() req: Request, @Param('username') username: string) {
-        return await this.friendsService.addFriend(req, username);
+    async updateFriendStatus(@Req() req: Request, @Param('status') status: Status, @Param('username') username: string): Promise<FriendshipUpdateData | {message: string}> {
+        return await this.friendsService.updateFriendStatus(req, status, username);
     }
 }

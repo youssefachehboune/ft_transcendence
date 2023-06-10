@@ -3,10 +3,20 @@ import { Injectable } from '@nestjs/common';
 import { Friendship, FriendshipStatus, UserProfile } from '@prisma/client';
 import { Request } from 'express';
 
-interface FriendshipUpdateData {
-  status: FriendshipStatus;
+export interface FriendshipUpdateData {
+  status?: FriendshipStatus;
   user_id?: number;
   friend_id?: number;
+}
+
+export enum Status {
+  REQUEST = 'REQUEST',
+  ACCEPT = 'ACCEPT',
+  REJECT = 'REJECT',
+  BLOCK = 'BLOCK',
+  UNBLOCK = 'UNBLOCK',
+  UNFRIEND = 'UNFRIEND',
+  REMOVE = 'REMOVE',
 }
 
 @Injectable()
@@ -102,57 +112,166 @@ export class FriendsService {
       };
     }
   }
-  async addFriend(req: Request, username: string) {
-    try {
-      const user: User = await this.prisma.user.findUnique({
-        where: { email: req.user["email"] },
-      });
-      const friendProfile : UserProfile = await this.prisma.userProfile.findUnique({
-         where: { username } 
-      });
-      if (!friendProfile || friendProfile.user_id === user.id) {
-        return { message: "User not found" };
+
+  async UpdateStatusFromRequest(req: Request, status: Status, user: User, friendProfile: UserProfile, friendship: Friendship): Promise<FriendshipUpdateData | { message: string }> {
+    let updateData: FriendshipUpdateData = {};
+    if (friendship.user_id !== user.id) {
+      updateData.user_id = user.id;
+      updateData.friend_id = friendProfile.user_id;
+    }
+    switch (status) {
+      case 'ACCEPT':
+        if (friendship.user_id == user.id)
+          return { message: "You can't accept your own request" };
+        else
+          updateData.status = 'FRIENDS';
+        break;
+      case 'REJECT':
+        if (friendship.user_id == user.id)
+          return { message: "You can't reject your own request" };
+        else
+          updateData.status = 'NOTFRIENDS';
+        break;
+      case 'BLOCK':
+        updateData.status = 'BLOCKED';
+        break;
+      case 'REMOVE':
+        if (friendship.friend_id == user.id)
+          return { message: "You can't remove your own request" };
+        else
+          updateData.status = 'NOTFRIENDS';
+        break;
+      default:
+        return { message: "You can't do this action" };
+    }
+    return await this.prisma.friendship.update({
+      where: { id: friendship.id },
+      data: updateData,
+    });
+
+  }
+
+  async updateStatusFromFriends(req: Request, status: Status, user: User, friendProfile: UserProfile, friendship: Friendship): Promise<FriendshipUpdateData | { message: string }> {
+    let updateData: FriendshipUpdateData = {};
+    if (friendship.user_id !== user.id) {
+      updateData.user_id = user.id;
+      updateData.friend_id = friendProfile.user_id;
+    }
+    switch (status) {
+      case 'UNFRIEND':
+        if (friendship.user_id == user.id)
+          return { message: "You can't unfriend yourself" };
+        else
+          updateData.status = 'NOTFRIENDS';
+        break;
+      case 'UNBLOCK':
+        updateData.status = 'NOTFRIENDS';
+        break;
+      default:
+        return { message: "You can't do this action" };
+    }
+    return await this.prisma.friendship.update({
+      where: { id: friendship.id },
+      data: updateData,
+    });
+  }
+
+  async updateStatusFromBlocked(req: Request, status: Status, user: User, friendProfile: UserProfile, friendship: Friendship): Promise<FriendshipUpdateData | { message: string }> {
+    let updateData: FriendshipUpdateData = {};
+    if (friendship.user_id !== user.id) {
+      updateData.user_id = user.id;
+      updateData.friend_id = friendProfile.user_id;
+    }
+    switch (status) {
+      case 'UNBLOCK':
+        if (friendship.user_id !== user.id)
+          return { message: "You can't unblock yourself" };
+        updateData.status = 'NOTFRIENDS';
+        break;
+      default:
+        return { message: "You can't do this action" };
+    }
+    return await this.prisma.friendship.update({
+      where: { id: friendship.id },
+      data: updateData,
+    });
+  }
+
+
+  async updateStatusFromNotFriends(req: Request, status: Status, user: User, friendProfile: UserProfile, friendship: Friendship): Promise<FriendshipUpdateData | { message: string }> {
+    let updateData: FriendshipUpdateData = {};
+    if (friendship.user_id !== user.id) {
+      updateData.user_id = user.id;
+      updateData.friend_id = friendProfile.user_id;
+    }
+    switch (status) {
+      case 'REQUEST':
+        updateData.status = 'REQUESTED';
+        break;
+      case 'BLOCK':
+        updateData.status = 'BLOCKED';
+        break;
+      default:
+        return { message: "You can't do this action" };
+    }
+    return await this.prisma.friendship.update({
+      where: { id: friendship.id },
+      data: updateData,
+    });
+  }
+
+
+  async createFriendship(req: Request, status: FriendshipStatus, user: User, friendProfile: UserProfile): Promise<Friendship> {
+    return await this.prisma.friendship.create({
+      data: {
+        user_id: user.id,
+        friend_id: friendProfile.user_id,
+        status: status,
+      },
+    });
+  }
+
+  async updateFriendStatus(req: Request, status: Status, username: string): Promise<FriendshipUpdateData | { message: string }> {
+    const user: User = await this.prisma.user.findUnique({
+      where: { email: req.user["email"] },
+    });
+    const friendProfile: UserProfile = await this.prisma.userProfile.findUnique({
+      where: { username: username },
+    });
+    if (!friendProfile) {
+      return { message: "User Not Found" };
+    }
+    const friendship: Friendship = await this.prisma.friendship.findFirst({
+      where: {
+        OR: [
+          { user_id: user.id, friend_id: friendProfile.user_id },
+          { user_id: friendProfile.user_id, friend_id: user.id },
+        ],
+      },
+    });
+    if (friendship)
+      switch (friendship.status) {
+        case 'FRIENDS':
+          return await this.updateStatusFromFriends(req, status, user, friendProfile, friendship);
+        case 'REQUESTED':
+          return await this.UpdateStatusFromRequest(req, status, user, friendProfile, friendship);
+        case 'BLOCKED':
+          return await this.updateStatusFromBlocked(req, status, user, friendProfile, friendship);
+        case 'NOTFRIENDS':
+          return await this.updateStatusFromNotFriends(req, status, user, friendProfile, friendship);
       }
-      const friendship : Friendship = await this.prisma.friendship.findFirst({
-        where: {
-          OR: [
-            { user_id: user.id, friend_id: friendProfile.user_id },
-            { user_id: friendProfile.user_id, friend_id: user.id },
-          ],
-        },
-      });
-      if (!friendship) {
-        await this.prisma.friendship.create({
-          data: {
-            user_id: user.id,
-            friend_id: friendProfile.user_id,
-            status: "REQUESTED",
-          },
-        });
-      } else if (friendship.status === "NOTFRIENDS") {
-        const updateData: FriendshipUpdateData = {
-          status: "REQUESTED",
-        };
-  
-        if (friendship.user_id !== user.id) {
-          updateData.user_id = user.id;
-          updateData.friend_id = friendProfile.user_id;
-        }
-  
-        await this.prisma.friendship.update({
-          where: {
-            id: friendship.id,
-          },
-          data: updateData,
-        });
-      } else {
-        return { message: "You can't add this user" };
+    else if (!friendship && (status == 'ACCEPT' || status == 'REJECT' || status == 'REMOVE' || status == 'UNFRIEND' || status == 'UNBLOCK')) {
+      return { message: "You can't do this action" };
+    }
+    else {
+      switch (status) {
+        case 'REQUEST':
+          return await this.createFriendship(req, 'REQUESTED', user, friendProfile);
+        case 'BLOCK':
+          return await this.createFriendship(req, 'BLOCKED', user, friendProfile);
+        default:
+          return { message: "You can't do this action" };
       }
-  
-      return { message: "The request is sent" };
-    } catch (error) {
-      console.error("An error occurred:", error);
-      return { message: "An error occurred" };
     }
   }
 }
