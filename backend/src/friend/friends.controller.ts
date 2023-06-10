@@ -22,7 +22,7 @@ export class FriendsController {
         return await this.friendsService.getFriendsByStatus(req, status);
     }
 
-    @Post(':username/:status')
+    @Post(':status/:username')
     @ApiParam({name: 'status', enum: Status, type: 'string', description: 'the new status of the friendship', })
     @ApiParam({name: 'username', type: 'string', description: 'The username of the user to update status', })
     @UseGuards(JwtGuard)

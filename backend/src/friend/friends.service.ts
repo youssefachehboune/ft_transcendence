@@ -159,13 +159,10 @@ export class FriendsService {
     }
     switch (status) {
       case 'UNFRIEND':
-        if (friendship.user_id == user.id)
-          return { message: "You can't unfriend yourself" };
-        else
           updateData.status = 'NOTFRIENDS';
         break;
-      case 'UNBLOCK':
-        updateData.status = 'NOTFRIENDS';
+      case 'BLOCK':
+        updateData.status = 'BLOCKED';
         break;
       default:
         return { message: "You can't do this action" };
