@@ -15,40 +15,38 @@
 .test:before
 {
 	content: "";
-	background: #FFF;
+	background: rgb(255, 255, 255);
 	width: 8%;
-	height: 100%;
+	height: 8%;
 	position: absolute;
-	right: -1px;
-	animation: a 1s linear infinite;
+	right: 12%;
+	animation: a 1.5s linear infinite;
 }
 
 @keyframes a
 {
 	100%
 	{
-		right: -22px;
+		right: 3%;
 	}
 }
 .emoji_icone
 {
-	@apply w-[116px] h-[116px] absolute bottom-[50%] left-[35%]
+	@apply w-[116px] h-[116px]
 			phone:w-[80px] phone:h-[80px]
 			Large-phone:w-[85px] Large-phone:h-[85px]
 }
 
 .success_title
 {
-	@apply font-sora text-[50px] font-semibold leading-[79px] absolute bottom-[30%] left-[25%]
-			phone:text-[35px] phone:bottom-[25%]
-			Large-phone:text-[35px]  Large-phone:bottom-[27%]
-			laptop:bottom-[27%]
+	@apply font-sora text-[60px] font-semibold leading-[79px]
+			phone:text-[35px]
+			Large-phone:text-[35px] 
 }
 
 .success_text
 {
-	@apply font-sora  text-[20px] leading-[24px] font-normal absolute bottom-[25%] left-[22%]
-			phone:text-[15px] phone:bottom-[20%] 
+	@apply font-sora  text-[20px] leading-[24px] font-normal
+			phone:text-[15px]
 			Large-phone:text-[15px] 
-			laptop:bottom-[20%]
 }

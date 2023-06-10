@@ -193,12 +193,12 @@ import Bioinpute from "./Bio";
 		<form onSubmit={handleSubmit} className="w-full h-[291px]  flex flex-col justify-around items-center mt-[10px] phone:h-[260px] phone:mt-[-5px] Large-phone:h-[260px] desktop:h-[260px] laptop:h-[285px] laptop:mt-0 desktop:mt-0 ">
 		<UsernameInput handleFormChange={handleFormChange} data={data} getText={getText} errormssage={errormssage} seterrormssage={seterrormssage} seterroruser={seterroruser}/>
 		<Bioinpute handleFormChange={handleFormChange}  getText={getText} setErrorBio={setErrorBio}/>
-
-
 		<div className="ml-[30px]">
-			<label htmlFor="tree" className="text-[10px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]">{getText("LOCATION")}<span className='text-orange'> *</span></label>
+			<label htmlFor="tree" className="text-[12px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]">{getText("LOCATION")}<span className='text-orange'> *</span></label>
 			<CountryDropdown setCountry={setname_countrie} />
 		</div>
+
+
 
 		<div>
 			<button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}

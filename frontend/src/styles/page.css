@@ -77,7 +77,7 @@
 }
 .svg_text
 {
-	@apply z-10 text-white absolute right-[5%] top-[30%] text-[50px] w-[470px] animate-text-animation duration-500 font-sora  font-extrabold 
+	@apply z-10 text-white absolute right-[5%] top-[30%] text-[50px] w-[470px] animate-text-animation duration-500 font-sora  font-extrabold text-center
 			phone:right-[5%] phone:text-[20px] phone:w-[190px] phone:top-[18%]
 			Large-phone:text-[20px] Large-phone:w-[200px] Large-phone:top-[18%] Large-phone:right-[10%]
 			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%] laptop:right-[10%]
