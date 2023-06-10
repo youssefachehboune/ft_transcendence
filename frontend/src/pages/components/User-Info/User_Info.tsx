@@ -20,6 +20,19 @@ import Bioinpute from "./Bio";
 	const [erroruser , seterroruser] = useState<boolean>(true);
 	const [ErrorBio , setErrorBio] = useState<boolean>(true);
 	const [data, setdata] = useState<any>('');
+	const [errormssage, seterrormssage] = useState<string>("");
+	const return_avatar = data.avatar;
+	const [name_countrie, setname_countrie] = useState<string>("");
+	const fileInputRef = useRef<HTMLInputElement>(null);
+	const [selectedAvatar, setSelectedAvatar] = useState<string>("");
+	const router = useRouter();
+	const avatar = selectedAvatar ? selectedAvatar : return_avatar;
+	const [errorLargeimg, seterrorLargeimg] = useState<boolean>(false);
+	const [formData, setFormData] = useState<FormData>({
+		name: "",
+		bio: "",
+	});
+	const test = getText('LARGEIMG')
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -33,18 +46,6 @@ import Bioinpute from "./Bio";
 			fetchData();
 		}
 		}, [data]);
-	const [errormssage, seterrormssage] = useState<string>("");
-	const return_avatar = data.avatar;
-	const [name_countrie, setname_countrie] = useState<string>("");
-	const fileInputRef = useRef<HTMLInputElement>(null);
-	const [selectedAvatar, setSelectedAvatar] = useState<string>("");
-	const router = useRouter();
-	const avatar = selectedAvatar ? selectedAvatar : return_avatar;
-	const [errorLargeimg, seterrorLargeimg] = useState<boolean>(false);
-	const [formData, setFormData] = useState<FormData>({
-	name: "",
-	bio: "",
-	});
 
 	const MAX_IMAGE_SIZE = 80000;
 	const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -120,7 +121,7 @@ import Bioinpute from "./Bio";
 		</div>
 		{errorLargeimg && (
 			<p className="text-red-500 text-[10px] mt-[15px] phone:mt-[9px] phone:text-[8px] Large-phone:mt-[9px] Large-phone:text-[8px]">
-			{"the image is to large: max size(80kb)"}
+			{test}
 			</p>
 		)}
 		</div>
@@ -220,7 +221,7 @@ import Bioinpute from "./Bio";
 		</div>
 		<Link
 			href={"/2fa"}
-			className="text-[#00DAEA] mb-[-10px] tracking-[0.02em]  text-[14px] font-sora font-[600] phone:text-[10px] phone:mb-[5px] Large-phone:text-[10px] Large-phone:tracking-[0] desktop:mt-[5px]"
+			className="text-[#00DAEA] mb-[-10px] text-[14px] font-sora font-[600] phone:text-[10px] phone:mb-[5px] Large-phone:text-[10px] Large-phone:tracking-[0] desktop:mt-[5px]"
 		>
 			{getText("SKIP")}
 		</Link>

@@ -21,7 +21,7 @@ async function updateUser(data : any, dep: any) {
 				if (result.statusCode == 400)
 				{
 					if (data.username)
-						dep.error("this username is already in use")
+						dep.error("--")
 				}
 			}
 		} catch (error) {

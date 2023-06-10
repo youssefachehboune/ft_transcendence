@@ -16,10 +16,10 @@
 {
 	content: "";
 	background: #FFF;
-	width: 10%;
+	width: 8%;
 	height: 100%;
 	position: absolute;
-	right: -5px;
+	right: -1px;
 	animation: a 1s linear infinite;
 }
 
@@ -27,7 +27,7 @@
 {
 	100%
 	{
-		right: -25px;
+		right: -22px;
 	}
 }
 .emoji_icone

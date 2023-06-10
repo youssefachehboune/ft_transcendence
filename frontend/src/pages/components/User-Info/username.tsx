@@ -1,15 +1,17 @@
 import { ChangeEvent, useState } from 'react';
-
+import { getText } from '@/pages/api/lang';
 const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrormssage, seterroruser} : any) => {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
-
+  const error_user_alredy_exist = getText('USERALREDYEXIST');
+  const error_user_alphanumeric = getText('USERALPHANUMERIC')
+  const error_user_max_charcterc  = getText('USERMAXCARACTER')
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 	seterrormssage('')
     if (value.length > 15) {
 		setUsername(value.substring(0, 15));
-		setError('maximum Username is 200 characters');
+		setError( error_user_alphanumeric);
 		seterroruser(false);
 	  } else {
 		let containsNonAlphanumeric = false;
@@ -27,7 +29,7 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
   
 		if (containsNonAlphanumeric) {
 		  setUsername(value);
-		  setError('Username must only contain alphanumeric characters');
+		  setError(error_user_max_charcterc);
 		  seterroruser(false);
 		} else {
 		  setUsername(value);
@@ -60,7 +62,7 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
       />
       {error && <p className="text-red-500 text-[10px] phone:text-[7px] Large-phone:text-[8px]">{error}</p>}
 	  {errormssage && (
-			<p className="text-red-500 text-[10px] phone:text-[7px] Large-phone:text-[8px]">{errormssage}</p>
+			<p className="text-red-500 text-[10px] phone:text-[7px] Large-phone:text-[8px]">{error_user_alredy_exist}</p>
 			)}
     </div>
   );

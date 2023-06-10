@@ -1,14 +1,15 @@
 import { ChangeEvent, useState } from 'react';
-
+import { getText } from '@/pages/api/lang';
 const Bioinpute = ({ handleFormChange, getText, setErrorBio} : any) => {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
-
+  const error_Bio_alphanumeric = getText('BIOALPHANUMERIC')
+  const error_Bio_max_charcterc  = getText('BIOMAXCARACTER')
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length > 200) {
 		setUsername(value.substring(0, 200));
-		setError('maximum bio is 200 characters');
+		setError(error_Bio_max_charcterc);
 		setErrorBio(false);
 	  } else {
 		let containsNonAlphanumeric = false;
@@ -26,7 +27,7 @@ const Bioinpute = ({ handleFormChange, getText, setErrorBio} : any) => {
   
 		if (containsNonAlphanumeric) {
 		  setUsername(value);
-		  setError('bio must only contain alphanumeric characters');
+		  setError(error_Bio_alphanumeric);
 		  setErrorBio(false);
 		} else {
 		  setUsername(value);
