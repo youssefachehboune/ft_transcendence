@@ -7,9 +7,10 @@ import { AuthModule } from './auth/auth.module';
 import { LangModule } from './lang/lang.module';
 import { UserModule } from './user/user.module';
 import { HistoryModule } from './history/history.module';
+import { AchievementsModule } from './achievements/achievements.module';
 
 @Module({
-  imports: [HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
+  imports: [AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
