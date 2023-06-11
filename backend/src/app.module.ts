@@ -1,3 +1,4 @@
+import { ProfileModule } from './profile/profile.module';
 import { SearchModule } from './search/search.module';
 import { TwoFactorModule } from './auth/2fa/twofactor.module';
 import { Module } from '@nestjs/common';
@@ -9,7 +10,7 @@ import { UserModule } from './user/user.module';
 import { HistoryModule } from './history/history.module';
 
 @Module({
-  imports: [HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
+  imports: [ ProfileModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
