@@ -36,7 +36,7 @@ input {
 }
 
 .generate {
-    @apply w-[378px] h-[543px] bg-white absolute top-1/4 left-[20%] rounded-[15px]
+    @apply w-[378px] z-[100] h-[543px] bg-white absolute top-1/4 left-[20%] rounded-[15px]
     desktop:w-[378px] desktop:h-[543px] desktop:left-[20%] desktop:rounded-[15px] desktop:top-[25%]
     laptop:w-[338px] laptop:h-[493px] laptop:left-[23%] laptop:top-[35%]
     Large-phone:w-[328px] Large-phone:h-[483px] Large-phone:left-[22%] Large-phone:top-[35%]
@@ -45,7 +45,7 @@ input {
 
 
 .success {
-    @apply w-[378px] h-[474px] bg-white absolute top-1/4 left-[20%] rounded-[15px] flex flex-col items-center
+    @apply w-[378px] z-[100] h-[474px] bg-white absolute top-1/4 left-[20%] rounded-[15px] flex flex-col items-center
     desktop:w-[378px] desktop:h-[474px] desktop:left-[20%] desktop:rounded-[15px] desktop:top-[25%]
     laptop:w-[338px] laptop:h-[433px] laptop:left-[23%] laptop:top-[35%]
     Large-phone:w-[328px] Large-phone:h-[423px] Large-phone:left-[22%] Large-phone:top-[35%]
@@ -66,7 +66,7 @@ input {
 
 
 .p_success {
-    @apply font-sora font-regular text-[20px] leading-[25px] text-center mt-[8%] text-[#171926]
+    @apply font-sora font-regular text-[20px] leading-[25px] text-center mt-[8%] text-[#171926] flex items-center justify-center
     desktop:text-[20px] desktop:leading-[25px] desktop:mt-[8%]
     laptop:text-[15px] laptop:leading-[20px] laptop:mt-[8%]
     Large-phone:text-[15px] Large-phone:leading-[20px] Large-phone:mt-[8%]
@@ -74,7 +74,7 @@ input {
 }
 
 .authLog {
-    @apply w-[378px] h-[284px] bg-white absolute top-1/3 left-[20%] rounded-[15px] flex flex-col items-center
+    @apply w-[378px] z-[100] h-[284px] bg-white absolute top-1/3 left-[20%] rounded-[15px] flex flex-col items-center
     desktop:w-[378px] desktop:h-[284px] desktop:left-[20%] desktop:rounded-[15px] desktop:top-1/3
     laptop:w-[338px] laptop:h-[244px] laptop:left-[23%] laptop:top-[40%]
     Large-phone:w-[328px] Large-phone:h-[233px] Large-phone:left-[22%] Large-phone:top-[40%]
@@ -88,4 +88,41 @@ input {
     laptop:w-[290px] laptop:h-[40px]
     Large-phone:w-[280px] Large-phone:h-[40px]
     phone:w-[260px] phone:h-[40px]
+}
+
+
+.loader {
+    @apply w-[24px] h-[15px] flex items-center justify-around ml-2
+}
+
+
+
+.ss {
+    width: 5px;
+    height: 5px;
+    background-color: #000;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: loader 1s ease-in-out infinite calc(-0.2s * var(--i));
+}
+
+.s1 {
+    --i: 3;
+}
+
+.s2 {
+    --i: 2;
+}
+
+.s3 {
+    --i: 1;
+}
+
+@keyframes loader {
+    from, 20% {
+        opacity: 0.9;
+    }
+    to, 80% {
+        opacity: 0.1;
+    }
 }

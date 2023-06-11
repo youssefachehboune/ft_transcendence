@@ -22,6 +22,7 @@ export default function auth() {
             } */}
             <AuthLogin />
             <Text />
+            <Rectangle />
         </div>
     );
 }
