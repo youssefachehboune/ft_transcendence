@@ -47,7 +47,7 @@
 
 .Intra_text
 {
-	@apply text-white font-medium
+	@apply text-white font-[400] font-sora
 			phone:text-[10px] phone:left-[25%]
 			Large-phone:text-[14px] Large-phone:left-[25%]
 			laptop:text-[15px]
@@ -72,7 +72,7 @@
 }
 .Google_text
 {
-	@apply  font-medium 
+	@apply  font-[400] font-sora
 			phone:text-[10px] phone:left-[25%] 
 			Large-phone:text-[14px] Large-phone:left-[25%]
 			laptop:text-[15px] 
@@ -94,7 +94,7 @@
 }
 .go_back_text 
 {
-	@apply  text-[15px] font-sora  font-medium
+	@apply  text-[15px] font-sora  font-[700]
 	phone:text-[8px]
 	 Large-phone:text-[11px]
 	laptop:text-[15px]
