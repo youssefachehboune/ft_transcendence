@@ -21,7 +21,7 @@ async function updateUser(data : any, dep: any) {
 				if (result.statusCode == 400)
 				{
 					if (data.username)
-						dep.error("--")
+						dep.error({type: "ERROR_MESSAGE", pyload: "--"})
 				}
 			}
 		} catch (error) {

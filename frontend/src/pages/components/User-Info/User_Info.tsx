@@ -1,38 +1,43 @@
-	import Link from "next/link";
 	import { AiOutlineArrowRight, AiOutlineUpload } from "react-icons/ai";
 	import CountryDropdown from "./Country";
-	import { IoCamera } from "react-icons/io5";
-	import { useState, useRef, ChangeEvent, FormEvent, useEffect } from "react";
+	import { useState, useRef, ChangeEvent, FormEvent, useEffect, useReducer } from "react";
 	import { useRouter } from "next/router";
 	import { getText } from "../../api/lang";
 	import getUser from "../../api/user";
-	import Image from "next/image";
 	import updateUser from "@/pages/api/updateuser";
-import UsernameInput from "./username";
-import Bioinpute from "./Bio";
+	import UsernameInput from "./username";
+	import Bioinpute from "./Bio";
+	import { DATA, postReduser } from "@/pages/Hooks/user_info_data";
+	import Img_profile from "./Img_profile";
+	import Chose_img from "./chose_img";
+	import Uplode_img from "./Uplode_img";
+	import Skip_link from "./Skip_link";
+
 
 	interface FormData {
 	name: string;
 	bio: string;
 	}
+	interface Signin{
+		setShowFirstComponent: React.Dispatch<React.SetStateAction<boolean>>;
+		setShowSecondComponent: React.Dispatch<React.SetStateAction<boolean>>;
+	}
 
-	const Sign_up_page = ({ setShowFirstComponent, setShowSecondComponent,}: any) => {
-	const [erroruser , seterroruser] = useState<boolean>(true);
-	const [ErrorBio , setErrorBio] = useState<boolean>(true);
-	const [data, setdata] = useState<any>('');
-	const [errormssage, seterrormssage] = useState<string>("");
-	const return_avatar = data.avatar;
-	const [name_countrie, setname_countrie] = useState<string>("");
-	const fileInputRef = useRef<HTMLInputElement>(null);
-	const [selectedAvatar, setSelectedAvatar] = useState<string>("");
+	const Sign_up_page = ({ setShowFirstComponent, setShowSecondComponent}: Signin) => {
+	
+	const [state, dispatch] = useReducer(postReduser, DATA);
+	
 	const router = useRouter();
-	const avatar = selectedAvatar ? selectedAvatar : return_avatar;
-	const [errorLargeimg, seterrorLargeimg] = useState<boolean>(false);
+	const [data, setdata] = useState<any>('');
+	const return_avatar = data.avatar;
+	const avatar = state.selectedAvatar ? state.selectedAvatar : return_avatar;
+	const MAX_IMAGE_SIZE = 80000; //80kb
 	const [formData, setFormData] = useState<FormData>({
 		name: "",
 		bio: "",
 	});
-	const test = getText('LARGEIMG')
+
+
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -47,38 +52,33 @@ import Bioinpute from "./Bio";
 		}
 		}, [data]);
 
-	const MAX_IMAGE_SIZE = 80000;
-	const [isHovered, setIsHovered] = useState<boolean>(false);
-
 	const handleMouseEnter = () => {
-	setIsHovered(true);
+		dispatch({type: "ISHOVER", pyload: true})
 	};
 
 	const handleMouseLeave = () => {
-	setIsHovered(false);
+		dispatch({type: "ISHOVER", pyload: false})
 	};
 	const handleAvatarSelection = (avatarUrl: string) => {
-	seterrorLargeimg(false);
-	setSelectedAvatar(avatarUrl);
+	dispatch({type: "ERROR_LARGEIMG", pyload: false})
+	dispatch({type: "SELECTED_AVATAR", pyload: avatarUrl})
 	};
 
 	const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
-	setSelectedAvatar("");
-	seterrorLargeimg(false);
+	dispatch({type: "SELECTED_AVATAR", pyload: ''})
+	dispatch({type: "ERROR_LARGEIMG", pyload: false})
 	const file = event.target.files?.[0];
 	const reader = new FileReader();
 
 	reader.onload = () => {
-		setSelectedAvatar(reader.result as string);
-		console.log(selectedAvatar);
+		dispatch({type: "SELECTED_AVATAR", pyload: reader.result as string})
 	};
 	if (file) {
 		if (file.size > MAX_IMAGE_SIZE) {
-		seterrorLargeimg(true);
-		setSelectedAvatar(avatar)
+		dispatch({type: "ERROR_LARGEIMG", pyload: true})
+		dispatch({type: "SELECTED_AVATAR", pyload: avatar})
 		event.target.value = "";
 		}
-		else
 		reader.readAsDataURL(file);
 	}
 	};
@@ -92,9 +92,9 @@ import Bioinpute from "./Bio";
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 	e.preventDefault();
-	seterrormssage("");
-	if (!errorLargeimg && erroruser && ErrorBio)
-		await updateUser({ bio: formData.bio,  avatar: avatar, username: formData.name, location: name_countrie}, {error: seterrormssage,first: setShowFirstComponent,second: setShowSecondComponent,tree: erroruser, for: ErrorBio});
+	dispatch({type: "ERROR_MESSAGE", pyload: ""})
+	if (!state.errorLargeimg && state.error_user && state.ErrorBio)
+		await updateUser({ bio: formData.bio,  avatar: avatar, username: formData.name, location: state.name_countrie}, {error: dispatch,first: setShowFirstComponent,second: setShowSecondComponent,tree: state.error_user, for: state.ErrorBio});
 	};
 
 	return (
@@ -104,127 +104,39 @@ import Bioinpute from "./Bio";
 							laptop:w-[358px] laptop:h-[550px] laptop:right-[40%] laptop:bottom-[5%]
 							desktop:w-[378px] desktop:h-[575px] desktop:right-[50%] desktop:bottom-[10%]">
 
-
-		<div className="w-full h-[250px] flex items-center flex-col phone:h-[145px] Large-phone:h-[160px] desktop:h-[230px] laptop:h-[190px]">
-		<h1 className="mt-[15px] font-sora text-[24px] font-[600] phone:text-[12px] Large-phone:text-[15px] desktop:text-[20px] laptop:text-[18px] ">
-			{getText("HELLO")}{" "}
-			<span className="text-[#00DAEA]">{data.firstName}</span>
-		</h1>
-		<h1 className="font-sora text-[26px] font-[700] phone:text-[17px] Large-phone:text-[18px] laptop:text-[24px]">
-			{getText("FINALIZE")}
-		</h1>
-		<div className="w-[130px] h-[130px] phone:w-[70px] phone:h-[70px] Large-phone:w-[80px] Large-phone:h-[80px] desktop:w-[120px]  desktop:h-[120px] laptop:w-[90px] laptop:h-[90px]">
-			<img
-			className="w-full h-full rounded-full border-[#00DAEA] border-[1.5px] mt-[10px] select-none"
-			src={avatar}
-			/>
-		</div>
-		{errorLargeimg && (
-			<p className="text-red-500 text-[10px] mt-[15px] phone:mt-[9px] phone:text-[8px] Large-phone:mt-[9px] Large-phone:text-[8px]">
-			{test}
-			</p>
-		)}
-		</div>
-
-		<div className="flex w-[220px] h-[70px] ml-[80px] justify-around items-center phone:w-[180px] phone:h-[35px] phone:ml-[35px] Large-phone:w-[180px] Large-phone:h-[40px] Large-phone:ml-[45px] laptop:h-[45px] laptop:w-[180px] laptop:ml-[90px] desktop:h-[50px]">
-		<img
-			src={avatar == return_avatar ? "https://api.dicebear.com/6.x/bottts/svg?eyes=bulging,dizzy,eva" : return_avatar}
-			onClick={() =>
-			handleAvatarSelection(
-				avatar == return_avatar ? "https://api.dicebear.com/6.x/bottts/svg?eyes=bulging,dizzy,eva" : return_avatar
-			)
-			}
-			className="w-[32px] h-[32px] select-none rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
-		/>
-		<img
-			src="https://api.dicebear.com/6.x/bottts/svg?baseColor=00acc1,1e88e5,5e35b1"
-			onClick={() =>
-			handleAvatarSelection("https://api.dicebear.com/6.x/bottts/svg?baseColor=00acc1,1e88e5,5e35b1")
-			}
-			className="w-[32px] select-none h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
-		/>
-		<img
-			src="https://api.dicebear.com/6.x/bottts/svg?backgroundType=gradientLinear,solid"
-			onClick={() =>
-			handleAvatarSelection(
-				"https://api.dicebear.com/6.x/bottts/svg?backgroundType=gradientLinear,solid"
-			)
-			}
-			className="w-[32px] select-none h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
-		/>
-		<img
-			src="https://api.dicebear.com/6.x/bottts/svg?seed=Aneka"
-			onClick={() =>
-			handleAvatarSelection(
-				"https://api.dicebear.com/6.x/bottts/svg?seed=Aneka"
-			)
-			}
-			className="w-[32px] select-none h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
-		/>
-		<img
-			src="https://api.dicebear.com/6.x/bottts/svg?seed=Felix"
-			onClick={() =>
-			handleAvatarSelection(
-				"https://api.dicebear.com/6.x/bottts/svg?seed=Felix"
-			)
-			}
-			className="w-[32px] select-none h-[32px] rounded-full border-[#00DAEA] border-[1.5px] cursor-pointer phone:w-[25px] phone:h-[25px] Large-phone:w-[25px] Large-phone:h-[25px] laptop:w-[27px] laptop:h-[27px]"
-		/>
-		</div>
-
-		<div className="flex justify-center h-[30px] desktop:h-[20px] laptop:h-[20px] Large-phone:h-[20px] phone:h-[15px]">
-		<label
-			htmlFor="file-input"
-			className="text-[12px] mr-[7px] font-sora font-[500] cursor-pointer phone:text-[10px] laptop:text-[13px]  Large-phone:ml-[-10px] laptop:ml-[-15px]"
-		>
-			{getText("AVATAR")}
-		</label>
-		<input
-			id="file-input"
-			ref={fileInputRef}
-			type="file"
-			accept="image/*"
-			onChange={handleImageUpload}
-			style={{ display: "none" }}
-		/>
-		<AiOutlineUpload className="mr-[-5px] phone:mr-0 Large-phone:mr-0 laptop:mr-0" />
-		</div>
+		
+		<Img_profile state={state} avatar={avatar} data={data}/>
+		<Chose_img avatar={avatar} return_avatar={return_avatar} handleAvatarSelection={handleAvatarSelection}/>
+		<Uplode_img handleImageUpload={handleImageUpload}/>
 
 		<form onSubmit={handleSubmit} className="w-full h-[291px]  flex flex-col justify-around items-center mt-[10px] phone:h-[260px] phone:mt-[-5px] Large-phone:h-[260px] desktop:h-[260px] laptop:h-[285px] laptop:mt-0 desktop:mt-0 ">
-		<UsernameInput handleFormChange={handleFormChange} data={data} getText={getText} errormssage={errormssage} seterrormssage={seterrormssage} seterroruser={seterroruser}/>
-		<Bioinpute handleFormChange={handleFormChange}  getText={getText} setErrorBio={setErrorBio}/>
-		<div className="ml-[30px]">
-			<label htmlFor="tree" className="text-[12px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]">{getText("LOCATION")}<span className='text-orange'> *</span></label>
-			<CountryDropdown setCountry={setname_countrie} />
-		</div>
+				<UsernameInput handleFormChange={handleFormChange} data={data} errormssage={state.errormssage} dispatch={dispatch}/>
+				<Bioinpute handleFormChange={handleFormChange}  dispatch={dispatch}/>
+				<div className="ml-[30px]">
+					<label htmlFor="tree" className="text-[12px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]">{getText("LOCATION")}<span className='text-orange'> *</span></label>
+					<CountryDropdown dispatch={dispatch} />
+				</div>
 
+				<div>
+					<button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
+					type={"submit"}
+					className={`w-[222px] h-[40px] relative bg-[#00DAEA] mt-[15px] rounded-[10px] border-current  border-2 border-b-[4px] phone:w-[180px] phone:mt-[5px] phone:h-[30px] Large-phone:w-[180px] Large-phone:h-[30px]`}>
+					<AiOutlineArrowRight
+					color="black"
+					className={`absolute bottom-[25%] right-[30px] transform transition-transform duration-700 ${state.isHover ? 'translate-x-[5px]' : '' }
+								phone:bottom-[12%] phone:right-[30px] phone:w-[12px]
+								Large-phone:bottom-[12%] Large-phone:right-[30px] Large-phone:w-[12px]
+								laptop:bottom-[25%] laptop:right-[30px]
+								desktop:bottom-[20%]`}
+					/>
+					<h1 className={`text-black  text-[14px] font-sora font-[700] tracking-[0.02em]
+										phone:text-[10px] phone:p-[5px] Large-phone:text-[10px] Large-phone:p-[5px]`}>
 
-
-		<div>
-			<button onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}
-			type={"submit"}
-			className={`w-[222px] h-[40px] relative bg-[#00DAEA] mt-[15px] rounded-[10px] border-current  border-2 border-b-[4px] phone:w-[180px] phone:mt-[5px] phone:h-[30px] Large-phone:w-[180px] Large-phone:h-[30px]`}>
-			<AiOutlineArrowRight
-			color="black"
-			className={`absolute bottom-[25%] right-[30px] transform transition-transform duration-700 ${isHovered ? 'translate-x-[5px]' : '' }
-						phone:bottom-[12%] phone:right-[30px] phone:w-[12px]
-						Large-phone:bottom-[12%] Large-phone:right-[30px] Large-phone:w-[12px]
-						laptop:bottom-[25%] laptop:right-[30px]
-						desktop:bottom-[20%]`}
-			/>
-			<h1 className={`text-black  text-[14px] font-sora font-[700] tracking-[0.02em]
-								phone:text-[10px] phone:p-[5px] Large-phone:text-[10px] Large-phone:p-[5px]`}>
-
-					{getText("GO")}
-					</h1>
-			</button>
-		</div>
-		<Link
-			href={"/2fa"}
-			className="text-[#00DAEA] mb-[-10px] text-[14px] font-sora font-[600] phone:text-[10px] phone:mb-[5px] Large-phone:text-[10px] Large-phone:tracking-[0] desktop:mt-[5px]"
-		>
-			{getText("SKIP")}
-		</Link>
+							{getText("GO")}
+							</h1>
+					</button>
+				</div>
+				<Skip_link/>
 		</form>
 	</div>
 	);

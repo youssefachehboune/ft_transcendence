@@ -1,16 +1,23 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, useReducer, useState } from 'react';
 import { getText } from '@/pages/api/lang';
-const Bioinpute = ({ handleFormChange, getText, setErrorBio} : any) => {
-  const [username, setUsername] = useState('');
-  const [error, setError] = useState('');
-  const error_Bio_alphanumeric = getText('BIOALPHANUMERIC')
-  const error_Bio_max_charcterc  = getText('BIOMAXCARACTER')
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
+
+interface bio
+{
+	handleFormChange: (e: ChangeEvent<HTMLInputElement>) => void;
+	dispatch: Dispatch<any>;
+}
+const Bioinpute = ({ handleFormChange, dispatch} : bio) => {
+
+	const [username, setUsername] = useState('');
+	const [error, setError] = useState('');
+	const error_Bio_alphanumeric = getText('BIOALPHANUMERIC')
+	const error_Bio_max_charcterc  = getText('BIOMAXCARACTER')
+	const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length > 200) {
 		setUsername(value.substring(0, 200));
 		setError(error_Bio_max_charcterc);
-		setErrorBio(false);
+		dispatch({type: "ERROR_BIO", pyload: false})
 	  } else {
 		let containsNonAlphanumeric = false;
 		for (let i = 0; i < value.length; i++) {
@@ -28,11 +35,11 @@ const Bioinpute = ({ handleFormChange, getText, setErrorBio} : any) => {
 		if (containsNonAlphanumeric) {
 		  setUsername(value);
 		  setError(error_Bio_alphanumeric);
-		  setErrorBio(false);
+		dispatch({type: "ERROR_BIO", pyload: false})
 		} else {
 		  setUsername(value);
 		  setError('');
-		  setErrorBio(true); 
+		  dispatch({type: "ERROR_BIO", pyload: true})
 		}
 	  }
     handleFormChange(e);

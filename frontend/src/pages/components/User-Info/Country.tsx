@@ -1,26 +1,20 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, Dispatch } from 'react';
 
 interface Country {
   code: string;
   name: string;
 }
-
-interface Props {
-  setCountry: (country: string) => void;
+interface country {
+	dispatch: Dispatch<any>;
 }
 
-const CountryDropdown: React.FC<Props> = ({ setCountry }) => {
+const CountryDropdown  = ({ dispatch }: country) => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   const handleCountrySelect = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedCountryCode = event.target.value;
-    const selectedCountry = countries.find(
-      (country) => country.code === selectedCountryCode
-    );
 
-    if (selectedCountry) {
-      setCountry(selectedCountry.name);
-    }
+    dispatch({type: "NAME_COUNTRIE", pyload: selectedCountryCode });
   };
 
   useEffect(() => {

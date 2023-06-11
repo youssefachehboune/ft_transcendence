@@ -1,6 +1,14 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, useState } from 'react';
 import { getText } from '@/pages/api/lang';
-const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrormssage, seterroruser} : any) => {
+
+interface usernameInput
+{
+	handleFormChange: (e: ChangeEvent<HTMLInputElement>) => void;
+	data: any;
+	errormssage: string;
+	dispatch: Dispatch<any>;
+}
+const UsernameInput = ({ handleFormChange, data, errormssage, dispatch} : usernameInput) => {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const error_user_alredy_exist = getText('USERALREDYEXIST');
@@ -8,11 +16,11 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
   const error_user_max_charcter  = getText('USERMAXCARACTER')
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-	seterrormssage('')
+	dispatch({type: "ERROR_MESSAGE", pyload: ""})
     if (value.length > 15) {
 		setUsername(value.substring(0, 15));
 		setError( error_user_max_charcter);
-		seterroruser(false);
+		dispatch({type: "ERROR_USER", pyload: false})
 	  } else {
 		let containsNonAlphanumeric = false;
 		for (let i = 0; i < value.length; i++) {
@@ -30,11 +38,11 @@ const UsernameInput = ({ handleFormChange, data, getText, errormssage, seterrorm
 		if (containsNonAlphanumeric) {
 		  setUsername(value);
 		  setError(error_user_alphanumeric);
-		  seterroruser(false);
+			dispatch({type: "ERROR_USER", pyload: false})
 		} else {
 		  setUsername(value);
 		  setError('');
-		  seterroruser(true); 
+			dispatch({type: "ERROR_USER", pyload: true})
 		}
 	  }
     handleFormChange(e);
