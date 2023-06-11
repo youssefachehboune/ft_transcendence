@@ -57,7 +57,68 @@ export class HistoryService {
 		}));
 	
 		return updatedHistory;
-	}	
+	}
+
+	async getHistorybyUsername(username: string) {
+		const selectFields = {
+			select: {
+				firstName: true,
+				lastName: true,
+				username: true,
+				avatar: true
+			}
+		};
+		const userProfile: UserProfile = await prisma.userProfile.findUnique({
+			where: { username }
+		});
+		if (!userProfile) throw new BadRequestException('invalid username');
+		const history = await prisma.careerLog.findMany({
+
+			where: {
+				OR: [
+					{ user_id: userProfile.user_id },
+					{ opponent_id: userProfile.user_id }
+				]
+			},
+			select: {
+				userPoints: true,
+				opponentPoints: true,
+				occuredAt: true,
+				User: {
+					select: {
+						userProfile: selectFields
+					}
+				},
+				Opponent: {
+					select: {
+						userProfile: selectFields
+					}
+				}
+			},
+			orderBy: {
+				occuredAt: 'desc'
+			},
+			take: 8
+		});
+		const updatedHistory = history.map(entry => ({
+			...entry,
+			occuredAt: formatDistanceToNow(new Date(entry.occuredAt), { addSuffix: true }),
+			User: {
+				username: entry.User.userProfile[0].username,
+				firstName: entry.User.userProfile[0].firstName,
+				lastName: entry.User.userProfile[0].lastName,
+				avatar: entry.User.userProfile[0].avatar
+			},
+			Opponent: {
+				username: entry.Opponent.userProfile[0].username,
+				firstName: entry.Opponent.userProfile[0].firstName,
+				lastName: entry.Opponent.userProfile[0].lastName,
+				avatar: entry.Opponent.userProfile[0].avatar
+			}
+		}));
+	
+		return updatedHistory;
+	}
 
 	async addMatch(@Req() req: Request, @Body() body: historyDto) {
 		const userProfile: UserProfile = await prisma.userProfile.findUnique({

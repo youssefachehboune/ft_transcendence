@@ -53,12 +53,6 @@ export class AuthController {
       refreshtoken: refreshToken
     });
   }
-  
-  @Get('profile')
-  @UseGuards(JwtGuard)
-  profile(@Req() req: Request) {
-	return req.user;
-  }
 
   @Get('refresh')
   @UseGuards(JwtRefreshGuard)

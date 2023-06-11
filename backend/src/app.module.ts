@@ -1,3 +1,4 @@
+import { ProfileModule } from './profile/profile.module';
 import { FriendsModule } from './friend/friends.module';
 import { SearchModule } from './search/search.module';
 import { TwoFactorModule } from './auth/2fa/twofactor.module';
@@ -11,7 +12,7 @@ import { HistoryModule } from './history/history.module';
 import { AchievementsModule } from './achievements/achievements.module';
 
 @Module({
-  imports: [FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
+  imports: [ ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

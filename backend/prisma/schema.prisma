@@ -45,6 +45,9 @@ model UserProfile {
     avatar    String
     level     Float
     points    Int
+    won       Int
+    lost      Int
+    winStreak Int
     User      User   @relation(fields: [user_id], references: [id])
 }
 
