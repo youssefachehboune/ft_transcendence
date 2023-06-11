@@ -12,19 +12,13 @@ export class AchievementsController {
 	
 	@UseGuards(JwtGuard)
 	@Get()
-	async getAchievements(){
-		return await this.achievementsService.getAchievements();
-	}
-
-	@UseGuards(JwtGuard)
-	@Get('log')
-	async getAchievementsLog(@Req() req: Request){
-		return await this.achievementsService.getAchievementsLog(req);
+	async getAchievements(@Req() req: Request){
+		return await this.achievementsService.getAchievements(req);
 	}
 	
 	@UseGuards(JwtGuard)
 	@Post()
 	async updateAchievements(@Req() req: Request, @Body() achiev: achievementDto) {
-		return this.achievementsService.updateAchievements(req, achiev);
+		return await this.achievementsService.updateAchievements(req, achiev);
 	}
 }

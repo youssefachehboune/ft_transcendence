@@ -6,14 +6,28 @@ import { achievementDto } from './achievements.dto';
 const prisma = new PrismaClient();
 @Injectable()
 export class AchievementsService {
-	async getAchievements() {
-		return await prisma.achievement.findMany();
-	}
-	
-	async getAchievementsLog(@Req() req: Request) {
-		return await prisma.achievementLog.findMany({
-			where: { User: req.user}
+	async getAchievements(@Req() req: Request) {
+		const achievements = await prisma.achievement.findMany({
+			where: {},
+			include: {
+				AchievementLog: {
+					where: { User: req.user },
+					select: {
+						score: true,
+						occuredAt: true
+					}
+				}
+			}
 		});
+		const updatedAchievements = achievements.map(entry => {
+			const { id, AchievementLog, ...rest } = entry;
+			return {
+				...rest,
+				score: AchievementLog[0] ? AchievementLog[0].score : 0,
+				occuredAt: AchievementLog[0] ? AchievementLog[0].occuredAt : ''
+			};
+		});
+		return updatedAchievements;		
 	}
 	
 	async updateAchievements(@Req() req: Request, @Body() achiev: achievementDto) {
@@ -22,8 +36,11 @@ export class AchievementsService {
 			include: {AchievementLog: true}
 		});
 		if (!achievement)
-			throw new BadRequestException('The achievement name is invalid');
-		const newscore: number = achievement.AchievementLog[0]?.score + 1;
+		throw new BadRequestException('The achievement name is invalid');
+		const achievementLog = await prisma.achievementLog.findFirst({
+			where: { User: req.user, achievement_id: achievement.id }
+		});
+		const newscore: number = achievementLog?.score + 1;
 		if (!newscore) {
 			await prisma.achievementLog.create({
 				data: {
