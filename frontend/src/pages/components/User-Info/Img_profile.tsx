@@ -1,15 +1,16 @@
 import React from 'react'
 import { getText } from "../../api/lang";
+import { DataState } from '@/pages/Hooks/user_info_data';
 
 interface img_profile
 {
-	state: any;
+	state: DataState;
 	avatar: string;
 	data: any;
 }
 export default function Img_profile({state, avatar, data}: img_profile) {
 
-  const test = getText('LARGEIMG')
+  const test = getText('LARGE_IMG')
   return (
 	<div className="w-full h-[250px] flex items-center flex-col phone:h-[145px] Large-phone:h-[160px] desktop:h-[230px] laptop:h-[190px]">
 			<h1 className="mt-[15px] font-sora text-[24px] font-[600] phone:text-[12px] Large-phone:text-[15px] desktop:text-[20px] laptop:text-[18px] ">

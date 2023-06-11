@@ -1,7 +1,16 @@
 import React from 'react'
 
-export const DATA = {
-	fetch_data: {},
+export interface DataState {
+	selectedAvatar: string;
+	errorLargeimg: boolean;
+	ErrorBio: boolean;
+	isHover: boolean;
+	name_countrie: string;
+	error_user: boolean;
+	errormssage: string;
+  }
+
+export const DATA: DataState = {
 	selectedAvatar: "",
 	errorLargeimg: false,
 	ErrorBio: true,
@@ -11,8 +20,7 @@ export const DATA = {
 	errormssage: "",
 }
 
-
-export const postReduser = (state: any, action: any) =>
+export const postReduser = (state: DataState, action: any): DataState =>
 {
 	switch (action.type)
 	{
@@ -20,11 +28,6 @@ export const postReduser = (state: any, action: any) =>
 		return {
 			...state,
 			ErrorBio: action.pyload,
-		}
-		case "FETSH_DATA":
-		return {
-			...state,
-			fetch_data: action.pyload,
 		}
 		case "SELECTED_AVATAR":
 			return {
@@ -56,5 +59,7 @@ export const postReduser = (state: any, action: any) =>
 				...state,
 				errormssage: action.pyload,
 			}
+		default:
+      		return state;
 	}
 }

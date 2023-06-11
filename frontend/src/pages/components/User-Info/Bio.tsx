@@ -10,8 +10,8 @@ const Bioinpute = ({ handleFormChange, dispatch} : bio) => {
 
 	const [username, setUsername] = useState('');
 	const [error, setError] = useState('');
-	const error_Bio_alphanumeric = getText('BIOALPHANUMERIC')
-	const error_Bio_max_charcterc  = getText('BIOMAXCARACTER')
+	const error_Bio_alphanumeric = getText('BIO_ALPHANUMERIC')
+	const error_Bio_max_charcterc  = getText('BIO_MAX_CHARACTER')
 	const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length > 200) {

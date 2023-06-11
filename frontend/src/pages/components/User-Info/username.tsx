@@ -11,9 +11,11 @@ interface usernameInput
 const UsernameInput = ({ handleFormChange, data, errormssage, dispatch} : usernameInput) => {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
-  const error_user_alredy_exist = getText('USERALREDYEXIST');
-  const error_user_alphanumeric = getText('USERALPHANUMERIC')
-  const error_user_max_charcter  = getText('USERMAXCARACTER')
+  const error_user_alredy_exist = getText('USER_ALREADY_EXIST');
+  const error_user_alphanumeric = getText('USER_ALPHANUMERIC')
+  const error_user_max_charcter  = getText('USER_MAX_CHARACTER')
+
+
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 	dispatch({type: "ERROR_MESSAGE", pyload: ""})

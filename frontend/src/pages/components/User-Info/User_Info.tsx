@@ -26,8 +26,6 @@
 	const Sign_up_page = ({ setShowFirstComponent, setShowSecondComponent}: Signin) => {
 	
 	const [state, dispatch] = useReducer(postReduser, DATA);
-	
-	const router = useRouter();
 	const [data, setdata] = useState<any>('');
 	const return_avatar = data.avatar;
 	const avatar = state.selectedAvatar ? state.selectedAvatar : return_avatar;
