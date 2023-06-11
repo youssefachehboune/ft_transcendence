@@ -1,3 +1,4 @@
+import { FriendsModule } from './friend/friends.module';
 import { SearchModule } from './search/search.module';
 import { TwoFactorModule } from './auth/2fa/twofactor.module';
 import { Module } from '@nestjs/common';
@@ -10,7 +11,7 @@ import { HistoryModule } from './history/history.module';
 import { AchievementsModule } from './achievements/achievements.module';
 
 @Module({
-  imports: [AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
+  imports: [FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
   controllers: [AppController],
   providers: [AppService],
 })
