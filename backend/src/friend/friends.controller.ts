@@ -15,6 +15,13 @@ export class FriendsController {
         return await this.friendsService.getFriendsList(req);
     }
 
+    @Get(':username')
+    @UseGuards(JwtGuard)
+    @ApiParam({name: 'username', type: 'string', description: 'The username of the user to check friendship status', })
+    async getFriendshipStatus(@Req() req: Request, @Param('username') username: string) {
+        return await this.friendsService.getFriendshipStatus(req, username);
+    }
+
     @Get(':status')
     @UseGuards(JwtGuard)
     @ApiParam({name: 'status', enum: ['REQUESTED', 'BLOCKED'], type: 'string', description: 'The status of friend requests', })

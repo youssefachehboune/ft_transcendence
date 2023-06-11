@@ -74,6 +74,48 @@ export class FriendsService {
     }
   }
 
+  async getFriendshipStatus(req: Request, username: string) {
+    try {
+      const user: User = await this.prisma.user.findUnique({
+        where: { email: req.user["email"] },
+      });
+      const friendProfile: UserProfile = await this.prisma.userProfile.findUnique({
+        where: { username: username },
+      });
+      if (!friendProfile) {
+        return { message: "User Not Found" };
+      }
+      const friendship: Friendship = await this.prisma.friendship.findFirst({
+        where: {
+          OR: [
+            { user_id: user.id, friend_id: friendProfile.user_id },
+            { user_id: friendProfile.user_id, friend_id: user.id },
+          ],
+        },
+      });
+      if (!friendship || friendProfile.user_id === user.id) {
+        return { status: "NONE" };
+      }
+      if (friendship.status === "REQUESTED") {
+        if (friendship.user_id === user.id) {
+          return { status: "SentRequest" };
+        } else {
+          return { status: "ReceivedRequest" };
+        }
+      }
+      else
+      {
+        return { status: friendship.status };
+      }
+    }
+    catch (error) {
+      console.error("An error occurred:", error);
+      return {
+        message: "An error occurred",
+      };
+    }
+  }
+
   async getFriendsByStatus(req: Request, status: "REQUESTED" | "BLOCKED") {
     try {
       const user: User = await this.prisma.user.findUnique({
@@ -159,7 +201,7 @@ export class FriendsService {
     }
     switch (status) {
       case 'UNFRIEND':
-          updateData.status = 'NOTFRIENDS';
+        updateData.status = 'NOTFRIENDS';
         break;
       case 'BLOCK':
         updateData.status = 'BLOCKED';
