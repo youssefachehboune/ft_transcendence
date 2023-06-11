@@ -74,6 +74,32 @@ export class FriendsService {
     }
   }
 
+  async getFriendsCount(username: string) : Promise<number | { message: string }>
+  {
+    try {
+      const userProfile: UserProfile = await this.prisma.userProfile.findUnique({
+        where: { username: username },
+      });
+      if (!userProfile) {
+        return { message: "User Not Found" };
+      }
+      const friendsCount: number = await this.prisma.friendship.count({
+        where: {
+          OR: [
+            { user_id: userProfile.user_id, status: "FRIENDS" },
+            { friend_id: userProfile.user_id, status: "FRIENDS" },
+          ],
+        },
+      });
+      return friendsCount;
+    }
+    catch (error) {
+      console.error("An error occurred:", error);
+      return {
+        message: "An error occurred",
+      };
+    }
+  }
   async getFriendshipStatus(req: Request, username: string) {
     try {
       const user: User = await this.prisma.user.findUnique({
@@ -94,18 +120,18 @@ export class FriendsService {
         },
       });
       if (!friendship || friendProfile.user_id === user.id) {
-        return { status: "NONE" };
+        return "NONE";
       }
       if (friendship.status === "REQUESTED") {
         if (friendship.user_id === user.id) {
-          return { status: "SentRequest" };
+          return "SentRequest";
         } else {
-          return { status: "ReceivedRequest" };
+          return "ReceivedRequest";
         }
       }
       else
       {
-        return { status: friendship.status };
+        return friendship.status;
       }
     }
     catch (error) {
