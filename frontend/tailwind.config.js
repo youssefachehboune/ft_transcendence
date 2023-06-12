@@ -27,7 +27,7 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
 		  'mix': 'linear-gradient(180.7deg, #000000 27.28%, rgba(0, 0, 0, 0) 112.93%)',
-		  'mix-tow': ' linear-gradient(181.51deg, #FF3B22 45.75%, rgba(0, 0, 0, 0) 105.08%)'
+		  'mix-tow': ' linear-gradient(181.51deg, #00DAEA 45.75%, rgba(0, 0, 0, 0) 105.08%)'
       },
       screens:
       {
@@ -39,10 +39,10 @@ module.exports = {
       fontFamily: 
       {
 		  'lato': ["Lato", "sans-serif"],
-      'fredoka': ["Fredoka", "sans-serif"],
-      'ibm-plex-sans': ["IBM Plex Sans", "sans-serif"],
-      'ibm-plex-sans-kr': ["IBM Plex Sans KR", "sans-serif"],
-      'sora': ["Sora", "sans-serif"],
+		'fredoka': ["Fredoka", "sans-serif"],
+		'ibm-plex-sans': ["IBM Plex Sans", "sans-serif"],
+		'ibm-plex-sans-kr': ["IBM Plex Sans KR", "sans-serif"],
+		'sora': ["Sora", "sans-serif"],
 
 		},
 		fontWeight:
@@ -50,9 +50,9 @@ module.exports = {
 			extrabold: '800',
 			semibold: '600',
 			medium: '500',
-      light: '300',
-      regular: '400',
-      bold: '700',
+			light: '300',
+			regular: '400',
+			bold: '700',
 		},
 		boxShadow:
 		{

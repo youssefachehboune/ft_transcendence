@@ -1,49 +1,3 @@
-.Logo-sign
-{
-	@apply w-[170px] absolute top-[55px] left-[60px] duration-1000
-			phone:top-[40px] phone:w-[100px] phone:left-[40px]
-			Large-phone:top-[35px] Large-phone:w-[100px]
-			laptop:top-[40px] laptop:w-[130px]
-}
-
-.button-lang-sign {
-    @apply z-10 fixed right-[65px] top-[55px] w-[60px] h-[60px] bg-rgb-color flex items-center justify-center rounded-[10px] duration-1000
-	laptop:right-[30px] laptop:top-[35px] laptop:w-[50px] laptop:h-[50px]
-	phone:right-[25px] phone:top-[30px] phone:w-[45px] phone:h-[45px]
-	Large-phone:right-[30px] Large-phone:top-[30px] Large-phone:w-[45px] Large-phone:h-[45px]
-
-}
-
-.icon-lang-sign {
-    @apply w-[35px] h-[30px]
-	laptop:w-[30px]  laptop:h-[25px]
-	phone:w-[30px] phone:h-[25px]
-	Large-phone:w-[30px] Large-phone:h-[25px]
-}
-
-.div-en-fr-sign
-{
-	@apply w-[100px] h-[70px] bg-rgb-color absolute right-[65px] top-[120px] z-20 rounded-[5px] 
-			phone:right-[25px] phone:top-[80px] phone:w-[80px] phone:h-[60px]
-			Large-phone:right-[30px] Large-phone:top-[80px] Large-phone:w-[85px] Large-phone:h-[65px]
-			laptop:right-[30px] laptop:top-[90px] laptop:w-[90px] laptop:h-[70px]
-}
-
-.button-en-sign
-{
-	@apply w-[100px] h-[35px] text-white text-sm
-				phone:w-[80px] phone:h-[30px]
-				Large-phone:w-[85px] Large-phone:h-[35px]
-				laptop:w-[84px] laptop:h-[35px]
-}
-
-.button-fr-sign
-{
-	@apply w-[100px] h-[35px] text-white text-sm
-			phone:w-[80px] phone:h-[30px]
-			Large-phone:w-[85px] Large-phone:h-[35px]
-			laptop:w-[84px] laptop:h-[35px]
-}
 .rectangele_left_border
 {
 	@apply w-[230px] h-[490px] fixed ml-[-93px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[-140.9deg] bg-mix-tow duration-1000
@@ -53,21 +7,21 @@
 }
 .rectangele_left_one
 {
-	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
+	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-b-[135px] rounded-l-[135px] bg-[#00DAEA] rotate-[-140.9deg] duration-1000
 		phone:w-[105px]  phone:h-[408px] phone:ml-[-102px]
 		Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
 		laptop:w-[154px]  laptop:h-[308px] laptop:ml-[-85px] laptop:mb-[-150px]
 }
 .rectangele_left_tow
 {
-	@apply w-[85px] h-[130px] fixed left-[-50px] mb-[170px] bottom-[0] rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-133.9deg] duration-1000
+	@apply w-[85px] h-[130px] fixed left-[-50px] mb-[170px] bottom-[0] rounded-b-[135px] rounded-l-[135px] bg-[#00DAEA] rotate-[-133.9deg] duration-1000
 			phone:w-[40px]  phone:h-[120px] phone:mb-[70px] phone:left-[-40px]
 			Large-phone:w-[40px]  Large-phone:h-[120px] Large-phone:mb-[70px] Large-phone:left-[-40px]
 			laptop:w-[65px]  laptop:h-[100px] laptop:mb-[140px] laptop:rotate-[-125.1deg]
 }
 .rectangele_left_tree
 {
-	@apply w-[91px] h-[180px] fixed mb-[-95px] ml-[200px] bottom-[0] left-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-orange rotate-[-140.9deg] duration-1000
+	@apply w-[91px] h-[180px] fixed mb-[-95px] ml-[200px] bottom-[0] left-[0] rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] bg-[#00DAEA] rotate-[-140.9deg] duration-1000
 			phone:w-[40px]  phone:h-[150px] phone:ml-[60px]
 			Large-phone:w-[40px]  Large-phone:h-[150px] Large-phone:ml-[60px]
 			laptop:w-[65px]  laptop:h-[140px] laptop:ml-[100px]
@@ -120,4 +74,20 @@
 			Large-phone:left-[50%]
 			laptop:left-[48%]
 			desktop:left-[54%]
+}
+.svg_text
+{
+	@apply z-10 text-white absolute right-[5%] top-[30%] text-[50px] w-[470px] animate-text-animation duration-500 font-sora  font-extrabold text-center
+			phone:right-[5%] phone:text-[20px] phone:w-[190px] phone:top-[18%]
+			Large-phone:text-[20px] Large-phone:w-[200px] Large-phone:top-[18%] Large-phone:right-[10%]
+			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%] laptop:right-[10%]
+			desktop:right-[0] desktop:text-[40px] desktop:w-[400px]
+}
+.svg_text
+{
+	@apply z-10 text-white absolute right-[5%] top-[30%] text-[50px] w-[470px] animate-text-animation duration-500 font-sora  font-extrabold text-center
+			phone:right-[5%] phone:text-[20px] phone:w-[190px] phone:top-[18%]
+			Large-phone:text-[20px] Large-phone:w-[200px] Large-phone:top-[18%] Large-phone:right-[10%]
+			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%] laptop:right-[10%]
+			desktop:right-[0] desktop:text-[40px] desktop:w-[400px]
 }
