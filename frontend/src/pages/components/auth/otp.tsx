@@ -96,7 +96,7 @@ const OTPField = (props : Prop) => {
                   <input
                       ref={index === activeOTPIndex ? inputRef : null}
                     type="number"
-                    className="
+                    className=" in
                       focus:text-gray-700
                       text-gray-400 transition"
                     onChange={handleOnChange} value={otp[index]}

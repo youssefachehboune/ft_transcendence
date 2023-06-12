@@ -1,5 +1,5 @@
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import Loading from "./Loading";
+import Loading from "../success/Loading";
 
 
 export default function Success() {

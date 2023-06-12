@@ -3,7 +3,7 @@ input::-webkit-outer-spin-button {
     display: none;
 }
 
-input {
+.in {
     @apply w-[40px] h-[40px] outline-none text-[16px] 
     font-sora font-semibold text-black leading-[20px] 
     text-center	border-[0.75px] rounded-[3px] border-gray-700
