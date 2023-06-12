@@ -1,0 +1,52 @@
+.custom-select {
+    position: relative;
+    display: inline-block;
+}
+.custom-select select {
+	appearance: none;
+}
+
+.custom-select::after {
+    content: '\⌄'; 
+    position: absolute;
+    top: 40%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .loader {
+    @apply w-[24px] h-[15px] flex items-center justify-around ml-2
+}
+
+
+
+.ss {
+    width: 5px;
+    height: 5px;
+    background-color: #000;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: loader 1s ease-in-out infinite calc(-0.2s * var(--i));
+}
+
+.s1 {
+    --i: 3;
+}
+
+.s2 {
+    --i: 2;
+}
+
+.s3 {
+    --i: 1;
+}
+
+@keyframes loader {
+    from, 20% {
+        opacity: 0.9;
+    }
+    to, 80% {
+        opacity: 0.1;
+    }
+}
