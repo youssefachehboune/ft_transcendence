@@ -72,8 +72,8 @@
 	@apply absolute h-[100%] right-[0] object-cover max-w-none
 			phone:left-[40%] 
 			Large-phone:left-[50%]
-			laptop:left-[48%]
-			desktop:left-[54%]
+			laptop:left-[57%]
+			desktop:left-[55%]
 }
 .svg_text
 {
