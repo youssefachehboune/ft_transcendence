@@ -28,4 +28,4 @@ key, en, fr
 "USER_MAX_CHARACTER", "Username can contain 50 characters maximum", "Le nom d'utilisateur peut contenir 50 caractères maximum"
 "BIO_ALPHANUMERIC", "bio must only contain alphanumeric characters", "Le Bio d'utilisateur ne doit contenir que des caractères alphanumériques"
 "BIO_MAX_CHARACTER", "Bio can contain 200 characters maximum", "Le bio d'utilisateur peut contenir 200 caractères maximum"
-"LARGE_IMG", "the image is to large: max size(80kb)", "l'image est trop grande : taille maximale (80 ko)"
+"LARGE_IMG", "the image is too large: max size(80kb)", "l'image est trop grande : taille maximale (80 ko)"

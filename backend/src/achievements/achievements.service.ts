@@ -2,10 +2,13 @@ import { BadRequestException, Body, Injectable, Req } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Request } from 'express';
 import { achievementDto } from './achievements.dto';
+import { NotificationService, NotificationType } from 'src/notification/notification.service';
 
 const prisma = new PrismaClient();
 @Injectable()
 export class AchievementsService {
+	constructor(private readonly notificationService: NotificationService) {}
+
 	async getAchievements(@Req() req: Request) {
 		const achievements = await prisma.achievement.findMany({
 			where: {},
@@ -50,8 +53,10 @@ export class AchievementsService {
 					occuredAt: new Date(),
 				}
 			});
-			if (+achievement.milestone == 1)
+			if (+achievement.milestone == 1) {
+				this.notificationService.setNotification(NotificationType.ACHIEVEMENT, 0, req.user['id']);
 				return true;
+			}
 			return false;
 		}
 		if (newscore && newscore > +achievement.milestone)
@@ -67,8 +72,10 @@ export class AchievementsService {
 			where: { user_id: req.user['id'], achievement_id: achievement.id },
 			data: { score: newscore, occuredAt: new Date() }
 		});
-		if (newscore == +achievement.milestone)
+		if (newscore == +achievement.milestone) {
+			this.notificationService.setNotification(NotificationType.ACHIEVEMENT, 0, req.user['id']);
 			return true;
+		}
 		return false;
 	}
 }
