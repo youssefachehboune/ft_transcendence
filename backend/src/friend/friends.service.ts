@@ -2,6 +2,7 @@ import { PrismaClient, User } from '.prisma/client';
 import { Injectable } from '@nestjs/common';
 import { Friendship, FriendshipStatus, UserProfile } from '@prisma/client';
 import { Request } from 'express';
+import { NotificationService, NotificationType } from 'src/notification/notification.service';
 
 export interface FriendshipUpdateData {
   status?: FriendshipStatus;
@@ -23,7 +24,7 @@ export enum Status {
 export class FriendsService {
   private readonly prisma: PrismaClient;
 
-  constructor() {
+  constructor(private readonly notificationService: NotificationService) {
     this.prisma = new PrismaClient();
   }
   async getFriendsList(req: Request) {
@@ -191,8 +192,10 @@ export class FriendsService {
       case 'ACCEPT':
         if (friendship.user_id == user.id)
           return { message: "You can't accept your own request" };
-        else
+        else {
           updateData.status = 'FRIENDS';
+					this.notificationService.setNotification(NotificationType.ACCEPTED_REQUEST, user.id, friendProfile.user_id);
+				}
         break;
       case 'REJECT':
         if (friendship.user_id == user.id)
@@ -287,13 +290,15 @@ export class FriendsService {
 
 
   async createFriendship(req: Request, status: FriendshipStatus, user: User, friendProfile: UserProfile): Promise<Friendship> {
-    return await this.prisma.friendship.create({
+    const friendship =  await this.prisma.friendship.create({
       data: {
         user_id: user.id,
         friend_id: friendProfile.user_id,
         status: status,
       },
     });
+		this.notificationService.setNotification(NotificationType.FRIEND_REQUEST, user.id, friendProfile.user_id);
+		return friendship;
   }
 
   async updateFriendStatus(req: Request, status: Status, username: string): Promise<FriendshipUpdateData | { message: string }> {
