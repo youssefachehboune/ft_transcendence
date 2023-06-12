@@ -5,7 +5,7 @@ export default function Logo()
     return(
             <div>
                 <Link href="/">
-                    <img src="pipo.png" className="logo">
+                    <img src="pipo.png" className="logo select-none">
                     </img>
                 </Link>
             </div>

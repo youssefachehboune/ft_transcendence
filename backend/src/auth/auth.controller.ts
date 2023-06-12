@@ -27,10 +27,7 @@ export class AuthController {
 	  httpOnly: true,
 	  sameSite: 'lax',
 	})
-    return res.send({
-	  accesstoken: accessToken,
-	  refreshtoken: refreshToken
-	});
+    return res.redirect("http://localhost:3001/User-Info")
   }
 
   @Get('intra')
@@ -48,10 +45,7 @@ export class AuthController {
       httpOnly: true,
       sameSite: 'lax',
     })
-      return res.send({
-      accesstoken: accessToken,
-      refreshtoken: refreshToken
-    });
+    return res.redirect("http://localhost:3001/User-Info")
   }
 
   @Get('refresh')

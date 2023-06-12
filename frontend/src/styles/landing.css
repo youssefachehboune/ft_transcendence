@@ -130,7 +130,7 @@ footer {
 
 
 .button-lang {
-    @apply z-10 fixed right-[90px] bg-[#4142434D] top-[55px] w-[78px] h-[70px] flex items-center justify-center rounded-[10px] cursor-none
+    @apply z-10 fixed right-[70px] bg-[#4142434D] top-[55px] w-[78px] h-[70px] flex items-center justify-center rounded-[10px] cursor-none
 
 }
 
@@ -139,26 +139,21 @@ footer {
 }
 
 .lang-div {
-    @apply w-[138px] h-[77px] bg-[#000] absolute right-[60px] top-[129px] z-20 rounded-[10px] 
-    phone:right-[40px] phone:top-[80px] phone:w-[90px] phone:h-[60px]
-    Large-phone:right-[40px] Large-phone:top-[80px] Large-phone:w-[85px] Large-phone:h-[65px]
-    laptop:right-[35px] laptop:top-[80px] laptop:w-[90px] laptop:h-[70px]
+    @apply w-[138px] h-[77px] bg-[#000] absolute right-[40px] top-[129px] z-20 rounded-[10px]
+    phone:right-[5px] phone:top-[80px] phone:w-[100px] phone:h-[60px]
+    Large-phone:right-[10px] Large-phone:top-[80px] Large-phone:w-[100px] Large-phone:h-[65px]
+    laptop:right-[10px] laptop:top-[85px] laptop:w-[90px] laptop:h-[70px]
 }
 
 .fr-button {
     @apply w-[100%] h-1/2 text-white text-[12px] font-sora font-regular gap-[14px] cursor-none flex justify-center items-center
     hover:bg-[#00DAEA] rounded-t-[5px]
-    phone:w-[90px] phone:h-[30px]
-    Large-phone:w-[85px] Large-phone:h-[35px]
-    laptop:w-[84px] laptop:h-[35px]
 }
 
 .en-button {
     @apply w-[100%] h-1/2 text-white text-[12px] font-sora font-regular gap-[14px] cursor-none flex justify-center items-center
     hover:bg-[#00DAEA] rounded-b-[5px]
-    phone:w-[90px] phone:h-[30px]
-    Large-phone:w-[85px] Large-phone:h-[35px]
-    laptop:w-[84px] laptop:h-[35px]
+
 }
 
 
@@ -252,7 +247,7 @@ footer {
         @apply bottom-[9.3rem] right-[75px]
     }
     .button-lang {
-        @apply z-10 fixed right-[60px] top-[35px] w-[50px] h-[50px]
+        @apply z-10 fixed right-[25px] top-[35px] w-[50px] h-[50px]
     }
     .icon-lang {
         @apply w-[30px] h-[25px]
@@ -331,7 +326,7 @@ footer {
         cursor: pointer;
     }
     .button-lang {
-        @apply z-10 fixed right-[50px] top-[30px] w-[45px] h-[45px] cursor-pointer
+        @apply z-10 fixed right-[25px] top-[30px] w-[45px] h-[45px] cursor-pointer
     }
     .icon-lang {
         @apply w-[30px] h-[25px] cursor-pointer
