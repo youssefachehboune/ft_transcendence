@@ -46,7 +46,7 @@
 
 .success_text
 {
-	@apply font-sora  text-[20px] leading-[24px] font-normal
+	@apply font-sora  text-[20px] leading-[24px] font-normal flex items-center justify-center
 			phone:text-[15px]
 			Large-phone:text-[15px] 
 }
