@@ -190,7 +190,7 @@ footer {
     @apply w-[23px] h-[23px] transform transition-transform duration-500
 }
 
-@media (min-width: 1023px ) and (max-width: 1409px) {
+@media (min-width: 1024px ) and (max-width: 1409px) {
     .textBody {
         width: 80%;
     }
@@ -205,7 +205,7 @@ footer {
 
 /** For tablet devices **/
 
-@media (min-width: 768px) and (max-width: 1023px){
+@media (min-width: 768px) and (max-width: 1024px){
     .eclipse2 {
         @apply hidden
     }

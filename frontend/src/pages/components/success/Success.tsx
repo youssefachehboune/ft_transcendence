@@ -16,7 +16,7 @@ function Success_div()
 	}, []);
 
 	return (
-		<div className="success flex items-center justify-around">
+		<div className="success flex items-center">
 			<div className='flex w-full h-[250px] phone:h-[180px] Large-phone:h-[200px] flex-col items-center'>
 				<BsEmojiLaughing className='emoji_icone' color='#5ACDA4'/>
 				<h1 className='success_title'>{getText('SUCCESS')}</h1>

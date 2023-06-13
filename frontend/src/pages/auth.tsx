@@ -20,6 +20,7 @@ export default function auth() {
             {
                 show ? <Generate setVal={setShow} val={show}/> : <Success />
             }
+            {/* <Success /> */}
             {/* <AuthLogin /> */}
             <Text />
             <Rectangle setColor={setChangeColor} color={changeColor}/>

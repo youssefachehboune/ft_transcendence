@@ -62,9 +62,10 @@ const OTPField = (props : Prop) => {
     
     const inputRef = useRef<HTMLInputElement>(null)
     const handleOnChange = ({target,} : React.ChangeEvent<HTMLInputElement>): void => {
-        const {value} = target;
+        let {value} = target;
         const newOTP : string[] = [...otp];
         newOTP[currentOTPIndex] = value.substring(value.length - 1);
+
         if (!value) 
             setactiveOTPIndex(currentOTPIndex - 1);
         else
