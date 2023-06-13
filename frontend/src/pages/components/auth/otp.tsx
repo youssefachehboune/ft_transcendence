@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
+import { KeyboardEvent } from "react";
   interface ApiResponse {
     isValid: boolean;
   }
@@ -29,7 +30,12 @@ const OTPField = (props : Prop) => {
     else {
         b = false;
     }
-
+    function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
+      const { key } = event;
+      if ((key === "-" || key === "+" || key === "e") && event.currentTarget === document.activeElement) {
+        event.preventDefault();
+      }
+    }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
       e.preventDefault();
       // Make the API request
@@ -100,6 +106,7 @@ const OTPField = (props : Prop) => {
                     className=" in
                       focus:text-gray-700
                       text-gray-400 transition"
+                      onKeyPress={handleKeyDown} 
                     onChange={handleOnChange} value={otp[index]}
                     onKeyDown={(e) => {handleOnkeyDown(e, index)}}
                     style={{borderColor: isValid ? '#414243' : '#FF0000'}}
