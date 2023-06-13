@@ -10,9 +10,10 @@ import { LangModule } from './lang/lang.module';
 import { UserModule } from './user/user.module';
 import { HistoryModule } from './history/history.module';
 import { AchievementsModule } from './achievements/achievements.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
-  imports: [ ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule],
+  imports: [ ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule],
   controllers: [AppController],
   providers: [AppService],
 })

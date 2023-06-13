@@ -23,7 +23,6 @@ model User {
     careerLog            CareerLog[]       @relation("UserLog")
     opponentLog          CareerLog[]       @relation("OpponentLog")
     achievementLog       AchievementLog[]
-    notificationLog      NotificationLog[]
     sentFriendship       Friendship[]      @relation("SentFriendship")
     receivedFriendship   Friendship[]      @relation("ReceivedFriendship")
     sentNotification     Notification[]    @relation("SentNotification")
@@ -85,24 +84,13 @@ model AchievementLog {
 
 model Notification {
     id              Int               @id @default(autoincrement())
-    title           String
-    body            String
-    type            String
-    sender_id       Int
+    type            NotificationType
+    sender_id       Int?
     recipient_id    Int
     occuredAt       DateTime          @default(now())
-    User            User              @relation(name: "SentNotification", fields: [sender_id], references: [id])
+    read            Boolean
+    Sender          User?             @relation(name: "SentNotification", fields: [sender_id], references: [id])
     Recipient       User              @relation(name: "ReceivedNotification", fields: [recipient_id], references: [id])
-    NotificationLog NotificationLog[]
-}
-
-model NotificationLog {
-    id              Int          @id @default(autoincrement())
-    user_id         Int
-    notification_id Int
-    readAt          DateTime?
-    User            User         @relation(fields: [user_id], references: [id])
-    Notification    Notification @relation(fields: [notification_id], references: [id])
 }
 
 model Friendship {
@@ -184,4 +172,13 @@ enum FriendshipStatus {
 enum ChannelType {
     PUBLIC
     PRIVATE
+}
+
+enum NotificationType {
+	FRIEND_REQUEST
+	ACCEPTED_REQUEST
+	ACHIEVEMENT
+	LEVEL_UP
+	GAME_INVITE
+	GAME_UPDATES
 }
