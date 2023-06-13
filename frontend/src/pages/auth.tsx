@@ -20,8 +20,8 @@ export default function auth() {
             {/* {
                 show ? <Generate setVal={setShow} val={show}/> : <Success />
             } */}
-            {/* <Success /> */}
-            <AuthLogin />
+            <Success />
+            {/* <AuthLogin /> */}
             <Text />
             <Rectangle setColor={setChangeColor} color={changeColor}/>
         </div>

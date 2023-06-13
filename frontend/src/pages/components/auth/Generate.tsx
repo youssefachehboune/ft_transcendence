@@ -11,9 +11,9 @@ const MyComponent = (props : Prop) => {
 
   return (
     <div className="generate">
-        <div className="w-[100%] h-[28.9%] flex items-center justify-center">
-            <div className="w-[90.48%] h-[41.4%]">
-                <p className="font-sora font-medium text-[16px] leading-[19px] text-[#414243]">{getText('GENERATE_P')}</p>
+        <div className="w-[100%] h-[28.9%] flex items-center justify-center phone:h-[25%]">
+            <div className="w-[90.48%] h-[41.4%] ">
+                <p className="font-sora font-medium text-[16px] leading-[19px] text-[#414243] phone:text-[13px]">{getText('GENERATE_P')}</p>
             </div>
         </div>
         <div className="w-[100%] h-[21.2%] flex items-end justify-center">

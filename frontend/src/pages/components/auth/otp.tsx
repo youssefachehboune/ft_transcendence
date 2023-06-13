@@ -33,7 +33,7 @@ const OTPField = (props : Prop) => {
     }
     function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
       const { key } = event;
-      if ((key === "-" || key === "+" || key === "e") && event.currentTarget === document.activeElement) {
+      if ((key === "-" || key === "+" || key === "e" || key === ".") && event.currentTarget === document.activeElement) {
         event.preventDefault();
       }
     }
