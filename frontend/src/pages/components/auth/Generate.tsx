@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Verfie from './Verification';
 import OTPField from './otp';
-
+import { getText } from '@/pages/api/lang';
 interface Prop {
     val: boolean;
     setVal : (val : boolean) => void;
@@ -13,7 +13,7 @@ const MyComponent = (props : Prop) => {
     <div className="generate">
         <div className="w-[100%] h-[28.9%] flex items-center justify-center">
             <div className="w-[90.48%] h-[41.4%]">
-                <p className="font-sora font-medium text-[16px] leading-[19px] text-[#414243]">You need to scan this QR Code with your google Authentication App and enter the verification code bellow</p>
+                <p className="font-sora font-medium text-[16px] leading-[19px] text-[#414243]">{getText('GENERATE_P')}</p>
             </div>
         </div>
         <div className="w-[100%] h-[21.2%] flex items-end justify-center">
@@ -24,7 +24,7 @@ const MyComponent = (props : Prop) => {
         <Verfie/>
         <OTPField setVal={props.setVal} val={props.val}/>
         <div className="w-[100%] h-[7.4%] flex items-end justify-center ">
-            <a className="font-sora font-regular text-[12px] text-[#24BD86] leading-[15px] cursor-none">Skip for now</a>
+            <a className="font-sora font-regular text-[12px] text-[#24BD86] leading-[15px] cursor-none">{getText('VERIFY_SKIP')}</a>
         </div>
     </div>
 );

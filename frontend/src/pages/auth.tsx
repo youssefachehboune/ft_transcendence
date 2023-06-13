@@ -17,11 +17,11 @@ export default function auth() {
             <Svg_image setColor={setChangeColor} color={changeColor}/>
             <Logo/>
             <Lang />
-            {
+            {/* {
                 show ? <Generate setVal={setShow} val={show}/> : <Success />
-            }
+            } */}
             {/* <Success /> */}
-            {/* <AuthLogin /> */}
+            <AuthLogin />
             <Text />
             <Rectangle setColor={setChangeColor} color={changeColor}/>
         </div>

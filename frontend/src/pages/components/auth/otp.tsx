@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { KeyboardEvent } from "react";
+import { getText } from '@/pages/api/lang';
   interface ApiResponse {
     isValid: boolean;
   }
@@ -12,12 +13,12 @@ import { KeyboardEvent } from "react";
   }
 let currentOTPIndex:number = 0;
 const OTPField = (props : Prop) => {
-    const router = useRouter();
-    const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
-    const [activeOTPIndex, setactiveOTPIndex] = useState<number>(0);
-    const [isValid, setIsValid] = useState<boolean>(true);
+  const router = useRouter();
+  const test = getText('ERROR_VERIFY_CODE');
+  const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
+  const [activeOTPIndex, setactiveOTPIndex] = useState<number>(0);
+  const [isValid, setIsValid] = useState<boolean>(true);
     let b : boolean = false;
-    let a : boolean = false;
     let show : boolean = false;
     let num : string = "";
       if (activeOTPIndex === 6) {
@@ -47,21 +48,17 @@ const OTPField = (props : Prop) => {
         },
         body: JSON.stringify({token: num}),
       });
-    
-      // Parse the response as JSON
       const data: boolean = await response.json();
-    
-      // Set the isValid state based on the response
+
       if (data === true)
       {
         setIsValid(true);
-        a = true;
+
         props.setVal(false);
       }
       else
       {
         setIsValid(false);
-        a = false;
       }
     };
     
@@ -119,7 +116,7 @@ const OTPField = (props : Prop) => {
     <div className="flex items-center justify-center">
       {
         !isValid && <h1 className="text-[#FF0000] mt-2 font-sora font-regular text-[8px] leading-[10px]">
-          The code you entered is incorrect
+          {test}
           </h1>
       }
     </div>
@@ -128,7 +125,7 @@ const OTPField = (props : Prop) => {
         className="Nextt"
         style={{backgroundColor: !b ? ' #393e60' : '#171926', cursor: !b ? 'none' : 'pointer' }}
         disabled={!b}
-        type="submit">Next</button>
+        type="submit">{getText('VERIFY_BUTTON')}</button>
     </div>
 </form>
 
