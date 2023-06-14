@@ -31,7 +31,7 @@
 }
 .cont
 {
-    background: bisque;
+    background-color: #070012;
     grid-area: cont;
 }
 .profile
@@ -68,3 +68,30 @@
 {
    color: white;
 }
+
+
+
+.Play_div {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    background-color: #1A1C21;
+    border-radius: 26px;
+    backdrop-filter: blur(25px);
+    overflow: hidden;
+}
+
+.Play_div svg {
+    position: absolute;
+    width: 100%;
+    /* background-color: #43C7FF; */
+    height: 300%;
+    transition: 0.5s;
+    top: 12%;
+
+}
+
+.Play_div svg:hover {
+    top: 8%;
+}
+
