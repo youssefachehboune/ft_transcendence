@@ -1,0 +1,70 @@
+.container_page
+{
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: auto repeat(9, 1fr);
+    grid-template-rows: 50px auto;
+    grid-template-areas: 
+     "chanel search search search search search search search section section"
+     "chanel Expolore cont cont cont cont cont  cont profile profile";
+}
+.chanel
+{
+    background: #070012;
+    grid-area: chanel;
+}
+.search
+{
+    background: #070012;
+    grid-area: search;
+}
+.section
+{
+    background: #070012;
+    grid-area: section;
+}
+.Expolore
+{
+    grid-area: Expolore;
+    background-color: #070012;
+}
+.cont
+{
+    background: bisque;
+    grid-area: cont;
+}
+.profile
+{
+    background-color: #070012;
+    grid-area: profile;
+}
+.test11
+{
+    background: linear-gradient(180deg, #FF3B22 -50%, rgba(217, 217, 217, 0) 100%);
+}
+.test2
+{
+    background: linear-gradient(180deg, #FFE500 -50%, rgba(217, 217, 217, 0) 100%);
+}
+.test3
+{
+    background: linear-gradient(180deg, #43C7FF -50%, rgba(217, 217, 217, 0) 100%);
+}
+.test4
+{
+    background: linear-gradient(180deg, #05FF00 -50%, rgba(217, 217, 217, 0) 100%);
+}
+.test5
+{
+    background: rgba(65, 66, 67, 0.3);
+}
+
+.hovring
+{
+    color: #414243
+}
+.hovring:hover
+{
+   color: white;
+}
