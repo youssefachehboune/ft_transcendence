@@ -18,30 +18,12 @@ const Bioinpute = ({ handleFormChange, dispatch} : bio) => {
 		setUsername(value.substring(0, 200));
 		setError(error_Bio_max_charcterc);
 		dispatch({type: "ERROR_BIO", pyload: false})
-	  } else {
-		let containsNonAlphanumeric = false;
-		for (let i = 0; i < value.length; i++) {
-		  const charCode = value.charCodeAt(i);
-		  if (
-			!(charCode >= 48 && charCode <= 57) && // 0-9
-			!(charCode >= 65 && charCode <= 90) && // A-Z
-			!(charCode >= 97 && charCode <= 122) // a-z
-		  ) {
-			containsNonAlphanumeric = true;
-			break;
-		  }
-		}
-  
-		if (containsNonAlphanumeric) {
-		  setUsername(value);
-		  setError(error_Bio_alphanumeric);
-		dispatch({type: "ERROR_BIO", pyload: false})
-		} else {
+	  } 
+	  else {
 		  setUsername(value);
 		  setError('');
 		  dispatch({type: "ERROR_BIO", pyload: true})
-		}
-	  }
+	}
     handleFormChange(e);
   };
 
