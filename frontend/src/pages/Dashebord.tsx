@@ -6,9 +6,10 @@ import { IoLocationOutline } from "react-icons/io5";
 import Expolore from "./components/Dashebord/Expolore";
 import { useEffect, useState } from "react";
 import getProfile from "./api/getProfile";
-
+import Main from "./components/Dashebord/Main_Cont";
 function Dashebord() {
     const [data, setdata] = useState<any>('');
+    const [isShow, setIsShow] = useState<boolean>(false);
     useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -22,39 +23,14 @@ function Dashebord() {
 			fetchData();
 		}
 		}, [data]);
-    
-    
+
     return ( 
         <div className="container_page overflow-hidden">
-            <div className="cont">
-                <div className="w-[100%] h-[30%] #070012 flex items-center justify-center">
-                    <div className="Play_div">
-                    <svg width="909" height="458" viewBox="0 0 909 458" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g filter="url(#filter0_bi_1317_4550)">
-                        <path d="M0 51.8641C0 25.9038 0 12.9237 8.20244 5.75184C16.4049 -1.42004 29.3653 0.325304 55.2862 3.816C143.632 15.7133 320.004 37 451 37C582.76 37 764.106 15.4639 853.953 3.60856C879.747 0.205106 892.643 -1.49662 900.822 5.67348C909 12.8436 909 25.7795 909 51.6512V458H0V51.8641Z" fill="#CBCBCB" fill-opacity="0.08"/>
-                        </g>
-                        <defs>
-                        <filter id="filter0_bi_1317_4550" x="-20" y="-19.3252" width="949" height="497.325" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                        <feGaussianBlur in="BackgroundImageFix" stdDeviation="10"/>
-                        <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1317_4550"/>
-                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_1317_4550" result="shape"/>
-                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                        <feOffset dy="1"/>
-                        <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
-                        <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.7 0"/>
-                        <feBlend mode="overlay" in2="shape" result="effect2_innerShadow_1317_4550"/>
-                        </filter>
-                        </defs>
-                    </svg>
-                    </div>
-                </div>
-                <div className="w-[100%] h-[70%] bg-green">
-                </div>
-            </div>
+
             <div className="chanel">
                 <img src="Bar.svg" alt=""/>
             </div>
+            <Main/>
             <div className="Expolore ">
                 <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px]">Explore</h1>
                 <Expolore Icone={FaCompass} text={"Home"}/>
@@ -100,7 +76,7 @@ function Dashebord() {
             <div className="profile">
                 <div className="w-[100%] h-[80%] mt-[20%] bg-[#070012] flex flex-col items-center overflow-hidden">
                     <div className="w-[143px] h-[143px]">
-                        <img src="mbjaghou.jpeg" alt="" className="rounded-full border-indigo-400 border-[2px]"/>
+                        <img src={data.avatar} alt="" className="rounded-full border-indigo-400 border-[2px]"/>
                     </div>
                     <h1 className="mt-[10px] text-[white] font-sora font-[700] text-[16px] flex items-center">{data.full_name}<span className="ml-[5px]"><BsPatchCheckFill color="#2CBDE6"/></span></h1>
                     <h1 className="text-[white] font-sora font-[400] text-[12px]">{data.username}</h1>

@@ -1,0 +1,80 @@
+
+.Play_div {
+    position: relative;
+    width: 80%;
+    height: 70%;
+    background-color: #1A1C21;
+    border-radius: 26px;
+    backdrop-filter: blur(25px);
+    overflow: hidden;
+}
+
+.Play_div svg {
+    position: absolute;
+    width: 100%;
+    /* background-color: #43C7FF; */
+    height: 150%;
+    transition: 0.5s;
+    z-index: 1;
+    
+
+}
+
+/* .Play_div svg path {
+    backdrop-filter: blur(25px);
+} */
+
+/* .Play_div svg:hover {
+    top: 1.5vw;
+} */
+
+
+.circle1 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(173, 0, 255, 0.5);
+    mix-blend-mode: normal;
+    opacity: 0.4;
+    filter: blur(200px);
+    border-radius: 50%;
+    top: -50px;
+    left: -60px;
+    z-index: 2;
+    transition: 0.5s;
+}
+
+.circle2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(173, 0, 255, 0.5);
+    mix-blend-mode: normal;
+    opacity: 0.4;
+    filter: blur(200px);
+    border-radius: 50%;
+    top: -50px;
+    right: -60px;
+    z-index: 2;
+    transition: 0.5s;
+}
+
+.header_play {
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 35px;
+    line-height: 44px;
+    color: #FFFFFF;
+    letter-spacing: 0.025em;
+    transition: 0.5s;
+}
+.parag_play {
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9em;
+    line-height: 18px;
+    text-align: center;
+    color: #FFFFFF;
+}
