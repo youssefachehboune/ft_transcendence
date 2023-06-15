@@ -36,7 +36,7 @@ module.exports = {
           'laptop': {'raw': '(min-width: 700px) and (max-width: 1024px)'},
 		  'desktop': {'raw': '(min-width: 1025px) and (max-width: 1300px)'},
 		  'xl': {'max': '768px'},
-		  '2xl': {'raw': '(min-width: 768px) and (max-width: 1200px)'},
+		  '2xl': {'raw': '(min-width: 768px) and (max-width: 1300px)'},
       },
       fontFamily: 
       {

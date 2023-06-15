@@ -7,8 +7,8 @@ interface exploring
 }
 function Expolore({Icone, text}: exploring) {
     return (
-            <button className="w-[268px] h-[50px] mb-[10px] flex justify-start items-center rounded-[5px] hover:bg-[#00DAEA] xl:justify-center  2xl:justify-center">
-                <Icone color="white" className="ml-[20px] xl:ml-0 2xl:ml-0"/>
+            <button className="w-[268px] h-[50px] mb-[10px] flex justify-start items-center rounded-[5px] hover:bg-[#00DAEA] xl:justify-center  2xl:justify-center 2xl:h-[100%]">
+                <Icone color="white" className="ml-[20px] xl:ml-0 2xl:ml-0 2xl:w-[30px] 2xl:h-[30px]"/>
                 <h1 className="ml-[10px] text-[white] text-[17px] font-sora font-[400] xl:hidden 2xl:hidden">{text}</h1>
             </button>
      );
