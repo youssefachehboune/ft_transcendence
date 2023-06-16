@@ -7,7 +7,7 @@
     grid-template-columns: auto repeat(9, 1fr);
     grid-template-rows: 50px auto;
     grid-template-areas: 
-     "chanel search search search search search search search section section"
+     "chanel Expolore search search search search search search section section"
      "chanel Expolore cont cont cont cont cont  cont profile profile";
 }
 .chanel

@@ -48,7 +48,7 @@ function Dashebord() {
                 <Link href={'/'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none"/></Link>
             </div>
 
-            <div className="Expolore xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
+            <div className="Expolore mt-[50px] xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                 <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
                 <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={FaCompass} text={"Home"}/>
                 <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={BsFillPeopleFill} text={"Friends"}/>
