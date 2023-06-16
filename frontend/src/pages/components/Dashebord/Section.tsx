@@ -9,11 +9,11 @@ return (
                 <button >
                 <AiOutlineMessage className="hovring w-[18px] h-[18px]"/>
                 </button>
-                <button className="xl:hidden">
+                <button >
                 <VscBell className="hovring w-[18px] h-[18px]"/>
 
                 </button>
-                <button className="xl:hidden">
+                <button>
                 <BsGlobe className="hovring w-[18px] h-[18px] "/>
                 </button>
                 <button>
