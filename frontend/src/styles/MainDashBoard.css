@@ -13,11 +13,9 @@
     position: absolute;
     width: 100%;
     /* background-color: #43C7FF; */
-    height: 150%;
+    height: 200%;
     transition: 0.5s;
     z-index: 1;
-    
-
 }
 
 /* .Play_div svg path {

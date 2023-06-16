@@ -5,10 +5,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* 
 * {
-    /* cursor: none; */
-}
+    cursor: none;
+} */
 
 #container {
     @apply relative flex justify-center items-center h-[100vh] w-[100%] bg-my-bg
