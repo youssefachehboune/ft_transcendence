@@ -7,7 +7,6 @@ import Link from "next/link";
 import Profile from "./components/Dashebord/profile";
 import Section from "./components/Dashebord/Section";
 import Search from "./components/Dashebord/Search";
-import Div_Search_friend from "./components/Dashebord/Div_Search_friend";
 import History from "./components/Dashebord/History";
 function Dashebord() {
     const [data, setdata] = useState<any>('');
@@ -57,8 +56,7 @@ function Dashebord() {
                 <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={FaMedal} text={"Achievements"}/>
                 <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={FaGamepad} text={"Game"}/>
             </div>
-            <Search handelsearchChanges={handelsearchChanges} />
-            {!showSearchfriend && <Div_Search_friend/>}
+            <Search showSearchfriend={showSearchfriend} handelsearchChanges={handelsearchChanges} />
             <Section/>
             {showfriend && <Profile showfriend={showfriend} data={data}/> }
             {!setshowHistorie && <History/>}
