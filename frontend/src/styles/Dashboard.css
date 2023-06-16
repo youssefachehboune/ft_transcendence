@@ -3,6 +3,7 @@
     width: 100%;
     height: 100vh;
     display: grid;
+    background: #070012;
     grid-template-columns: auto repeat(9, 1fr);
     grid-template-rows: 50px auto;
     grid-template-areas: 
