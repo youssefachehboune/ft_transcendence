@@ -6,14 +6,19 @@ interface exploring
     Icone: IconType;
     text: string;
     setshowfriend: Dispatch<SetStateAction<boolean>>;
+    setsetshowHistorie: Dispatch<SetStateAction<boolean>>;
 }
-function Expolore({setshowfriend, Icone, text}: exploring) {
+function Expolore({setsetshowHistorie, setshowfriend, Icone, text}: exploring) {
 
     const handelonclick = () =>
     {
-        console.log(text)
+        setsetshowHistorie(true)
         if (text === "Friends" || text === "History" || text === "Achievements" || text === "Game")
+        {
             setshowfriend(false);
+            if (text === "History")
+                setsetshowHistorie(false)
+        }
         if (text === "Home")
             setshowfriend(true);
     }

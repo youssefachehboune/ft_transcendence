@@ -5,7 +5,7 @@ import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 function Section() {
 return ( 
     <div className="section">
-            <div className="w-[80%] h-[100%] flex items-center justify-around">
+            <div className="w-[100%] h-[100%] flex items-center justify-around">
                 <button >
                 <AiOutlineMessage className="hovring w-[18px] h-[18px]"/>
                 </button>
