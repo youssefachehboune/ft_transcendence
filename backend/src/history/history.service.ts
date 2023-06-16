@@ -40,7 +40,10 @@ export class HistoryService {
 					}
 				}
 			},
-			take: take || undefined
+			take: take || undefined,
+			orderBy: {
+				occuredAt: 'desc'
+			}
 		});
 		const updatedHistory = history.map(entry => ({
 			...entry,
