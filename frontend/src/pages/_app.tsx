@@ -4,6 +4,7 @@ import '@/styles/page.css'
 import '@/styles/success.css'
 import '../styles/landing.css'
 import '../styles/auth.css'
+import '../styles/Dashboard.css'
 import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {

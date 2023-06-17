@@ -24,7 +24,7 @@ const MyComponent = (props : Prop) => {
         <Verfie/>
         <OTPField setVal={props.setVal} val={props.val}/>
         <div className="w-[100%] h-[7.4%] flex items-end justify-center ">
-            <a className="font-sora font-regular text-[12px] text-[#24BD86] leading-[15px] cursor-none">{getText('VERIFY_SKIP')}</a>
+            <a href={'/Dashboard'} className="font-sora font-regular text-[12px] text-[#24BD86] leading-[15px] cursor-none">{getText('VERIFY_SKIP')}</a>
         </div>
     </div>
 );
