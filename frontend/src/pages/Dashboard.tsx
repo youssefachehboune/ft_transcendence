@@ -1,5 +1,5 @@
 import { AiOutlineMessage } from "react-icons/ai";
-import { BsClock, BsClockFill, BsFillPeopleFill, BsGlobe, BsPatchCheckFill, BsPeople } from "react-icons/bs";
+import { BsClock, BsClockFill, BsFillPeopleFill, BsGlobe, BsPatchCheckFill, BsPeople, BsPlus } from "react-icons/bs";
 import { VscBell, VscSearch, VscSettingsGear } from 'react-icons/vsc'
 import {FaBolt, FaChartBar, FaChartPie, FaCompass, FaGamepad, FaMedal, FaPen} from 'react-icons/fa'
 import { IoLocationOutline } from "react-icons/io5";
@@ -18,7 +18,7 @@ function Dashebord() {
     const [search, setsearch] = useState<string>("");
     const [isShow, setIsShow] = useState<boolean>(false);
     const [activeIndex, setActiveIndex] = useState<null | number>(null);
-    const [isClicked,  setIsClicked] = useState<Props>({first:false, second:false});
+    const [svgPosition, setSvgPosition] = useState(0);
     useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -38,7 +38,10 @@ function Dashebord() {
         }
 
         const handleClick = (index : number) => {
-          setActiveIndex(index === activeIndex ? null : index);
+            setIsShow(true);
+            setActiveIndex(index === activeIndex ? null : index);
+            setSvgPosition(index * 70);
+        //   console.log(index);
         };
     return ( 
         <div className="container_page overflow-hidden">
@@ -48,20 +51,34 @@ function Dashebord() {
                     <Link  href={'/Dashboard'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none z-[2]"/></Link>
                     <div className=" h-[100%] w-[100%] flex items-center justify-end">
                         <div   className="div_navbar">
-                            <div onClick={() => handleClick(1)} className={`nav_hover ${1 === activeIndex ? 'active' : ''} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center mb-6`}>
+                            <div onClick={() => handleClick(0)} className={`${0 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center mb-[25px]`}>
                                 <FaCompass color="white" className="Compass_icon"/>
                             </div>
-                            <div onClick={() => handleClick(2)} className={`nav_hover  ${2 === activeIndex ? 'active' : ''} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center mb-6 overflow-hidden`}>
+                            <div onClick={() => handleClick(1)} className={`${1 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center mb-[25px] overflow-hidden`}>
                                     <img src="1337.jpeg" className="" alt="" />
                             </div>
-                            <div  onClick={() => handleClick(3)} className={`nav_hover ${3 === activeIndex ? 'active' : ''} w-[45px] h-[45px]  bg-[#02cdd1] ml-8 rounded-full flex items-center justify-center mb-6 overflow-hidden`}>
+                            <div  onClick={() => handleClick(2)} className={`${2 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px]  bg-[#02cdd1] ml-8 rounded-full flex items-center justify-center mb-[25px] overflow-hidden`}>
                                 <img src="Bios.svg" alt="" />
                             </div>
-                            <div  onClick={() => handleClick(4)} className={`nav_hover ${4 === activeIndex ? 'active' : ''} w-[45px] h-[45px]  bg-[#235a16] ml-8 rounded-full flex items-center justify-center mb-6 overflow-hidden`}>
+                            <div  onClick={() => handleClick(3)} className={`${3 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px]  bg-[#235a16] ml-8 rounded-full flex items-center justify-center mb-[25px] overflow-hidden`}>
                                 <img src="Commodore.svg" alt="" />
                             </div>
-                            
-
+                            <div  onClick={() => handleClick(4)} className={`${4 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px]  bg-[#f5bc39] ml-8 rounded-full flex items-center justify-center mb-[25px] overflow-hidden`}>
+                                <img src="Freax.svg" alt="" />
+                            </div>
+                            <div  onClick={() => handleClick(5)} className={`${5 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px]  bg-[#b61282] ml-8 rounded-full flex items-center justify-center mb-[25px] overflow-hidden`}>
+                                <img src="Pandora.svg" alt="" />
+                            </div>
+                            <div onClick={() => handleClick(6)} className={`${6 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center mb-[25px]`}>
+                                <BsPlus color="white" className="Add_icon"/>
+                            </div>
+                            <img src="indicator.svg" alt=""  className="w-[50%] absolute left-[15px]"
+                                style={{
+                                    display: isShow ? 'block' : 'none',
+                                    top: `${svgPosition}px`,
+                                    transition: 'top 0.3s ease-in-out',
+                                }}
+                            />
                         </div>
                         <div className="line_navbar">
                         </div>
@@ -92,7 +109,7 @@ function Dashebord() {
                     </div>
                 </div>
             </div>
-            {/* <Main/> */}
+            <Main/>
             <div className="section">
                 <div className="w-[80%] h-[100%] flex items-center justify-around">
                     <button>

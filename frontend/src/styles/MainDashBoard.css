@@ -13,8 +13,9 @@
     position: absolute;
     width: 100%;
     /* background-color: #43C7FF; */
-    height: 200%;
+    /* height: 200%; */
     transition: 0.5s;
+
     z-index: 1;
 }
 
@@ -60,21 +61,17 @@
 }
 
 .header_play {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 35px;
-    line-height: 44px;
-    color: #FFFFFF;
-    letter-spacing: 0.025em;
-    transition: 0.5s;
+    @apply font-sora font-bold text-[35px] leading-[44px] text-[#fff] tracking-[0.025em]
+desktop:text-[35px] desktop:leading-[44px] desktop:tracking-[0.025em]
+    laptop:text-[30px] laptop:leading-[38px] laptop:tracking-[0.025em]
+    Large-phone:text-[30px] Large-phone:leading-[32px] Large-phone:tracking-[0.025em]
+    phone:text-[25px] phone:leading-[26px] phone:tracking-[0.025em]
+
 }
 .parag_play {
-    font-family: 'Sora';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 0.9em;
-    line-height: 18px;
-    text-align: center;
-    color: #FFFFFF;
+    @apply font-sora font-normal text-[#fff] text-[0.9em] leading-[18px] transition-[0.5s]
+    desktop:text-[0.9em] desktop:leading-[18px]
+    laptop:text-[0.8em] laptop:leading-[16px]
+    Large-phone:text-[0.8em] Large-phone:leading-[16px]
+    phone:text-[0.7em] phone:leading-[14px]
 }

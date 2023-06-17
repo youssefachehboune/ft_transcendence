@@ -103,17 +103,22 @@
     height: 24px;
 }
 
+.Add_icon {
+    width: 30px;
+    height: 30px;
+}
+
 .nav_hover {
     
-    /* transition: 0.3s; */
+    transition: 0.7s;
 }
-/* .nav_hover:hover {
+.nav_hover:hover {
     border-radius: 50%;
     filter:drop-shadow(0px 0px 0.1vw #C322FF) drop-shadow(0px 0px 0.1vw #00BAE1);
-} */
+}
 
 .active {
-    filter:drop-shadow(2px -2px 0.8vw #C322FF) drop-shadow(-5px 10px 0.3vw #00BAE1);
+    filter:drop-shadow(-12px -2px 1vw #C322FF) drop-shadow(-8px 10px 0.5vw #00bbe1c4);
 }
 
 @media (max-width: 768px) {

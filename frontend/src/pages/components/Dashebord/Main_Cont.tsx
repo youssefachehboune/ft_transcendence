@@ -37,25 +37,25 @@ export default function Main() {
                 </div>
                 }
 
-                <svg width="1548" height="492" viewBox="0 0 1548 492" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    style={{
-                            top: isShow ? '1.5vw' : '6vw',
-                    }}
-                                        >
-                    <g filter="url(#filter0_bi_1317_4550)">
-                    <path className="backdrop-blur-lg" d="M0 50.9967C0 25.3916 0 12.589 8.11956 5.42349C16.2391 -1.74205 28.9358 -0.150928 54.329 3.03131C184.68 19.3667 522.518 58.5 767.5 58.5C1013.51 58.5 1361.37 19.0369 1493.88 2.8265C1519.17 -0.266807 1531.81 -1.81346 1539.91 5.34994C1548 12.5133 1548 25.2728 1548 50.7917V492H0V50.9967Z" fill="#CBCBCB" fill-opacity="0.08"/>
+
+                <svg style={{
+                        top: isShow ? '1.5vw' : '3.5vw',
+                }}
+                width="1326" height="613" viewBox="0 0 1326 613" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g filter="url(#filter0_bi_1280_4230)">
+                    <path d="M0 51.1452C0 25.4793 0 12.6464 8.1279 5.48018C16.2558 -1.68602 29.0051 -0.0762972 54.5036 3.14315C169.906 17.7139 445.084 49.5 649.5 49.5C856.127 49.5 1151.44 17.0227 1271.81 2.67655C1297.18 -0.347137 1309.87 -1.85898 1317.93 5.3021C1326 12.4632 1326 25.1915 1326 50.648V613H0V51.1452Z" fill="#CBCBCB" fill-opacity="0.08"/>
                     </g>
                     <defs>
-                    <filter id="filter0_bi_1317_4550" x="-20" y="-19.7666" width="1588" height="531.767" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <filter id="filter0_bi_1280_4230" x="-20" y="-19.8416" width="1366" height="652.842" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
                     <feFlood flood-opacity="0" result="BackgroundImageFix"/>
                     <feGaussianBlur in="BackgroundImageFix" stdDeviation="10"/>
-                    <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1317_4550"/>
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_1317_4550" result="shape"/>
+                    <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_1280_4230"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_1280_4230" result="shape"/>
                     <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
                     <feOffset dy="1"/>
                     <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
                     <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.7 0"/>
-                    <feBlend mode="overlay" in2="shape" result="effect2_innerShadow_1317_4550"/>
+                    <feBlend mode="overlay" in2="shape" result="effect2_innerShadow_1280_4230"/>
                     </filter>
                     </defs>
                 </svg>
