@@ -7,8 +7,9 @@ interface exploring
     text: string;
     setshowfriend: Dispatch<SetStateAction<boolean>>;
     setsetshowHistorie: Dispatch<SetStateAction<boolean>>;
+    setFriends: Dispatch<SetStateAction<boolean>>;
 }
-function Expolore({setsetshowHistorie, setshowfriend, Icone, text}: exploring) {
+function Expolore({setsetshowHistorie, setshowfriend, setFriends, Icone, text}: exploring) {
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -23,11 +24,15 @@ function Expolore({setsetshowHistorie, setshowfriend, Icone, text}: exploring) {
     const handelonclick = () =>
     {
         setsetshowHistorie(true)
+        setFriends(true);
         if (text === "Friends" || text === "History" || text === "Achievements" || text === "Game")
         {
             setshowfriend(false);
+            
             if (text === "History")
                 setsetshowHistorie(false)
+            else if (text === "Friends")
+                setFriends(false)
         }
         if (text === "Home")
             setshowfriend(true);

@@ -8,12 +8,14 @@ import Profile from "./components/Dashebord/profile";
 import Section from "./components/Dashebord/Section";
 import Search from "./components/Dashebord/Search";
 import History from "./components/Dashebord/History";
+import Friends from "./components/Dashebord/Friends";
 function Dashebord() {
     const [data, setdata] = useState<any>('');
     const [search, setsearch] = useState<string>("");
     const [showfriend, setshowfriend] = useState<boolean>(true)
     const [showSearchfriend, setshowSearchfriend] = useState<boolean>(true)
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
+    const [Friend, setFriends] = useState<boolean>(true)
     useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -50,16 +52,17 @@ function Dashebord() {
 
             <div className="Expolore mt-[50px] xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                 <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={FaCompass} text={"Home"}/>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={BsFillPeopleFill} text={"Friends"}/>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={BsClockFill} text={"History"}/>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={FaMedal} text={"Achievements"}/>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} Icone={FaGamepad} text={"Game"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={FaCompass} text={"Home"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={BsFillPeopleFill} text={"Friends"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={BsClockFill} text={"History"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={FaMedal} text={"Achievements"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={FaGamepad} text={"Game"}/>
             </div>
             <Search showSearchfriend={showSearchfriend} handelsearchChanges={handelsearchChanges} />
             <Section/>
             {showfriend && <Profile showfriend={showfriend} data={data}/> }
             {!setshowHistorie && <History/>}
+            {!Friend && <Friends handelsearchChanges={handelsearchChanges}/>}
         </div>
      );
 }
