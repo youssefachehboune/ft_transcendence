@@ -71,23 +71,23 @@ function History() {
                         </select>
                     </div>
                 {test.map((user: any, key) => (
-                    <div key={key} className="w-[100%] min-h-[65px] text-white flex justify-between overflow-hidden">
-                        <div className="w-[33.5%] flex items-center justify-center">
+                    <div key={key} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
+                        <div className="w-[33.5%] flex items-center justify-end">
                             <img src={user.img} alt="" className="w-[54px] rounded-full"/>
                             <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                 <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.name}</h1>
-                                <h1 className="text-[7px] font-sora font-[600] text-[white] ">{"@" + user.login}</h1>
+                                <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.login}</h1>
                             </div>
                         </div>
                         <div className="w-[33.5%] flex flex-col items-center justify-center">
                             <h1 className="text-[22px] font-sora font-[400] text-[white]">7 : 5</h1>
                             <h1 className="text-[9px] font-sora font-[400] text-[#B3B3B3]">1 Hours ago</h1>
                         </div>
-                        <div className="w-[33.5%] flex items-center justify-center">
+                        <div className="w-[33.5%] flex items-center justify-start">
                             <img src={user.img} alt="" className="w-[54px] rounded-full"/>
                             <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                 <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.name}</h1>
-                                <h1 className="text-[7px] font-sora font-[600] text-[white] ">{"@" + user.login}</h1>
+                                <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.login}</h1>
                             </div>
                         </div>
                     </div>

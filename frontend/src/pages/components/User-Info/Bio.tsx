@@ -15,7 +15,7 @@ const Bioinpute = ({ handleFormChange, dispatch} : bio) => {
 	const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length > 200) {
-		setUsername(value.substring(0, 200));
+		setUsername(value.substring(0, 201));
 		setError(error_Bio_max_charcterc);
 		dispatch({type: "ERROR_BIO", pyload: false})
 	  } 
