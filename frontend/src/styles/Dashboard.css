@@ -37,7 +37,7 @@
 }
 .profile
 {
-    background-color: #6200ff;
+    background-color: #070012;
     grid-area: profile;
 
 }
@@ -80,7 +80,7 @@
         grid-template-columns: auto repeat(9, 1fr);
         grid-template-rows: 50px auto 50px;
         grid-template-areas: 
-        "chanel chanel chanel chanel chanel chanel chanel chanel section section"
+        "chanel chanel chanel chanel chanel chanel section section section section"
         "cont cont cont cont cont cont cont cont cont cont"
         "Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore";
     }

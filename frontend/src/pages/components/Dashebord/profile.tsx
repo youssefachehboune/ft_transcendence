@@ -5,9 +5,8 @@ import { IoLocationOutline } from "react-icons/io5";
 interface Profile
 {
     data: any;
-    showfriend: boolean;
 }
-function Profile({data, showfriend} : Profile) {
+function Profile({data} : Profile) {
     return (
             <div className="profile">
             <div className="w-[100%] h-[85%] mt-[20%] bg-[#070012] flex flex-col items-center overflow-hidden">

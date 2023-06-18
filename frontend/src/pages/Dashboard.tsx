@@ -52,17 +52,18 @@ function Dashebord() {
 
             <div className="Expolore mt-[50px] xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                 <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={FaCompass} text={"Home"}/>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={BsFillPeopleFill} text={"Friends"}/>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={BsClockFill} text={"History"}/>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={FaMedal} text={"Achievements"}/>
-                <Expolore setsetshowHistorie={setsetshowHistorie} setshowfriend={setshowfriend} setFriends={setFriends} Icone={FaGamepad} text={"Game"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={FaCompass} text={"Home"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={BsFillPeopleFill} text={"Friends"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={BsClockFill} text={"History"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={FaMedal} text={"Achievements"}/>
+                <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={FaGamepad} text={"Game"}/>
             </div>
             <Search showSearchfriend={showSearchfriend} handelsearchChanges={handelsearchChanges} />
-            <Section/>
-            {showfriend && <Profile showfriend={showfriend} data={data}/> }
+            <Section showfriend={showfriend} setshowfriend={setshowfriend}/>
+            {showfriend && <Profile data={data}/> }
             {!setshowHistorie && <History/>}
-            {!Friend && <Friends handelsearchChanges={handelsearchChanges}/>}
+            {!Friend && <Friends data={data} handelsearchChanges={handelsearchChanges}/>}
+            {!showfriend && <div className="profile"></div>}
         </div>
      );
 }
