@@ -3,10 +3,11 @@
     width: 100%;
     height: 100vh;
     display: grid;
-    grid-template-columns: auto repeat(9, 1fr);
+    background: #070012;
+    grid-template-columns: 100px repeat(9, 1fr);
     grid-template-rows: 50px auto;
     grid-template-areas: 
-     "chanel search search search search search search search section section"
+     "chanel Expolore search search search search search search section section"
      "chanel Expolore cont cont cont cont cont  cont profile profile";
 }
 .chanel
@@ -51,7 +52,7 @@
 .test3
 {
     background: linear-gradient(180deg, #43C7FF -50%, rgba(217, 217, 217, 0) 100%);
-}
+}   
 .test4
 {
     background: linear-gradient(180deg, #05FF00 -50%, rgba(217, 217, 217, 0) 100%);
@@ -120,7 +121,6 @@
 .active {
     filter:drop-shadow(-12px -2px 1vw #C322FF) drop-shadow(-8px 10px 0.5vw #00bbe1c4);
 }
-
 @media (max-width: 768px) {
     .container_page
     {

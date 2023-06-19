@@ -20,7 +20,7 @@ const UsernameInput = ({ handleFormChange, data, errormssage, dispatch} : userna
     const value = e.target.value;
 	dispatch({type: "ERROR_MESSAGE", pyload: ""})
     if (value.length > 15) {
-		setUsername(value.substring(0, 15));
+		setUsername(value.substring(0, 16));
 		setError( error_user_max_charcter);
 		dispatch({type: "ERROR_USER", pyload: false})
 	  } else {
