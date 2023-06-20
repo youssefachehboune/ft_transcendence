@@ -50,20 +50,21 @@ function Dashebord() {
                 <Link href={'/'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none"/></Link>
             </div>
 
-            <div className="Expolore mt-[50px] xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
+            <div className="Expolore ">
+                <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                 <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
                 <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={FaCompass} text={"Home"}/>
                 <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={BsFillPeopleFill} text={"Friends"}/>
                 <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={BsClockFill} text={"History"}/>
                 <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={FaMedal} text={"Achievements"}/>
                 <Expolore setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={FaGamepad} text={"Game"}/>
+                </div>
             </div>
             <Search showSearchfriend={showSearchfriend} handelsearchChanges={handelsearchChanges} />
-            <Section showfriend={showfriend} setshowfriend={setshowfriend}/>
-            {showfriend && <Profile data={data}/> }
+            <Section/>
+            <Profile data={data}/>
             {!setshowHistorie && <History/>}
-            {!Friend && <Friends data={data} handelsearchChanges={handelsearchChanges}/>}
-            {!showfriend && <div className="profile"></div>}
+            {!Friend && <Friends data={data}/>}
         </div>
      );
 }
