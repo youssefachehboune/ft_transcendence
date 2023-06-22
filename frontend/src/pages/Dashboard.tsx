@@ -16,6 +16,7 @@ function Dashebord() {
     const [showfriend, setshowfriend] = useState<boolean>(true)
     const [showSearchfriend, setshowSearchfriend] = useState<boolean>(true)
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
+    const [showAchievement, setshowAchievement] = useState<boolean>(true)
     useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -63,6 +64,8 @@ function Dashebord() {
             <Section/>
             {showfriend && <Profile showfriend={showfriend} data={data}/> }
             {!setshowHistorie && <History/>}
+            {!showAchievement && <History/>}
+
         </div>
      );
 }
