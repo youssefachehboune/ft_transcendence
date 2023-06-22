@@ -7,7 +7,7 @@
     grid-template-columns: 100px repeat(9, 1fr);
     grid-template-rows: 50px auto;
     grid-template-areas: 
-     "chanel Expolore search search search search search search section section"
+     "chanel search search search search search search search section section"
      "chanel Expolore cont cont cont cont cont  cont profile profile";
 }
 .chanel
@@ -127,10 +127,10 @@
         width: 100%;
         height: 100vh;
         display: grid;
-        grid-template-columns: auto repeat(9, 1fr);
+        grid-template-columns: repeat(10, 1fr);
         grid-template-rows: 50px auto 50px;
         grid-template-areas: 
-        "chanel chanel chanel chanel chanel chanel chanel chanel section section"
+        "chanel chanel chanel chanel chanel chanel section section section section"
         "cont cont cont cont cont cont cont cont cont cont"
         "Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore";
     }
@@ -149,7 +149,7 @@
         display: none;
     }
 }
-@media (min-width: 768px) and (max-width:1300px)
+@media (min-width: 769px) and (max-width:1300px)
 {
     .container_page
     {

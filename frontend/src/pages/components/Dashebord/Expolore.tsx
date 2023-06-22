@@ -5,10 +5,11 @@ interface exploring
 {
     Icone: IconType;
     text: string;
-    setshowfriend: Dispatch<SetStateAction<boolean>>;
     setsetshowHistorie: Dispatch<SetStateAction<boolean>>;
+    setFriends: Dispatch<SetStateAction<boolean>>;
+    setmain: Dispatch<SetStateAction<boolean>>;
 }
-function Expolore({setsetshowHistorie, setshowfriend, Icone, text}: exploring) {
+function Expolore({setmain, setsetshowHistorie, setFriends, Icone, text}: exploring) {
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -23,14 +24,17 @@ function Expolore({setsetshowHistorie, setshowfriend, Icone, text}: exploring) {
     const handelonclick = () =>
     {
         setsetshowHistorie(true)
-        if (text === "Friends" || text === "History" || text === "Achievements" || text === "Game")
+        setFriends(true);
+        setmain(false);
+        if (text === "Friends" || text === "History" || text === "Achievements" || text === "Game" || text === "Home")
         {
-            setshowfriend(false);
             if (text === "History")
                 setsetshowHistorie(false)
+            else if (text === "Friends")
+                setFriends(false)
+            else if (text === "Home")
+                setmain(true)
         }
-        if (text === "Home")
-            setshowfriend(true);
     }
     return (
             <button onClick={handelonclick} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="w-[268px] h-[50px] mb-[10px] flex justify-start items-center rounded-[5px] gap-[12px] hover:bg-[#00DAEA] xl:justify-center  2xl:justify-center 2xl:h-[100%] xl:rounded-none 2xl:rounded-none">
