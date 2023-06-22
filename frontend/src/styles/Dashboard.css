@@ -4,7 +4,7 @@
     height: 100vh;
     display: grid;
     background: #070012;
-    grid-template-columns: auto repeat(9, 1fr);
+    grid-template-columns: 100px repeat(9, 1fr);
     grid-template-rows: 50px auto;
     grid-template-areas: 
      "chanel search search search search search search search section section"
@@ -32,7 +32,7 @@
 }
 .cont
 {
-    background: #070012;
+    background-color: #070012;
     grid-area: cont;
 }
 .profile
@@ -52,7 +52,7 @@
 .test3
 {
     background: linear-gradient(180deg, #43C7FF -50%, rgba(217, 217, 217, 0) 100%);
-}
+}   
 .test4
 {
     background: linear-gradient(180deg, #05FF00 -50%, rgba(217, 217, 217, 0) 100%);
@@ -71,6 +71,56 @@
    color: white;
 }
 
+.div_navbar {
+    position: absolute;
+    height: 580px;
+    width: 95%;
+    border-bottom: 45px solid transparent;
+    border-top: 45px solid transparent;
+    border-right: 75px solid #4142434D;
+    /* background-color: #05FF00; */
+    left: 0;
+    /* transform: rotate(-90deg); */
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.line_navbar {
+    position: absolute;
+    width: 5%;
+    left: 95%;
+    height: 100%;
+    top: 0;
+    background-color: #4142434D;
+    z-index: 1;
+    
+}
+
+.Compass_icon {
+    width: 24px;
+    height: 24px;
+}
+
+.Add_icon {
+    width: 30px;
+    height: 30px;
+}
+
+.nav_hover {
+    
+    transition: 0.7s;
+}
+.nav_hover:hover {
+    border-radius: 50%;
+    filter:drop-shadow(0px 0px 0.1vw #C322FF) drop-shadow(0px 0px 0.1vw #00BAE1);
+}
+
+.active {
+    filter:drop-shadow(-12px -2px 1vw #C322FF) drop-shadow(-8px 10px 0.5vw #00bbe1c4);
+}
 @media (max-width: 768px) {
     .container_page
     {
@@ -92,6 +142,12 @@
     {
         display: none;
     }
+    .div_navbar {
+        display: none;
+    }
+    .line_navbar {
+        display: none;
+    }
 }
 @media (min-width: 769px) and (max-width:1300px)
 {
@@ -107,4 +163,13 @@
         "cont cont cont cont cont cont profile  profile profile profile"
         "Expolore Expolore Expolore Expolore Expolore Expolore profile  profile profile profile";
     }
+
+    .div_navbar {
+        display: none;
+    }
+    .line_navbar {
+        display: none;
+    }
 }
+
+

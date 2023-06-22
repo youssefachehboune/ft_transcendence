@@ -3,12 +3,14 @@ import {FaCompass, FaGamepad, FaMedal} from 'react-icons/fa'
 import Expolore from "./components/Dashebord/Expolore";
 import { ChangeEvent, HtmlHTMLAttributes, KeyboardEvent, useEffect, useState } from "react";
 import getProfile from "./api/getProfile";
-import Link from "next/link";
+
 import Profile from "./components/Dashebord/profile";
 import Section from "./components/Dashebord/Section";
 import Search from "./components/Dashebord/Search";
+import NavBar from "./components/Dashebord/NavBar";
 import History from "./components/Dashebord/History";
 import Friends from "./components/Dashebord/Friends";
+import Main from "./components/Dashebord/Main_Cont";
 function Dashebord() {
     const [data, setdata] = useState<any>('');
     const [search, setsearch] = useState<string>("");
@@ -43,11 +45,12 @@ function Dashebord() {
     
     return ( 
         <div className="container_page">
-            <div className="cont"></div>
+            {
+                setshowHistorie && <Main/>
+            }
 
-            
             <div className="chanel">
-                <Link href={'/'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none"/></Link>
+                    <NavBar/>
             </div>
 
             <div className="Expolore ">
