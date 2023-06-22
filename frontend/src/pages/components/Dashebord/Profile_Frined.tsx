@@ -5,7 +5,7 @@ import { IoArrowBackCircle, IoLocationOutline } from "react-icons/io5";
 
 function Profile_Frined({setvisible, data, test}: any) {
     return (
-                    <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[100%] 2xl:w-[100%] flex flex-col overflow-y-auto overflow-x-hidden">
+                    <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[100%] 2xl:w-[100%] flex flex-col overflow-y-auto overflow-x-hidden test5">
                         <div className="w-[100%] min-h-[300px] flex flex-col items-end overflow-hidden">
                                     <div className="w-[100%] h-[50%] test5">
                                         <button onClick={() => {setvisible(false)}}>
@@ -22,7 +22,7 @@ function Profile_Frined({setvisible, data, test}: any) {
                                     <div className="w-[70%] h-[30%] flex gap-[10px] items-center justify-center mt-[-50px]">
                                             <button className="w-[88px] h-[24px] test5 rounded-[4px] hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><BsPersonCheckFill/></span>Friends</h1></button>
                                             <button className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
-                                            <select id="block" className="w-[30px]">
+                                            <select id="block" className="w-[30px] rounded-[4px]">
                                                 <option value=""></option>
                                                 <option value="">block</option>
                                             </select>
@@ -33,7 +33,7 @@ function Profile_Frined({setvisible, data, test}: any) {
                             <h1 className="font-sora font-[700] text-[15px] p-[10px] text-white">Bio</h1>
                             <p className="font-sora font-[300] text-[13px] p-[10px] text-white">Wanderlust soul exploring the world one adventure at a time. ✈️🗺️ Sharing my passions: travel, photography, and embracing every moment. 📸✨ Join med inspiration. ✌️❤️</p>
                         </div>
-                        <div className="w-[95%] min-h-[260px] flex relative">
+                        <div className="w-[95%] min-h-[220px] flex relative ">
                                 <div className="w-[2px] h-[150px] top-[5%] left-[53%] test5 absolute"></div>
                                 <div className="w-[60%] h-[100%]">
                                         <div className="w-[100%] h-[50%] flex flex-col justify-around ml-[10px]">

@@ -130,7 +130,7 @@ function Friends({data}: any) {
         }
     }
     return (
-        <div className="cont overflow-hidden flex gap-[10px] h-[100%] bg-black" >
+        <div className="cont overflow-hidden flex gap-[10px] h-[100%]" >
             <div className={`w-[40%] ${visible ? "xl:w-[0%] 2xl:w-[0%]" : "xl:w-[100%] 2xl:w-[100%]"} h-[100%] test5 flex flex-col items-center overflow-y-auto rounded-[10px]`}>
                                     <div className="w-[100%] h-auto flex flex-col items-center">
                                         <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
