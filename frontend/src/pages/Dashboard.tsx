@@ -3,17 +3,20 @@ import {FaCompass, FaGamepad, FaMedal} from 'react-icons/fa'
 import Expolore from "./components/Dashebord/Expolore";
 import { ChangeEvent, HtmlHTMLAttributes, KeyboardEvent, useEffect, useState } from "react";
 import getProfile from "./api/getProfile";
-import Link from "next/link";
+
 import Profile from "./components/Dashebord/profile";
 import Section from "./components/Dashebord/Section";
 import Search from "./components/Dashebord/Search";
+import NavBar from "./components/Dashebord/NavBar";
 import History from "./components/Dashebord/History";
+import Main from "./components/Dashebord/Main_Cont";
 function Dashebord() {
     const [data, setdata] = useState<any>('');
     const [search, setsearch] = useState<string>("");
     const [showfriend, setshowfriend] = useState<boolean>(true)
     const [showSearchfriend, setshowSearchfriend] = useState<boolean>(true)
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
+    const [showAchievement, setshowAchievement] = useState<boolean>(true)
     useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -41,11 +44,12 @@ function Dashebord() {
     
     return ( 
         <div className="container_page">
-            <div className="cont"></div>
+            {
+                setshowHistorie && <Main/>
+            }
 
-            
             <div className="chanel">
-                <Link href={'/'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none"/></Link>
+                    <NavBar/>
             </div>
 
             <div className="Expolore mt-[50px] xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
@@ -60,6 +64,8 @@ function Dashebord() {
             <Section/>
             {showfriend && <Profile showfriend={showfriend} data={data}/> }
             {!setshowHistorie && <History/>}
+            {!showAchievement && <History/>}
+
         </div>
      );
 }
