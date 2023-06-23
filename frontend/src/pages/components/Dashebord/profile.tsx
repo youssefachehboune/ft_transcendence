@@ -16,7 +16,7 @@ function Profile({data} : Profile) {
                 <h1 className="mt-[10px] text-[white] font-sora font-[700] text-[16px] flex items-center">{data.full_name}<span className="ml-[5px]"><BsPatchCheckFill color="#2CBDE6"/></span></h1>
                 <h1 className="text-[white] font-sora font-[400] text-[12px]">{data.username}</h1>
                     <div className="w-[70%] h-[30px] flex flex-row justify-end items-center mt-[10px]">
-                    <button className="w-[88px] h-[24px] rounded-[4px] bg-[#414243] relative hover:bg-[#00DAEA]">
+                    <button className="w-[88px] h-[24px] rounded-[4px] bg-[#414243]  hover:bg-[#00DAEA]">
                         
                         <h1 className="text-[white] text-[8px] flex items-center ml-[10px]"><span className="mr-[5px]"><FaPen/></span>Edite profile</h1>
                     </button>
