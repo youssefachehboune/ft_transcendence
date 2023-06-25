@@ -30,13 +30,22 @@ return (
                 <VscSettingsGear className="hovring w-[18px] h-[18px]"/>
                 </button>
             </div>
-            <div className="w-[20%] h-[70%] absolute bg-[#F8F8F821] top-[5%] right-[0.5%] z-99 rounded-[6px] overflow-hidden" style={
+            <div className="w-[320px] h-[70%] absolute bg-[#F8F8F821] top-[5%] right-[0.5%] z-99 rounded-[6px] overflow-hidden" style={
                 {
                     display: show ? 'block' : 'none'
                 }
             }
             >
-                <div className="w-[100%] h-[13%] bg-red-100 "></div>
+                <div className="w-[100%] h-[10%] bg-[#FFFFFF0F]  flex justify-center items-start">
+                    <div className="w-[100%] h-[40%] flex items-end">
+                        <div className="w-[50%] h-[50%]">
+                                <h1 className="text-[11px] text-[#fff] font-sora font-semibold ml-4">Notification</h1>
+                        </div>
+                        <div className="w-[50%] h-[50%] flex justify-end">
+                                <h1 className="text-[9px] text-[#fff] font-sora mr-4">Mark all as read</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
 
     </div>

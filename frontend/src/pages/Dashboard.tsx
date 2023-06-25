@@ -61,7 +61,7 @@ function Dashebord() {
             </div>
             <Search showSearchfriend={showSearchfriend} handelsearchChanges={handelsearchChanges} />
             <Section/>
-            <Profile data={data}/>
+            {/* <Profile data={data}/> */}
             {!setshowHistorie && <History/>}
             {!Friend && <Friends data={data}/>}
         </div>
