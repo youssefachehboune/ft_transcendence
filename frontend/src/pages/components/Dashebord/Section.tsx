@@ -3,6 +3,8 @@ import { AiOutlineMessage } from "react-icons/ai";
 import { BsGlobe } from "react-icons/bs";
 import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import { useState } from "react";
+import InviteNotif from "./InviteNotif";
+import Notif from "./Notif";
 function Section() {
     const [show, setshow] = useState<boolean>(false);
 
@@ -30,7 +32,7 @@ return (
                 <VscSettingsGear className="hovring w-[18px] h-[18px]"/>
                 </button>
             </div>
-            <div className="w-[320px] h-[70%] absolute bg-[#F8F8F821] top-[5%] right-[0.5%] z-99 rounded-[6px] overflow-hidden" style={
+            <div className="w-[320px] h-[70%] absolute bg-[#F8F8F821] top-[5%] right-[0.5%] z-99 rounded-[6px] overflow-y-auto" style={
                 {
                     display: show ? 'block' : 'none'
                 }
@@ -46,6 +48,22 @@ return (
                         </div>
                     </div>
                 </div>
+                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
             </div>
 
     </div>
