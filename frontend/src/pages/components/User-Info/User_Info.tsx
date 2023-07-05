@@ -96,11 +96,11 @@
 	};
 
 	return (
-	<div className="w-[378px] h-[675px] bg-white absolute z-[100] right-[55%] bottom-[20%] rounded-[15px]
-							phone:w-[250px] phone:h-[450px] phone:right-[20%] phone:bottom-[5%]
-							Large-phone:w-[270px] Large-phone:h-[510px] Large-phone:right-[30%] Large-phone:bottom-[10%]
-							laptop:w-[358px] laptop:h-[550px] laptop:right-[40%] laptop:bottom-[5%]
-							desktop:w-[378px] desktop:h-[575px] desktop:right-[50%] desktop:bottom-[10%]">
+	<div className="w-[378px] h-[675px] bg-white absolute z-[100] mr-[30%] rounded-[15px]
+							phone:w-[250px] phone:h-[450px] phone:mr-0 phone:mt-[50%]
+							Large-phone:w-[270px] Large-phone:h-[510px] Large-phone:mr-0 Large-phone:mt-[50%]
+							laptop:w-[358px] laptop:h-[550px]
+							desktop:w-[378px] desktop:h-[575px]">
 
 		
 		<Img_profile state={state} avatar={avatar} data={data}/>

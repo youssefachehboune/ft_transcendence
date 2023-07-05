@@ -36,20 +36,20 @@ input::-webkit-outer-spin-button {
 }
 
 .generate {
-    @apply w-[378px] z-[100] h-[543px] bg-white absolute right-[55%] bottom-[30%] rounded-[15px]
-    desktop:w-[378px] desktop:h-[543px]  desktop:right-[50%] desktop:bottom-[20%]
-    laptop:w-[338px] laptop:h-[493px] laptop:right-[40%] laptop:bottom-[13%]
-    Large-phone:w-[328px] Large-phone:h-[483px] Large-phone:right-[30%] Large-phone:bottom-[20%]
-    phone:w-[288px] phone:h-[433px] phone:right-[14%] phone:bottom-[6%]
+    @apply w-[378px] z-[100] h-[543px] bg-white absolute  mr-[30%] rounded-[15px]
+    desktop:w-[378px] desktop:h-[543px] 
+    laptop:w-[338px] laptop:h-[493px]
+    Large-phone:w-[328px] Large-phone:h-[483px]  Large-phone:mr-0 Large-phone:mt-[50%]
+    phone:w-[288px] phone:h-[433px] phone:mr-0 phone:mt-[50%]
 }
 
 
 .success_auth {
-    @apply w-[378px] z-[100] h-[474px] bg-white absolute right-[55%] bottom-[35%]  rounded-[15px] flex flex-col items-center
-    desktop:w-[378px] desktop:h-[474px] desktop:right-[50%] desktop:bottom-[25%]
-    laptop:w-[338px] laptop:h-[433px] laptop:right-[40%] laptop:bottom-[20%]
-    Large-phone:w-[328px] Large-phone:h-[423px] Large-phone:right-[30%] Large-phone:bottom-[25%]
-    phone:w-[288px] phone:h-[383px] phone:right-[17%] phone:bottom-[6%]
+    @apply w-[378px] z-[100] h-[474px] bg-white absolute  mr-[30%] rounded-[15px] flex flex-col items-center
+    desktop:w-[378px] desktop:h-[474px]
+    laptop:w-[338px] laptop:h-[433px]
+    Large-phone:w-[328px] Large-phone:h-[423px] Large-phone:mr-0 Large-phone:mt-[50%]
+    phone:w-[288px] phone:h-[383px] phone:mr-0 phone:mt-[50%]
 }
 
 .icon_success {
@@ -74,11 +74,11 @@ input::-webkit-outer-spin-button {
 }
 
 .authLog {
-    @apply w-[378px] z-[100] h-[284px] bg-white absolute right-[55%] bottom-[35%] rounded-[15px] flex flex-col items-center
-    desktop:w-[378px] desktop:h-[284px] desktop:left-[20%] desktop:right-[50%] desktop:bottom-[35%]
-    laptop:w-[338px] laptop:h-[244px] laptop:right-[40%] laptop:bottom-[20%]
-    Large-phone:w-[328px] Large-phone:h-[233px] Large-phone:right-[30%] Large-phone:bottom-[20%]
-    phone:w-[308px] phone:h-[233px]  phone:right-[10%] phone:bottom-[15%]
+    @apply w-[378px] z-[100] h-[284px] bg-white absolute mr-[30%] rounded-[15px] flex flex-col items-center
+    desktop:w-[378px] desktop:h-[284px]
+    laptop:w-[338px] laptop:h-[244px]
+    Large-phone:w-[328px] Large-phone:h-[233px] Large-phone:mr-0 Large-phone:mt-[50%]
+    phone:w-[308px] phone:h-[233px]  phone:mr-0 phone:mt-[50%]
 }
 
 
