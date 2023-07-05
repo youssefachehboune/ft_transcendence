@@ -3,13 +3,14 @@ import { PrismaClient } from '@prisma/client';
 import { Request } from 'express';
 import { achievementDto } from './achievements.dto';
 import { NotificationService, NotificationType } from 'src/notification/notification.service';
+import { formatDistanceToNow } from 'date-fns';
 
 const prisma = new PrismaClient();
 @Injectable()
 export class AchievementsService {
 	constructor(private readonly notificationService: NotificationService) {}
 
-	async getAchievements(@Req() req: Request) {
+	async getAchievements(@Req() req: Request, type: 'ALL' | 'COMPLETE' | 'UNCOMPLETE', take?: number) {
 		const achievements = await prisma.achievement.findMany({
 			where: {},
 			include: {
@@ -22,15 +23,28 @@ export class AchievementsService {
 				}
 			}
 		});
-		const updatedAchievements = achievements.map(entry => {
+		let updatedAchievements = achievements
+		.sort((a, b) => {
+			const dateA: any = a.AchievementLog[0] ? a.AchievementLog[0].occuredAt : '';
+			const dateB: any = b.AchievementLog[0] ? b.AchievementLog[0].occuredAt : '';
+			return dateB - dateA;
+		})
+		.map(entry => {
 			const { id, AchievementLog, ...rest } = entry;
 			return {
 				...rest,
 				score: AchievementLog[0] ? AchievementLog[0].score : 0,
-				occuredAt: AchievementLog[0] ? AchievementLog[0].occuredAt : ''
+				occuredAt: AchievementLog[0] ? formatDistanceToNow(new Date(entry.AchievementLog[0].occuredAt), { addSuffix: true }) : ''
 			};
 		});
-		return updatedAchievements;		
+		if (take)
+			updatedAchievements = updatedAchievements.slice(0, take + 1);
+		if (type === 'UNCOMPLETE')
+			return updatedAchievements.filter(entry => entry.score !== +entry.milestone);
+		else if (type === 'COMPLETE')
+			return updatedAchievements.filter(entry => entry.score === +entry.milestone);
+		else
+			return updatedAchievements;
 	}
 	
 	async updateAchievements(@Req() req: Request, @Body() achiev: achievementDto) {
