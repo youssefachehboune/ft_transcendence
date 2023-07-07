@@ -1,45 +1,21 @@
+"use client"
 import Link from "next/link";
 import { useState, KeyboardEvent, useEffect } from "react";
 
 import { VscSearch } from "react-icons/vsc";
 import Profile_Frined from "./Profile_Frined";
-import friends from "@/pages/api/Friends";
-import Friends_Profile from "@/pages/api/Friends_Profile";
 
 function Friends({data}: any) { 
     const [visible, setvisible] = useState<boolean>(false);
+
     const [searchfriend, setsearchfriend] = useState<string>("");
+
     const [ListFriends, setListFriends] = useState<any>();
-    const [userProfile , setuserProfile] = useState<string>("");
     const [Profile , setProfile] = useState<any>();
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-			const fetchedUserData = await Friends_Profile(userProfile);
-			setProfile(fetchedUserData);
-			} catch (error) {
-			console.log('Error:', error);
-			}
-		};
-		if (userProfile) {
-			fetchData();
-		}
-    }, [userProfile]);
-
-    useEffect(() => {
-		const fetchData = async () => {
-			try {
-			const fetchedUserData = await friends();
-			setListFriends(fetchedUserData);
-			} catch (error) {
-			console.log('Error:', error);
-			}
-		};
-		if (!ListFriends) {
-			fetchData();
-		}
-    }, [ListFriends]);
+    useEffect( () => {
+            fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data))
+    }, [])
     const handelsearchChanges = (e: KeyboardEvent<HTMLInputElement>) =>
     {
         if (e.key === 'Enter')
@@ -72,12 +48,9 @@ function Friends({data}: any) {
                                         <div className="w-[100%] h-[100%] gap-[10px] flex flex-col">
                                             {ListFriends?.map((user: any, key: any) => (
                                                 <div key={key} className="min-h-[61px] flex items-center">
-                                                    <button onClick={async () => {
-                                                        setvisible(false)
-                                                        setTimeout(() => {
-                                                            setvisible(true)
-                                                          }, 3000);
-                                                        setuserProfile(user.username);
+                                                    <button onClick={ () => {
+                                                        setvisible(false);
+                                                        fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data);setvisible(true);})
                                                         }} className="w-[75%] flex items-center justify-center">
                                                         <div className="w-[75px] h-[70px] flex justify-center items-start">
                                                             <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>

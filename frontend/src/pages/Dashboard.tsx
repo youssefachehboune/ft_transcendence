@@ -2,8 +2,6 @@ import { BsClockFill, BsFillPeopleFill, BsGlobe } from "react-icons/bs";
 import {FaCompass, FaGamepad, FaMedal} from 'react-icons/fa'
 import Expolore from "./components/Dashebord/Expolore";
 import { ChangeEvent, HtmlHTMLAttributes, KeyboardEvent, useEffect, useState } from "react";
-import getProfile from "./api/getProfile";
-
 import Profile from "./components/Dashebord/profile";
 import Section from "./components/Dashebord/Section";
 import Search from "./components/Dashebord/Search";
@@ -13,35 +11,15 @@ import Friends from "./components/Dashebord/Friends";
 import Main from "./components/Dashebord/Main_Cont";
 function Dashebord() {
     const [data, setdata] = useState<any>('');
-    const [search, setsearch] = useState<string>("");
-    const [showSearchfriend, setshowSearchfriend] = useState<boolean>(true)
+
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
     const [Friend, setFriends] = useState<boolean>(true)
     const [main, setmain] = useState<boolean>(true)
-    useEffect(() => {
-		const fetchData = async () => {
-			try {
-			const fetchedUserData = await getProfile();
-			setdata(fetchedUserData);
-			} catch (error) {
-			console.log('Error:', error);
-			}
-		};
-		if (!data) {
-			fetchData();
-		}
-		}, [data]);
-        const handelsearchChanges = (e: KeyboardEvent<HTMLInputElement>) =>
-        {
-            setshowSearchfriend(true)
-            if (e.key === 'Enter')
-            {
-                setshowSearchfriend(false)
-                setsearch(e.currentTarget.value);  
-                console.log(e.currentTarget.value)
+    useEffect( () => {
+        fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => setdata(data))
+    }, [])
 
-            }
-        }
+
     
     return ( 
         <div className="container_page">
@@ -59,7 +37,7 @@ function Dashebord() {
                 <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} Icone={FaGamepad} text={"Game"}/>
                 </div>
             </div>
-            <Search showSearchfriend={showSearchfriend} handelsearchChanges={handelsearchChanges} />
+            <Search/>
             <Section/>
             <Profile data={data}/>
             {!setshowHistorie && <History/>}
