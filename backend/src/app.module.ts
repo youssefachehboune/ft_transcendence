@@ -11,9 +11,10 @@ import { UserModule } from './user/user.module';
 import { HistoryModule } from './history/history.module';
 import { AchievementsModule } from './achievements/achievements.module';
 import { NotificationModule } from './notification/notification.module';
+import { ChatModule } from './chat/chat.module';
 
 @Module({
-  imports: [ ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule],
+  imports: [ ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule],
   controllers: [AppController],
   providers: [AppService],
 })
