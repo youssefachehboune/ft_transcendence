@@ -10,6 +10,7 @@ export default function NavBar() {
         setIsShow(index === activeIndex ? false : true);
         setActiveIndex(index === activeIndex ? null : index);
         setSvgPosition(index * 70);
+        
     //   console.log(index);
     };
     return (
