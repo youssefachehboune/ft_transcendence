@@ -1,6 +1,5 @@
-"use client"
 import Link from "next/link";
-import { useState, KeyboardEvent, useEffect } from "react";
+import { useState, KeyboardEvent, useEffect, useRef } from "react";
 
 import { VscSearch } from "react-icons/vsc";
 import Profile_Frined from "./Profile_Frined";
@@ -8,21 +7,26 @@ import Profile_Frined from "./Profile_Frined";
 function Friends({data}: any) { 
     const [visible, setvisible] = useState<boolean>(false);
 
-    const [searchfriend, setsearchfriend] = useState<string>("");
-
+    const [searchfriend, setsearchfriend] = useState<string | undefined>("");
+    const [datafriend, setdatafriend] = useState<any>();
+    const inputRef = useRef<HTMLInputElement | null>(null);
     const [ListFriends, setListFriends] = useState<any>();
+
     const [Profile , setProfile] = useState<any>();
 
     useEffect( () => {
             fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data))
     }, [])
-    const handelsearchChanges = (e: KeyboardEvent<HTMLInputElement>) =>
+
+
+    useEffect(() => {
+        if (searchfriend)
+            fetch('http://localhost:3000/search/' + searchfriend, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatafriend(data);})
+    }, [searchfriend])
+
+    const handelsearchChanges = () =>
     {
-        if (e.key === 'Enter')
-        {
-            setsearchfriend(e.currentTarget.value);
-            console.log(e.currentTarget.value)
-        }
+        setsearchfriend(inputRef.current?.value);
     }
 
     return (
@@ -34,7 +38,8 @@ function Friends({data}: any) {
                                                 <VscSearch className="w-[12px] h-[12px]" color="white" />
                                             </div>
                                             <input
-                                                onKeyDown={handelsearchChanges}
+                                                ref={inputRef}
+                                                onChange={handelsearchChanges}
                                                 type="text"
                                                 placeholder="Search friends"
                                                 className="text-white text-[8px] font-sora font-[300] flex items-center bg-transparent  border-none outline-none pl-[20px] w-[70%]"
@@ -46,29 +51,54 @@ function Friends({data}: any) {
 
                                     </div>
                                         <div className="w-[100%] h-[100%] gap-[10px] flex flex-col">
-                                            {ListFriends?.map((user: any, key: any) => (
-                                                <div key={key} className="min-h-[61px] flex items-center">
-                                                    <button onClick={ () => {
-                                                        setvisible(false);
-                                                        fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data);setvisible(true);})
-                                                        }} className="w-[75%] flex items-center justify-center">
-                                                        <div className="w-[75px] h-[70px] flex justify-center items-start">
-                                                            <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                                            <div className={`w-[12px] h-[12px] bg-green mt-[45px] ml-[30px] rounded-full absolute ${visible ? '2xl:hidden xl:hidden': ''}`}></div>
+                                            {
+                                                searchfriend === "" ? (
+                                                    ListFriends?.map((user: any, key: any) => (
+                                                    <div key={key} className="min-h-[61px] flex items-center">
+                                                        <button onClick={ () => {
+                                                            setvisible(false);
+                                                            fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data);setvisible(true);})
+                                                            }} className="w-[75%] flex items-center justify-center">
+                                                            <div className="w-[75px] h-[70px] flex justify-center items-start">
+                                                                <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                                <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute ${visible ? '2xl:hidden xl:hidden': ''}`}></div>
+                                                            </div>
+                                                            <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
+                                                                <h1 className="text-[13px] font-sora font-[600] text-[white]">{user.firstName + " " + user.lastName}</h1>
+                                                                <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + user.username}</h1>
+                                                            </div>
+                                                        </button>
+                                                        <button className="text-white ml-[18%] mb-[10px]">
+                                                            ...
+                                                        </button>
+                                                    </div>
+
+                                                ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
+                                                    <div  className="min-h-[61px] flex items-center">
+                                                            <button onClick={ () => {
+                                                                setvisible(false);
+                                                                fetch('http://localhost:3000/profile/' + datafriend.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data);setvisible(true);})
+                                                                }} className="w-[75%] flex items-center justify-center">
+                                                                <div className="w-[75px] h-[70px] flex justify-center items-start">
+                                                                    <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                                    <div className={`w-[12px] h-[12px] bg-green mt-[45px] ml-[30px] rounded-full absolute ${visible ? '2xl:hidden xl:hidden': ''}`}></div>
+                                                                </div>
+                                                                <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
+                                                                    <h1 className="text-[13px] font-sora font-[600] text-[white]">{datafriend.firstName + " " + datafriend.lastName}</h1>
+                                                                    <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + datafriend.username}</h1>
+                                                                </div>
+                                                            </button>
+                                                            <button className="text-white ml-[18%] mb-[10px]">
+                                                                ...
+                                                            </button>
                                                         </div>
-                                                        <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
-                                                            <h1 className="text-[13px] font-sora font-[600] text-[white]">{user.firstName + " " + user.lastName}</h1>
-                                                            <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + user.username}</h1>
-                                                        </div>
-                                                    </button>
-                                                    <button className="text-white ml-[18%] mb-[10px]">
-                                                        ...
-                                                    </button>
-                                                </div>
-                                            ))}
+                                                ) : (
+                                                    <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
+                                                )
+                                            }
                                         </div>
                 </div>
-                {visible && <Profile_Frined setvisible={setvisible} data={data} ListFriends={ListFriends} Profile={Profile}/>}                        
+                {visible && <Profile_Frined setvisible={setvisible} data={data} Profile={Profile}/>}                        
         </div>
      );
 }

@@ -1,12 +1,16 @@
+import { useEffect, useState } from "react";
 import { AiFillMessage } from "react-icons/ai";
-import { BsClock, BsPatchCheckFill, BsPeople, BsPersonCheckFill } from "react-icons/bs";
+import { BsChevronDown, BsClock, BsPatchCheckFill, BsPeople, BsPersonCheckFill, BsPersonFillSlash, BsPersonFillX } from "react-icons/bs";
 import { FaBolt, FaChartBar, FaChartPie } from "react-icons/fa";
 import { IoArrowBackCircle, IoLocationOutline } from "react-icons/io5";
+import {ImBlocked} from 'react-icons/im'
 
-function Profile_Frined({setvisible, data, ListFriends, Profile}: any) {
+function Profile_Frined({setvisible, data, Profile}: any) {
+    const [block, setblock] = useState<boolean>(true);
+
     return (
-                    <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[100%] 2xl:w-[100%] flex flex-col overflow-y-auto overflow-x-hidden test5">
-                        <div className="w-[100%] min-h-[300px] flex flex-col items-end overflow-hidden">
+                    <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[100%] 2xl:w-[100%] flex flex-col overflow-y-auto overflow-x-hidden test5 relative">
+                        <div className="w-[100%] min-h-[320px] flex flex-col items-end overflow-hidden">
                                     <div className="w-[100%] h-[50%] test5">
                                         <button onClick={() => {setvisible(false)}}>
                                             <IoArrowBackCircle color="white"  className="w-[30px] h-[30px]"/>
@@ -22,10 +26,17 @@ function Profile_Frined({setvisible, data, ListFriends, Profile}: any) {
                                     <div className="w-[70%] h-[30%] flex gap-[10px] items-center justify-center mt-[-50px]">
                                             <button className="w-[88px] h-[24px] test5 rounded-[4px] hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><BsPersonCheckFill/></span>Friends</h1></button>
                                             <button className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
-                                            <select id="block" className="w-[30px] rounded-[4px]">
-                                                <option value=""></option>
-                                                <option value="">block</option>
-                                            </select>
+                                            <button onClick={() => setblock(!block)} className="w-[30px] h-[24px] rounded-[4px] test5 flex justify-center items-center text-white"><BsChevronDown/></button>
+                                                {!block &&
+                                                        <div className="w-[110px] h-[60px]  absolute ml-[120px] mt-[90px] flex flex-col">
+                                                            <button className="w-[100%] h-[50%] test5 rounded-t-[5px] hover:bg-red-600">
+                                                                <h1 className="flex ml-[5px] items-center text-[white] text-[10px] font-sora font-500 "><span className="mr-[5px] text-[15px]"><BsPersonFillSlash/></span>Block</h1>
+                                                            </button>
+                                                            <button className="w-[100%] h-[50%]  test5 rounded-b-[5px] hover:bg-red-600">
+                                                                <h1 className="flex ml-[5px] items-center text-[white] text-[10px] font-sora font-500 "><span className="mr-[5px] text-[15px]"><BsPersonFillX/></span>Remove friend</h1>
+                                                            </button>
+                                                        </div>
+                                                }
                                     </div>
 
                         </div>
@@ -67,25 +78,25 @@ function Profile_Frined({setvisible, data, ListFriends, Profile}: any) {
                                 </div>
                         </div>
                             <h1 className="text-[white] font-sora text-[15px] p-5">Last History</h1>
-                            <div className="w-[100%] min-h-[300px] test5 rounded-[20px] flex flex-col justify-center gap-[5px]">
-                                                {ListFriends.slice(0, 4).map((user: any, key: any) => (
+                            <div className="w-[100%] min-h-auto test5 rounded-[20px] flex flex-col justify-center gap-[5px]">
+                                                {Profile?.Last_matches?.map((user: any, key: any) => (
                                                     <div key={key} className="w-[100%] min-h-[65px] text-white flex overflow-hidden">
                                                         <div className="w-[33.5%] flex items-center justify-end ">
-                                                            <img src={user.img} alt="" className="w-[54px] rounded-full select-none"/>
+                                                            <img src={user.User.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                             <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
-                                                                <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.name}</h1>
-                                                                <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.login}</h1>
+                                                                <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.User.firstName + " " + user.User.lastName}</h1>
+                                                                <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.User.username}</h1>
                                                             </div>
                                                         </div>
                                                         <div className="w-[33.5%] flex flex-col items-center justify-center">
-                                                            <h1 className="text-[22px] font-sora font-[400] text-[white]">7 : 5</h1>
-                                                            <h1 className="text-[9px] font-sora font-[400] text-[#B3B3B3]">1 Hours ago</h1>
+                                                            <h1 className="text-[22px] font-sora font-[400] text-[white]">{user.userPoints + " : " + user.opponentPoints}</h1>
+                                                            <h1 className="text-[9px] font-sora font-[400] text-[#B3B3B3]">{user.occuredAt}</h1>
                                                         </div>
                                                         <div className="w-[33.5%] flex items-center justify-start">
-                                                            <img src={user.img} alt="" className="w-[54px] rounded-full select-none"/>
+                                                            <img src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                             <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
-                                                                <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.name}</h1>
-                                                                <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.login}</h1>
+                                                                <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.Opponent.firstName + " " + user.Opponent.lastName}</h1>
+                                                                <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.Opponent.username}</h1>
                                                             </div>
                                                         </div>
                                                     </div>
