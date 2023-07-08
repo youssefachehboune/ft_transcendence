@@ -181,6 +181,7 @@ enum ChannelType {
     PUBLIC
     PRIVATE
     PROTECTED
+    NOTACTIVE
 }
 
 enum NotificationType {
