@@ -20,7 +20,7 @@ export default function Achievement(props : AchievementProps) {
                 phone:w-[60px]
             ">
                 <img src={props.image} alt="" className="w-[84px] h-[84px] rounded-full
-                    xl:w-[73px] xl:h-[73px]+
+                    xl:w-[73px] xl:h-[73px]
                     2xl:w-[75px] 2xl:h-[75px]
                     laptop:w-[62px] laptop:h-[62px]
                     phone:w-[53px] phone:h-[53px]
