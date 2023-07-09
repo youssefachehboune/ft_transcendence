@@ -8,13 +8,13 @@ interface InviteNotifProps {
 
 export default function InviteNotif(props : InviteNotifProps) {
     return (
-        <div className="w-[100%] h-[13%] relative overflow-hidden flex justify-center items-center">
+        <div className="w-[100%] h-[11%] relative overflow-hidden flex justify-center items-center">
             <div className="w-[15%] h-[100%] relative">
                 <img src={props.avatar} alt=""  className="absolute right-0 top-[10%] w-[26px] h-[26px] rounded-full"/>
             </div>
             <div className="w-[85%] h-[100%] ">
                 <div className="w-[100%] h-[10px] absolute top-[16%] flex items-center justify-start">
-                    <p className="ml-3 text-[#000] text-[8px] font-sora font-bold">{props.name}</p>
+                    <p className="ml-3 text-[#fff] text-[8px] font-sora font-bold">{props.name}</p>
                     <p className="text-[#ffffff7d] text-[9px] font-sora ml-2 font-medium">send you a friend request</p>
                 </div>
                 <p className="absolute top-[40%] ml-3 text-[7px] font-sora font-bold leading-[0.5px] text-[#9A9A9A]">{props.time} min ago</p>

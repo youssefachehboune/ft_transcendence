@@ -49,14 +49,14 @@ return (
                     </div>
                 </div>
                 <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <Notif avatar="tinder.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John ewDoe" time="5"/>
+                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
+                <InviteNotif avatar="invite.png" name="John wteDoe" time="5"/>
                 <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
                 <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
                 <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
-                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
-                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
-                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
-                <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
-                <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
+                <InviteNotif avatar="invite.png" name="John eeDoe" time="5"/>
                 <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
                 <InviteNotif avatar="invite.png" name="John Doe" time="5"/>
                 <Notif avatar="mbjaghou.jpeg" title="You have reached level 5" time="5"/>
