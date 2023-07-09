@@ -42,7 +42,7 @@ export class ChatService {
 		});
   }
 	async getChat(@Req() req: Request) {
-		return await prisma.chat.findMany({
+		const chat = await prisma.chat.findMany({
 			where: {
 				OR: [
 					{ sender_id: req.user['id'] },
@@ -50,8 +50,24 @@ export class ChatService {
 				]
 			},
 			orderBy: {
-				sentAt: 'desc'
+				sentAt: 'asc'
 			}
 		});
+		const res = await Promise.all(chat.map(async (chat) => {
+			const sender_username = (await prisma.userProfile.findFirst({
+				where: { user_id: chat.sender_id }
+			})).username;
+			const recipient_username = (await prisma.userProfile.findFirst({
+				where: { user_id: chat.recipient_id }
+			})).username;
+			return {
+				message: chat.message,
+				sentAt: chat.sentAt,
+				readAt: chat.readAt,
+				sender_username: sender_username,
+				recipient_username: recipient_username
+			};
+		}));
+		return res;
 	}
 }

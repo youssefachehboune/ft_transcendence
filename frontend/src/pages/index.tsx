@@ -2,11 +2,10 @@ import React, { useState, ChangeEvent, KeyboardEvent, useEffect } from 'react';
 import io from 'socket.io-client';
 
 const MyForm: React.FC = () => {
-	console.log("mamak");
   const [inputValue, setInputValue] = useState<string>('');
   const [messages, setMessages] = useState<string[]>([]);
   const [username, setUsername] = useState<string>('');
-
+	var clientSide = true;
   useEffect(() => {
     const socket = io('http://localhost:3000', {
       transports: ['websocket'],
@@ -14,13 +13,14 @@ const MyForm: React.FC = () => {
     });
 
 		const fetchChat = async () => {
+			clientSide = false;
 			const oldmessages = await (await fetch('http://localhost:3000/chat', {
 				credentials: 'include'
 			})).json();
 			const oldchat = oldmessages.map(( message:any ) => message.message);
 			setMessages((prevMessages) => [...prevMessages, ...oldchat])
 		}
-		fetchChat();
+		if (clientSide) fetchChat();
     socket.on('receive_message', (data: string) => {
       setMessages((prevMessages) => [...prevMessages, data]);
     });
