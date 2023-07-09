@@ -1,4 +1,4 @@
-import { Req, Injectable, Body, BadRequestException } from '@nestjs/common';
+import { Req, Injectable, Body, BadRequestException, Param } from '@nestjs/common';
 import { PrismaClient, UserProfile } from '@prisma/client';
 import { Request } from 'express';
 import { historyDto } from './history.dto';
@@ -7,7 +7,8 @@ import { formatDistanceToNow } from 'date-fns';
 const prisma = new PrismaClient();
 @Injectable()
 export class HistoryService {
-	async getHistory(@Req() req: Request) {
+	async getHistory(@Req() req: Request, filter: 'WON' | 'LOST' | 'ALL', take?: number) {
+		const filterRes : 'WON' | 'LOST' = (filter === 'ALL') ? undefined : filter;
 		const selectFields = {
 			select: {
 				firstName: true,
@@ -21,7 +22,8 @@ export class HistoryService {
 				OR: [
 					{ user_id: req.user['id'] },
 					{ opponent_id: req.user['id'] }
-				]
+				],
+				result: filterRes,
 			},
 			select: {
 				userPoints: true,
@@ -38,6 +40,10 @@ export class HistoryService {
 					}
 				}
 			},
+			take: take || undefined,
+			orderBy: {
+				occuredAt: 'desc'
+			}
 		});
 		const updatedHistory = history.map(entry => ({
 			...entry,
@@ -55,7 +61,6 @@ export class HistoryService {
 				avatar: entry.Opponent.userProfile[0].avatar
 			}
 		}));
-	
 		return updatedHistory;
 	}
 

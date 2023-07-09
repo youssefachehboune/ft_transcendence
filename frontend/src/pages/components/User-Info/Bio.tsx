@@ -15,33 +15,15 @@ const Bioinpute = ({ handleFormChange, dispatch} : bio) => {
 	const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length > 200) {
-		setUsername(value.substring(0, 200));
+		setUsername(value.substring(0, 201));
 		setError(error_Bio_max_charcterc);
 		dispatch({type: "ERROR_BIO", pyload: false})
-	  } else {
-		let containsNonAlphanumeric = false;
-		for (let i = 0; i < value.length; i++) {
-		  const charCode = value.charCodeAt(i);
-		  if (
-			!(charCode >= 48 && charCode <= 57) && // 0-9
-			!(charCode >= 65 && charCode <= 90) && // A-Z
-			!(charCode >= 97 && charCode <= 122) // a-z
-		  ) {
-			containsNonAlphanumeric = true;
-			break;
-		  }
-		}
-  
-		if (containsNonAlphanumeric) {
-		  setUsername(value);
-		  setError(error_Bio_alphanumeric);
-		dispatch({type: "ERROR_BIO", pyload: false})
-		} else {
+	  } 
+	  else {
 		  setUsername(value);
 		  setError('');
 		  dispatch({type: "ERROR_BIO", pyload: true})
-		}
-	  }
+	}
     handleFormChange(e);
   };
 
