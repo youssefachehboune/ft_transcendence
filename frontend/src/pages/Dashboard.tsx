@@ -15,8 +15,9 @@ function Dashebord() {
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
     const [Friend, setFriends] = useState<boolean>(true)
     const [main, setmain] = useState<boolean>(true)
+    const [dataisloded, setdataisloded] =  useState<boolean>(false)
     useEffect( () => {
-        fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => setdata(data))
+        fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => setdata(data)).then(() => setdataisloded(true))
     }, [])
 
 
@@ -39,7 +40,7 @@ function Dashebord() {
             </div>
             <Search/>
             <Section/>
-            <Profile data={data}/>
+            <Profile data={data} dataisloded={dataisloded}/>
             {!setshowHistorie && <History/>}
             {!Friend && <Friends data={data}/>}
         </div>

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useState, KeyboardEvent, useEffect, useRef } from "react";
-
 import { VscSearch } from "react-icons/vsc";
 import Profile_Frined from "./Profile_Frined";
+import { Box, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 
 function Friends({data}: any) { 
     const [visible, setvisible] = useState<boolean>(false);
@@ -11,11 +11,13 @@ function Friends({data}: any) {
     const [datafriend, setdatafriend] = useState<any>();
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [ListFriends, setListFriends] = useState<any>();
-
     const [Profile , setProfile] = useState<any>();
+    const [friendsloding, setfriendsloding] = useState<boolean>(false)
+    const [profileloding, setprofileloding] = useState<boolean>(false)
+    const [test, settest] = useState(7);
 
     useEffect( () => {
-            fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data))
+            fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data)).then(() => setfriendsloding(true))
     }, [])
 
 
@@ -50,17 +52,29 @@ function Friends({data}: any) {
                                             </div>
 
                                     </div>
-                                        <div className="w-[100%] h-[100%] gap-[10px] flex flex-col">
+                                        <div className="w-[100%] h-[100%] gap-[10px] flex flex-col overflow-hidden">
+                                            {
+                                                !friendsloding &&
+                                                        Array.from(Array(8)).map((i) => (
+                                                        <div key={i} className="w-[100%] h-[70px] ml-[15%] flex items-center overflow-hidden">
+                                                                        <SkeletonCircle size={'54px'} ></SkeletonCircle>
+                                                                        <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
+                                                        </div>))
+
+
+                                            }
                                             {
                                                 searchfriend === "" ? (
                                                     ListFriends?.map((user: any, key: any) => (
                                                     <div key={key} className="min-h-[61px] flex items-center">
                                                         <button onClick={ () => {
-                                                            setvisible(false);
-                                                            fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data);setvisible(true);})
+                                                            setvisible(true);
+                                                            setprofileloding(false)
+                                                            setProfile(null)
+                                                            fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data)}).then(() => setprofileloding(true))
                                                             }} className="w-[75%] flex items-center justify-center">
                                                             <div className="w-[75px] h-[70px] flex justify-center items-start">
-                                                                <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                                    <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                                 <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute ${visible ? '2xl:hidden xl:hidden': ''}`}></div>
                                                             </div>
                                                             <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
@@ -98,7 +112,7 @@ function Friends({data}: any) {
                                             }
                                         </div>
                 </div>
-                {visible && <Profile_Frined setvisible={setvisible} data={data} Profile={Profile}/>}                        
+                {visible && <Profile_Frined setvisible={setvisible} data={data} Profile={Profile} profileloding={profileloding} />}                        
         </div>
      );
 }

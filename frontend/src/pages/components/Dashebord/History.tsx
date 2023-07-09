@@ -1,20 +1,22 @@
 import { ChangeEvent, useEffect, useState } from "react";
-
+import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 function History() {
 
     const [status, setstatus] = useState<string>("ALL")
     const [win , setwin] =  useState<any>()
     const [lost , setlost] =  useState<any>()
     const [all , setall] =  useState<any>()
-    const handlehistorieSelect = (event: ChangeEvent<HTMLSelectElement>) => {setstatus(event.target.value)};
+    const [historieloding, sethistorieloding] = useState<boolean>(false)
+    const handlehistorieSelect = (event: ChangeEvent<HTMLSelectElement>) => {setstatus(event.target.value); sethistorieloding(false)};
+    
 
     useEffect(() => {
         if (status === "LOST")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setlost(data)})
+            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setlost(data)}).then(() => sethistorieloding(true))
         else if (status === "WON")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setwin(data)})
+            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setwin(data)}).then(() => sethistorieloding(true))
         else if (status === "ALL")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setall(data)})
+            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setall(data)}).then(() => sethistorieloding(true))
     }, [status])
     
     return ( 
@@ -27,9 +29,24 @@ function History() {
                             <option value={'WON'}>won</option>
                         </select>
                     </div>
-
                     {
-                            status === "LOST" ? (
+                            !historieloding && 
+                            Array.from(Array(8)).map((i) =>
+                            <div className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
+                                  <div className="w-[33.5%] flex items-center justify-end">
+                                                <SkeletonCircle size={'54px'}></SkeletonCircle>
+                                                <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]"><SkeletonText/></div>
+                                    </div>
+                                    <div className="w-[33.5%] flex flex-col items-center justify-center"><SkeletonText width={'55px'}></SkeletonText></div>
+                                    <div className="w-[33.5%] flex items-center justify-start">
+                                                <SkeletonCircle size={'54px'}></SkeletonCircle>
+                                                <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]"><SkeletonText/></div>
+                                    </div>
+                            </div>
+                            )
+                    }
+                    {
+                            status === "LOST" && historieloding ? (
                                 lost?.map((user: any, key: number) => (
                                     <div key={key} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                             <div className="w-[33.5%] flex items-center justify-end">
@@ -52,7 +69,7 @@ function History() {
                                             </div>
                                     </div>
                                 ))
-                        ) : status === "WON" ? (
+                        ) : status === "WON" && historieloding ? (
                             win?.map((user: any, key: number) => (
                                 <div key={key} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                         <div className="w-[33.5%] flex items-center justify-end">
@@ -75,7 +92,7 @@ function History() {
                                         </div>
                                  </div>
                             ))
-                        ) :  status === "ALL" ? (
+                        ) : status === "ALL" && historieloding ? (
                             all?.map((user: any, key: number) => (
                                 <div key={key} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                         <div className="w-[33.5%] flex items-center justify-end">
