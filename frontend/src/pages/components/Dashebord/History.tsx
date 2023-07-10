@@ -32,7 +32,7 @@ function History() {
                     {
                             !historieloding && 
                             Array.from(Array(8)).map((i) =>
-                            <div className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
+                            <div key={i} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                   <div className="w-[33.5%] flex items-center justify-end">
                                                 <SkeletonCircle size={'54px'}></SkeletonCircle>
                                                 <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]"><SkeletonText/></div>

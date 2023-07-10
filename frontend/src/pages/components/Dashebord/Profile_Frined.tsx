@@ -6,8 +6,7 @@ import { IoArrowBackCircle, IoLocationOutline } from "react-icons/io5";
 import {ImBlocked} from 'react-icons/im'
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 
-function Profile_Frined({setvisible, data, Profile, profileloding}: any) {
-    const [block, setblock] = useState<boolean>(true);
+function Profile_Frined({setvisible, Profile, profileloding, setblock, block}: any) {
 
     return (
                     <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[100%] 2xl:w-[100%] flex flex-col overflow-y-auto overflow-x-hidden test5 relative">
@@ -30,7 +29,7 @@ function Profile_Frined({setvisible, data, Profile, profileloding}: any) {
                                     </div>
                                     <div className="w-[70%] h-[30%] flex gap-[10px] items-center justify-center mt-[-50px]">
                                             <Skeleton isLoaded={profileloding}>
-                                                <button className="w-[88px] h-[24px] test5 rounded-[4px] hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><BsPersonCheckFill/></span>Friends</h1></button>
+                                                <button className="w-[88px] h-[24px] test5 rounded-[4px] hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[15px]"><span className="mr-[5px]"><BsPersonCheckFill/></span>Friends</h1></button>
                                             </Skeleton>
                                             <Skeleton isLoaded={profileloding}>
                                                 <button className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
@@ -123,7 +122,7 @@ function Profile_Frined({setvisible, data, Profile, profileloding}: any) {
                             }
                             <div className="w-[100%] min-h-auto test5 rounded-[20px] flex flex-col justify-center gap-[5px]">
                                     {
-                                        Profile?.Last_matches?.map((user: any, key: any) => (
+                                        profileloding && Profile?.Last_matches?.map((user: any, key: any) => (
                                         <div key={key} className="w-[100%] min-h-[65px] text-white flex overflow-hidden">
                                             <div className="w-[33.5%] flex items-center justify-end ">
                                                 <img src={user.User.avatar} alt="" className="w-[54px] rounded-full select-none"/>

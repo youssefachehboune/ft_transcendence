@@ -6,7 +6,7 @@ import { Box, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 
 function Friends({data}: any) { 
     const [visible, setvisible] = useState<boolean>(false);
-
+    const [block, setblock] = useState<boolean>(true);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
     const [datafriend, setdatafriend] = useState<any>();
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -14,11 +14,12 @@ function Friends({data}: any) {
     const [Profile , setProfile] = useState<any>();
     const [friendsloding, setfriendsloding] = useState<boolean>(false)
     const [profileloding, setprofileloding] = useState<boolean>(false)
-    const [test, settest] = useState(7);
-
+    const [count_frinds, setcount_frinds] = useState<any>();
+    
     useEffect( () => {
-            fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data)).then(() => setfriendsloding(true))
-    }, [])
+                fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data)).then(()=>
+                fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setcount_frinds(data); setfriendsloding(true)}))
+    }, [count_frinds])
 
 
     useEffect(() => {
@@ -48,9 +49,10 @@ function Friends({data}: any) {
                                                 />
                                             </div>
                                             <div className="w-[100%] h-[30px] mt-[20px] flex justify-center items-center">
-                                                    <h1 className="font-[700] font-sora text-[11px] text-white">{`${data.info?.count_friends} Friends`}</h1>
+                                                    <Skeleton isLoaded={friendsloding}>
+                                                        <h1 className="font-[700] font-sora text-[11px] text-white">{`${count_frinds?.info?.count_friends} Friends`}</h1>
+                                                    </Skeleton>
                                             </div>
-
                                     </div>
                                         <div className="w-[100%] h-[100%] gap-[10px] flex flex-col overflow-hidden">
                                             {
@@ -60,14 +62,13 @@ function Friends({data}: any) {
                                                                         <SkeletonCircle size={'54px'} ></SkeletonCircle>
                                                                         <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                         </div>))
-
-
                                             }
                                             {
-                                                searchfriend === "" ? (
+                                                searchfriend === "" && friendsloding ? (
                                                     ListFriends?.map((user: any, key: any) => (
                                                     <div key={key} className="min-h-[61px] flex items-center">
                                                         <button onClick={ () => {
+                                                            setblock(true)
                                                             setvisible(true);
                                                             setprofileloding(false)
                                                             setProfile(null)
@@ -107,12 +108,12 @@ function Friends({data}: any) {
                                                             </button>
                                                         </div>
                                                 ) : (
-                                                    <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
+                                                    friendsloding && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
                                                 )
                                             }
                                         </div>
                 </div>
-                {visible && <Profile_Frined setvisible={setvisible} data={data} Profile={Profile} profileloding={profileloding} />}                        
+                {visible && <Profile_Frined setvisible={setvisible} data={data} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
         </div>
      );
 }
