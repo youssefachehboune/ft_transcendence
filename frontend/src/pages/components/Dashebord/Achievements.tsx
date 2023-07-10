@@ -8,7 +8,7 @@ export default function Achievements() {
     const [selectedOption, setSelectedOption] = useState<string>('All');
     useEffect(() => {
         fetch('http://localhost:3000/achievements/ALL', 
-        { credentials: 'include' }).then(res => res.json()).then(data => { setdataALL([... data]);})
+        { credentials: 'include' }).then(res => res.json()).then(data => { setdataALL(data);})
     }, []);
 
     const handleOptionChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
