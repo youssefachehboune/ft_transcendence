@@ -27,123 +27,34 @@ export default function Achievements() {
                             <option value={'Undone'}>Undone</option>
                         </select>
                     </div>
-                    <div className="w-full h-[100%] flex items-center justify-around overflow-y-auto scroll-state">
-                        <div className="w-[45%] h-[90%]">
-                            {
-                                dataALL?.map((achievement: any, key:any) => {
-                                    if (dataALL?.length == 1)
-                                    {
-                                        if (selectedOption === 'Done' && achievement.score == parseInt(achievement.milestone))
-                                        {
-                                            return (
-                                            <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
-                                            description={achievement.description}
-                                            progress={achievement.score} milstone={parseInt(achievement.milestone)}
-                                            reward={achievement.points}
-                                            />
-                                        )
-                                        }
-                                        else if (selectedOption === 'Undone' && achievement.score != parseInt(achievement.milestone))
-                                        {
-                                            return (
-                                                <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
+                    <div className="w-full h-[100%] flex  flex-wrap  justify-around overflow-y-auto scroll-state">
+                        {dataALL && dataALL.map((achievement : any) => {
+                            if (selectedOption === 'All')
+                                return (
+                                    <Achievement image="iconAch.jpeg" title={achievement.name}
                                                 description={achievement.description}
                                                 progress={achievement.score} milstone={parseInt(achievement.milestone)}
                                                 reward={achievement.points}
-                                                />
-                                            )
-                                        }
-                                        else if (selectedOption === 'All')
-                                        {
-                                            return (
-                                                <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
+                                    />
+                                )
+                                else if (selectedOption === 'Undone' && achievement.score != parseInt(achievement.milestone))
+                                return (
+                                    <Achievement image="iconAch.jpeg" title={achievement.name}
                                                 description={achievement.description}
                                                 progress={achievement.score} milstone={parseInt(achievement.milestone)}
                                                 reward={achievement.points}
-                                                />
-                                            )
-                                        }
-                                    }
-                                    else if (key % 2 == 0)
-                                    {
-                                        if (selectedOption === 'Done' && achievement.score == parseInt(achievement.milestone))
-                                        {
-                                            return (
-                                            <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
-                                            description={achievement.description}
-                                            progress={achievement.score} milstone={parseInt(achievement.milestone)}
-                                            reward={achievement.points}
-                                            />
-                                        )
-                                        }
-                                        else if (selectedOption === 'Undone' && achievement.score != parseInt(achievement.milestone))
-                                        {
-                                            return (
-                                                <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
+                                    />
+                                )
+                                else if (selectedOption === 'Done' && achievement.score === parseInt(achievement.milestone))
+                                return (
+                                    <Achievement image="iconAch.jpeg" title={achievement.name}
                                                 description={achievement.description}
                                                 progress={achievement.score} milstone={parseInt(achievement.milestone)}
                                                 reward={achievement.points}
-                                                />
-                                            )
-                                        }
-                                        else if (selectedOption === 'All')
-                                        {
-                                            return (
-                                                <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
-                                                description={achievement.description}
-                                                progress={achievement.score} milstone={parseInt(achievement.milestone)}
-                                                reward={achievement.points}
-                                                />
-                                            )
-                                        }
-                                    }
-                                }
-                            )
-                            }
-                        </div>
-                        <div className="w-[45%] h-[90%]">
-                            {
-                                dataALL?.map((achievement: any, key:any) => {
-                                    if (dataALL?.length == 1)
-                                    {
-                                    }
-                                    else if (key % 2 != 0)
-                                    {
-                                        if (selectedOption === 'Done' && achievement.score == parseInt(achievement.milestone))
-                                        {
-                                            return (
-                                            <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
-                                            description={achievement.description}
-                                            progress={achievement.score} milstone={parseInt(achievement.milestone)}
-                                            reward={achievement.points}
-                                            />
-                                        )
-                                        }
-                                        else if (selectedOption === 'Undone' && achievement.score != parseInt(achievement.milestone))
-                                        {
-                                            return (
-                                                <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
-                                                description={achievement.description}
-                                                progress={achievement.score} milstone={parseInt(achievement.milestone)}
-                                                reward={achievement.points}
-                                                />
-                                            )
-                                        }
-                                        else if (selectedOption === 'All')
-                                        {
-                                            return (
-                                                <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
-                                                description={achievement.description}
-                                                progress={achievement.score} milstone={parseInt(achievement.milestone)}
-                                                reward={achievement.points}
-                                                />
-                                            )
-                                        }
-                                    }
-                                }
-                            )
-                            }
-                        </div>
+                                    />
+                                )
+                        }
+                        )}
                     </div>
             </div>
         </div>
