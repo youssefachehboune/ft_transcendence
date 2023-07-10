@@ -55,6 +55,8 @@ export class ChatGateway {
 				},
 				data: { readAt: new Date() }
 			});
+			const recipient_socket = this.connectedUsers.get(username);
+			recipient_socket.emit('mark_read');
 		} catch(e) {
 			console.log('something went wrong when marking a message as read');
 		}
