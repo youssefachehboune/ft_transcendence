@@ -27,7 +27,7 @@ export default function Achievements() {
                             <option value={'Undone'}>Undone</option>
                         </select>
                     </div>
-                    <div className="w-full h-[100%] flex  flex-wrap  justify-around overflow-y-auto scroll-state">
+                    <div className="w-full h-[100%] flex  justify-around flex-wrap overflow-y-auto scroll-state">
                         {dataALL && dataALL.map((achievement : any) => {
                             if (selectedOption === 'All')
                                 return (
@@ -54,7 +54,10 @@ export default function Achievements() {
                                     />
                                 )
                         }
-                        )}
+                        )
+                        }
+                        <div className="w-[430px] h-[1px] phone:h-[1px] 2xl:w-[380px] xl:w-[360px] laptop:w-[320px] phone:w-[220px]">
+                        </div>
                     </div>
             </div>
         </div>

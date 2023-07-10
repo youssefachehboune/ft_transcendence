@@ -12,7 +12,7 @@ interface AchievementProps {
 export default function Achievement(props : AchievementProps) {
     
     return (
-        <div className="w-[450px] 2xl:w-[380px] xl:w-[360px] laptop:w-[320px] phone:w-[220px] h-[120px] bg-[#ffffff12] mb-5 rounded-[8px] phone:h-[80px] relative flex">
+        <div className="w-[430px] 2xl:w-[380px] xl:w-[360px] laptop:w-[320px] phone:w-[220px] h-[120px] bg-[#ffffff12] mb-5 rounded-[8px] phone:h-[80px] relative flex phone:mb-2">
             <div className="w-[120px] h-[100%]  flex items-center justify-center
                 2xl:w-[90px]
                 xl:w-[90px] 
