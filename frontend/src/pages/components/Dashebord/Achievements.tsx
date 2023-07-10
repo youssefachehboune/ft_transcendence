@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import Achievement from "./Achievement"
 import { useState, useEffect } from "react";
 
@@ -7,7 +8,7 @@ export default function Achievements() {
     const [selectedOption, setSelectedOption] = useState<string>('All');
     useEffect(() => {
         fetch('http://localhost:3000/achievements/ALL', 
-        { credentials: 'include' }).then(res => res.json()).then(data => { setdataALL(data);})
+        { credentials: 'include' }).then(res => res.json()).then(data => { setdataALL([... data]);})
     }, []);
 
     const handleOptionChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
@@ -30,7 +31,40 @@ export default function Achievements() {
                         <div className="w-[45%] h-[90%]">
                             {
                                 dataALL?.map((achievement: any, key:any) => {
-                                    if (key % 2 == 0)
+                                    if (dataALL?.length == 1)
+                                    {
+                                        if (selectedOption === 'Done' && achievement.score == parseInt(achievement.milestone))
+                                        {
+                                            return (
+                                            <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
+                                            description={achievement.description}
+                                            progress={achievement.score} milstone={parseInt(achievement.milestone)}
+                                            reward={achievement.points}
+                                            />
+                                        )
+                                        }
+                                        else if (selectedOption === 'Undone' && achievement.score != parseInt(achievement.milestone))
+                                        {
+                                            return (
+                                                <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
+                                                description={achievement.description}
+                                                progress={achievement.score} milstone={parseInt(achievement.milestone)}
+                                                reward={achievement.points}
+                                                />
+                                            )
+                                        }
+                                        else if (selectedOption === 'All')
+                                        {
+                                            return (
+                                                <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
+                                                description={achievement.description}
+                                                progress={achievement.score} milstone={parseInt(achievement.milestone)}
+                                                reward={achievement.points}
+                                                />
+                                            )
+                                        }
+                                    }
+                                    else if (key % 2 == 0)
                                     {
                                         if (selectedOption === 'Done' && achievement.score == parseInt(achievement.milestone))
                                         {
@@ -70,7 +104,10 @@ export default function Achievements() {
                         <div className="w-[45%] h-[90%]">
                             {
                                 dataALL?.map((achievement: any, key:any) => {
-                                    if (key % 2 != 0)
+                                    if (dataALL?.length == 1)
+                                    {
+                                    }
+                                    else if (key % 2 != 0)
                                     {
                                         if (selectedOption === 'Done' && achievement.score == parseInt(achievement.milestone))
                                         {
