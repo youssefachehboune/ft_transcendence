@@ -12,11 +12,11 @@ function History() {
 
     useEffect(() => {
         if (status === "LOST")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setlost(data)}).then(() => sethistorieloding(true))
+            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setlost(data);sethistorieloding(true)})
         else if (status === "WON")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setwin(data)}).then(() => sethistorieloding(true))
+            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setwin(data);sethistorieloding(true)})
         else if (status === "ALL")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setall(data)}).then(() => sethistorieloding(true))
+            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setall(data);sethistorieloding(true)})
     }, [status])
     
     return ( 
@@ -31,8 +31,8 @@ function History() {
                     </div>
                     {
                             !historieloding && 
-                            Array.from(Array(8)).map((i) =>
-                            <div key={i} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
+                            Array.from(Array(8)).map((key: any) =>
+                            <div key={key} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                   <div className="w-[33.5%] flex items-center justify-end">
                                                 <SkeletonCircle size={'54px'}></SkeletonCircle>
                                                 <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]"><SkeletonText/></div>
@@ -46,7 +46,7 @@ function History() {
                             )
                     }
                     {
-                            status === "LOST" && historieloding ? (
+                            status === "LOST" && historieloding  && lost?.length > 0 ? (
                                 lost?.map((user: any, key: number) => (
                                     <div key={key} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                             <div className="w-[33.5%] flex items-center justify-end">
@@ -69,7 +69,7 @@ function History() {
                                             </div>
                                     </div>
                                 ))
-                        ) : status === "WON" && historieloding ? (
+                        ) : status === "WON" && historieloding && win?.length > 0 ? (
                             win?.map((user: any, key: number) => (
                                 <div key={key} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                         <div className="w-[33.5%] flex items-center justify-end">
@@ -92,7 +92,7 @@ function History() {
                                         </div>
                                  </div>
                             ))
-                        ) : status === "ALL" && historieloding ? (
+                        ) : status === "ALL" && historieloding && all?.length > 0 ? (
                             all?.map((user: any, key: number) => (
                                 <div key={key} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                         <div className="w-[33.5%] flex items-center justify-end">
@@ -115,7 +115,9 @@ function History() {
                                         </div>
                                  </div>
                             ))
-                        ) : null
+                        ) : all?.length == 0 && historieloding || win?.length == 0 && historieloding || lost?.length == 0 && historieloding ? (
+                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have historie to see</div>
+                        ): null
                     }
             </div>
         </div>

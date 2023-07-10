@@ -4,22 +4,17 @@ import { VscSearch } from "react-icons/vsc";
 import Profile_Frined from "./Profile_Frined";
 import { Box, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 
-function Friends({data}: any) { 
+function Friends({friendsloding, count_frinds, ListFriends} : any) { 
     const [visible, setvisible] = useState<boolean>(false);
     const [block, setblock] = useState<boolean>(true);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
     const [datafriend, setdatafriend] = useState<any>();
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [ListFriends, setListFriends] = useState<any>();
     const [Profile , setProfile] = useState<any>();
-    const [friendsloding, setfriendsloding] = useState<boolean>(false)
     const [profileloding, setprofileloding] = useState<boolean>(false)
-    const [count_frinds, setcount_frinds] = useState<any>();
+
     
-    useEffect( () => {
-                fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data)).then(()=>
-                fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setcount_frinds(data); setfriendsloding(true)}))
-    }, [count_frinds])
+
 
 
     useEffect(() => {
@@ -63,9 +58,13 @@ function Friends({data}: any) {
                                                                         <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                         </div>))
                                             }
+                                            {count_frinds?.info?.count_friends == "0" && 
+                                                        <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have friends</div>
+                                            }
                                             {
                                                 searchfriend === "" && friendsloding ? (
                                                     ListFriends?.map((user: any, key: any) => (
+
                                                     <div key={key} className="min-h-[61px] flex items-center">
                                                         <button onClick={ () => {
                                                             setblock(true)
@@ -86,7 +85,7 @@ function Friends({data}: any) {
                                                         <button className="text-white ml-[18%] mb-[10px]">
                                                             ...
                                                         </button>
-                                                    </div>
+                                                </div>
 
                                                 ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                     <div  className="min-h-[61px] flex items-center">
@@ -108,12 +107,12 @@ function Friends({data}: any) {
                                                             </button>
                                                         </div>
                                                 ) : (
-                                                    friendsloding && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
+                                                    friendsloding && count_frinds?.info?.count_friends != "0" && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
                                                 )
                                             }
                                         </div>
                 </div>
-                {visible && <Profile_Frined setvisible={setvisible} data={data} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
+                {visible && <Profile_Frined setvisible={setvisible} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
         </div>
      );
 }

@@ -1,7 +1,7 @@
 import { BsClockFill, BsFillPeopleFill, BsGlobe } from "react-icons/bs";
 import {FaCompass, FaGamepad, FaMedal} from 'react-icons/fa'
 import Expolore from "./components/Dashebord/Expolore";
-import { ChangeEvent, HtmlHTMLAttributes, KeyboardEvent, useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import Achievements from "./components/Dashebord/Achievements";
 import Profile from "./components/Dashebord/profile";
 import Section from "./components/Dashebord/Section";
@@ -10,7 +10,6 @@ import NavBar from "./components/Dashebord/NavBar";
 import History from "./components/Dashebord/History";
 import Friends from "./components/Dashebord/Friends";
 import Main from "./components/Dashebord/Main_Cont";
-import Achievement from "./components/Dashebord/Achievement";
 function Dashebord() {
     const [data, setdata] = useState<any>('');
 
@@ -19,10 +18,18 @@ function Dashebord() {
     const [Friend, setFriends] = useState<boolean>(true)
     const [main, setmain] = useState<boolean>(true)
     const [dataisloded, setdataisloded] =  useState<boolean>(false)
+    const [ListFriends, setListFriends] = useState<any>();
+    const [friendsloding, setfriendsloding] = useState<boolean>(false)
+    const [count_frinds, setcount_frinds] = useState<any>();
+
     useEffect( () => {
         fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => setdata(data)).then(() => setdataisloded(true))
     }, [])
 
+    useEffect( () => {
+        fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data)).then(()=>
+        fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setcount_frinds(data); setfriendsloding(true)}))
+    }, [count_frinds])
 
     
     return ( 
@@ -46,7 +53,7 @@ function Dashebord() {
             <Profile data={data} dataisloded={dataisloded}/>
             {!setshowHistorie && <History/>}
             {!showAchievements && <Achievements/>}
-            {!Friend && <Friends data={data}/>}
+            {!Friend && <Friends friendsloding={friendsloding} count_frinds={count_frinds} ListFriends={ListFriends}/>}
         </div>
      );
 }

@@ -47,10 +47,7 @@ function Search() {
     }
     useEffect(() => {
             if (search)
-            {
                 fetch('http://localhost:3000/search/' + search, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatasearch(data);}).then(() => setshowSearchfriend(false))
-               
-            }
     }, [search])
     const divtest = showSearchfriend ? "w-[100%] h-[100%] flex flex-col justify-center items-center" : "w-[100%] h-[250%] flex flex-col justify-center items-center"
     const borderRaduis = showSearchfriend ? "rounded-[15px]" : "rounded-t-[15px]"
