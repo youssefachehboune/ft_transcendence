@@ -6,20 +6,35 @@ const MyForm: React.FC = () => {
   const [messages, setMessages] = useState<{
     username: string;
     message: string;
-    status: string;
   }[]>([]);
   const [username, setUsername] = useState<string>('');
   const [status, setStatus] = useState<boolean>(false);
 
   var clientSide = true;
+	const socket = io('http://localhost:3000', {
+		transports: ['websocket'],
+		withCredentials: true,
+	});
+	socket.on('receive_message', (data: string) => {
+		setMessages((prevMessages) => [
+			...prevMessages,
+			{ username: username, message: data },
+		]);
+		socket.emit('read_message', username)
+	});
+	socket.on('mark_read', () => {
+		setStatus(true);
+	})
+
+	const compare = (a:any, b:any) => {
+		if (a.length != b.length) return false;
+		for (let i = 0; i < a.length; i++) {
+			if (a[i].username !== b[i].username || a[i].message !== b[i].message) return false;
+		}
+		return true;
+	}
 
   useEffect(() => {
-		setMessages([]);
-    const socket = io('http://localhost:3000', {
-      transports: ['websocket'],
-      withCredentials: true,
-    });
-
     const fetchChat = async () => {
       clientSide = false;
       const oldmessages = await (
@@ -29,35 +44,18 @@ const MyForm: React.FC = () => {
       ).json();
       const oldchat = oldmessages.map((message: any) => ({
         username: message.sender_username,
-        message: message.message,
-        status: message.readAt ? 'read' : 'unread',
+        message: message.message
       }));
-      setMessages((prevMessages) => [...prevMessages, ...oldchat]);
+      setMessages((prevMessages) => compare(prevMessages, oldchat) ? oldchat : [...prevMessages, ...oldchat]);
     };
     if (clientSide) {
-			socket.emit('read_message', username)
+			if (username) socket.emit('read_message', username)
 			fetchChat();
 		}
-    socket.on('receive_message', (data: string) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { username: username, message: data, status: 'read' },
-      ]);
-			socket.emit('read_message', username)
-    });
-		socket.on('mark_read', () => {
-			setMessages((prevMessages) => {
-				return prevMessages.map((message) => {
-					return message.username === username ? { ...message, status: 'read' } : message 
-				})
-			}
-			);
-			setStatus(true);
-		})
     return () => {
       socket.disconnect();
     };
-  }, [status]);
+  }, [username]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -75,37 +73,16 @@ const MyForm: React.FC = () => {
   };
 
   const sendData = () => {
-    const socket = io('http://localhost:3000', {
-      transports: ['websocket'],
-      withCredentials: true,
-    });
     const messageData = {
       username: username,
-      message: inputValue,
-      status: 'unread',
+      message: inputValue
     };
-    socket.emit('send_message', messageData);
+    if (username) socket.emit('send_message', messageData);
+		setStatus(false);
     setMessages((prevMessages) => [
       ...prevMessages,
-      { username: '', message: inputValue, status: 'unread' },
+      { username: '', message: inputValue },
     ]);
-    socket.on('receive_message', (data: string) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { username: username, message: data, status: 'read' },
-      ]);
-    });
-		setStatus(false);
-		socket.emit('read_message', username)
-		socket.on('mark_read', () => {
-			setMessages((prevMessages) => {
-				return prevMessages.map((message) => {
-					return message.username === username ? { ...message, status: 'read' } : message 
-				})
-			}
-			);
-			setStatus(true);
-		})
     setInputValue('');
   };
 
@@ -177,10 +154,11 @@ const MyForm: React.FC = () => {
                 ...(isRecipient(message.username) ? {} : senderMessageStyle),
               }}
             >
-              {message.message} {!isRecipient(message.username) && `(${status})`}
+              {message.message}
             </p>
           </div>
         ))}
+				<p >{`${status === true ? '-----read' : '-----unread'}`}</p>
         <div style={inputContainerStyle}>
           <input
             type="text"
