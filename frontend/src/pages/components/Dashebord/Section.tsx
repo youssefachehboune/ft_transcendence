@@ -32,7 +32,7 @@ return (
                 <VscSettingsGear className="hovring w-[18px] h-[18px]"/>
                 </button>
             </div>
-            <div className="w-[320px] h-[70%] absolute bg-[#F8F8F821] top-[5%] right-[0.5%] z-99 rounded-[6px] overflow-y-auto" style={
+            <div className="w-[320px] h-[80%] absolute bg-[#261F30] top-[5%] right-[0.5%] z-99 rounded-[6px] overflow-y-auto" style={
                 {
                     display: show ? 'block' : 'none'
                 }

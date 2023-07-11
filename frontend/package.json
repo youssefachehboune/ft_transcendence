@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.7.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@splinetool/react-spline": "^2.2.6",
     "@splinetool/runtime": "^0.9.340",
     "@types/node": "20.2.3",
@@ -17,7 +20,7 @@
     "autoprefixer": "10.4.14",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
-    "framer-motion": "^10.12.17",
+    "framer-motion": "^10.12.18",
     "next": "13.4.3",
     "postcss": "8.4.23",
     "react": "18.2.0",
