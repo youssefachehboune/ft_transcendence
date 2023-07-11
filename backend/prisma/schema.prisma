@@ -20,17 +20,17 @@ model User {
 
     // Relations
     userProfile          UserProfile[]
-    careerLog            CareerLog[]       @relation("UserLog")
-    opponentLog          CareerLog[]       @relation("OpponentLog")
+    careerLog            CareerLog[]      @relation("UserLog")
+    opponentLog          CareerLog[]      @relation("OpponentLog")
     achievementLog       AchievementLog[]
-    sentFriendship       Friendship[]      @relation("SentFriendship")
-    receivedFriendship   Friendship[]      @relation("ReceivedFriendship")
-    sentNotification     Notification[]    @relation("SentNotification")
-    receivedNotification Notification[]    @relation("ReceivedNotification")
-    sentMessage          Chat[]            @relation("SentMessage")
-    receivedMessage      Chat[]            @relation("ReceivedMessage")
-    channel              Channel[]
+    sentFriendship       Friendship[]     @relation("SentFriendship")
+    receivedFriendship   Friendship[]     @relation("ReceivedFriendship")
+    sentNotification     Notification[]   @relation("SentNotification")
+    receivedNotification Notification[]   @relation("ReceivedNotification")
+    sentMessage          Chat[]           @relation("SentMessage")
+    receivedMessage      Chat[]           @relation("ReceivedMessage")
     channelLog           ChannelLog[]
+    ChannelMembers       ChannelMembers[]
 }
 
 model UserProfile {
@@ -83,14 +83,14 @@ model AchievementLog {
 }
 
 model Notification {
-    id              Int               @id @default(autoincrement())
-    type            NotificationType
-    sender_id       Int?
-    recipient_id    Int
-    occuredAt       DateTime          @default(now())
-    read            Boolean
-    Sender          User?             @relation(name: "SentNotification", fields: [sender_id], references: [id])
-    Recipient       User              @relation(name: "ReceivedNotification", fields: [recipient_id], references: [id])
+    id           Int              @id @default(autoincrement())
+    type         NotificationType
+    sender_id    Int?
+    recipient_id Int
+    occuredAt    DateTime         @default(now())
+    read         Boolean
+    Sender       User?            @relation(name: "SentNotification", fields: [sender_id], references: [id])
+    Recipient    User             @relation(name: "ReceivedNotification", fields: [recipient_id], references: [id])
 }
 
 model Friendship {
@@ -115,17 +115,25 @@ model Chat {
     Recipient    User      @relation(name: "ReceivedMessage", fields: [recipient_id], references: [id])
 }
 
+model ChannelMembers {
+    id         Int      @id @default(autoincrement())
+    user_id    Int
+    channel_id Int
+    MemberType memberType
+    User    User    @relation(fields: [user_id], references: [id])
+    Channel Channel @relation(fields: [channel_id], references: [id])
+}
+
 model Channel {
-    id          Int          @id @default(autoincrement())
-    name        String       @unique
-    description String
-    owner_id    Int
-    password    String?
-    type        ChannelType
-    createdAt   DateTime     @default(now())
-    updatedAt   DateTime     @updatedAt
-    User        User         @relation(fields: [owner_id], references: [id])
-    ChannelLog  ChannelLog[]
+    id             Int              @id @default(autoincrement()) @unique
+    name           String           @unique
+    description    String
+    password       String?
+    type           ChannelType
+    createdAt      DateTime         @default(now())
+    updatedAt      DateTime         @updatedAt
+    ChannelLog     ChannelLog[]
+    ChannelMembers ChannelMembers[]
 }
 
 model ChannelLog {
@@ -172,13 +180,26 @@ enum FriendshipStatus {
 enum ChannelType {
     PUBLIC
     PRIVATE
+    PROTECTED
+    NOTACTIVE
 }
 
 enum NotificationType {
-	FRIEND_REQUEST
-	ACCEPTED_REQUEST
-	ACHIEVEMENT
-	LEVEL_UP
-	GAME_INVITE
-	GAME_UPDATES
+    FRIEND_REQUEST
+    ACCEPTED_REQUEST
+    ACHIEVEMENT
+    LEVEL_UP
+    GAME_INVITE
+    GAME_UPDATES
+}
+
+enum memberType {
+    OWNER
+    ADMIN
+    MEMBER
+    NOTMEMBER
+    BANNED
+    MUTED
+    REQUESTED
+    INVITED
 }

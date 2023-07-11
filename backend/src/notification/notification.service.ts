@@ -49,3 +49,4 @@ export class NotificationService {
 		await prisma.notification.create({ data });
 	}
 }
+

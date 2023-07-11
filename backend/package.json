@@ -28,7 +28,7 @@
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.3.0",
-    "@prisma/client": "^4.15.0",
+    "@prisma/client": "^4.16.2",
     "@types/bcrypt": "^5.0.0",
     "@types/passport-jwt": "^3.0.8",
     "bcrypt": "^5.1.0",
