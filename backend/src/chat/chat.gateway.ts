@@ -46,12 +46,12 @@ export class ChatGateway {
 	async message_read(@MessageBody() username: string , @ConnectedSocket() socket: Socket) {
 		try {
 			const user = await this.chatService.getUserFromSocket(socket);
-			const friend_id = (await prisma.userProfile.findUnique({
+			const sender_id = (await prisma.userProfile.findUnique({
 				where: { username: username }
 			})).user_id;
 			await prisma.chat.updateMany({
 				where: {
-					sender_id: user.id , recipient_id: friend_id, readAt: null
+					sender_id: sender_id , recipient_id: user.id, readAt: null
 				},
 				data: { readAt: new Date() }
 			});
