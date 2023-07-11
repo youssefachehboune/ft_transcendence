@@ -14,7 +14,7 @@ export class HistoryController {
 	@UseGuards(JwtGuard)
 	@Get('lastMatches')
 	async getLastMatches(@Req() req: Request) {
-		return await this.historyService.getHistory(req, 'ALL', 3);
+		return await this.historyService.getHistory(req, 'ALL', 4);
 	}
 
 	@Get(':filter')

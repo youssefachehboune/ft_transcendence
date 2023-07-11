@@ -103,7 +103,7 @@ export class HistoryService {
 			orderBy: {
 				occuredAt: 'desc'
 			},
-			take: 8
+			take: 4
 		});
 		const updatedHistory = history.map(entry => ({
 			...entry,
