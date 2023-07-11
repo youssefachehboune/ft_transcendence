@@ -28,10 +28,10 @@ export default function Achievements() {
                         </select>
                     </div>
                     <div className="w-full h-[100%] flex  justify-around flex-wrap overflow-y-auto scroll-state">
-                        {dataALL && dataALL.map((achievement : any) => {
+                        {dataALL && dataALL.map((achievement : any, key: any) => {
                             if (selectedOption === 'All')
                                 return (
-                                    <Achievement image="iconAch.jpeg" title={achievement.name}
+                                    <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
                                                 description={achievement.description}
                                                 progress={achievement.score} milstone={parseInt(achievement.milestone)}
                                                 reward={achievement.points}
@@ -39,7 +39,7 @@ export default function Achievements() {
                                 )
                                 else if (selectedOption === 'Undone' && achievement.score != parseInt(achievement.milestone))
                                 return (
-                                    <Achievement image="iconAch.jpeg" title={achievement.name}
+                                    <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
                                                 description={achievement.description}
                                                 progress={achievement.score} milstone={parseInt(achievement.milestone)}
                                                 reward={achievement.points}
@@ -47,7 +47,7 @@ export default function Achievements() {
                                 )
                                 else if (selectedOption === 'Done' && achievement.score === parseInt(achievement.milestone))
                                 return (
-                                    <Achievement image="iconAch.jpeg" title={achievement.name}
+                                    <Achievement key={key} image="iconAch.jpeg" title={achievement.name}
                                                 description={achievement.description}
                                                 progress={achievement.score} milstone={parseInt(achievement.milestone)}
                                                 reward={achievement.points}

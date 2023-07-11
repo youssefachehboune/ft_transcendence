@@ -173,8 +173,6 @@
         display: none;
     }
 }
-
-
 ::-webkit-scrollbar {
     height: 12px;
     width: 5px;
