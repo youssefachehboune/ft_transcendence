@@ -1,7 +1,11 @@
 import { useState } from "react";
 
 
-export default function Main() {
+interface Props {
+    setMain: any;
+}
+
+export default function Main(props : Props) {
     const [isShow, setIsShow] = useState<boolean>(false);
     function handlePlayClick()
     {
@@ -46,7 +50,7 @@ export default function Main() {
             </div>
             <div className="w-[100%] h-[65%]  phone:h-[50%]">
                 <div className="w-[100%] h-1/2 flex items-center justify-around ">
-                    <div className="backc1 w-[40%] h-[90%] rounded-[20px]">
+                    <div className="backc1 w-[40%] h-[90%] rounded-[20px]" onClick={() => props.setMain(false)}>
                         <img src="TT.png" 
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Top players</h1>
