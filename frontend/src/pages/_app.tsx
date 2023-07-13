@@ -9,10 +9,11 @@ import '../styles/Dashboard.css'
 import type { AppProps } from 'next/app'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChakraProvider } from '@chakra-ui/react'
+import { StrictMode } from 'react'
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
   )
 }

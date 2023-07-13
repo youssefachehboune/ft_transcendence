@@ -12,7 +12,6 @@ import Friends from "./components/Dashebord/Friends";
 import Main from "./components/Dashebord/Main_Cont";
 function Dashebord() {
     const [data, setdata] = useState<any>('');
-
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
     const [showAchievements, setshowAchievements] = useState<boolean>(true);
     const [Friend, setFriends] = useState<boolean>(true)
@@ -21,9 +20,10 @@ function Dashebord() {
     const [ListFriends, setListFriends] = useState<any>();
     const [friendsloding, setfriendsloding] = useState<boolean>(false)
     const [count_frinds, setcount_frinds] = useState<any>();
-
+    
     useEffect( () => {
         fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => setdata(data)).then(() => setdataisloded(true))
+        console.log("hello")
     }, [])
 
     useEffect( () => {

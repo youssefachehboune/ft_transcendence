@@ -116,7 +116,7 @@ function History() {
                                  </div>
                             ))
                         ) : all?.length == 0 && historieloding || win?.length == 0 && historieloding || lost?.length == 0 && historieloding ? (
-                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have historie to see</div>
+                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have history to see</div>
                         ): null
                     }
             </div>
