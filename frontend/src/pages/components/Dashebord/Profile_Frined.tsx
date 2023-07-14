@@ -65,15 +65,18 @@ function Profile_Frined({setvisible, Profile, profileloding, setblock, block}: a
                         <div className="w-[95%] min-h-[220px] flex relative ">
                                 <div className="w-[2px] h-[150px] top-[5%] left-[53%] test5 absolute"></div>
                                 <div className="w-[60%] h-[100%]">
-                                        <div className="w-[100%] h-[50%] flex flex-col justify-around ml-[10px]">
                                             <SkeletonText width={'80%'} isLoaded={profileloding}>
-                                                <h1 className="text-[white] text-[15px] font-sora font-[700] pl-[10px] mt-[-10px]">info</h1>
+                                            </SkeletonText>
+                                            {profileloding && 
+                                            <div className="w-[100%] h-[70%] flex flex-col justify-around ml-[10px]">
+                                                <h1 className="text-[white] text-[15px] font-sora font-[700] ml-[5px] mt-[-10px]">info</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><IoLocationOutline  className="w-[17px] h-[17px]"/></span>{Profile?.info.location}</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsPeople className="w-[17px] h-[17px]"/></span>{Profile?.info.count_friends} Friends</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsClock className="w-[17px] h-[17px]"/></span>{Profile?.info.member_since}</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><img src="g3.svg" className="w-[17px] h-[17px]"/></span>{Profile?.info.email}</h1>
-                                            </SkeletonText>
-                                        </div>
+
+                                            </div>
+                                            }
                                 </div>
                                 <div className="w-[40%] h-[100%]">
                                                 <div className="w-[100%] h-[100%] flex flex-col items-center  ml-[20px]">

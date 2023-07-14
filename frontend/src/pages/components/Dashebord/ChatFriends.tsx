@@ -20,7 +20,7 @@ function ChatFriends(props: any) {
 
     return ( 
             <div className="Chat flex items-end">
-                <div className={`w-[30%] ${props.onlyChat ? "2xl:w-[0%] xl:w-0" : "2xl:w-[70%] xl:w-[100%]"} h-[100%] test5 ml-2`}>
+                <div className={`w-[40%] ${props.onlyChat ? "2xl:w-[40%] xl:w-0" : "2xl:w-[70%] xl:w-[100%]"} h-[100%] test5 ml-2`}>
                     <div className={`w-[100%] h-[100%] flex flex-col items-center overflow-y-auto rounded-[10px]`}>
                                         <button onClick={() => props.setshowchatsection(false)} className="bg-[#070012] w-[100%] flex">
                                             <h1 className="text-white text-[32px] font-sora font-700 flex items-center"><AiOutlineArrowLeft/>HOME</h1>

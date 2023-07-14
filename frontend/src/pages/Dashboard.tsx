@@ -12,6 +12,7 @@ import Friends from "./components/Dashebord/Friends";
 import Main from "./components/Dashebord/Main_Cont";
 import ChatFriends from "./components/Dashebord/ChatFriends";
 import Chat from "./components/Dashebord/Chat";
+
 function Dashebord() {
     const [data, setdata] = useState<any>('');
 
@@ -21,19 +22,37 @@ function Dashebord() {
     const [main, setmain] = useState<boolean>(true)
     const [dataisloded, setdataisloded] =  useState<boolean>(false)
     const [ListFriends, setListFriends] = useState<any>();
-    const [friendsloding, setfriendsloding] = useState<boolean>(false)
-    const [count_frinds, setcount_frinds] = useState<any>();
-
     const [showchatsection, setshowchatsection] = useState<boolean>(false);
     const [onlyChat, setonlyChat] = useState<boolean>(false);
-    useEffect( () => {
-        fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => setdata(data)).then(() => setdataisloded(true))
-    }, [])
+    const [allhistorie, setallhistorie] = useState<boolean>(false);
+    
 
-    useEffect( () => {
-        fetch('http://localhost:3000/friends' , { credentials: "include" }).then((resp) => resp.json()).then((data) => setListFriends(data)).then(()=>
-        fetch('http://localhost:3000/profile', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setcount_frinds(data); setfriendsloding(true)}))
-    }, [count_frinds])
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const friendsResponse = await fetch('http://localhost:3000/friends', { credentials: "include" });
+            const friendsData = await friendsResponse.json();
+            setListFriends(friendsData);
+      
+            const profileResponse = await fetch('http://localhost:3000/profile', { credentials: "include" });
+            const profileData = await profileResponse.json();
+            setdata(profileData)
+            
+            const HistorieResponse = await fetch('http://localhost:3000/history/ALL', { credentials: "include" });
+            const historiedata = await HistorieResponse.json();
+            setallhistorie(historiedata)
+            
+            setdataisloded(true)
+          } catch (error) {
+            console.log("error: " + error)
+          }
+        };
+        fetchData();
+        const interval = setInterval(fetchData, 5000);
+      
+        return () => clearInterval(interval); 
+      }, []);
+      
 
     
     return ( 
@@ -55,13 +74,13 @@ function Dashebord() {
                     </div>
 
             }
-            <Search/>
-            <Section/>
-            {!showchatsection && <Profile data={data} dataisloded={dataisloded}/>}
-            {!setshowHistorie  && !showchatsection && <History/>}
+            <Search />
+            <Section setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
+            <Profile data={data} dataisloded={dataisloded}/>
+            {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && <Achievements/>}
-            {!Friend && !showchatsection && <Friends friendsloding={friendsloding} count_frinds={count_frinds} ListFriends={ListFriends}/>}
-            {showchatsection && <ChatFriends friendsloding={friendsloding} count_frinds={count_frinds} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
+            {!Friend && !showchatsection && <Friends friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends}/>}
+            {showchatsection && <ChatFriends friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
 
         </div>
      );

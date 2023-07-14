@@ -14,7 +14,7 @@ export default function NavBar(props : any) {
     //   console.log(index);
     };
     return (
-            <div className=" h-[100%] w-[100%] flex items-center justify-end relative">
+            <div className=" h-[100%] w-[100%] flex items-center justify-end overflow-hidden relative">
                     <Link  href={'/'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none absolute left-0 top-0"/></Link>
                         <div   className="div_navbar">
                             <div onClick={() => {handleClick(0); props.setshowchatsection(!props.showchatsection)}} className={`${0 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center mb-[25px]`}>

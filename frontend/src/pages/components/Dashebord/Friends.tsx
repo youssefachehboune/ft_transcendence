@@ -95,7 +95,7 @@ function Friends({friendsloding, count_frinds, ListFriends} : any) {
                                                                 }} className="w-[75%] flex items-center justify-center">
                                                                 <div className="w-[75px] h-[70px] flex justify-center items-start">
                                                                     <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                                                    <div className={`w-[12px] h-[12px] bg-green mt-[45px] ml-[30px] rounded-full absolute ${visible ? '2xl:hidden xl:hidden': ''}`}></div>
+                                                                    <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute ${visible ? '2xl:hidden xl:hidden': ''}`}></div>
                                                                 </div>
                                                                 <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
                                                                     <h1 className="text-[13px] font-sora font-[600] text-[white]">{datafriend.firstName + " " + datafriend.lastName}</h1>
