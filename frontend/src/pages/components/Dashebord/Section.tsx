@@ -38,7 +38,9 @@ return (
                     <div className="w-[100%] h-[9%] bg-[#FFFFFF0F] flex items-center justify-center flex-row">
                         <h1 className="font-sora font-semibold leading-normal text-[11px] text-[#fff]">Settings</h1>
                         <div className="h-[1px] w-[70%]"></div>
-                        <BsXLg color="white" className=" w-[11px] h-[11px]"/>
+                        <button onClick={handleClickSettings}>
+                            <BsXLg color="white" className=" w-[11px] h-[11px]"/>
+                        </button>
                     </div>
                     <div className="w-[93%] h-[33%]">
                         <h1 className="font-sora text-[11px] font-semibold leading-normal text-[#fff] mt-2">Two-factor authentication</h1>
