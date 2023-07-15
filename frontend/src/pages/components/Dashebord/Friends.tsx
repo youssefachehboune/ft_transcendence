@@ -4,7 +4,7 @@ import { VscSearch } from "react-icons/vsc";
 import Profile_Frined from "./Profile_Frined";
 import { Box, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 
-function Friends({friendsloding, count_frinds, ListFriends} : any) { 
+function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection} : any) { 
     const [visible, setvisible] = useState<boolean>(false);
     const [block, setblock] = useState<boolean>(true);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
@@ -82,9 +82,6 @@ function Friends({friendsloding, count_frinds, ListFriends} : any) {
                                                                 <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + user.username}</h1>
                                                             </div>
                                                         </button>
-                                                        <button className="text-white ml-[18%] mb-[10px]">
-                                                            ...
-                                                        </button>
                                                 </div>
 
                                                 ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
@@ -102,9 +99,6 @@ function Friends({friendsloding, count_frinds, ListFriends} : any) {
                                                                     <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + datafriend.username}</h1>
                                                                 </div>
                                                             </button>
-                                                            <button className="text-white ml-[18%] mb-[10px]">
-                                                                ...
-                                                            </button>
                                                         </div>
                                                 ) : (
                                                     friendsloding && count_frinds?.info?.count_friends != "0" && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
@@ -112,7 +106,7 @@ function Friends({friendsloding, count_frinds, ListFriends} : any) {
                                             }
                                         </div>
                 </div>
-                {visible && <Profile_Frined setvisible={setvisible} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
+                {visible && <Profile_Frined setshowchatsection={setshowchatsection} setvisible={setvisible} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
         </div>
      );
 }

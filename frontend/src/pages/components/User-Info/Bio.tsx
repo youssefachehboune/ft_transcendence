@@ -5,11 +5,10 @@ interface bio
 {
 	handleFormChange: (e: ChangeEvent<HTMLInputElement>) => void;
 	dispatch: Dispatch<any>;
-	data? : any;
 }
-const Bioinpute = ({ handleFormChange, dispatch, data} : bio) => {
+const Bioinpute = ({ handleFormChange, dispatch} : bio) => {
 
-	const [username, setUsername] = useState(data?.info?.bio);
+	const [username, setUsername] = useState('');
 	const [error, setError] = useState('');
 	const error_Bio_max_charcterc  = getText('BIO_MAX_CHARACTER')
 	const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {

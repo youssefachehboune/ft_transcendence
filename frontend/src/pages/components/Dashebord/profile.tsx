@@ -9,14 +9,15 @@ interface Profile
 {
     data: any;
     dataisloded: boolean;
+    showprofile: boolean
 }
-function Profile({data, dataisloded} : Profile) {
+function Profile({data, dataisloded, showprofile} : Profile) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const usernameRef = useRef(null)
 
     return (
-            <div className="profile 2xl:hidden">
-                    <div className="w-[100%] h-[85%] mt-[20%] bg-[#070012] flex flex-col items-center overflow-hidden">
+            <div className={`${showprofile ? "profile 2xl:hidden" : "absolute z-50 w-[350px] h-[72%] mt-[50px] mr-[15%] xl:mr-0 right-0"}`}>
+                    <div className="w-[100%] h-[85%] 2xl:h-[100%] xl:h-[100%] bg-[#070012] 2xl:rounded-[15px] xl:rounded-[15px]  flex flex-col items-center overflow-y-auto overflow-x-hidden">
                         <div className="w-[143px] h-[143px]">
                             <SkeletonCircle size='143' isLoaded={dataisloded}>
                                 <img src={data?.avatar} alt="" className="w-[143px] h-[143px] rounded-full border-indigo-400 border-[2px] select-none"/>
@@ -62,7 +63,7 @@ function Profile({data, dataisloded} : Profile) {
                                 </p>
                             </SkeletonText>
                         </div>
-                        <div className="w-[85%] h-[300px] mt-[70px] flex flex-col items-start overflow-hidden">
+                        <div className="w-[85%] h-[300px] mt-[70px] flex flex-col items-start ">
                                     <Skeleton isLoaded={dataisloded}>
                                         <h1 className="text-[white] text-[13px] font-sora font-[700]">Statistics</h1>
                                     </Skeleton>

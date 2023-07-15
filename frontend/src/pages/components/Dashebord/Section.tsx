@@ -4,7 +4,7 @@ import { BsGlobe, BsXLg } from "react-icons/bs";
 import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
-function Section({setshowchatsection, showchatsection}: any) {
+function Section({setshowchatsection, showchatsection, setshowprofile, showprofile}: any) {
     const [showSettings, setshowSettings] = useState<boolean>(false);
     function handleClickSettings() {
         setshowSettings(!showSettings);
@@ -12,7 +12,7 @@ function Section({setshowchatsection, showchatsection}: any) {
 return ( 
     <div className="section ">
             <div className="w-[100%] h-[100%] flex items-center justify-around">
-                <button className="hidden 2xl:block xl:block">
+                <button onClick={() => setshowprofile(!showprofile)} className="hidden 2xl:block xl:block">
                     <CgProfile className="hovring w-[18px] h-[18px]"/>
                 </button>
                 <button onClick={() => {setshowchatsection(!showchatsection)}}>

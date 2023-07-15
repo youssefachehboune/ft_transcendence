@@ -7,10 +7,9 @@ interface usernameInput
 	data: any;
 	errormssage: string;
 	dispatch: Dispatch<any>;
-	info?: any;
 }
-const UsernameInput = ({ handleFormChange, data, errormssage, dispatch, info} : usernameInput) => {
-  const [username, setUsername] = useState(info?.username);
+const UsernameInput = ({ handleFormChange, data, errormssage, dispatch} : usernameInput) => {
+  const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const error_user_alredy_exist = getText('USER_ALREADY_EXIST');
   const error_user_alphanumeric = getText('USER_ALPHANUMERIC')

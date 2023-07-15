@@ -71,9 +71,6 @@ function ChatFriends(props: any) {
                                                                     <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + user.username}</h1>
                                                                 </div>
                                                             </button>
-                                                            <button className="text-white ml-[18%] mb-[10px]">
-                                                                ...
-                                                            </button>
                                                     </div>
 
                                                     ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
@@ -87,9 +84,6 @@ function ChatFriends(props: any) {
                                                                         <h1 className="text-[13px] font-sora font-[600] text-[white]">{datafriend.firstName + " " + datafriend.lastName}</h1>
                                                                         <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + datafriend.username}</h1>
                                                                     </div>
-                                                                </button>
-                                                                <button className="text-white ml-[18%] mb-[10px]">
-                                                                    ...
                                                                 </button>
                                                             </div>
                                                     ) : (

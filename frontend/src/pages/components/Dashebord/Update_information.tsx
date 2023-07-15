@@ -20,7 +20,6 @@ bio: string;
 const Update_information = ({onClose, data}: any) => {
 
 const [state, dispatch] = useReducer(postReduser, DATA);
-// const [data, setdata] = useState<any>('');
 const return_avatar = data.avatar;
 const avatar = state.selectedAvatar ? state.selectedAvatar : return_avatar;
 const MAX_IMAGE_SIZE = 80000; //80kb
@@ -29,9 +28,6 @@ const [formData, setFormData] = useState<FormData>({
     name: "",
     bio: "",
 });
-// useEffect( () => {
-//     fetch('http://localhost:3000/user', { credentials: "include" }).then((resp) => resp.json()).then((data) => setdata(data))
-// }, [])
 
 const handleMouseEnter = () => {
     dispatch({type: "ISHOVER", pyload: true})
@@ -106,8 +102,8 @@ return (
     <Uplode_img handleImageUpload={handleImageUpload}/>
 
     <form onSubmit={handleSubmit} className="w-full h-[291px]  flex flex-col justify-around items-center mt-[10px] phone:h-[260px] phone:mt-[-5px] Large-phone:h-[260px] desktop:h-[260px] laptop:h-[285px] laptop:mt-0 desktop:mt-0 ">
-            <UsernameInput handleFormChange={handleFormChange} data={data} errormssage={state.errormssage} dispatch={dispatch} info={data}/>
-            <Bioinpute handleFormChange={handleFormChange}  dispatch={dispatch} data={data}/>
+            <UsernameInput handleFormChange={handleFormChange} data={data} errormssage={state.errormssage} dispatch={dispatch}/>
+            <Bioinpute handleFormChange={handleFormChange}  dispatch={dispatch}/>
             <div className="ml-[30px]">
                 <label htmlFor="tree" className="text-[12px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]">{getText("LOCATION")}<span className='text-orange'> *</span></label>
                 <CountryDropdown dispatch={dispatch} />

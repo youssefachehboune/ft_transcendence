@@ -12,6 +12,7 @@ import Friends from "./components/Dashebord/Friends";
 import Main from "./components/Dashebord/Main_Cont";
 import ChatFriends from "./components/Dashebord/ChatFriends";
 import Chat from "./components/Dashebord/Chat";
+import React from "react";
 
 function Dashebord() {
     const [data, setdata] = useState<any>('');
@@ -25,7 +26,7 @@ function Dashebord() {
     const [showchatsection, setshowchatsection] = useState<boolean>(false);
     const [onlyChat, setonlyChat] = useState<boolean>(false);
     const [allhistorie, setallhistorie] = useState<boolean>(false);
-    
+    const [showprofile, setshowprofile] = useState<boolean>(true)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -52,17 +53,24 @@ function Dashebord() {
       
         return () => clearInterval(interval); 
       }, []);
-      
-
-    
+        useEffect(() => {
+            const handleResize = () => {
+                if (!showprofile)
+                    setshowprofile(window.innerWidth > 1300);
+            };
+            window.addEventListener('resize', handleResize);
+            handleResize();
+            return () => {
+            window.removeEventListener('resize', handleResize);
+            };
+        }, [showprofile]);
     return ( 
         <div className={`${!showchatsection ? "container_page" : "chatsection"}`}>
 
             {main && !showchatsection && <Main/>}
             <div className="chanel"><NavBar setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
-
             {!showchatsection &&
-                    <div className="Expolore ">
+                    <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                         <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
                         <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaCompass} text={"Home"}/>
@@ -75,11 +83,11 @@ function Dashebord() {
 
             }
             <Search />
-            <Section setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
-            <Profile data={data} dataisloded={dataisloded}/>
+            <Section showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
+            <Profile showprofile={showprofile} data={data} dataisloded={dataisloded}/>
             {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && <Achievements/>}
-            {!Friend && !showchatsection && <Friends friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends}/>}
+            {!Friend && !showchatsection && <Friends friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
 
         </div>
@@ -87,3 +95,4 @@ function Dashebord() {
 }
 
 export default Dashebord;
+
