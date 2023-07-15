@@ -27,6 +27,19 @@ export class ChatGateway {
 		}
 		socket.username = user.userProfile[0].username;
 		this.connectedUsers.set(socket.username, socket);
+		const channels = await prisma.channelMembers.findMany({
+			where: {
+				user_id: user.id,
+				OR: [
+					{ MemberType: 'MEMBER'},
+					{ MemberType: 'ADMIN'},
+					{ MemberType: 'OWNER'}
+				]
+			},
+			include: { Channel: true }
+		});
+		for (let i = 0; i < channels.length; i++)
+			socket.join(channels[i].Channel.name);
   }
 	
 	handleDisconnect(socket: Socket | any) {
@@ -61,5 +74,12 @@ export class ChatGateway {
 		} catch(e) {
 			console.log('something went wrong when marking a message as read');
 		}
+	}
+
+	@SubscribeMessage('send_channel_message')
+	async set_channel_message( @MessageBody() content: {channel: string, message: string}, @ConnectedSocket() socket: Socket) {
+		const user = await this.chatService.getUserFromSocket(socket);
+		await this.chatService.saveChannelMessage(content, user);
+		socket.to(content.channel).emit('receive_channel_message', content.message)
 	}
 }

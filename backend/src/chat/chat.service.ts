@@ -70,4 +70,26 @@ export class ChatService {
 		}));
 		return res;
 	}
+
+	async saveChannelMessage(content: { channel: string, message: string }, user: User) {
+		const channel = await prisma.channel.findUnique({
+			where: { name: content.channel }
+		});
+		await prisma.channelLog.create({
+			data: {
+				user_id: user.id,
+				channel_id: channel.id,
+				message: content.message
+			}
+		})
+	}
+
+	async getChannelChat(@Req() req: Request, channel: string) {
+		const channel_id = (await prisma.channel.findUnique({
+			where: { name: channel }
+		})).id;
+		return await prisma.channelLog.findMany({
+			where: { channel_id: channel_id }
+		})
+	}
 }

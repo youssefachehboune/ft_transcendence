@@ -1,35 +1,29 @@
 import React, { useState, ChangeEvent, KeyboardEvent, useEffect } from 'react';
 import io from 'socket.io-client';
 
+const socket = io('http://localhost:3000', {
+	transports: ['websocket'],
+	withCredentials: true,
+});
 const MyForm: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>('');
   const [messages, setMessages] = useState<{
-    username: string;
     message: string;
   }[]>([]);
-  const [username, setUsername] = useState<string>('');
-  const [status, setStatus] = useState<boolean>(false);
+  const [channel, setChannel] = useState<string>('');
 
   var clientSide = true;
-	const socket = io('http://localhost:3000', {
-		transports: ['websocket'],
-		withCredentials: true,
-	});
-	socket.on('receive_message', (data: string) => {
+	socket.on('receive_channel_message', (data: string) => {
 		setMessages((prevMessages) => [
 			...prevMessages,
-			{ username: username, message: data },
+			{ message: data },
 		]);
-		socket.emit('read_message', username)
 	});
-	socket.on('mark_read', () => {
-		setStatus(true);
-	})
 
 	const compare = (a:any, b:any) => {
 		if (a.length != b.length) return false;
 		for (let i = 0; i < a.length; i++) {
-			if (a[i].username !== b[i].username || a[i].message !== b[i].message) return false;
+			if ( a[i].message !== b[i].message) return false;
 		}
 		return true;
 	}
@@ -38,31 +32,26 @@ const MyForm: React.FC = () => {
     const fetchChat = async () => {
       clientSide = false;
       const oldmessages = await (
-        await fetch('http://localhost:3000/chat', {
+        await fetch('http://localhost:3000/chat/' + channel, {
           credentials: 'include',
         })
       ).json();
       const oldchat = oldmessages.map((message: any) => ({
-        username: message.sender_username,
         message: message.message
       }));
       setMessages((prevMessages) => compare(prevMessages, oldchat) ? oldchat : [...prevMessages, ...oldchat]);
     };
     if (clientSide) {
-			if (username) socket.emit('read_message', username)
 			fetchChat();
 		}
-    return () => {
-      socket.disconnect();
-    };
-  }, [username]);
+  }, [channel]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setUsername(e.target.value);
+    setChannel(e.target.value);
   };
 
   const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -73,15 +62,10 @@ const MyForm: React.FC = () => {
   };
 
   const sendData = () => {
-    const messageData = {
-      username: username,
-      message: inputValue
-    };
-    if (username) socket.emit('send_message', messageData);
-		setStatus(false);
+    socket.emit('send_channel_message', {channel: channel, message: inputValue});
     setMessages((prevMessages) => [
       ...prevMessages,
-      { username: '', message: inputValue },
+      { message: inputValue },
     ]);
     setInputValue('');
   };
@@ -124,47 +108,20 @@ const MyForm: React.FC = () => {
     justifyContent: 'flex-end',
   };
 
-  const recipientMessageContainerStyle: React.CSSProperties = {
-    justifyContent: 'flex-start',
-  };
-
-  const senderMessageStyle: React.CSSProperties = {
-    textAlign: 'right',
-  };
-
-  const isRecipient = (messageUsername: string) => {
-    return messageUsername === username;
-  };
-
   return (
     <div style={{ position: 'relative', height: '100vh' }}>
       <div style={containerStyle}>
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            style={
-              isRecipient(message.username)
-                ? { ...messageContainerStyle, ...recipientMessageContainerStyle }
-                : messageContainerStyle
-            }
-          >
-            <p
-              style={{
-                ...messageStyle,
-                ...(isRecipient(message.username) ? {} : senderMessageStyle),
-              }}
-            >
-              {message.message}
-            </p>
-          </div>
-        ))}
-				<p >{`${status === true ? '-----read' : '-----unread'}`}</p>
+			{messages.map((message, index) => (
+			<div key={index} style={messageContainerStyle}>
+				<p style={messageStyle}>{message.message}</p>
+			</div>
+				))}
         <div style={inputContainerStyle}>
           <input
             type="text"
-            value={username}
+            value={channel}
             onChange={handleUsernameChange}
-            placeholder="Enter username"
+            placeholder="Enter channel name"
             style={usernameInputStyle}
           />
           <input
