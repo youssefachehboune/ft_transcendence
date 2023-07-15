@@ -12,6 +12,7 @@ async function updateUser(data : any, dep: any) {
 			{
 				if (data.username && dep.tree && dep.for)
 				{
+					dep.onClose()
 					dep.first(false);
 					dep.second(true);
 				}

@@ -2,8 +2,8 @@ import {FaBolt, FaChartBar, FaChartPie, FaPen} from 'react-icons/fa'
 import { BsClock, BsPatchCheckFill, BsPeople } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from '@chakra-ui/react'
-import React from 'react';
-import { AiOutlineUpload } from 'react-icons/ai';
+import React, { useRef } from 'react';
+import Update_information from './Update_information';
 
 interface Profile
 {
@@ -12,18 +12,8 @@ interface Profile
 }
 function Profile({data, dataisloded} : Profile) {
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const usernameRef = useRef(null)
 
-    const refs = {
-        usernameRef: React.useRef(null),
-        bioRef: React.useRef(null),
-        countryRef: React.useRef(null),
-      };
-    const handelsavebotton = () => 
-    {
-        // console.log(refs.usernameRef.current?.value)
-        // console.log(refs.bioRef.current?.value)
-        // console.log(refs.countryRef.current?.value)
-    }
     return (
             <div className="profile 2xl:hidden">
                     <div className="w-[100%] h-[85%] mt-[20%] bg-[#070012] flex flex-col items-center overflow-hidden">
@@ -43,43 +33,13 @@ function Profile({data, dataisloded} : Profile) {
                                         <h1 className="text-[white] text-[8px] flex items-center ml-[10px]"><span className="mr-[5px]"><FaPen/></span>Edite profile</h1>
                                     </button>
                                         <Modal
-                                                initialFocusRef={refs.usernameRef}
+                                                initialFocusRef={usernameRef}
                                                 isOpen={isOpen}
                                                 onClose={onClose}
                                             >
                                                 <ModalOverlay />
-                                                <ModalContent height={'500px'}>
-                                                        <ModalHeader>update your account</ModalHeader>
-                                                        <ModalCloseButton />
-                                                        <ModalBody pb={6}>
-                                                            <FormControl mt={4}>
-                                                                    <FormLabel>username</FormLabel>
-                                                                    <Input ref={refs.usernameRef} placeholder='username' />
-                                                            </FormControl>
-                                                            
-                                                            <FormControl mt={4}>
-                                                            <FormLabel>Bio</FormLabel>
-                                                            <Input ref={refs.bioRef} placeholder='Bio'  />
-                                                            </FormControl>
-                                                            <FormControl mt={4}>
-                                                                <FormLabel>Country</FormLabel>
-                                                                <Select ref={refs.countryRef} placeholder='Select country'>
-                                                                    <option>United Arab Emirates</option>
-                                                                    <option>Nigeria</option>
-                                                                </Select>
-                                                            </FormControl>
-                                                            <FormControl mt={4}>
-                                                            <label htmlFor='file-input'><h1 className='flex items-center'>update img<AiOutlineUpload className='ml-[5px]'/></h1></label>
-                                                                <Input type='file' id="file-input" style={{ display: "none" }} accept="image/*"/>
-                                                                
-                                                            </FormControl>
-                                                        </ModalBody>
-                                                        <ModalFooter>
-                                                            <Button onClick={() => {handelsavebotton; onClose()}} colorScheme='blue' mr={3}>
-                                                            Save
-                                                            </Button>
-                                                            <Button onClick={onClose}>Cancel</Button>
-                                                        </ModalFooter>
+                                                <ModalContent > 
+                                                    <Update_information onClose={onClose} data={data}/>
                                                 </ModalContent>
                                             </Modal>
 
