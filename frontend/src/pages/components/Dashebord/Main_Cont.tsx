@@ -4,7 +4,7 @@ import { useState } from "react";
 interface Props {
     setMain: any;
 }
-
+  
 export default function Main(props : Props) {
     const [isShow, setIsShow] = useState<boolean>(false);
     function handlePlayClick()
@@ -36,7 +36,6 @@ export default function Main(props : Props) {
                     {
                         isShow &&                     <div className="w-[90%] h-[50%] absolute bottom-1 z-[99] flex items-center justify-center phone:h-[70%]" >
                         <p className="parag_play ">In our version of Pong, the objective is to score points by hitting the ball past your opponent's paddle. The first player to reach 10 points wins. Move your paddle vertically using the designated controls and react quickly to hit the ball. Missing the ball results in your opponent scoring a point. Vary your shots, and anticipate your opponent's moves to gain an advantage. Stay focused, hone your skills, and have fun as you compete in this exciting game of Pong!</p>
-
                     </div>
                     }
 
