@@ -42,7 +42,6 @@ function Profile({data, dataisloded} : Profile) {
                                                     <Update_information onClose={onClose} data={data}/>
                                                 </ModalContent>
                                             </Modal>
-
                                 </Skeleton>
                             </div>
                             <div className="w-[100%] h-[100px] flex flex-col justify-around ml-[50px]">
