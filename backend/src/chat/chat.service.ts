@@ -41,13 +41,16 @@ export class ChatService {
 		});
   }
 
-	async getChat(@Req() req: Request) {
+	async getChat(@Req() req: Request, username: string) {
 		try {
+			const id = (await prisma.userProfile.findUnique({
+				where: { username: username },
+			})).user_id;
 			const chat = await prisma.chat.findMany({
 				where: {
 					OR: [
-						{ sender_id: req.user['id'] },
-						{ recipient_id: req.user['id'] }
+						{ sender_id: req.user['id'], recipient_id: id },
+						{ sender_id: id, recipient_id: req.user['id'] }
 					]
 				},
 				orderBy: {

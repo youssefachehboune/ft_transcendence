@@ -1,146 +1,25 @@
-import React, { useState, ChangeEvent, KeyboardEvent, useEffect } from 'react';
-import io from 'socket.io-client';
+import Logo from './components/landing-page/logo'
+import Lang from './components/landing-page/button-lang'
+import Footer from './components/landing-page/Footer'
+import Main from './components/landing-page/Main'
+import Head from 'next/head'
+import { useState } from 'react'
+import Cursor from './components/landing-page/Cursor'
+export default function Home() {
 
-const socket = io('http://localhost:3000', {
-	transports: ['websocket'],
-	withCredentials: true,
-});
-const MyForm: React.FC = () => {
-  const [inputValue, setInputValue] = useState<string>('');
-  const [messages, setMessages] = useState<{
-    message: string;
-  }[]>([]);
-  const [channel, setChannel] = useState<string>('');
-
-  var clientSide = true;
-
-	const compare = (a:any, b:any) => {
-		if (a.length != b.length) return false;
-		for (let i = 0; i < a.length; i++) {
-			if ( a[i].message !== b[i].message) return false;
-		}
-		return true;
-	}
-
-  useEffect(() => {
-		socket.on('receive_channel_message', (data: string) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { message: data },
-      ]);
-    });
-
-    const fetchChat = async () => {
-			clientSide = false;
-      const oldmessages = await (
-				await fetch('http://localhost:3000/chat/' + channel, {
-					credentials: 'include',
-        })
-				).json();
-				const oldchat = oldmessages.map((message: any) => ({
-					message: message.message
-				}));
-				setMessages((prevMessages) => compare(prevMessages, oldchat) ? oldchat : [...prevMessages, ...oldchat]);
-			};
-			if (clientSide) {
-				fetchChat();
-			}
-			return () => {
-				socket.off('receive_channel_message');
-			};
-  }, [channel]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setChannel(e.target.value);
-  };
-
-  const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      sendData();
-    }
-  };
-
-  const sendData = () => {
-    socket.emit('send_channel_message', {channel: channel, message: inputValue});
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { message: inputValue },
-    ]);
-    setInputValue('');
-  };
-
-  const containerStyle: React.CSSProperties = {
-    position: 'absolute',
-    bottom: '0',
-    left: '0',
-    width: '100%',
-    padding: '20px',
-    boxSizing: 'border-box',
-  };
-
-  const inputContainerStyle: React.CSSProperties = {
-    display: 'flex',
-    width: '100%',
-    marginBottom: '10px',
-  };
-
-  const usernameInputStyle: React.CSSProperties = {
-    flex: '1',
-    padding: '10px',
-    marginRight: '5px',
-    border: '1px solid #000',
-  };
-
-  const messageInputStyle: React.CSSProperties = {
-    flex: '3',
-    padding: '10px',
-    border: '1px solid #000',
-  };
-
-  const messageStyle: React.CSSProperties = {
-		margin: 'auto',
-    fontSize: '18px',
-    fontWeight: 'bold',
-  };
-
-  const messageContainerStyle: React.CSSProperties = {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  };
-
+  const [changeColor, setChangeColor] = useState(false);
   return (
-    <div style={{ position: 'relative', height: '100vh' }}>
-      <div style={containerStyle}>
-			{messages.map((message, index) => (
-			<div key={index} style={messageContainerStyle}>
-				<p style={messageStyle}>{message.message}</p>
-			</div>
-				))}
-        <div style={inputContainerStyle}>
-          <input
-            type="text"
-            value={channel}
-            onChange={handleUsernameChange}
-            placeholder="Enter channel name"
-            style={usernameInputStyle}
-          />
-          <input
-            type="text"
-            value={inputValue}
-            onChange={handleChange}
-            onKeyDown={handleKeyPress}
-            placeholder="Enter message"
-            style={messageInputStyle}
-          />
-        </div>
-      </div>
+    <div>
+      <Head>
+        <title>PIPO , Pong Game</title>
+      </Head>
+    <div id='container' className=''>
+        <Cursor setColor={setChangeColor} color={changeColor}/>
+        <Logo />
+        <Lang />
+        <Main />
+        <Footer setColor={setChangeColor} color={changeColor}/>
     </div>
-  );
-};
-
-export default MyForm;
+    </div>
+  )
+}
