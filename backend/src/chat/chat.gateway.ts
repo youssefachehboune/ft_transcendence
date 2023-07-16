@@ -1,5 +1,5 @@
 import { ConnectedSocket, MessageBody,
-	SubscribeMessage, WebSocketGateway, WebSocketServer
+	SubscribeMessage, WebSocketGateway, WebSocketServer, WsException
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
@@ -49,6 +49,19 @@ export class ChatGateway {
   @SubscribeMessage('send_message')
   async listenForMessages( @MessageBody() content: { username: string, message: string } , @ConnectedSocket() socket: Socket ) {
 		const author = await this.chatService.getUserFromSocket(socket);
+		const friend_id = (await prisma.userProfile.findUnique({
+			where: { username : content.username }
+		})).user_id;
+		const IsFriend = await prisma.friendship.findFirst({
+			where: {
+				OR: [
+					{ user_id: friend_id, friend_id: author.id, status: 'FRIENDS' },
+					{ user_id: author.id, friend_id: friend_id, status: 'FRIENDS' }
+				]
+			}
+		});
+		if (!IsFriend)
+			throw new WsException('You are not friends');
 		await this.chatService.saveMessage(content, author);
 		const recipient_socket = this.connectedUsers.get(content.username);
 		if (recipient_socket)
@@ -71,15 +84,25 @@ export class ChatGateway {
 			const recipient_socket = this.connectedUsers.get(username);
 			if (recipient_socket)
 				recipient_socket.emit('mark_read');
-		} catch(e) {
-			console.log('something went wrong when marking a message as read');
+		} catch(err) {
+			console.log(err);
 		}
 	}
 
 	@SubscribeMessage('send_channel_message')
 	async set_channel_message( @MessageBody() content: {channel: string, message: string}, @ConnectedSocket() socket: Socket) {
 		const user = await this.chatService.getUserFromSocket(socket);
+		const channel = await prisma.channel.findUnique({
+			where: { name: content.channel }
+		});
+		const member = await prisma.channelMembers.findFirst({
+			where: { user_id: user.id , channel_id: channel.id }
+		});
+		if (member.MemberType !== 'ADMIN' && member.MemberType !== 'OWNER' && member.MemberType !== 'MEMBER')
+			throw new WsException('You are not a member of the channel');
 		await this.chatService.saveChannelMessage(content, user);
-		socket.to(content.channel).emit('receive_channel_message', content.message)
+		const blockedUsernames = await this.chatService.getBlockedUsers(Array.from(this.connectedUsers.keys()), user.id)
+		const blockedSockets = blockedUsernames.map(username => this.connectedUsers.get(username).id);
+		socket.to(content.channel).except(blockedSockets).emit('receive_channel_message', content.message)
 	}
 }

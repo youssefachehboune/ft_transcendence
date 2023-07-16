@@ -3,7 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { Socket } from 'socket.io';
 import { parse } from 'cookie';
 import { WsException } from '@nestjs/websockets';
-import { PrismaClient, User } from '@prisma/client';
+import { ChannelLog, PrismaClient, User } from '@prisma/client';
 import { Request } from 'express'
 
 const prisma = new PrismaClient();
@@ -32,7 +32,6 @@ export class ChatService {
 				username: content.username
 			}
 		});
-		
 		await prisma.chat.create({
 			data: {
 				sender_id: author.id,
@@ -41,34 +40,40 @@ export class ChatService {
 			}
 		});
   }
+
 	async getChat(@Req() req: Request) {
-		const chat = await prisma.chat.findMany({
-			where: {
-				OR: [
-					{ sender_id: req.user['id'] },
-					{ recipient_id: req.user['id'] }
-				]
-			},
-			orderBy: {
-				sentAt: 'asc'
-			}
-		});
-		const res = await Promise.all(chat.map(async (chat) => {
-			const sender_username = (await prisma.userProfile.findFirst({
-				where: { user_id: chat.sender_id }
-			})).username;
-			const recipient_username = (await prisma.userProfile.findFirst({
-				where: { user_id: chat.recipient_id }
-			})).username;
-			return {
-				message: chat.message,
-				sentAt: chat.sentAt,
-				readAt: chat.readAt,
-				sender_username: sender_username,
-				recipient_username: recipient_username
-			};
-		}));
-		return res;
+		try {
+			const chat = await prisma.chat.findMany({
+				where: {
+					OR: [
+						{ sender_id: req.user['id'] },
+						{ recipient_id: req.user['id'] }
+					]
+				},
+				orderBy: {
+					sentAt: 'asc'
+				}
+			});
+			const res = await Promise.all(chat.map(async (chat) => {
+				const sender_username = (await prisma.userProfile.findFirst({
+					where: { user_id: chat.sender_id }
+				})).username;
+				const recipient_username = (await prisma.userProfile.findFirst({
+					where: { user_id: chat.recipient_id }
+				})).username;
+				return {
+					message: chat.message,
+					sentAt: chat.sentAt,
+					readAt: chat.readAt,
+					sender_username: sender_username,
+					recipient_username: recipient_username
+				};
+			}));
+			return res;
+		} catch (err) {
+			console.log(err);
+			return [];
+		}
 	}
 
 	async saveChannelMessage(content: { channel: string, message: string }, user: User) {
@@ -85,11 +90,52 @@ export class ChatService {
 	}
 
 	async getChannelChat(@Req() req: Request, channel: string) {
-		const channel_id = (await prisma.channel.findUnique({
-			where: { name: channel }
-		})).id;
-		return await prisma.channelLog.findMany({
-			where: { channel_id: channel_id }
-		})
+		try {
+			const channel_id = (await prisma.channel.findUnique({
+				where: { name: channel }
+			})).id;
+			const member = await prisma.channelMembers.findFirst({
+				where: { user_id: req.user['id'] , channel_id: channel_id }
+			});
+			if (member.MemberType !== 'ADMIN' && member.MemberType !== 'OWNER' && member.MemberType !== 'MEMBER')
+				throw new WsException('You are not a member of the channel');
+			const channelLog = await prisma.channelLog.findMany({
+				where: { channel_id: channel_id }
+			})
+			const logs: ChannelLog[] = [];
+			for (let i = 0; i < channelLog.length; i++) {
+				const blockingUser = await prisma.friendship.findFirst({
+					where: { user_id: channelLog[i].user_id, friend_id: req.user['id'], status: 'BLOCKED'}
+				});
+				if (!blockingUser)
+					logs.push(channelLog[i])
+			}
+			return logs;
+		} catch (err) {
+			console.log(err);
+			return [];
+		}
+	}
+
+	async getBlockedUsers(users: string[], userId: number) {
+		try {
+			const blockedList: string[] = [];
+			for (let i = 0; i < users.length; i++) {
+				const friendId = (await prisma.userProfile.findUnique({
+					where: { username: users[i] }
+				})).user_id;
+				const blockedFriend = await prisma.friendship.findFirst({
+					where: {
+						user_id: userId, friend_id: friendId, status: 'BLOCKED'
+					}
+				});
+				if (blockedFriend)
+					blockedList.push(users[i]);
+			}
+			return blockedList;
+		} catch (err) {
+			console.log(err);
+			return [];
+		}
 	}
 }

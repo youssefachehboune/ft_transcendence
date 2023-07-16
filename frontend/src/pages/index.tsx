@@ -13,12 +13,6 @@ const MyForm: React.FC = () => {
   const [channel, setChannel] = useState<string>('');
 
   var clientSide = true;
-	socket.on('receive_channel_message', (data: string) => {
-		setMessages((prevMessages) => [
-			...prevMessages,
-			{ message: data },
-		]);
-	});
 
 	const compare = (a:any, b:any) => {
 		if (a.length != b.length) return false;
@@ -29,21 +23,31 @@ const MyForm: React.FC = () => {
 	}
 
   useEffect(() => {
+		socket.on('receive_channel_message', (data: string) => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { message: data },
+      ]);
+    });
+
     const fetchChat = async () => {
-      clientSide = false;
+			clientSide = false;
       const oldmessages = await (
-        await fetch('http://localhost:3000/chat/' + channel, {
-          credentials: 'include',
+				await fetch('http://localhost:3000/chat/' + channel, {
+					credentials: 'include',
         })
-      ).json();
-      const oldchat = oldmessages.map((message: any) => ({
-        message: message.message
-      }));
-      setMessages((prevMessages) => compare(prevMessages, oldchat) ? oldchat : [...prevMessages, ...oldchat]);
-    };
-    if (clientSide) {
-			fetchChat();
-		}
+				).json();
+				const oldchat = oldmessages.map((message: any) => ({
+					message: message.message
+				}));
+				setMessages((prevMessages) => compare(prevMessages, oldchat) ? oldchat : [...prevMessages, ...oldchat]);
+			};
+			if (clientSide) {
+				fetchChat();
+			}
+			return () => {
+				socket.off('receive_channel_message');
+			};
   }, [channel]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -99,6 +103,7 @@ const MyForm: React.FC = () => {
   };
 
   const messageStyle: React.CSSProperties = {
+		margin: 'auto',
     fontSize: '18px',
     fontWeight: 'bold',
   };
