@@ -273,7 +273,7 @@ desktop:text-[35px] desktop:leading-[44px] desktop:tracking-[0.025em]
 
 }
 .header_play4 {
-    @apply font-sora font-bold text-[25px] leading-[32px] text-[#fff] tracking-[0.025em] absolute bottom-[5%] left-[5%] z-[2]
+    @apply font-sora font-bold text-[25px] leading-[32px] text-[#fff] tracking-[0.025em] absolute bottom-[5%] left-[5%] z-[1]
     desktop:text-[25px] desktop:leading-[32px] desktop:tracking-[0.025em]
     laptop:text-[17px] laptop:leading-[26px] laptop:tracking-[0.025em]
     Large-phone:text-[15px] Large-phone:leading-[22px] Large-phone:tracking-[0.025em]

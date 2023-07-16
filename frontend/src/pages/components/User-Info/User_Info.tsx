@@ -3,7 +3,6 @@
 	import { useState, useRef, ChangeEvent, FormEvent, useEffect, useReducer } from "react";
 	import { useRouter } from "next/router";
 	import { getText } from "../../api/lang";
-	import getUser from "../../api/user";
 	import updateUser from "@/pages/api/updateuser";
 	import UsernameInput from "./username";
 	import Bioinpute from "./Bio";
@@ -34,21 +33,10 @@
 		name: "",
 		bio: "",
 	});
-
-
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-			const fetchedUserData = await getUser();
-			setdata(fetchedUserData);
-			} catch (error) {
-			console.log('Error:', error);
-			}
-		};
-		if (!data) {
-			fetchData();
-		}
-		}, [data]);
+    useEffect( () => {
+        fetch('http://localhost:3000/user', { credentials: "include" }).then((resp) => resp.json()).then((data) => setdata(data))
+		console.log("test")
+    }, [])
 
 	const handleMouseEnter = () => {
 		dispatch({type: "ISHOVER", pyload: true})
