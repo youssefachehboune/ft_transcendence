@@ -35,7 +35,6 @@
 	});
     useEffect( () => {
         fetch('http://localhost:3000/user', { credentials: "include" }).then((resp) => resp.json()).then((data) => setdata(data))
-		console.log("test")
     }, [])
 
 	const handleMouseEnter = () => {

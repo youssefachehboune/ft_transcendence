@@ -6,7 +6,7 @@ import { IoArrowBackCircle, IoLocationOutline } from "react-icons/io5";
 import {ImBlocked} from 'react-icons/im'
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 
-function Profile_Frined({setvisible, Profile, profileloding, setblock, block, setshowchatsection}: any) {
+function Profile_Frined({setvisible, Profile, profileloding, setblock, block, setshowchatsection, setonlyChat}: any) {
 
     return (
                     <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[100%] 2xl:w-[100%] flex flex-col overflow-y-auto overflow-x-hidden test5 relative">
@@ -32,7 +32,7 @@ function Profile_Frined({setvisible, Profile, profileloding, setblock, block, se
                                                 <button className="w-[88px] h-[24px] test5 rounded-[4px] hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[15px]"><span className="mr-[5px]"><BsPersonCheckFill/></span>Friends</h1></button>
                                             </Skeleton>
                                             <Skeleton isLoaded={profileloding}>
-                                                <button onClick={() => setshowchatsection(true)} className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
+                                                <button onClick={() => {setshowchatsection(true); setonlyChat(false)}} className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
                                             </Skeleton>
                                             <Skeleton isLoaded={profileloding}>
                                                 <button onClick={() => setblock(!block)} className="w-[30px] h-[24px] rounded-[4px] test5 flex justify-center items-center text-white"><BsChevronDown/></button>

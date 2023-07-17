@@ -1,7 +1,7 @@
 import { IoArrowBackCircle } from "react-icons/io5";
 import {IoMdSend} from 'react-icons/io'
 import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect} from "react";
-function Chat({setonlyChat} : any) {
+function Chat({setonlyChat, friendchat} : any) {
     const [inputValue, setInputValue] = useState<any>('');
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [test, settest] = useState<boolean>(false);
@@ -56,12 +56,12 @@ function Chat({setonlyChat} : any) {
                             </button>
                             <div className="w-[50%] min-h-[84px] flex justify-center">
                                 <div className="w-[20%] h-[84px] flex items-center justify-end">
-                                        <img src={"mbjaghou.jpeg"} alt="" className="w-[54px] rounded-full select-none"/>
+                                        <img src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                                 </div>
                                 <div className="w-[70%] h-[84px] flex flex-col justify-center ml-[5px]">
-                                    <h1 className="text-[13px] font-sora font-[600] text-[white]">mouhamed bjaghou</h1>
-                                    <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">@mbjaghou</h1>
+                                    <h1 className="text-[13px] font-sora font-[600] text-[white]">{friendchat?.full_name}</h1>
+                                    <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + friendchat?.username}</h1>
                                 </div>
                             </div>
                     </div>

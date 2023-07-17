@@ -8,6 +8,7 @@ function ChatFriends(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
     const [datafriend, setdatafriend] = useState<any>();
+    const [friendchat, setfriendchat] = useState<any>();
 
     const handelsearchChanges = () =>
     {
@@ -61,8 +62,13 @@ function ChatFriends(props: any) {
                                                         props.ListFriends?.map((user: any, key: any) => (
 
                                                         <div key={key} className="min-h-[61px] flex items-center">
-                                                            <button onClick={() => props.setonlyChat(!props.onlyChat)} className="w-[75%] flex items-center justify-center">
-                                                                <div className="w-[75px] h-[70px] flex justify-center items-start">
+                                                            <button onClick={() =>
+                                                            {
+                                                                props.setonlyChat(false)
+                                                                fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setfriendchat(data); props.setonlyChat(true)})
+                                                            }
+                                                            } className="w-[75%] flex items-center justify-center">
+                                                                <div className="w-[75px] h-[70px] flex justify-center items-start relative">
                                                                         <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                                                                 </div>
@@ -76,9 +82,9 @@ function ChatFriends(props: any) {
                                                     ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                         <div  className="min-h-[61px] flex items-center">
                                                                 <button className="w-[75%] flex items-center justify-center">
-                                                                    <div className="w-[75px] h-[70px] flex justify-center items-start">
+                                                                    <div className="w-[75px] h-[70px] flex justify-center items-start relative">
                                                                         <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                                                        <div className={`w-[12px] h-[12px] bg-green mt-[45px] ml-[30px] rounded-full absolute 2xl:hidden xl:hidden}`}></div>
+                                                                        <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute 2xl:hidden xl:hidden}`}></div>
                                                                     </div>
                                                                     <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
                                                                         <h1 className="text-[13px] font-sora font-[600] text-[white]">{datafriend.firstName + " " + datafriend.lastName}</h1>
@@ -93,7 +99,7 @@ function ChatFriends(props: any) {
                                             </div>
                     </div>
                 </div>
-                {props.onlyChat && props.showchatsection && <Chat setonlyChat={props.setonlyChat}/>}
+                {props.onlyChat && props.showchatsection && <Chat setonlyChat={props.setonlyChat} friendchat={friendchat}/>}
             </div> 
             
     );

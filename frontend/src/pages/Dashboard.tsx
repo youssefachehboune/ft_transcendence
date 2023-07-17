@@ -13,6 +13,8 @@ import Main from "./components/Dashebord/Main_Cont";
 import ChatFriends from "./components/Dashebord/ChatFriends";
 import Chat from "./components/Dashebord/Chat";
 import React from "react";
+import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
+import Createchanel from "./components/Dashebord/createchanel";
 
 function Dashebord() {
     const [data, setdata] = useState<any>('');
@@ -27,6 +29,9 @@ function Dashebord() {
     const [onlyChat, setonlyChat] = useState<boolean>(false);
     const [allhistorie, setallhistorie] = useState<boolean>(false);
     const [showprofile, setshowprofile] = useState<boolean>(true)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,7 +73,7 @@ function Dashebord() {
         <div className={`${!showchatsection ? "container_page" : "chatsection"}`}>
 
             {main && !showchatsection && <Main/>}
-            <div className="chanel"><NavBar setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
+            <div className="chanel"><NavBar onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
             {!showchatsection &&
                     <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
@@ -83,13 +88,13 @@ function Dashebord() {
 
             }
             <Search />
-            <Section showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
+            <Section setonlyChat={setonlyChat} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
             <Profile showprofile={showprofile} data={data} dataisloded={dataisloded}/>
             {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && <Achievements/>}
-            {!Friend && !showchatsection && <Friends friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
+            {!Friend && !showchatsection && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
-
+            <Createchanel isOpen={isOpen} onClose={onClose}/>
         </div>
      );
 }

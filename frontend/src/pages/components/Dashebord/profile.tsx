@@ -3,7 +3,6 @@ import { BsClock, BsPatchCheckFill, BsPeople } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from '@chakra-ui/react'
 import React, { useRef } from 'react';
-import Update_information from './Update_information';
 
 interface Profile
 {
@@ -12,12 +11,10 @@ interface Profile
     showprofile: boolean
 }
 function Profile({data, dataisloded, showprofile} : Profile) {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const usernameRef = useRef(null)
 
     return (
             <div className={`${showprofile ? "profile 2xl:hidden" : "absolute z-50 w-[350px] h-[72%] mt-[50px] mr-[15%] xl:mr-0 right-0"}`}>
-                    <div className="w-[100%] h-[85%] 2xl:h-[100%] xl:h-[100%] bg-[#070012] 2xl:rounded-[15px] xl:rounded-[15px]  flex flex-col items-center overflow-y-auto overflow-x-hidden">
+                    <div className="w-[100%] h-[85%] 2xl:h-[100%] xl:h-[100%] bg-[#070012] 2xl:rounded-[15px] mt-[20%] 2xl:mt-[0%] xl:mt-[0%] xl:rounded-[15px]  flex flex-col items-center overflow-y-auto overflow-x-hidden">
                         <div className="w-[143px] h-[143px]">
                             <SkeletonCircle size='143' isLoaded={dataisloded}>
                                 <img src={data?.avatar} alt="" className="w-[143px] h-[143px] rounded-full border-indigo-400 border-[2px] select-none"/>
@@ -29,20 +26,9 @@ function Profile({data, dataisloded, showprofile} : Profile) {
                             </SkeletonText>
                             <div className="w-[70%] h-[30px] flex flex-row justify-end items-center mt-[10px]">
                                 <Skeleton isLoaded={dataisloded}>
-                                    <button onClick={onOpen}  className="w-[88px] h-[24px] rounded-[4px] bg-[#414243] hover:bg-[#00DAEA]">
-                                        
+                                    <button className="w-[88px] h-[24px] rounded-[4px] bg-[#414243] hover:bg-[#00DAEA]">
                                         <h1 className="text-[white] text-[8px] flex items-center ml-[10px]"><span className="mr-[5px]"><FaPen/></span>Edite profile</h1>
                                     </button>
-                                        <Modal
-                                                initialFocusRef={usernameRef}
-                                                isOpen={isOpen}
-                                                onClose={onClose}
-                                            >
-                                                <ModalOverlay />
-                                                <ModalContent > 
-                                                    <Update_information onClose={onClose} data={data}/>
-                                                </ModalContent>
-                                            </Modal>
                                 </Skeleton>
                             </div>
                             <div className="w-[100%] h-[100px] flex flex-col justify-around ml-[50px]">

@@ -4,7 +4,7 @@ import { VscSearch } from "react-icons/vsc";
 import Profile_Frined from "./Profile_Frined";
 import { Box, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 
-function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection} : any) { 
+function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection, setonlyChat} : any) { 
     const [visible, setvisible] = useState<boolean>(false);
     const [block, setblock] = useState<boolean>(true);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
@@ -49,7 +49,7 @@ function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection} 
                                                     </Skeleton>
                                             </div>
                                     </div>
-                                        <div className="w-[100%] h-[100%] gap-[10px] flex flex-col overflow-hidden">
+                                        <div className="w-[100%] h-[100%] gap-[10px] flex flex-col">
                                             {
                                                 !friendsloding &&
                                                         Array.from(Array(8)).map((i) => (
@@ -73,9 +73,9 @@ function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection} 
                                                             setProfile(null)
                                                             fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data)}).then(() => setprofileloding(true))
                                                             }} className="w-[75%] flex items-center justify-center">
-                                                            <div className="w-[75px] h-[70px] flex justify-center items-start">
+                                                            <div className="w-[75px] h-[70px] flex justify-center items-start relative">
                                                                     <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                                                <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute ${visible ? '2xl:hidden xl:hidden': ''}`}></div>
+                                                                    <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                                                             </div>
                                                             <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
                                                                 <h1 className="text-[13px] font-sora font-[600] text-[white]">{user.firstName + " " + user.lastName}</h1>
@@ -87,12 +87,13 @@ function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection} 
                                                 ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                     <div  className="min-h-[61px] flex items-center">
                                                             <button onClick={ () => {
-                                                                setvisible(false);
-                                                                fetch('http://localhost:3000/profile/' + datafriend.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data);setvisible(true);})
+                                                                setvisible(true);
+                                                                setprofileloding(false)
+                                                                fetch('http://localhost:3000/profile/' + datafriend.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data);setprofileloding(true);})
                                                                 }} className="w-[75%] flex items-center justify-center">
-                                                                <div className="w-[75px] h-[70px] flex justify-center items-start">
+                                                                <div className="w-[75px] h-[70px] flex justify-center items-start relative">
                                                                     <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                                                    <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute ${visible ? '2xl:hidden xl:hidden': ''}`}></div>
+                                                                    <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                                                                 </div>
                                                                 <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
                                                                     <h1 className="text-[13px] font-sora font-[600] text-[white]">{datafriend.firstName + " " + datafriend.lastName}</h1>
@@ -106,7 +107,7 @@ function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection} 
                                             }
                                         </div>
                 </div>
-                {visible && <Profile_Frined setshowchatsection={setshowchatsection} setvisible={setvisible} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
+                {visible && <Profile_Frined setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} setvisible={setvisible} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
         </div>
      );
 }
