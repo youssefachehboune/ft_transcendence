@@ -1,53 +1,84 @@
-import { IoArrowBackCircle } from "react-icons/io5";
+import { IoArrowBackCircle, IoCheckmarkDoneOutline } from "react-icons/io5";
 import {IoMdSend} from 'react-icons/io'
 import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect} from "react";
-function Chat({setonlyChat, friendchat} : any) {
+import { io } from "socket.io-client";
+
+
+function Chat({setonlyChat, friendchat, data} : any) {
+    var check = true;
     const [inputValue, setInputValue] = useState<any>('');
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [test, settest] = useState<boolean>(false);
     const containerRef = useRef<HTMLDivElement>(null);
     const [messages, setMessages] = useState<{
         username: string;
         message: string;
-      }[]>([]);
-
-
-      useEffect(() => {
-        const container = containerRef.current;
-        if (container)
-            container.scrollTop = container.scrollHeight;
-      }, [messages]);
+        read: boolean;
+    }[]>([]);
+    
+    const socket = io('http://localhost:3000', {
+      transports: ['websocket'],
+      withCredentials: true,
+    });
+    socket.on('receive_message', (data: string) => {
+      setMessages((prevMessages) => [
+          ...prevMessages,
+          { username: friendchat?.username, message: data, read:false },
+      ]);
+      socket.emit('read_message', friendchat.username)
+    })
+    socket.on('mark_read', () => {
+        setMessages( (prevMessages) => prevMessages.map( message => {
+            return {username: message.username, message: message.message, read: true }
+        }))
+	})
+  useEffect(() => {
+        const fetchchat = async () =>
+        {
+            socket.emit('read_message', friendchat.username)
+            check = false;
+            const oldmessages = await (
+                await fetch('http://localhost:3000/chat/' + friendchat.username, {
+                  credentials: 'include',
+                })
+              ).json();
+              const oldchat = oldmessages.map((message: any) => ({
+                username: message.sender_username,
+                message: message.message,
+                read: true
+              }));
+              setMessages(oldchat)
+        }
+        if (check) fetchchat();
       
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(inputRef.current?.value);
-      };
-      const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          if (inputValue)
-          {
-            settest(!test)
-                setMessages((prevMessages) => [
-                ...prevMessages,
-                { username: inputValue, message: inputValue },
-            ]);
-          }
-          setInputValue('');
-      };
-    }
-    const handel_onclick = () =>
-    {
-      if (inputValue)
-      {
-        settest(!test)
-            setMessages((prevMessages) => [
-            ...prevMessages,
-            { username: inputValue, message: inputValue },
-        ]);
-      }
-      setInputValue('');
-    }
-    return ( 
+        return () => {
+            socket.disconnect();
+          };
+  }, [])
+      
+      const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+          setInputValue(inputRef.current?.value);
+        };
+
+        const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (inputValue)
+                {
+                    socket.emit('send_message', {username: friendchat?.username, message: inputValue});
+                    setMessages((prevMessages) => [
+                        ...prevMessages,
+                        { username: data?.username, message: inputValue, read:false },
+                    ]);
+                }
+                setInputValue('');
+            };
+        }
+        useEffect(() => {
+          const container = containerRef.current;
+          if (container)
+              container.scrollTop = container.scrollHeight;
+        }, [messages]);
+        return ( 
             <div className={`w-[60%] 2xl:w-[60%] float-right xl:w-[100%] h-[100%] test5  ml-[10px] xl:ml-0 rounded-t-[10px] overflow-hidden relative`} >
                 <div className="h-[50px] bg-[#070012]"></div>
                     <div className="w-[100%] h-auto test5 relative">
@@ -68,19 +99,20 @@ function Chat({setonlyChat, friendchat} : any) {
                     <div className="w-[100%] max-h-[70%] absolute overflow-y-auto overflow-x-hidden" ref={containerRef}>
                         { 
                             messages.map((message, key) => {
-                                if (key % 2 == 1)
+                                if (message.username == data?.username)
                                 {
-                                    return  <div className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center `}>
-                                            <img src={"mbjaghou.jpeg"} alt="" className="w-[54px] rounded-full select-none"/>
+                                    return  <div key={key} className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center relative`}>
+                                            <img src={data?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                             <div className="max-w-[500px] bg-black p-2 mr-[20px] rounded-t-[28px] rounded-l-[28px]">
                                                 <p className={"text-white"}>{message.message}</p>
                                             </div>
+                                                {message.read && <p className="text-white absolute mt-[70px] mr-[80px] text-[10px] flex items-center font-sora"><IoCheckmarkDoneOutline className="mt-[3px] mr-[5px] text-[#14FF00]"/>read</p>}
                                             </div>
                                 }
-                                else
+                                else if (message.username == friendchat?.username)
                                 {
-                                    return  <div className={`w-[100%] pl-7 pt-5 h-fit  mb-[15px] flex  items-center`}>
-                                            <img src={"mbjaghou.jpeg"} alt="" className="w-[54px] rounded-full select-none"/>
+                                    return  <div key={key} className={`w-[100%] pl-7 pt-5 h-fit  mb-[15px] flex  items-center relative`}>
+                                            <img src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                             <div className="max-w-[500px] bg-black p-2 ml-[20px]  rounded-t-[28px] rounded-r-[28px]">
                                                 <p className={`text-white`}>{message.message}</p>
                                             </div>
@@ -102,7 +134,7 @@ function Chat({setonlyChat, friendchat} : any) {
                                     placeholder="Aa"
                                     className="text-white text-[13px] font-sora font-[700] flex items-center bg-transparent  border-none outline-none pl-[20px] w-[70%]"
                                     />
-                            <button onClick={handel_onclick}>
+                            <button>
                                 <IoMdSend color="white" className="w-[24px] h-[24px]"/>
                             </button>
                         </div>

@@ -16,9 +16,10 @@ import React from "react";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
 import Createchanel from "./components/Dashebord/createchanel";
 
-function Dashebord() {
-    const [data, setdata] = useState<any>('');
 
+function Dashebord() {
+  const [data, setdata] = useState<any>('');
+  
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
     const [showAchievements, setshowAchievements] = useState<boolean>(true);
     const [Friend, setFriends] = useState<boolean>(true)
@@ -30,8 +31,6 @@ function Dashebord() {
     const [allhistorie, setallhistorie] = useState<boolean>(false);
     const [showprofile, setshowprofile] = useState<boolean>(true)
     const { isOpen, onOpen, onClose } = useDisclosure()
-
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -58,17 +57,18 @@ function Dashebord() {
       
         return () => clearInterval(interval); 
       }, []);
-        useEffect(() => {
-            const handleResize = () => {
-                if (!showprofile)
-                    setshowprofile(window.innerWidth > 1300);
-            };
-            window.addEventListener('resize', handleResize);
-            handleResize();
-            return () => {
-            window.removeEventListener('resize', handleResize);
-            };
-        }, [showprofile]);
+      useEffect(() => {
+          const handleResize = () => {
+              if (!showprofile)
+                  setshowprofile(window.innerWidth > 1300);
+          };
+          window.addEventListener('resize', handleResize);
+          handleResize();
+          return () => {
+          window.removeEventListener('resize', handleResize);
+          };
+      }, [showprofile]);
+
     return ( 
         <div className={`${!showchatsection ? "container_page" : "chatsection"}`}>
 
@@ -93,7 +93,7 @@ function Dashebord() {
             {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && <Achievements/>}
             {!Friend && !showchatsection && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
-            {showchatsection && <ChatFriends friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
+            {showchatsection && <ChatFriends data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
             <Createchanel isOpen={isOpen} onClose={onClose}/>
         </div>
      );

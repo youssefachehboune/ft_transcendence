@@ -61,7 +61,7 @@ function ChatFriends(props: any) {
                                                     searchfriend === "" && props.friendsloding ? (
                                                         props.ListFriends?.map((user: any, key: any) => (
 
-                                                        <div key={key} className="min-h-[61px] flex items-center">
+                                                        <div key={user?.id} className="min-h-[61px] flex items-center">
                                                             <button onClick={() =>
                                                             {
                                                                 props.setonlyChat(false)
@@ -99,7 +99,7 @@ function ChatFriends(props: any) {
                                             </div>
                     </div>
                 </div>
-                {props.onlyChat && props.showchatsection && <Chat setonlyChat={props.setonlyChat} friendchat={friendchat}/>}
+                {props.onlyChat && props.showchatsection && <Chat data={props.data} setonlyChat={props.setonlyChat} friendchat={friendchat}/>}
             </div> 
             
     );
