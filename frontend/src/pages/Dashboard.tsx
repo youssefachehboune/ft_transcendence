@@ -15,9 +15,11 @@ import Chat from "./components/Dashebord/Chat";
 import React from "react";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
 import Createchanel from "./components/Dashebord/createchanel";
-
+import { io } from "socket.io-client";
 
 function Dashebord() {
+  var check = true;
+  var socket: any;
   const [data, setdata] = useState<any>('');
   
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
@@ -32,6 +34,21 @@ function Dashebord() {
     const [showprofile, setshowprofile] = useState<boolean>(true)
     const { isOpen, onOpen, onClose } = useDisclosure()
 
+    useEffect(() => {
+      if (!showchatsection)
+      {
+        socket = io('http://localhost:3000', {
+          transports: ['websocket'],
+          withCredentials: true,
+        });
+        socket.on('receive_message', (data: string) => {
+          console.log('hey');
+        })
+
+      }
+      return () => socket?.close();
+
+    }, [showchatsection])
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -54,8 +71,8 @@ function Dashebord() {
         };
         fetchData();
         const interval = setInterval(fetchData, 5000);
-      
-        return () => clearInterval(interval); 
+        return () => clearInterval(interval);
+
       }, []);
       useEffect(() => {
           const handleResize = () => {
@@ -73,7 +90,7 @@ function Dashebord() {
         <div className={`${!showchatsection ? "container_page" : "chatsection"}`}>
 
             {main && !showchatsection && <Main/>}
-            <div className="chanel"><NavBar onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
+            <div className="chanel"><NavBar socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
             {!showchatsection &&
                     <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">

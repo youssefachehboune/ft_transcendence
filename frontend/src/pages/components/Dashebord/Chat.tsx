@@ -3,9 +3,10 @@ import {IoMdSend} from 'react-icons/io'
 import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect} from "react";
 import { io } from "socket.io-client";
 
-
+var socket : any;
 function Chat({setonlyChat, friendchat, data} : any) {
     var check = true;
+    var test12 = true;
     const [inputValue, setInputValue] = useState<any>('');
     const inputRef = useRef<HTMLInputElement | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -15,45 +16,48 @@ function Chat({setonlyChat, friendchat, data} : any) {
         read: boolean;
     }[]>([]);
     
-    const socket = io('http://localhost:3000', {
-      transports: ['websocket'],
-      withCredentials: true,
-    });
-    socket.on('receive_message', (data: string) => {
-      setMessages((prevMessages) => [
-          ...prevMessages,
-          { username: friendchat?.username, message: data, read:false },
-      ]);
-      socket.emit('read_message', friendchat.username)
-    })
-    socket.on('mark_read', () => {
-        setMessages( (prevMessages) => prevMessages.map( message => {
-            return {username: message.username, message: message.message, read: true }
-        }))
-	})
-  useEffect(() => {
+    useEffect(() => {
         const fetchchat = async () =>
         {
-            socket.emit('read_message', friendchat.username)
             check = false;
             const oldmessages = await (
                 await fetch('http://localhost:3000/chat/' + friendchat.username, {
-                  credentials: 'include',
+                    credentials: 'include',
                 })
-              ).json();
-              const oldchat = oldmessages.map((message: any) => ({
-                username: message.sender_username,
-                message: message.message,
-                read: true
-              }));
-              setMessages(oldchat)
+                ).json();
+                const oldchat = oldmessages.map((message: any) => ({
+                    username: message.sender_username,
+                    message: message.message,
+                    read: true
+                }));
+                setMessages(oldchat)
         }
-        if (check) fetchchat();
-      
-        return () => {
-            socket.disconnect();
-          };
-  }, [])
+        if (check) 
+        {
+            socket = io('http://localhost:3000', {
+                transports: ['websocket'],
+                withCredentials: true,
+              });
+            fetchchat();
+            socket.emit('read_message', friendchat.username)
+            socket.on('receive_message', (data: string) => {
+              setMessages((prevMessages) => [
+                  ...prevMessages,
+                  { username: friendchat?.username, message: data, read:false },
+              ]);
+              socket.emit('read_message', friendchat.username)
+            })
+            socket.on('mark_read', () => {
+                setMessages( (prevMessages) => prevMessages.map( message => {
+                    return {username: message.username, message: message.message, read: true }
+                }))
+            })
+        }
+        if (!test12)
+            return () => {socket.close()}
+        else
+            test12 = false
+    }, [])
       
       const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
           setInputValue(inputRef.current?.value);
@@ -64,7 +68,7 @@ function Chat({setonlyChat, friendchat, data} : any) {
                 e.preventDefault();
                 if (inputValue)
                 {
-                    socket.emit('send_message', {username: friendchat?.username, message: inputValue});
+                    socket.emit('send_message', {username: friendchat.username, message: inputValue});
                     setMessages((prevMessages) => [
                         ...prevMessages,
                         { username: data?.username, message: inputValue, read:false },
