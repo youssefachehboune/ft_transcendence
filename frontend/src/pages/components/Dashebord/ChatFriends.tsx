@@ -9,6 +9,7 @@ function ChatFriends(props: any) {
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
     const [datafriend, setdatafriend] = useState<any>();
     const [friendchat, setfriendchat] = useState<any>();
+    const [chatloding, setchatloding] = useState(false)
 
     const handelsearchChanges = () =>
     {
@@ -65,7 +66,7 @@ function ChatFriends(props: any) {
                                                             <button onClick={() =>
                                                             {
                                                                 props.setonlyChat(false)
-                                                                fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setfriendchat(data); props.setonlyChat(true)})
+                                                                fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setfriendchat(data); props.setonlyChat(true);})
                                                             }
                                                             } className="w-[75%] flex items-center justify-center">
                                                                 <div className="w-[75px] h-[70px] flex justify-center items-start relative">

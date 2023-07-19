@@ -14,7 +14,7 @@ import ChatFriends from "./components/Dashebord/ChatFriends";
 import Chat from "./components/Dashebord/Chat";
 import React from "react";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
-import Createchanel from "./components/Dashebord/createchanel";
+import Createchanel from "./components/Dashebord/createchanel/createchanel";
 import { io } from "socket.io-client";
 
 function Dashebord() {

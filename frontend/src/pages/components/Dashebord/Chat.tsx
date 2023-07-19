@@ -28,7 +28,7 @@ function Chat({setonlyChat, friendchat, data} : any) {
                 const oldchat = oldmessages.map((message: any) => ({
                     username: message.sender_username,
                     message: message.message,
-                    read: true
+                    read: message.readAt ? true : false
                 }));
                 setMessages(oldchat)
         }
