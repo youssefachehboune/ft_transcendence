@@ -80,9 +80,7 @@
     border-bottom: 45px solid transparent;
     border-top: 45px solid transparent;
     border-right: 75px solid #4142434D;
-    /* background-color: #05FF00; */
     left: 0;
-    /* transform: rotate(-90deg); */
     z-index: 1;
     display: flex;
     flex-direction: column;
@@ -186,5 +184,12 @@
 }
 
 ::-webkit-scrollbar-corner {
+    background: #00000000;
+}
+
+
+.scroll::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
     background: #00000000;
 }
