@@ -2,6 +2,7 @@ import { IoArrowBackCircle, IoCheckmarkDoneOutline } from "react-icons/io5";
 import {IoMdSend} from 'react-icons/io'
 import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect} from "react";
 import { io } from "socket.io-client";
+import { RxCross2 } from "react-icons/rx";
 
 var socket : any;
 function Chat({setonlyChat, friendchat, data} : any) {
@@ -15,6 +16,7 @@ function Chat({setonlyChat, friendchat, data} : any) {
         message: string;
         read: boolean;
     }[]>([]);
+    const [number, setnumber] = useState<number>(0);
     
     useEffect(() => {
         const fetchchat = async () =>
@@ -60,36 +62,45 @@ function Chat({setonlyChat, friendchat, data} : any) {
     }, [])
       
       const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-          setInputValue(inputRef.current?.value);
+        const value =  e.target.value
+          setInputValue(value);
+          setnumber(value?.length);
         };
-
-        const handleKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                if (inputValue)
-                {
-                    socket.emit('send_message', {username: friendchat.username, message: inputValue});
-                    setMessages((prevMessages) => [
-                        ...prevMessages,
-                        { username: data?.username, message: inputValue, read:false },
-                    ]);
-                }
-                setInputValue('');
-            };
-        }
+        const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+            if (event.key === "Enter") {
+              event.preventDefault();
+              handleSendMessage();
+            }
+          };
+        
+          const handleSendMessage = () => {
+            if (inputValue) {
+              socket.emit("send_message", {
+                username: friendchat.username,
+                message: inputValue,
+              });
+              setMessages((prevMessages) => [
+                ...prevMessages,
+                { username: data?.username, message: inputValue, read: false },
+              ]);
+            }
+            setInputValue("");
+            setnumber(0);
+          };
+        
         useEffect(() => {
           const container = containerRef.current;
           if (container)
               container.scrollTop = container.scrollHeight;
         }, [messages]);
         return ( 
-            <div className={`w-[60%] 2xl:w-[60%] float-right xl:w-[100%] h-[100%] test5  ml-[10px] xl:ml-0 rounded-t-[10px] overflow-hidden relative`} >
+            <div className={`w-[60%] 2xl:w-[57%] float-right xl:w-[95%] h-[100%] test5  ml-[10px] xl:ml-0 rounded-t-[10px] overflow-hidden relative`} >
                 <div className="h-[50px] bg-[#070012]"></div>
                     <div className="w-[100%] h-auto test5 relative">
-                            <button onClick={() =>setonlyChat(false)} className="absolute">
-                                <IoArrowBackCircle color="white"  className="w-[20px] h-[20px]"/>
+                            <button onClick={() =>setonlyChat(false)} className="absolute right-0">
+                                <RxCross2 color="white"  className="w-[23px] h-[23px]"/>
                             </button>
-                            <div className="w-[50%] min-h-[84px] flex justify-center">
+                            <div className="w-[65%] 2xl:w-[70%] xl:w-[75%] min-h-[84px] flex justify-center">
                                 <div className="w-[20%] h-[84px] flex items-center justify-end">
                                         <img src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
@@ -107,7 +118,7 @@ function Chat({setonlyChat, friendchat, data} : any) {
                                 {
                                     return  <div key={key} className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center relative`}>
                                             <img src={data?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                            <div className="max-w-[500px] bg-black p-2 mr-[20px] rounded-t-[28px] rounded-l-[28px]">
+                                            <div className="max-w-[400px] 2xl:max-w-[200px] xl:max-w-[180px] bg-black p-2 mr-[20px] rounded-t-[28px] rounded-l-[28px]">
                                                 <p className={"text-white"}>{message.message}</p>
                                             </div>
                                                 {message.read && <p className="text-white absolute mt-[70px] mr-[80px] text-[10px] flex items-center font-sora"><IoCheckmarkDoneOutline className="mt-[3px] mr-[5px] text-[#14FF00]"/>read</p>}
@@ -117,7 +128,7 @@ function Chat({setonlyChat, friendchat, data} : any) {
                                 {
                                     return  <div key={key} className={`w-[100%] pl-7 pt-5 h-fit  mb-[15px] flex  items-center relative`}>
                                             <img src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                            <div className="max-w-[500px] bg-black p-2 ml-[20px]  rounded-t-[28px] rounded-r-[28px]">
+                                            <div className="max-w-[400px] 2xl:max-w-[200px] xl:max-w-[180px] bg-black p-2 ml-[20px]  rounded-t-[28px] rounded-r-[28px]">
                                                 <p className={`text-white`}>{message.message}</p>
                                             </div>
                                             </div>
@@ -136,10 +147,12 @@ function Chat({setonlyChat, friendchat, data} : any) {
                                     onKeyDown={handleKeyPress}
                                     type="text"
                                     placeholder="Aa"
+                                    maxLength={100}
                                     className="text-white text-[13px] font-sora font-[700] flex items-center bg-transparent  border-none outline-none pl-[20px] w-[70%]"
                                     />
-                            <button>
-                                <IoMdSend color="white" className="w-[24px] h-[24px]"/>
+                            <button className="flex items-center">
+                                <h1 className="text-white text-[10px] font-sora">{number + "/100"}</h1>
+                                <IoMdSend onClick={handleSendMessage} color="white" className="w-[24px] h-[24px] ml-[10px]"/>
                             </button>
                         </div>
                     </div>

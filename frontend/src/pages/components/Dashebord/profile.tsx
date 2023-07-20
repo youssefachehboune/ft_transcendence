@@ -3,6 +3,7 @@ import { BsClock, BsPatchCheckFill, BsPeople } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from '@chakra-ui/react'
 import React, { useRef } from 'react';
+import Edite_profile from './Edite_profile/Edite_profile';
 
 interface Profile
 {
@@ -11,7 +12,7 @@ interface Profile
     showprofile: boolean
 }
 function Profile({data, dataisloded, showprofile} : Profile) {
-
+    const { isOpen, onOpen, onClose } = useDisclosure()
     return (
             <div className={`${showprofile ? "profile 2xl:hidden" : "absolute z-50 w-[350px] h-[72%] mt-[50px] mr-[15%] xl:mr-0 right-0"}`}>
                     <div className="w-[100%] h-[85%] 2xl:h-[100%] xl:h-[100%] bg-[#070012] 2xl:rounded-[15px] mt-[20%] 2xl:mt-[0%] xl:mt-[0%] xl:rounded-[15px]  flex flex-col items-center overflow-y-auto overflow-x-hidden">
@@ -26,7 +27,7 @@ function Profile({data, dataisloded, showprofile} : Profile) {
                             </SkeletonText>
                             <div className="w-[70%] h-[30px] flex flex-row justify-end items-center mt-[10px]">
                                 <Skeleton isLoaded={dataisloded}>
-                                    <button className="w-[88px] h-[24px] rounded-[4px] bg-[#414243] hover:bg-[#00DAEA]">
+                                    <button onClick={() => onOpen()} className="w-[88px] h-[24px] rounded-[4px] bg-[#414243] hover:bg-[#00DAEA]">
                                         <h1 className="text-[white] text-[8px] flex items-center ml-[10px]"><span className="mr-[5px]"><FaPen/></span>Edite profile</h1>
                                     </button>
                                 </Skeleton>
@@ -90,6 +91,7 @@ function Profile({data, dataisloded, showprofile} : Profile) {
                                     </div>
                         </div>
                     </div>
+                    <Edite_profile isOpen={isOpen} onOpen={onOpen} onClose={onClose} data={data}/>
         </div>
     );
 }

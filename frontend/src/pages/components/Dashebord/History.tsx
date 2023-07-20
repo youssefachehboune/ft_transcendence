@@ -8,7 +8,7 @@ function History({historieloding, all} : any) {
     
     return ( 
         <div className="cont flex  justify-center overflow-hidden">
-            <div className="w-[100%] h-[100%] flex flex-col items-center gap-[30px] rounded-t-[10px] rounded-l-[10px] overflow-y-auto test5">
+            <div className="w-[100%] h-[100%] flex flex-col items-center gap-[30px] rounded-t-[10px] rounded-l-[10px] overflow-y-auto test5 ml-2">
                     <div className="w-[100%] h-auto flex justify-center">
                         <select onChange={handlehistorieSelect} className="w-[85px] h-[19px] test5 mt-[10px] rounded-[4px] text-[white] text-[13px] pl-2 font-[400] font-sora">
                             <option value={'ALL'}>all</option>
