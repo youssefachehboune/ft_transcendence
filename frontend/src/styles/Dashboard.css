@@ -75,7 +75,6 @@
 
 .div_navbar {
     position: absolute;
-    height: 580px;
     width: 95%;
     border-bottom: 45px solid transparent;
     border-top: 45px solid transparent;
@@ -86,6 +85,11 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+}
+
+
+.active_bar {
+    width : 50%;
 }
 
 .line_navbar {
@@ -110,16 +114,16 @@
 }
 
 .nav_hover {
-    
     transition: 0.7s;
 }
 .nav_hover:hover {
     border-radius: 50%;
-    filter:drop-shadow(0px 0px 0.1vw #C322FF) drop-shadow(0px 0px 0.1vw #00BAE1);
+    filter:drop-shadow(0px 0px 0.1vw #fff4f4) drop-shadow(0px 0px 0.1vw #222222);
 }
 
 .active {
-    filter:drop-shadow(-12px -2px 1vw #C322FF) drop-shadow(-8px 10px 0.5vw #00bbe1c4);
+    border-radius: 50%;
+    filter:drop-shadow(0px 0px 0.1vw #ffffff) drop-shadow(0px 0px 0.1vw #ffffff);
 }
 @media (max-width: 768px) {
     .container_page
