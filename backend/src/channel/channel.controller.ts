@@ -4,6 +4,7 @@ import { ChannelService } from './channel.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { Request } from 'express';
 import { ChannelDTO } from './channel.dto';
+import { miniChannelDto } from './channel.dto';
 
 @ApiTags('channel')
 @Controller('channel')
@@ -22,6 +23,12 @@ export class ChannelController {
         return await this.channelService.getPublicChannels(req);
     }
 
+		@UseGuards(JwtGuard)
+		@Get('invitations')
+		async getInvitations(@Req() req: Request) {
+				return await this.channelService.getInvitations(req);
+		}
+
     @UseGuards(JwtGuard)
     @Get(':channel_id')
     @ApiParam({ name: 'channel_id', type: Number })
@@ -34,12 +41,6 @@ export class ChannelController {
     @ApiParam({ name: 'channel_id', type: Number })
     async getChannelMembers(@Req() req: Request, @Param('channel_id') channel_id: number) {
         return await this.channelService.getChannelMembers(req, channel_id);
-    }
-
-    @UseGuards(JwtGuard)
-    @Get('invitations')
-    async getInvitations(@Req() req: Request) {
-        return await this.channelService.getInvitations(req);
     }
 
     @UseGuards(JwtGuard)
@@ -66,16 +67,15 @@ export class ChannelController {
     @Put('Admin/:channelId/:userId/:action')
     @ApiParam({ name: 'channelId', type: Number })
     @ApiParam({ name: 'userId', type: Number })
-    @ApiParam({ name: 'action', enum: ['ban', 'mute', 'kick', 'unban', 'unmute', 'accept', 'reject', 'invite', 'remove', 'makeAdmin', 'makeUser'] })
-    async AdminActions(@Req() req: Request,@Param('channelId') channelId : number , @Param('userId') userId : number , @Param('action') action : 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'remove' | 'makeAdmin' | 'makeUser') {
-        return await this.channelService.AdminActions(req, channelId , userId , action);
+    @ApiParam({ name: 'action', enum: ['ban', 'mute', 'kick', 'unban', 'unmute', 'accept', 'reject', 'invite', 'uninvite', 'makeAdmin', 'makeUser'] })
+    async AdminActions(@Req() req: Request,@Param('channelId') channelId : number , @Param('userId') userId : number , @Param('action') action : 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'uninvite' | 'makeAdmin' | 'makeUser') {
+        return await this.channelService.AdminActions(req, +channelId , +userId , action);
     }
 
     @UseGuards(JwtGuard)
-    @Put('/:channelId/:action')
-    @ApiParam({ name: 'channelId', type: Number })
+    @Put('/user/:action')
     @ApiParam({ name: 'action', enum: ['join', 'leave', 'cancel', 'accept', 'reject'] })
-    async UserActions(@Req() req: Request,@Param('channelId') channelId : number , @Param('action') action : 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
-        return await this.channelService.UserActions(req, channelId , action);
+    async UserActions(@Req() req: Request, @Body() miniChannel: miniChannelDto , @Param('action') action : 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
+        return await this.channelService.UserActions(req, miniChannel.password, +miniChannel.channel_id , action);
     }
 }

@@ -31,6 +31,25 @@ class PasswordValidator implements ValidatorConstraintInterface {
   }
 }
 
+export class miniChannelDto {
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: 'The channel id',
+    example: '42',
+  })
+  channel_id: string;
+
+	@IsNotEmpty()
+  @IsString()
+  @IsOptional()
+  @ApiProperty({
+    description: 'The password',
+    example: 'bR^hW7f',
+  })
+  password?: string;
+}
+
 export class ChannelDTO {
   @IsNotEmpty()
   @IsString()
@@ -47,6 +66,14 @@ export class ChannelDTO {
     example: '1337',
   })
   description: string;
+
+	@IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: 'The profile picture of the channel',
+    example: 'http://example.com/',
+  })
+  avatar: string;
 
   @ApiProperty({
     enum: ChannelType,

@@ -1,8 +1,8 @@
 import { Injectable, Req } from '@nestjs/common';
 import { Request } from 'express';
-import { PrismaClient } from '.prisma/client';
-import { User } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { ChannelDTO } from './channel.dto';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 @Injectable()
@@ -30,11 +30,14 @@ export class ChannelService {
                 Channel: true,
             },
         });
-        return myChannels.map((channel) => {
+        return myChannels
+				.filter((channel) => ['OWNER', 'ADMIN', 'MEMBER'].includes(channel.MemberType) && channel.Channel.type !== 'NOTACTIVE')
+				.map((channel) => {
             return {
-                id: channel.Channel.id,
                 name: channel.Channel.name,
-                Type: channel.Channel.type,
+                type: channel.Channel.type,
+								description: channel.Channel.description,
+								avatar: channel.Channel.avatar,
                 createdAt: channel.Channel.createdAt,
                 updatedAt: channel.Channel.updatedAt,
             };
@@ -59,9 +62,10 @@ export class ChannelService {
 
         return publicChannels.map((channel) => {
             return {
-                id: channel.id,
                 name: channel.name,
-                Type: channel.type,
+								description: channel.description,
+								avatar: channel.avatar,
+                type: channel.type,
                 createdAt: channel.createdAt,
                 updatedAt: channel.updatedAt,
             };
@@ -79,14 +83,15 @@ export class ChannelService {
                 ChannelMembers: true,
             },
         });
-        if (!channel) {
+        if (!channel || channel.type === 'NOTACTIVE') {
             return 'Channel not found';
         }
         if (channel.type === 'PUBLIC') {
             return {
-                id: channel.id,
                 name: channel.name,
-                Type: channel.type,
+                type: channel.type,
+								descrption: channel.description,
+								avatar: channel.avatar,
                 createdAt: channel.createdAt,
                 updatedAt: channel.updatedAt,
             };
@@ -102,13 +107,14 @@ export class ChannelService {
                     user_id: user.id,
                 },
             });
-            if (!channelMember) {
+            if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
                 return 'User is not a member of the channel';
             }
             return {
-                id: channel.id,
                 name: channel.name,
-                Type: channel.type,
+                type: channel.type,
+								descrption: channel.description,
+								avatar: channel.avatar,
                 createdAt: channel.createdAt,
                 updatedAt: channel.updatedAt,
             };
@@ -126,7 +132,7 @@ export class ChannelService {
                 ChannelMembers: true,
             },
         });
-        if (!channel) {
+        if (!channel || channel.type === 'NOTACTIVE') {
             return 'Channel not found';
         }
         const user = await this.searchUserById(req.user['id']);
@@ -139,7 +145,7 @@ export class ChannelService {
                 user_id: user.id,
             },
         });
-        if (!channelMember) {
+        if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
             return 'User is not a member of the channel';
         }
         const channelMembers = await prisma.channelMembers.findMany({
@@ -147,14 +153,27 @@ export class ChannelService {
                 channel_id: channel_id,
             },
             include: {
-                User: true,
+                User: {
+									select: {
+										userProfile: {
+											select: {
+												username: true,
+												firstName: true,
+												lastName: true,
+												avatar: true
+											}
+										}
+									}
+								},
             },
         });
 
         return channelMembers.map((channelMember) => {
             return {
-                id: channelMember.User.id,
-                email: channelMember.User.email,
+								username: channelMember.User.userProfile[0].username,
+								firstName: channelMember.User.userProfile[0].firstName,
+								lastName: channelMember.User.userProfile[0].lastName,
+								avatar: channelMember.User.userProfile[0].avatar,
                 type: channelMember.MemberType
             };
         }
@@ -177,14 +196,15 @@ export class ChannelService {
         });
         return invitations.map((invitation) => {
             return {
-                id: invitation.Channel.id,
                 name: invitation.Channel.name,
-                Type: invitation.Channel.type,
+                type: invitation.Channel.type,
+								description: invitation.Channel.description,
+								avatar: invitation.Channel.avatar,
                 createdAt: invitation.Channel.createdAt,
                 updatedAt: invitation.Channel.updatedAt,
             };
         }
-        );
+        ).filter(invitation => invitation.type !== 'NOTACTIVE');
     }
 
     async createChannel(@Req() req: Request, data: ChannelDTO) {
@@ -200,11 +220,13 @@ export class ChannelService {
         if (channel) {
             return 'Channel already exists';
         }
+				const hashedPassword = await bcrypt.hash(data.password, 10);
         const newChannel = await prisma.channel.create({
             data: {
                 name: data.name,
                 type: data.type,
-                password: data.password,
+								avatar: data.avatar,
+                password: hashedPassword,
                 description: data.description,
                 ChannelMembers: {
                     create: {
@@ -215,9 +237,10 @@ export class ChannelService {
             },
         });
         return {
-            id: newChannel.id,
             name: newChannel.name,
-            Type: newChannel.type,
+            type: newChannel.type,
+            description: newChannel.description,
+            avatar: newChannel.avatar,
             createdAt: newChannel.createdAt,
             updatedAt: newChannel.updatedAt,
         };
@@ -233,7 +256,7 @@ export class ChannelService {
                 ChannelMembers: true,
             },
         });
-        if (!channel) {
+        if (!channel || channel.type === 'NOTACTIVE') {
             return 'Channel not found';
         }
         const user = await this.searchUserById(req.user['id']);
@@ -245,7 +268,7 @@ export class ChannelService {
                 name: data.name,
             },
         });
-        if (channelex) {
+        if (channelex && channelex.id !== channel_id) {
             return 'Channel name already exists';
         }
         const channelMember = await prisma.channelMembers.findFirst({
@@ -254,12 +277,10 @@ export class ChannelService {
                 user_id: user.id,
             },
         });
-        if (!channelMember) {
-            return 'User is not a member of the channel';
+        if (!channelMember || channelMember.MemberType !== 'OWNER') {
+            return 'Only the owner can modify the channel';
         }
-        if (channelMember.MemberType !== 'OWNER' && channelMember.MemberType !== 'ADMIN') {
-            return 'User is not the owner of the channel';
-        }
+				const hashedPassword = await bcrypt.hash(data.password, 10);
         const updatedChannel = await prisma.channel.update({
             where: {
                 id: channel_id,
@@ -267,16 +288,18 @@ export class ChannelService {
             data: {
                 name: data.name,
                 type: data.type,
-                password: data.password,
+                password: hashedPassword,
                 description: data.description,
+								avatar: data.avatar
             },
         });
         return {
-            id: updatedChannel.id,
             name: updatedChannel.name,
-            Type: updatedChannel.type,
+            type: updatedChannel.type,
+            description: updatedChannel.description,
+            avatar: updatedChannel.avatar,
             createdAt: updatedChannel.createdAt,
-            updatedAt: updatedChannel.updatedAt,
+            updatedAt: new Date(),
         };
     }
 
@@ -290,7 +313,7 @@ export class ChannelService {
                 ChannelMembers: true,
             },
         });
-        if (!channel) {
+        if (!channel || channel.type === 'NOTACTIVE') {
             return 'Channel not found';
         }
         const user = await this.searchUserById(req.user['id']);
@@ -303,16 +326,19 @@ export class ChannelService {
                 user_id: user.id,
             },
         });
-        if (!channelMember) {
+        if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
             return 'User is not a member of the channel';
         }
         if (channelMember.MemberType !== 'OWNER') {
             return 'User is not the owner of the channel';
         }
-        await prisma.channel.delete({
+        await prisma.channel.update({
             where: {
                 id: channel_id,
             },
+						data: {
+							type: 'NOTACTIVE'
+						}
         });
         return 'Channel deleted';
     }
@@ -327,7 +353,7 @@ export class ChannelService {
         });
     }
 
-    async updateChannelMember(memberId: number, memberType: 'MEMBER' | 'NOTMEMBER' | 'BANNED' | 'MUTED' | 'ADMIN') {
+    async updateChannelMember(memberId: number, memberType: 'MEMBER' | 'NOTMEMBER'| 'REQUESTED' |'INVITED' | 'BANNED' | 'MUTED' | 'ADMIN') {
         return await prisma.channelMembers.update({
             where: {
                 id: memberId
@@ -339,7 +365,7 @@ export class ChannelService {
     }
 
 
-    async AdminActions(@Req() req: Request, channel_id: number, user_id: number, action: 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'remove' | 'makeAdmin' | 'makeUser') {
+    async AdminActions(@Req() req: Request, channel_id: number, user_id: number, action: 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'uninvite' | 'makeAdmin' | 'makeUser') {
         const channel = await prisma.channel.findUnique({
             where: {
                 id: channel_id,
@@ -348,7 +374,7 @@ export class ChannelService {
                 ChannelMembers: true,
             },
         });
-        if (!channel) {
+        if (!channel || channel.type === 'NOTACTIVE') {
             return 'Channel not found';
         }
         const user = await this.searchUserById(req.user['id']);
@@ -361,11 +387,8 @@ export class ChannelService {
                 user_id: user.id,
             },
         });
-        if (!channelMember) {
-            return 'You are not a member of the channel';
-        }
-        if (channelMember.MemberType !== 'OWNER' && channelMember.MemberType !== 'ADMIN') {
-            return 'You are not the owner of the channel';
+        if (!channelMember || !['OWNER', 'ADMIN'].includes(channelMember.MemberType)) {
+            return 'You do not have admin access to this channel';
         }
         const channelMember2 = await prisma.channelMembers.findFirst({
             where: {
@@ -377,6 +400,10 @@ export class ChannelService {
             await this.createChannelMember(user_id, channel_id, 'INVITED');
             return 'User invited';
         }
+				else if (channelMember2 && channelMember2.MemberType === 'NOTMEMBER' && action === 'invite') {
+					await this.updateChannelMember(channelMember2.id, 'INVITED');
+					return 'User invited';
+				}
 
         else if (channelMember2) {
             switch (action) {
@@ -384,18 +411,21 @@ export class ChannelService {
                     if (channelMember2.MemberType === 'BANNED') {
                         return 'User is already banned';
                     }
+										else if (!['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember2.MemberType))
+											return 'The user has to be a member to be banned'
                     await this.updateChannelMember(channelMember2.id, 'BANNED');
                     return 'User banned';
                 case 'mute':
                     if (channelMember2.MemberType === 'MUTED') {
                         return 'User is already muted';
                     }
+										else if (!['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember2.MemberType))
+											return 'The user has to be a member to be muted'
                     await this.updateChannelMember(channelMember2.id, 'MUTED');
                     return 'User muted';
                 case 'kick':
-                    if (channelMember2.MemberType === 'NOTMEMBER') {
-                        return 'User is not a member of the channel';
-                    }
+										if (!['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember2.MemberType))
+											return 'The user has to be a member to be kicked out'
                     await this.updateChannelMember(channelMember2.id, 'NOTMEMBER');
                     return 'User kicked';
                 case 'unban':
@@ -412,34 +442,34 @@ export class ChannelService {
                     return 'User unmuted';
                 case 'accept':
                     if (channelMember2.MemberType !== 'REQUESTED') {
-                        return 'User is not requested';
+                        return 'User is not requesting to join'
                     }
                     await this.updateChannelMember(channelMember2.id, 'MEMBER');
                     return 'User accepted';
                 case 'reject':
                     if (channelMember2.MemberType !== 'REQUESTED') {
-                        return 'User is not requested';
+                        return 'User is not requesting to join'
                     }
                     await this.updateChannelMember(channelMember2.id, 'NOTMEMBER');
                     return 'User rejected';
-                case 'remove':
-                    if (channelMember2.MemberType === 'NOTMEMBER') {
-                        return 'User is not a member of the channel';
-                    }
+                case 'uninvite':
+										if (channelMember2.MemberType !== 'INVITED')
+											return 'User is not invited'
                     await this.updateChannelMember(channelMember2.id, 'NOTMEMBER');
-                    return 'User removed';
+                    return 'User uninvited';
                 case 'makeAdmin':
-                    if (channelMember.MemberType !== 'OWNER' || channelMember2.MemberType === 'ADMIN') {
-                        return 'Invalid action';
+                    if (channelMember2.MemberType === 'OWNER' || channelMember2.MemberType === 'ADMIN') {
+                        return 'The user is already an admin';
                     }
+										else if (channelMember2.MemberType !== 'MEMBER')
+											return 'The user is not a member in the channel'
                     await this.updateChannelMember(channelMember2.id, 'ADMIN');
-                    return 'User made admin';
+                    return 'The user is now an admin';
                 case 'makeUser':
-                    if (channelMember.MemberType !== 'OWNER' || channelMember2.MemberType !== 'ADMIN') {
-                        return 'Invalid action';
-                    }
+										if (!['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember2.MemberType))
+												return 'The user is not a member in the channel'
                     await this.updateChannelMember(channelMember2.id, 'MEMBER');
-                    return 'User made user';
+                    return "The user's admin rights have been revoked";
                 default:
                     return 'Invalid action';
             }
@@ -449,7 +479,7 @@ export class ChannelService {
         }
     }
 
-    async UserActions(@Req() req: Request, channel_id: number, action: 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
+    async UserActions(@Req() req: Request, password: string, channel_id: number, action: 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
         const channel = await prisma.channel.findUnique({
             where: {
                 id: channel_id,
@@ -458,41 +488,67 @@ export class ChannelService {
                 ChannelMembers: true,
             },
         });
-        if (!channel) {
+        if (!channel || channel.type === 'NOTACTIVE') {
             return 'Channel not found';
         }
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
             return 'User not found';
-        }
-        const channelMember = await prisma.channelMembers.findFirst({
-            where: {
-                channel_id: channel_id,
-                user_id: user.id,
+					}
+					const channelMember = await prisma.channelMembers.findFirst({
+						where: {
+							channel_id: channel_id,
+							user_id: user.id,
             },
         });
-        if (!channelMember) {
+				if (channel.type === 'PRIVATE' && action === 'join') {
+					if (!channelMember)
+						this.createChannelMember(user.id, channel_id, 'REQUESTED')
+					else if (channelMember.MemberType === 'NOTMEMBER')
+						this.updateChannelMember(channelMember.id, 'REQUESTED')
+					else
+						return 'The user cannot join this channel'
+					return 'User joined the channel'
+				}
+        if ((!channelMember || channelMember.MemberType === 'NOTMEMBER') && action === 'leave') {
             return 'You are not a member of the channel';
         }
-        if (channelMember.MemberType === 'BANNED') {
-            return 'You are banned from the channel';
+				if ((!channelMember || channelMember.MemberType === 'NOTMEMBER') && action === 'cancel') {
+					return 'You did not request to join the channel';
+				}
+				else if (channelMember.MemberType === 'MEMBER' && action === 'join') {
+					return 'You are already a member in the channel';
+				}
+        else if (channelMember.MemberType === 'BANNED') {
+					return 'You are banned from the channel';
         }
-        if (channelMember.MemberType === 'MUTED') {
-            return 'You are muted in the channel';
+        else if (channelMember.MemberType === 'MUTED') {
+					return 'You are muted in the channel';
         }
-        if (channelMember.MemberType === 'NOTMEMBER') {
-            return 'You are not a member of the channel';
+        else if (channelMember.MemberType === 'REQUESTED' && !['join', 'cancel'].includes(action)) {
+					return 'You have a pending request to join the channel'
         }
-        if (channelMember.MemberType === 'REQUESTED') {
-            return 'You are already requested';
+				else if (channelMember.MemberType !== 'REQUESTED' && action === 'cancel') {
+					return 'You did not request to join the channel'
         }
-        if (channelMember.MemberType === 'INVITED') {
-            return 'You are already invited';
+        else if (channelMember.MemberType === 'INVITED' && !['accept', 'reject'].includes(action)) {
+					return 'You are invited to the channel';
         }
+				else if (channelMember.MemberType !== 'INVITED' && ['accept', 'reject'].includes(action)) {
+					return 'You are not invited to the channel';
+				}
         switch (action) {
             case 'join':
-                await this.createChannelMember(user.id, channel_id, 'MEMBER');
-                return 'Joined channel';
+							if (channel.type === 'PROTECTED'){
+								if (! await bcrypt.compare(password, channel.password))
+									return 'Wrong password'
+							}
+							if (channelMember.MemberType === 'NOTMEMBER') {
+								await this.updateChannelMember(channelMember.id, 'MEMBER');
+								return 'Joined channel';								
+							}
+							await this.createChannelMember(user.id, channel_id, 'MEMBER');
+							return 'Joined channel';
             case 'leave':
                 await this.updateChannelMember(channelMember.id, 'NOTMEMBER');
                 return 'Left channel';

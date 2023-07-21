@@ -65,7 +65,6 @@ model CareerLog {
 model Achievement {
     id             Int              @id @default(autoincrement())
     name           String           @unique
-    avatar         String
     description    String
     points         String
     milestone      String
@@ -128,6 +127,7 @@ model Channel {
     id             Int              @id @default(autoincrement()) @unique
     name           String           @unique
     description    String
+    avatar			   String
     password       String?
     type           ChannelType
     createdAt      DateTime         @default(now())
