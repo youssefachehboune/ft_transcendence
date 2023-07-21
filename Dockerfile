@@ -1,7 +1,11 @@
-FROM postgres:latest
+FROM debian:latest
 
-RUN apt-get update -y
+RUN apt-get -y update && apt-get -y install curl
 
-ENV POSTGRES_USER=myuser
-ENV POSTGRES_PASSWORD=mypassword
-ENV POSTGRES_DB=pdb
+RUN curl https://deb.nodesource.com/setup_16.x | /bin/bash
+
+RUN apt-get -y install nodejs
+
+RUN apt-get -y install npm
+
+COPY ./backend/ ./backend/

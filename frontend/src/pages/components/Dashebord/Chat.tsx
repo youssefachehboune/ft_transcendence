@@ -54,6 +54,12 @@ function Chat({setonlyChat, friendchat, data} : any) {
                     return {username: message.username, message: message.message, read: true }
                 }))
             })
+            socket.on('message_sent', (message: string) => {
+               setMessages((prevMessages) => [
+                ...prevMessages,
+                { username: data.username, message: message, read:false }
+               ])
+            })
         }
         if (!test12)
             return () => {socket.close()}
@@ -79,10 +85,6 @@ function Chat({setonlyChat, friendchat, data} : any) {
                 username: friendchat.username,
                 message: inputValue,
               });
-              setMessages((prevMessages) => [
-                ...prevMessages,
-                { username: data?.username, message: inputValue, read: false },
-              ]);
             }
             setInputValue("");
             setnumber(0);
