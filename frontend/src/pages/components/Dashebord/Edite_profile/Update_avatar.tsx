@@ -5,8 +5,8 @@ export default function Update_avatar({data, avatar, setavatar}: any) {
   return (
     <div>
     <FormLabel>Update avatar</FormLabel>
-    <div className='h-[150px] flex justify-center items-center'>
-        <div className='w-[140px] h-[140px] rounded-full'>
+    <div className='h-[150px] xl:h-[100px] flex justify-center items-center'>
+        <div className='w-[140px] xl:w-[80px] xl:h-[80px] h-[140px] rounded-full'>
             <img src={avatar ? avatar : data.avatar} alt="" className='w-full' />
         </div>
     </div>

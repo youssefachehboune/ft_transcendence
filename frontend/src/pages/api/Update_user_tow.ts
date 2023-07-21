@@ -1,4 +1,4 @@
-async function Update_user_tow(data : any, dep: any) {
+async function Update_user_tow(data : any, dep: any, onCloseFn: () => void, setdataisloded: (value: boolean) => void) {
 
     const fetchuser = async () => {
       try {
@@ -10,8 +10,8 @@ async function Update_user_tow(data : any, dep: any) {
 			});
 			if(response.status == 200) {
 			{
-				if (data.username)
-					dep.close
+				onCloseFn()
+				setdataisloded(false)
 			}
 			} else {
 				const result = await response.json();

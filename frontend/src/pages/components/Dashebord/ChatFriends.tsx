@@ -22,7 +22,7 @@ function ChatFriends(props: any) {
 
     return ( 
             <div className="Chat flex items-end">
-                <div className={`w-[40%] ${props.onlyChat ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} h-[100%] test5 ml-2`}>
+                <div className={`w-[40%] ${props.onlyChat || chatloding ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} h-[100%] test5 ml-2`}>
                     <div className={`w-[100%] h-[100%] flex flex-col items-center overflow-y-auto rounded-[10px]`}>
                                         <button className="bg-[#070012] w-[100%] flex cursor-auto">
                                             <h1 onClick={() => props.setshowchatsection(false)} className="text-white text-[32px] font-sora font-700 flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
@@ -113,6 +113,18 @@ function ChatFriends(props: any) {
                                         <SkeletonText></SkeletonText>
                                     </div>
                             </div>
+                        </div>
+                        <div className={`w-[100%]  h-[100px] pl-7  mb-[15px]  flex  items-center relative`}>
+                            <SkeletonCircle width={'54px'} height={'54px'}></SkeletonCircle>
+                            <div className="w-[400px] 2xl:w-[200px] xl:w-[180px] p-2 ml-[20px]">
+                                <SkeletonText maxWidth={'150px'}></SkeletonText>
+                            </div>
+                        </div>
+                        <div className={`w-[100%] float-right h-[100px] p-7 pt-5 mb-[15px] flex flex-row-reverse items-center relative`}>
+                                <SkeletonCircle width={'54px'} height={'54px'}></SkeletonCircle>
+                                <div className="w-[20%] xl:w-[40%] 2xl:w-[30%] h-[84px] flex flex-col-reverse items-end justify-center mr-[15px]">
+                                        <SkeletonText width={'full'}></SkeletonText>
+                                </div>
                         </div>
                     </div>
                 }

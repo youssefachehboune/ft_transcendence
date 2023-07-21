@@ -10,8 +10,9 @@ interface Profile
     data: any;
     dataisloded: boolean;
     showprofile: boolean
+    setdataisloded: any
 }
-function Profile({data, dataisloded, showprofile} : Profile) {
+function Profile({data, dataisloded, showprofile, setdataisloded} : Profile) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [username, setusername] = useState<string>("")
     const [Errorusername, setErrorusername] = useState<string>("")
@@ -108,7 +109,7 @@ function Profile({data, dataisloded, showprofile} : Profile) {
                         </div>
                     </div>
                     <Edite_profile isOpen={isOpen} onOpen={onOpen} onClose={onClose} data={data} username={username} setusername={setusername} Errorusername={Errorusername} setErrorusername={setErrorusername} Bio={Bio}
-                     setBio={setBio} ErrorBio={ErrorBio} setErrorBio={setErrorBio} location={location} setlocation={setlocation} avatar={avatar} setavatar={setavatar}/>
+                     setBio={setBio} ErrorBio={ErrorBio} setErrorBio={setErrorBio} location={location} setlocation={setlocation} avatar={avatar} setavatar={setavatar} setdataisloded={setdataisloded}/>
         </div>
     );
 }

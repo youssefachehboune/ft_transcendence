@@ -3,7 +3,6 @@ import Update_avatar from "./Update_avatar";
 import Select_contry from "./select_contry";
 import Update_Bio from "./Update_Bio";
 import Update_Username from "./Update_Username";
-import { useState } from "react";
 import Update_user_tow from "@/pages/api/Update_user_tow";
 
 function Edite_profile(props: any) {
@@ -11,7 +10,7 @@ function Edite_profile(props: any) {
     {
         if (!props.ErrorBio && !props.Errorusername)
         {
-            await Update_user_tow({ bio: props.Bio,  avatar: props.avatar, username: props.username, location: props.location}, {error: props.setErrorusername, close: props.onClose});
+            await Update_user_tow({ bio: props.Bio,  avatar: props.avatar, username: props.username, location: props.location}, {error: props.setErrorusername}, () => props.onClose(), props.setdataisloded);
         }
     }
     return ( 
