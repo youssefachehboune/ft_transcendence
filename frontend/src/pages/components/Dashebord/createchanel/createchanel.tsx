@@ -97,7 +97,7 @@ function Createchanel({isOpen, onClose}: any) {
         onClose={onclose}
       >
         <ModalOverlay />
-        <ModalContent height={'800px'}>
+        <ModalContent height={['800px', '900px', '800px', '800px']}     width={['100%','60%','100%', '100%',]}>
           <ModalHeader>Create channel</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

@@ -66,7 +66,8 @@ function ChatFriends(props: any) {
                                                             <button onClick={() =>
                                                             {
                                                                 props.setonlyChat(false)
-                                                                fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setfriendchat(data); props.setonlyChat(true);})
+                                                                setchatloding(true)
+                                                                fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setfriendchat(data); setchatloding(false)}).then(() => props.setonlyChat(true))
                                                             }
                                                             } className="w-[75%] flex items-center justify-center">
                                                                 <div className="w-[75px] h-[70px] flex justify-center items-start relative">
@@ -100,6 +101,21 @@ function ChatFriends(props: any) {
                                             </div>
                     </div>
                 </div>
+                {chatloding &&
+                    <div className="w-[60%] 2xl:w-[57%] xl:w-[95%] h-[100%] test5  ml-[10px] xl:ml-0 rounded-t-[10px] overflow-hidden relative">
+                        <div className="h-[50px] bg-[#070012]"></div>
+                        <div className="w-[100%] h-auto test5">
+                            <div className="w-[65%] 2xl:w-[70%] xl:w-[75%] min-h-[84px] flex justify-center">
+                                    <div className="w-[20%] h-[84px] flex items-center justify-end">
+                                        <SkeletonCircle size={'54px'}></SkeletonCircle>
+                                    </div>
+                                    <div className="w-[70%] h-[84px] flex flex-col justify-center ml-[5px]">
+                                        <SkeletonText></SkeletonText>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                }
                 {props.onlyChat && <Chat data={props.data} setonlyChat={props.setonlyChat} friendchat={friendchat}/>}
             </div> 
             

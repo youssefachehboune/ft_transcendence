@@ -5,11 +5,12 @@ interface Country {
   code: string;
   name: string;
 }
-const Select_contry  = ({data}: any) => {
+const Select_contry  = ({data, location, setlocation}: any) => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   const handleCountrySelect = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedCountryCode = event.target.value;
+    setlocation(selectedCountryCode)
   };
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const Select_contry  = ({data}: any) => {
       onChange={handleCountrySelect}
       required
       >
-      <option value={data.info.location}>{data.info.location}</option>
+      <option value={location ? location: data.info?.location}>{location ? location: data.info?.location}</option>
         {countries.map((country, key) => (
           <option key={key} value={country.code}>
             {country.name}
