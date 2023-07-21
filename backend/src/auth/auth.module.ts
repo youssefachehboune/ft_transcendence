@@ -11,5 +11,6 @@ import { IntraStrategy } from './strategies/intra.strategy';
   imports: [JwtModule.register({})],
   controllers: [AuthController],
   providers: [AuthService ,JwtAuthStrategy, GoogleStrategy, JwtRefreshTokenStrategy, IntraStrategy],
+	exports: [ AuthService ]
 })
 export class AuthModule {}
