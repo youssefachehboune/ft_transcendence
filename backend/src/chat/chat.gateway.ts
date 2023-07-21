@@ -15,7 +15,7 @@ export class ChatGateway {
   @WebSocketServer()
   server: Server;
 
-	private connectedUsers: Map<string, Socket> = new Map();
+	private connectedUsers: Map<string, Socket[]> = new Map();
 
   constructor( private readonly chatService: ChatService ) {}
 
@@ -26,7 +26,11 @@ export class ChatGateway {
 			return ;
 		}
 		socket.username = user.userProfile[0].username;
-		this.connectedUsers.set(socket.username, socket);
+		const sockets = this.connectedUsers.get(socket.username);
+		if (!sockets || !sockets.length)
+			this.connectedUsers.set(socket.username, [socket]);
+		else
+			this.connectedUsers.set(socket.username, [...sockets, socket])
 		const channels = await prisma.channelMembers.findMany({
 			where: {
 				user_id: user.id,
@@ -43,11 +47,16 @@ export class ChatGateway {
   }
 	
 	handleDisconnect(socket: Socket | any) {
-    this.connectedUsers.delete(socket.username);
+		const sockets = this.connectedUsers.get(socket.username);
+		if (!sockets) return;
+		for (let i = 0; i < sockets.length; i++) {
+			if (sockets[i].id  === socket.id)
+				this.connectedUsers.set(socket.username, sockets.filter((socket) => socket.id !== sockets[i].id))
+		}
   }
 
   @SubscribeMessage('send_message')
-  async listenForMessages( @MessageBody() content: { username: string, message: string } , @ConnectedSocket() socket: Socket ) {
+  async listenForMessages( @MessageBody() content: { username: string, message: string } , @ConnectedSocket() socket: Socket | any ) {
 		const author = await this.chatService.getUserFromSocket(socket);
 		const friend_id = (await prisma.userProfile.findUnique({
 			where: { username : content.username }
@@ -63,9 +72,15 @@ export class ChatGateway {
 		if (!IsFriend)
 			throw new WsException('You are not friends');
 		await this.chatService.saveMessage(content, author);
-		const recipient_socket = this.connectedUsers.get(content.username);
-		if (recipient_socket)
-			recipient_socket.emit('receive_message', content.message);
+		const recipient_sockets = this.connectedUsers.get(content.username);
+		const sender = await prisma.userProfile.findFirst({
+			where: { user_id: author.id}
+		})
+		const sender_sockets = this.connectedUsers.get(sender.username);
+		if (sender_sockets)
+			sender_sockets.forEach(sender_socket => sender_socket.emit('message_sent', content.message))
+		if (recipient_sockets)
+			recipient_sockets.forEach(recipient_socket => recipient_socket.emit('receive_message', content.message))
   }
 
 	@SubscribeMessage('read_message')
@@ -81,9 +96,9 @@ export class ChatGateway {
 				},
 				data: { readAt: new Date() }
 			});
-			const recipient_socket = this.connectedUsers.get(username);
-			if (recipient_socket)
-				recipient_socket.emit('mark_read');
+			const recipient_sockets = this.connectedUsers.get(username);
+			if (recipient_sockets)
+				recipient_sockets.forEach(recipient_socket => recipient_socket.emit('mark_read'))
 		} catch(err) {
 			console.log(err);
 		}
@@ -102,7 +117,11 @@ export class ChatGateway {
 			throw new WsException('You are not a member of the channel');
 		await this.chatService.saveChannelMessage(content, user);
 		const blockedUsernames = await this.chatService.getBlockedUsers(Array.from(this.connectedUsers.keys()), user.id)
-		const blockedSockets = blockedUsernames.map(username => this.connectedUsers.get(username).id);
-		socket.to(content.channel).except(blockedSockets).emit('receive_channel_message', content.message)
+		const blockedSocketIds: any[] = [];
+		blockedUsernames.forEach(username => {
+			const sockets = this.connectedUsers.get(username);
+			sockets.forEach(socket => blockedSocketIds.push(socket.id));
+		});
+		this.server.to(content.channel).except(blockedSocketIds).emit('receive_channel_message', content.message)
 	}
 }
