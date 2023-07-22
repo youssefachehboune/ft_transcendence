@@ -35,10 +35,10 @@ export class miniChannelDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
-    description: 'The channel id',
+    description: 'The name of the channel',
     example: '42',
   })
-  channel_id: string;
+  name: string;
 
 	@IsNotEmpty()
   @IsString()

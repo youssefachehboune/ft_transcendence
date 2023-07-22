@@ -13,6 +13,13 @@ export class ChannelService {
             where: {
                 id: id,
             },
+						include: {
+							userProfile: {
+								select: {
+									username: true
+								}
+							}
+						}
         });
     }
 
@@ -73,11 +80,10 @@ export class ChannelService {
         );
     }
 
-    async getChannel(@Req() req: Request, channel_id: number) {
-        channel_id = Number(channel_id);
+    async getChannel(@Req() req: Request, name: string) {
         const channel = await prisma.channel.findUnique({
             where: {
-                id: channel_id,
+                name: name
             },
             include: {
                 ChannelMembers: true,
@@ -102,9 +108,11 @@ export class ChannelService {
                 return 'User not found';
             }
             const channelMember = await prisma.channelMembers.findFirst({
-                where: {
-                    channel_id: channel_id,
+								where: {
                     user_id: user.id,
+										Channel: {
+											name: name
+										}
                 },
             });
             if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
@@ -122,11 +130,10 @@ export class ChannelService {
     }
 
 
-    async getChannelMembers(@Req() req: Request, channel_id: number) {
-        channel_id = Number(channel_id);
+    async getChannelMembers(@Req() req: Request, name: string) {
         const channel = await prisma.channel.findUnique({
             where: {
-                id: channel_id,
+                name: name
             },
             include: {
                 ChannelMembers: true,
@@ -141,8 +148,10 @@ export class ChannelService {
         }
         const channelMember = await prisma.channelMembers.findFirst({
             where: {
-                channel_id: channel_id,
                 user_id: user.id,
+								Channel:{
+									name: name
+								}
             },
         });
         if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
@@ -150,7 +159,9 @@ export class ChannelService {
         }
         const channelMembers = await prisma.channelMembers.findMany({
             where: {
-                channel_id: channel_id,
+                Channel: {
+									name: name
+								}
             },
             include: {
                 User: {
@@ -246,11 +257,10 @@ export class ChannelService {
         };
     }
 
-    async updateChannel(@Req() req: Request, channel_id: number, data: ChannelDTO) {
-        channel_id = Number(channel_id);
+    async updateChannel(@Req() req: Request, name: string, data: ChannelDTO) {
         const channel = await prisma.channel.findUnique({
             where: {
-                id: channel_id,
+                name: name
             },
             include: {
                 ChannelMembers: true,
@@ -268,13 +278,15 @@ export class ChannelService {
                 name: data.name,
             },
         });
-        if (channelex && channelex.id !== channel_id) {
+        if (channelex && name !== data.name) {
             return 'Channel name already exists';
         }
         const channelMember = await prisma.channelMembers.findFirst({
             where: {
-                channel_id: channel_id,
-                user_id: user.id,
+								user_id: user.id,
+                Channel: {
+									name: name
+								}
             },
         });
         if (!channelMember || channelMember.MemberType !== 'OWNER') {
@@ -283,7 +295,7 @@ export class ChannelService {
 				const hashedPassword = await bcrypt.hash(data.password, 10);
         const updatedChannel = await prisma.channel.update({
             where: {
-                id: channel_id,
+                name: name
             },
             data: {
                 name: data.name,
@@ -303,11 +315,10 @@ export class ChannelService {
         };
     }
 
-    async deleteChannel(@Req() req: Request, channel_id: number) {
-        channel_id = Number(channel_id);
+    async deleteChannel(@Req() req: Request, name: string) {
         const channel = await prisma.channel.findUnique({
             where: {
-                id: channel_id,
+                name: name
             },
             include: {
                 ChannelMembers: true,
@@ -322,8 +333,10 @@ export class ChannelService {
         }
         const channelMember = await prisma.channelMembers.findFirst({
             where: {
-                channel_id: channel_id,
                 user_id: user.id,
+								Channel: {
+									name: name
+								}
             },
         });
         if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
@@ -334,7 +347,7 @@ export class ChannelService {
         }
         await prisma.channel.update({
             where: {
-                id: channel_id,
+                name: name
             },
 						data: {
 							type: 'NOTACTIVE'
@@ -343,11 +356,24 @@ export class ChannelService {
         return 'Channel deleted';
     }
 
-    async createChannelMember(userId: number, channelId: number, memberType: 'MEMBER' | 'REQUESTED' | 'INVITED') {
-        return await prisma.channelMembers.create({
+    async createChannelMember(username: string, channel_name: string, memberType: 'MEMBER' | 'REQUESTED' | 'INVITED') {
+        const channel = await prisma.channel.findUnique({
+					where: {
+						name: channel_name
+					}
+				});
+				const profile = await prisma.userProfile.findUnique({
+					where: {
+						username: username
+					},
+					include: {
+						User: true
+					}
+				})
+				return await prisma.channelMembers.create({
             data: {
-                user_id: userId,
-                channel_id: channelId,
+                user_id: profile.User.id,
+                channel_id: channel.id,
                 MemberType: memberType
             }
         });
@@ -365,10 +391,10 @@ export class ChannelService {
     }
 
 
-    async AdminActions(@Req() req: Request, channel_id: number, user_id: number, action: 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'uninvite' | 'makeAdmin' | 'makeUser') {
+    async AdminActions(@Req() req: Request, channel_name: string, username: string, action: 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'uninvite' | 'makeAdmin' | 'makeUser') {
         const channel = await prisma.channel.findUnique({
             where: {
-                id: channel_id,
+                name: channel_name
             },
             include: {
                 ChannelMembers: true,
@@ -383,29 +409,42 @@ export class ChannelService {
         }
         const channelMember = await prisma.channelMembers.findFirst({
             where: {
-                channel_id: channel_id,
                 user_id: user.id,
+								Channel: {
+									name: channel_name
+								}
             },
         });
         if (!channelMember || !['OWNER', 'ADMIN'].includes(channelMember.MemberType)) {
             return 'You do not have admin access to this channel';
         }
+				const profile = await prisma.userProfile.findFirst({
+					where: {
+						username: username
+					},
+					include: {
+						User: true
+					}
+				})
         const channelMember2 = await prisma.channelMembers.findFirst({
             where: {
-                channel_id: channel_id,
-                user_id: user_id,
+                user_id: profile.User.id,
+								Channel: {
+									name: channel_name
+								}
             },
         });
         if (!channelMember2 && action === 'invite') {
-            await this.createChannelMember(user_id, channel_id, 'INVITED');
+            await this.createChannelMember(username, channel_name, 'INVITED');
             return 'User invited';
         }
 				else if (channelMember2 && channelMember2.MemberType === 'NOTMEMBER' && action === 'invite') {
 					await this.updateChannelMember(channelMember2.id, 'INVITED');
 					return 'User invited';
 				}
-
         else if (channelMember2) {
+						if (channelMember2.MemberType === 'OWNER' && ['kick', 'ban', 'mute'].includes(action))
+							return 'You cannot kick, ban or mute an owner'
             switch (action) {
                 case 'ban':
                     if (channelMember2.MemberType === 'BANNED') {
@@ -479,10 +518,10 @@ export class ChannelService {
         }
     }
 
-    async UserActions(@Req() req: Request, password: string, channel_id: number, action: 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
+    async UserActions(@Req() req: Request, password: string, name: string, action: 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
         const channel = await prisma.channel.findUnique({
             where: {
-                id: channel_id,
+                name: name
             },
             include: {
                 ChannelMembers: true,
@@ -497,18 +536,20 @@ export class ChannelService {
 					}
 					const channelMember = await prisma.channelMembers.findFirst({
 						where: {
-							channel_id: channel_id,
 							user_id: user.id,
+							Channel: {
+								name: name
+							}
             },
         });
 				if (channel.type === 'PRIVATE' && action === 'join') {
 					if (!channelMember)
-						this.createChannelMember(user.id, channel_id, 'REQUESTED')
+						this.createChannelMember(user.userProfile[0].username, name, 'REQUESTED')
 					else if (channelMember.MemberType === 'NOTMEMBER')
 						this.updateChannelMember(channelMember.id, 'REQUESTED')
 					else
 						return 'The user cannot join this channel'
-					return 'User joined the channel'
+					return 'A request to join the channel has been sent'
 				}
         if ((!channelMember || channelMember.MemberType === 'NOTMEMBER') && action === 'leave') {
             return 'You are not a member of the channel';
@@ -547,7 +588,7 @@ export class ChannelService {
 								await this.updateChannelMember(channelMember.id, 'MEMBER');
 								return 'Joined channel';								
 							}
-							await this.createChannelMember(user.id, channel_id, 'MEMBER');
+							await this.createChannelMember(user.userProfile[0].username, name, 'MEMBER');
 							return 'Joined channel';
             case 'leave':
                 await this.updateChannelMember(channelMember.id, 'NOTMEMBER');

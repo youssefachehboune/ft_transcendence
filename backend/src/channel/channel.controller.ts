@@ -30,17 +30,17 @@ export class ChannelController {
 		}
 
     @UseGuards(JwtGuard)
-    @Get(':channel_id')
-    @ApiParam({ name: 'channel_id', type: Number })
-    async getChannel(@Req() req: Request, @Param('channel_id') channel_id: number) {
-        return await this.channelService.getChannel(req, channel_id);
+    @Get(':channel_name')
+    @ApiParam({ name: 'channel_name', type: String })
+    async getChannel(@Req() req: Request, @Param('channel_name') channel_name: string) {
+        return await this.channelService.getChannel(req, channel_name);
     }
 
     @UseGuards(JwtGuard)
-    @Get(':channel_id/members')
-    @ApiParam({ name: 'channel_id', type: Number })
-    async getChannelMembers(@Req() req: Request, @Param('channel_id') channel_id: number) {
-        return await this.channelService.getChannelMembers(req, channel_id);
+    @Get(':channel_name/members')
+    @ApiParam({ name: 'channel_name', type: String })
+    async getChannelMembers(@Req() req: Request, @Param('channel_name') channel_name: string) {
+        return await this.channelService.getChannelMembers(req, channel_name);
     }
 
     @UseGuards(JwtGuard)
@@ -50,32 +50,32 @@ export class ChannelController {
     }
 
     @UseGuards(JwtGuard)
-    @Put('update/:channelId')
-    @ApiParam({ name: 'channelId', type: Number })
-    async updateChannel(@Req() req: Request,@Param('channelId') channelId : number , @Body() channelDto: ChannelDTO) {
-        return await this.channelService.updateChannel(req, channelId , channelDto);
+    @Put('update/:channel_name')
+    @ApiParam({ name: 'channel_name', type: String })
+    async updateChannel(@Req() req: Request,@Param('channel_name') channel_name : string , @Body() channelDto: ChannelDTO) {
+        return await this.channelService.updateChannel(req, channel_name , channelDto);
     }
 
     @UseGuards(JwtGuard)
-    @Put('delete/:channelId')
-    @ApiParam({ name: 'channelId', type: Number })
-    async deleteChannel(@Req() req: Request,@Param('channelId') channelId : number) {
-        return await this.channelService.deleteChannel(req, channelId);
+    @Put('delete/:channel_name')
+    @ApiParam({ name: 'channel_name', type: String })
+    async deleteChannel(@Req() req: Request,@Param('channel_name') channel_name : string) {
+        return await this.channelService.deleteChannel(req, channel_name);
     }
 
     @UseGuards(JwtGuard)
-    @Put('Admin/:channelId/:userId/:action')
-    @ApiParam({ name: 'channelId', type: Number })
-    @ApiParam({ name: 'userId', type: Number })
+    @Put('Admin/:channel_name/:username/:action')
+    @ApiParam({ name: 'channel_name', type: String })
+    @ApiParam({ name: 'username', type: String })
     @ApiParam({ name: 'action', enum: ['ban', 'mute', 'kick', 'unban', 'unmute', 'accept', 'reject', 'invite', 'uninvite', 'makeAdmin', 'makeUser'] })
-    async AdminActions(@Req() req: Request,@Param('channelId') channelId : number , @Param('userId') userId : number , @Param('action') action : 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'uninvite' | 'makeAdmin' | 'makeUser') {
-        return await this.channelService.AdminActions(req, +channelId , +userId , action);
+    async AdminActions(@Req() req: Request,@Param('channel_name') channel_name : string , @Param('username') username : string , @Param('action') action : 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'uninvite' | 'makeAdmin' | 'makeUser') {
+        return await this.channelService.AdminActions(req, channel_name , username , action);
     }
 
     @UseGuards(JwtGuard)
     @Put('/user/:action')
     @ApiParam({ name: 'action', enum: ['join', 'leave', 'cancel', 'accept', 'reject'] })
     async UserActions(@Req() req: Request, @Body() miniChannel: miniChannelDto , @Param('action') action : 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
-        return await this.channelService.UserActions(req, miniChannel.password, +miniChannel.channel_id , action);
+        return await this.channelService.UserActions(req, miniChannel.password, miniChannel.name , action);
     }
 }
