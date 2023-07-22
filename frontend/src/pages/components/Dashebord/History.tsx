@@ -12,11 +12,11 @@ function History() {
 
     useEffect(() => {
         if (status === "LOST")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setlost(data);sethistorieloding(true)})
+            fetch("http://localhost:3000/history/" + status + '/1', {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setlost(data);sethistorieloding(true)})
         else if (status === "WON")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setwin(data);sethistorieloding(true)})
+            fetch("http://localhost:3000/history/" + status + '/1', {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setwin(data);sethistorieloding(true)})
         else if (status === "ALL")
-            fetch("http://localhost:3000/history/" + status, {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setall(data);sethistorieloding(true)})
+            fetch("http://localhost:3000/history/" + status + '/1', {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setall(data);sethistorieloding(true)})
     }, [status])
     
     return ( 
