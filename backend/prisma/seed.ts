@@ -45,11 +45,11 @@ async function seedData(): Promise<void> {
         console.log('✅  All Data from ' + csvConfig + ' seeded successfully');
 
 				for (const line of achievlines) {
-					const [u1, name, u2, description, u3, milestone, u4, points, u5, avatar, u6] = line.split('\"');
+					const [u1, name, u2, description, u3, milestone, u4, points, u5] = line.split('\"');
 					const existingAchievement = await prisma.achievement.findUnique({ where: { name } });
 					if (!existingAchievement) {
 						await prisma.achievement.create({
-								data: { name, description, milestone, points, avatar }
+								data: { name, description, milestone, points }
 						});
 					}
 			}
