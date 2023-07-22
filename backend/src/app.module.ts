@@ -12,11 +12,11 @@ import { UserModule } from './user/user.module';
 import { HistoryModule } from './history/history.module';
 import { AchievementsModule } from './achievements/achievements.module';
 import { NotificationModule } from './notification/notification.module';
+import { ChatModule } from './chat/chat.module';
 import { topPlayerModule } from './top-player/topPlayer.module';
 
 @Module({
-  imports: [
-    ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, topPlayerModule],
+  imports: [ ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule],
   controllers: [AppController],
   providers: [AppService],
 })

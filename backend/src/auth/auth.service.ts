@@ -33,6 +33,18 @@ export class TokenErrorFilter implements ExceptionFilter {
 export class AuthService {
 	constructor(private jwtService: JwtService) { }
 
+	public async getUserFromAuthenticationToken(token: string) {
+    const payload: JwtPayload = this.jwtService.verify(token, {
+      secret: process.env.JWT_SECRET
+    });
+    if (payload.sub) {
+			return await prisma.user.findUnique({
+				where: { id: payload.sub },
+				include: { userProfile: true}
+			});
+    }
+  }
+
 	async login(user) {
 		const dbuser = await prisma.user.findUnique({
 			where: { email: user.email }

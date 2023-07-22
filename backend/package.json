@@ -25,19 +25,27 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.5",
     "@nestjs/jwt": "^10.0.3",
+    "@nestjs/mapped-types": "*",
     "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/platform-socket.io": "^9.4.3",
     "@nestjs/swagger": "^6.3.0",
+    "@nestjs/websockets": "^9.4.3",
     "@prisma/client": "^5.0.0",
     "@types/bcrypt": "^5.0.0",
+    "@types/cookie": "^0.5.1",
     "@types/passport-jwt": "^3.0.8",
-    "bcrypt": "^5.1.0",
+    "@types/socket.io": "^3.0.2",
+    "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "cookie": "^0.5.0",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "date-fns": "^2.30.0",
     "dote": "^1.1.0",
     "dotenv": "^16.0.3",
+    "npm": "^9.8.0",
     "otplib": "^12.0.1",
     "passport": "^0.6.0",
     "passport-42": "^1.2.6",
@@ -46,6 +54,7 @@
     "qrcode": "^1.5.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.5.5",
+    "socket.io": "^4.6.2",
     "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
@@ -91,5 +100,9 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.7",
+    "utf-8-validate": "^5.0.10"
   }
 }
