@@ -1,4 +1,3 @@
-import { ChannelModule } from './channel/channel.module';
 import { ProfileModule } from './profile/profile.module';
 import { FriendsModule } from './friend/friends.module';
 import { SearchModule } from './search/search.module';
@@ -14,9 +13,10 @@ import { AchievementsModule } from './achievements/achievements.module';
 import { NotificationModule } from './notification/notification.module';
 import { ChatModule } from './chat/chat.module';
 import { topPlayerModule } from './top-player/topPlayer.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 
 @Module({
-  imports: [ ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule],
+  imports: [ ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule],
   controllers: [AppController],
   providers: [AppService],
 })
