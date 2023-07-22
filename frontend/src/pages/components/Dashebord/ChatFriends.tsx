@@ -10,12 +10,12 @@ function ChatFriends(props: any) {
     const [datafriend, setdatafriend] = useState<any>();
     const [friendchat, setfriendchat] = useState<any>();
     const [chatloding, setchatloding] = useState(false)
-
     const handelsearchChanges = () =>
     {
         setsearchfriend(inputRef.current?.value);
     }
     useEffect(() => {
+        props.setmassagenotif(false)
         if (searchfriend)
             fetch('http://localhost:3000/search/' + searchfriend, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatafriend(data);})
     }, [searchfriend])
@@ -25,7 +25,7 @@ function ChatFriends(props: any) {
                 <div className={`w-[40%] ${props.onlyChat || chatloding ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} h-[100%] test5 ml-2`}>
                     <div className={`w-[100%] h-[100%] flex flex-col items-center overflow-y-auto rounded-[10px]`}>
                                         <button className="bg-[#070012] w-[100%] flex cursor-auto">
-                                            <h1 onClick={() => props.setshowchatsection(false)} className="text-white text-[32px] font-sora font-700 flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
+                                            <h1 onClick={() => props.setshowchatsection(false)} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center">
                                             <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>

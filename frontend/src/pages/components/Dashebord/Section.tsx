@@ -4,7 +4,7 @@ import { BsGlobe, BsXLg } from "react-icons/bs";
 import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
-function Section({setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
+function Section({massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
     const [showSettings, setshowSettings] = useState<boolean>(false);
     function handleClickSettings() {
         setshowprofile(true)
@@ -17,7 +17,7 @@ return (
                     <CgProfile className="hovring w-[18px] h-[18px]"/>
                 </button>
                 <button onClick={() => {setshowchatsection(!showchatsection); setonlyChat(false); setshowprofile(true); setshowSettings(false);}}>
-                <AiOutlineMessage className="hovring w-[18px] h-[18px]"/>
+                <AiOutlineMessage color={massagenotif ? "red" : ""} className="hovring w-[18px] h-[18px]"/>
                 </button>
                 <button>
                 <VscBell className="hovring w-[18px] h-[18px]"/>

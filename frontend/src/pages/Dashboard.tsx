@@ -34,6 +34,8 @@ function Dashebord() {
     const [showprofile, setshowprofile] = useState<boolean>(true)
     const { isOpen, onOpen, onClose } = useDisclosure()
 
+    const [massagenotif, setmassagenotif] = useState<boolean>(false)
+
     useEffect(() => {
       if (!showchatsection)
       {
@@ -42,7 +44,7 @@ function Dashebord() {
           withCredentials: true,
         });
         socket.on('receive_message', (data: string) => {
-          console.log('hey');
+          setmassagenotif(true)
         })
 
       }
@@ -105,12 +107,12 @@ function Dashebord() {
 
             }
             <Search />
-            <Section setonlyChat={setonlyChat} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
+            <Section massagenotif={massagenotif} setonlyChat={setonlyChat} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
             <Profile showprofile={showprofile} data={data} dataisloded={dataisloded} setdataisloded={setdataisloded}/>
             {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && <Achievements/>}
             {!Friend && !showchatsection && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
-            {showchatsection && <ChatFriends data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
+            {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
             <Createchanel isOpen={isOpen} onClose={onClose}/>
         </div>
      );

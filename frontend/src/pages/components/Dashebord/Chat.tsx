@@ -17,7 +17,6 @@ function Chat({setonlyChat, friendchat, data} : any) {
         read: boolean;
     }[]>([]);
     const [number, setnumber] = useState<number>(0);
-    
     useEffect(() => {
         const fetchchat = async () =>
         {
@@ -59,6 +58,7 @@ function Chat({setonlyChat, friendchat, data} : any) {
                 ...prevMessages,
                 { username: data.username, message: message, read:false }
                ])
+
             })
         }
         if (!test12)
@@ -66,7 +66,6 @@ function Chat({setonlyChat, friendchat, data} : any) {
         else
             test12 = false
     }, [])
-      
       const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value =  e.target.value
           setInputValue(value);
@@ -81,20 +80,20 @@ function Chat({setonlyChat, friendchat, data} : any) {
         
           const handleSendMessage = () => {
             if (inputValue) {
-              socket.emit("send_message", {
+                 socket.emit("send_message", {
                 username: friendchat.username,
                 message: inputValue,
               });
             }
             setInputValue("");
             setnumber(0);
-          };
-        
+        };
         useEffect(() => {
           const container = containerRef.current;
           if (container)
               container.scrollTop = container.scrollHeight;
         }, [messages]);
+
         return ( 
             <div className={`w-[60%] 2xl:w-[57%] float-right xl:w-[95%] h-[100%] test5  ml-[10px] xl:ml-0 rounded-t-[10px] overflow-hidden relative`} >
                 <div className="h-[50px] bg-[#070012]"></div>
@@ -118,26 +117,26 @@ function Chat({setonlyChat, friendchat, data} : any) {
                             messages.map((message, key) => {
                                 if (message.username == data?.username)
                                 {
-                                    return  <div key={key} className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center relative`}>
-                                            <img src={data?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                            <div className="max-w-[400px] 2xl:max-w-[200px] xl:max-w-[180px] bg-black p-2 mr-[20px] rounded-t-[28px] rounded-l-[28px]">
-                                                <p className={"text-white"}>{message.message}</p>
+                                    return  <div key={key} className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center`}>
+                                            <img src={data?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
+                                            <div className="max-w-[400px] 2xl:max-w-[300px] xl:max-w-[200px] bg-black p-2 mr-[20px] rounded-t-[28px] rounded-l-[28px] flex">
+                                                <p className={"text-white text-[10px] font-sora mr-[5px]"}>{message.message}</p>
+                                                {message.read && <IoCheckmarkDoneOutline className="mt-[3px] mr-[5px] text-[#14FF00] text-[10px] flex items-center font-sora self-center"/>}
                                             </div>
-                                                {message.read && <p className="text-white absolute mt-[70px] mr-[80px] text-[10px] flex items-center font-sora"><IoCheckmarkDoneOutline className="mt-[3px] mr-[5px] text-[#14FF00]"/>read</p>}
                                             </div>
                                 }
                                 else if (message.username == friendchat?.username)
                                 {
                                     return  <div key={key} className={`w-[100%] pl-7 pt-5 h-fit  mb-[15px] flex  items-center relative`}>
-                                            <img src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                            <div className="max-w-[400px] 2xl:max-w-[200px] xl:max-w-[180px] bg-black p-2 ml-[20px]  rounded-t-[28px] rounded-r-[28px]">
-                                                <p className={`text-white`}>{message.message}</p>
+                                            <img src={friendchat?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
+                                            <div className="max-w-[400px] 2xl:max-w-[300px] xl:max-w-[200px] bg-black p-2 ml-[20px]  rounded-t-[28px] rounded-r-[28px]">
+                                                <p className={`text-white text-[10px] font-sora`}>{message.message}</p>
                                             </div>
                                             </div>
                                 }
-                            }
+                                }
 
-                                    )
+                            )
                         }
                     </div>
                     <div className="w-[100%] h-[20%]  absolute bottom-0 flex  justify-center items-center">
