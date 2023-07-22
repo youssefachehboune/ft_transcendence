@@ -7,6 +7,18 @@ import { formatDistanceToNow } from 'date-fns';
 const prisma = new PrismaClient();
 @Injectable()
 export class HistoryService {
+	async getNumberOfPages(@Req() req: Request) {
+		const history = await prisma.careerLog.findMany({
+			where: {
+				OR: [
+					{ user_id: req.user['id'] },
+					{ opponent_id: req.user['id'] }
+				],
+			}
+		});
+		return Math.ceil(history.length / 10);
+	}
+	
 	async getHistory(@Req() req: Request, page: number, filter: 'WON' | 'LOST' | 'ALL', take?: number) {
 		const filterRes : 'WON' | 'LOST' = (filter === 'ALL') ? undefined : filter;
 		const selectFields = {

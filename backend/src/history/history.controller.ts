@@ -17,6 +17,12 @@ export class HistoryController {
 		return await this.historyService.getHistory(req, 1, 'ALL', 4);
 	}
 
+	@Get('pages')
+	@UseGuards(JwtGuard)
+	async getNumberOfPages(@Req() req: Request) {
+		return await this.historyService.getNumberOfPages(req);
+	}
+	
 	@Get(':filter/:page')
 	@UseGuards(JwtGuard)
 	@ApiBadRequestResponse({description: "the filter must be either 'ALL' or 'WON' or 'LOST'"})
