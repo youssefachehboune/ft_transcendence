@@ -3,15 +3,15 @@ import {FaCompass, FaGamepad, FaMedal} from 'react-icons/fa'
 import Expolore from "./components/Dashebord/Expolore";
 import {useEffect, useState } from "react";
 import Achievements from "./components/Dashebord/Achievements";
-import Profile from "./components/Dashebord/profile";
+import Profile from "./components/Dashebord/Friendes/profile";
 import Section from "./components/Dashebord/Section";
 import Search from "./components/Dashebord/Search";
 import NavBar from "./components/Dashebord/NavBar";
 import History from "./components/Dashebord/History";
-import Friends from "./components/Dashebord/Friends";
+import Friends from "./components/Dashebord/Friendes/Friends";
 import Main from "./components/Dashebord/Main_Cont";
-import ChatFriends from "./components/Dashebord/ChatFriends";
-import Chat from "./components/Dashebord/Chat";
+import ChatFriends from "./components/Dashebord/Chat/ChatFriends";
+import Chat from "./components/Dashebord/Chat/Chat";
 import React from "react";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
 import Createchanel from "./components/Dashebord/createchanel/createchanel";
@@ -62,7 +62,7 @@ function Dashebord() {
             const profileData = await profileResponse.json();
             setdata(profileData)
             
-            const HistorieResponse = await fetch('http://localhost:3000/history/ALL', { credentials: "include" });
+            const HistorieResponse = await fetch('http://localhost:3000/history/ALL/1', { credentials: "include" });
             const historiedata = await HistorieResponse.json();
             setallhistorie(historiedata)
             

@@ -4,18 +4,7 @@ function History({historieloding, all} : any) {
 
     const [status, setstatus] = useState<string>("ALL")
 
-<<<<<<< HEAD
     const handlehistorieSelect = (event: ChangeEvent<HTMLSelectElement>) => {setstatus(event.target.value);};
-=======
-    useEffect(() => {
-        if (status === "LOST")
-            fetch("http://localhost:3000/history/" + status + '/1', {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setlost(data);sethistorieloding(true)})
-        else if (status === "WON")
-            fetch("http://localhost:3000/history/" + status + '/1', {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setwin(data);sethistorieloding(true)})
-        else if (status === "ALL")
-            fetch("http://localhost:3000/history/" + status + '/1', {credentials: "include"}).then((data) => {return data.json()}).then((data) => {setall(data);sethistorieloding(true)})
-    }, [status])
->>>>>>> 7794dc2cd8b3a25ce5955f70a3d0b774bf989ee0
     
     return ( 
         <div className="cont flex  justify-center overflow-hidden">

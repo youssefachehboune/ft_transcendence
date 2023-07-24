@@ -3,7 +3,7 @@ import { BsClock, BsPatchCheckFill, BsPeople } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from '@chakra-ui/react'
 import React, { useRef, useState } from 'react';
-import Edite_profile from './Edite_profile/Edite_profile';
+import Edite_profile from '../Edite_profile/Edite_profile';
 
 interface Profile
 {

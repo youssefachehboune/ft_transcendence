@@ -7,13 +7,13 @@ import {ImBlocked} from 'react-icons/im'
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import { RxCross2 } from "react-icons/rx";
 
-function Profile_Frined({setvisible, Profile, profileloding, setblock, block, setshowchatsection, setonlyChat}: any) {
+function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, profileloding, setblock, block, setshowchatsection, setonlyChat}: any) {
 
     return (
                     <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[95%] 2xl:w-[95%] flex flex-col overflow-y-auto overflow-x-hidden test5 relative">
                         <div className="w-[100%] min-h-[320px] flex flex-col items-end overflow-hidden">
                                     <div className="w-[100%] h-[50%] test5">
-                                        <button onClick={() => {setvisible(false)}} className="absolute right-0">
+                                        <button onClick={() => {setvisible(false); setclickFriend(false); setFriendClicked((prev: any) => prev == null)}} className="absolute right-0">
                                             <RxCross2 color="white"  className="w-[30px] h-[30px]"/>
                                         </button>
                                     </div>

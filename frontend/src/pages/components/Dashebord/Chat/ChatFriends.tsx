@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { VscSearch } from "react-icons/vsc";
 import Chat from "./Chat";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import Friend_chat from "./Friend_chat";
 
 function ChatFriends(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -10,6 +11,7 @@ function ChatFriends(props: any) {
     const [datafriend, setdatafriend] = useState<any>();
     const [friendchat, setfriendchat] = useState<any>();
     const [chatloding, setchatloding] = useState(false)
+    const [friendClicked, setFriendClicked] = useState<number | null>(null);
     const handelsearchChanges = () =>
     {
         setsearchfriend(inputRef.current?.value);
@@ -60,38 +62,29 @@ function ChatFriends(props: any) {
                                                 }
                                                 {
                                                     searchfriend === "" && props.friendsloding ? (
-                                                        props.ListFriends?.map((user: any, key: any) => (
+                                                        props.ListFriends?.map((user: any, index: number) => (
+                                                            <Friend_chat index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={props.setonlyChat} setfriendchat={setfriendchat}/>
 
-                                                        <div key={user?.id} className="min-h-[61px] flex items-center">
+                                                    ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
+                                                        <div  className="min-h-[61px] flex items-center">
                                                             <button onClick={() =>
                                                             {
                                                                 props.setonlyChat(false)
                                                                 setchatloding(true)
-                                                                fetch('http://localhost:3000/profile/' + user.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setfriendchat(data); setchatloding(false)}).then(() => props.setonlyChat(true))
+                                                                fetch('http://localhost:3000/profile/' + datafriend.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setfriendchat(data); setchatloding(false)}).then(() => props.setonlyChat(true))
                                                             }
                                                             } className="w-[75%] flex items-center justify-center">
-                                                                <div className="w-[75px] h-[70px] flex justify-center items-start relative">
-                                                                        <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                                                        <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
-                                                                </div>
-                                                                <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
-                                                                    <h1 className="text-[13px] font-sora font-[600] text-[white]">{user.firstName + " " + user.lastName}</h1>
-                                                                    <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + user.username}</h1>
-                                                                </div>
-                                                            </button>
-                                                    </div>
-
-                                                    ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
-                                                        <div  className="min-h-[61px] flex items-center">
-                                                                <button className="w-[75%] flex items-center justify-center">
-                                                                    <div className="w-[75px] h-[70px] flex justify-center items-start relative">
+                                                                    <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                                                                         <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute 2xl:hidden xl:hidden}`}></div>
                                                                     </div>
-                                                                    <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%] mb-[5%]">
+                                                                    <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                                                                         <h1 className="text-[13px] font-sora font-[600] text-[white]">{datafriend.firstName + " " + datafriend.lastName}</h1>
                                                                         <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + datafriend.username}</h1>
                                                                     </div>
+                                                                </button>
+                                                                <button className="text-white w-[20%] h-full">
+                                                                ...
                                                                 </button>
                                                             </div>
                                                     ) : (
@@ -128,7 +121,7 @@ function ChatFriends(props: any) {
                         </div>
                     </div>
                 }
-                {props.onlyChat && <Chat data={props.data} setonlyChat={props.setonlyChat} friendchat={friendchat}/>}
+                {props.onlyChat && <Chat setFriendClicked={setFriendClicked} data={props.data} setonlyChat={props.setonlyChat} friendchat={friendchat}/>}
             </div> 
             
     );

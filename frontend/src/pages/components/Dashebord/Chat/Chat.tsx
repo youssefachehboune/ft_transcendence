@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import { RxCross2 } from "react-icons/rx";
 
 var socket : any;
-function Chat({setonlyChat, friendchat, data} : any) {
+function Chat({setFriendClicked, setonlyChat, friendchat, data} : any) {
     var check = true;
     var test12 = true;
     const [inputValue, setInputValue] = useState<any>('');
@@ -98,7 +98,7 @@ function Chat({setonlyChat, friendchat, data} : any) {
             <div className={`w-[60%] 2xl:w-[57%] float-right xl:w-[95%] h-[100%] test5  ml-[10px] xl:ml-0 rounded-t-[10px] overflow-hidden relative`} >
                 <div className="h-[50px] bg-[#070012]"></div>
                     <div className="w-[100%] h-auto test5 relative">
-                            <button onClick={() =>setonlyChat(false)} className="absolute right-0">
+                            <button onClick={() => {setonlyChat(false); setFriendClicked((prev: any) => prev == null)}} className="absolute right-0">
                                 <RxCross2 color="white"  className="w-[23px] h-[23px]"/>
                             </button>
                             <div className="w-[65%] 2xl:w-[70%] xl:w-[75%] min-h-[84px] flex justify-center">
