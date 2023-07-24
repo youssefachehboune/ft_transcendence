@@ -62,7 +62,7 @@ function Search() {
     return ( 
             <div className="search ">
             <div className={divtest} >
-                <div className={`test5 w-[302px] h-[28px] ${borderRaduis} flex justify-center items-center z-[11]`}>
+                <div className={`test5 w-[302px] h-[28px] ${borderRaduis} xl:w-[200px] flex justify-center items-center z-[11]`}>
                         <div className="mr-[5px]">
                             <VscSearch className="w-[12px] h-[12px]" color="white" />
                         </div>
@@ -75,15 +75,15 @@ function Search() {
                             />
                 </div>
                         {!showSearchfriend && 
-                            <div className="w-[302px] h-[76px] test5 rounded-b-[15px]  z-[10]" ref={searchref} >
+                            <div className="w-[302px] h-[76px] xl:w-[200px] test5 rounded-b-[15px]  z-[10]" ref={searchref} >
                                        { 
                                         !datasearch?.message ? (
                                             <div  className="w-[100%] min-h-[65px] text-white flex justify-between overflow-hidden">
                                             <div className="w-[100%] flex items-center ml-[15%]">
-                                                <img src={datasearch?.avatar} alt="" className="w-[54px] rounded-full"/>
-                                                <div className="w-[120px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
-                                                    <h1 className="text-[7px] font-sora font-[600] text-[white] ">{datasearch?.firstName + " " +  datasearch?.lastName}</h1>
-                                                    <h1 className="text-[7px] font-sora font-[600] text-[white] ">{"@" + datasearch?.username}</h1>
+                                                <img src={datasearch?.avatar} alt="" className="w-[54px] xl:w-[40px] rounded-full"/>
+                                                <div className="w-[120px] xl:w-[140px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
+                                                    <h1 className="text-[7px] xl:text-[5px] font-sora font-[600] text-[white] ">{datasearch?.firstName + " " +  datasearch?.lastName}</h1>
+                                                    <h1 className="text-[7px] xl:text-[5px] font-sora font-[600] text-[white] ">{"@" + datasearch?.username}</h1>
                                                 </div>
                                                     { 
                                                         datasearch?.friendShipStatus === "NOTFRIENDS" ? (
@@ -115,12 +115,12 @@ function Search() {
                                                             }
                                                                 
                                                             }
-                                                                } className={`w-[111px] ${sendRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
+                                                                } className={`w-[111px] xl:ml-[-70px] ${sendRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                 {sendRequest && <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsFillPersonPlusFill className='mr-[5px]'/>Send Request</h1>}
                                                                 {!sendRequest && <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BiGitPullRequest className='mr-[5px]'/>Requested</h1>}
                                                                 </button>
                                                         ) : datasearch?.friendShipStatus === "FRIENDS" ? (
-                                                            <button className="w-[111px] h-[24px] bg-[#00DAEA] self-end mr-[15%] rounded-[4px] flex justify-center items-center">
+                                                            <button className="w-[111px] xl:ml-[-60px] xl:w-[95px] h-[24px] bg-[#00DAEA] self-end mr-[15%] rounded-[4px] flex justify-center items-center">
                                                                 <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsPersonCheckFill className='mr-[5px]'/>Friends</h1>
                                                             </button>
                                                         ) : datasearch?.friendShipStatus === "REQUESTED" &&  checkrequest == "SentRequest" ?
@@ -153,7 +153,7 @@ function Search() {
                                                                 }
                                                                 }
                                                                 } 
-                                                                className={`w-[111px] ${!deleteRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
+                                                                className={`w-[111px] xl:ml-[-70px] ${!deleteRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                 {deleteRequest && <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BiGitPullRequest className='mr-[5px]'/>Requested</h1>}
                                                                 {!deleteRequest && <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsFillPersonPlusFill className='mr-[5px]'/>Send Request</h1>}
                                                             </button>
@@ -172,7 +172,7 @@ function Search() {
                                                                       })
                                                                     fetch("http://localhost:3000/friends/UNBLOCK/" + datasearch?.username, { credentials: "include", method: "POST"})
                                                                     
-                                                                }} className={`w-[111px] bg-[red] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
+                                                                }} className={`w-[111px] xl:ml-[-70px] bg-[red] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                     <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsPersonFillSlash className='mr-[5px]'/>unblock</h1>
                                                                 </button>
                                                             ): !handelblock.block && handelblock.notfriend && !handelblock.requsetd ?  (
@@ -188,7 +188,7 @@ function Search() {
                                                                           })
                                                                         fetch("http://localhost:3000/friends/REQUEST/" + datasearch?.username, { credentials: "include", method: "POST"})
                                                                     }
-                                                                } className={`w-[111px]  hover:bg-[#00DAEA]" bg-[#5ACDA4] hover:bg-[#00DAEA] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
+                                                                } className={`w-[111px] xl:ml-[-70px] hover:bg-[#00DAEA]" bg-[#5ACDA4] hover:bg-[#00DAEA] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                     <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsFillPersonPlusFill className='mr-[5px]'/>Send Request</h1>
                                                                 </button>
                                                             ) : !handelblock.block && !handelblock.notfriend && handelblock.requsetd ? (
@@ -204,7 +204,7 @@ function Search() {
                                                                           })
                                                                         fetch("http://localhost:3000/friends/REMOVE/" + datasearch?.username, { credentials: "include", method: "POST"})
                                                                     }
-                                                                } className={`w-[111px]  hover:bg-[#00DAEA]" bg-[#5ACDA4] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
+                                                                } className={`w-[111px] xl:ml-[-70px] hover:bg-[#00DAEA]" bg-[#5ACDA4] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                     <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BiGitPullRequest className='mr-[5px]'/>Requested</h1>
                                                                 </button>
                                                             ) : null
@@ -223,7 +223,7 @@ function Search() {
                                                                         fetch("http://localhost:3000/friends/ACCEPT/" + datasearch?.username, { credentials: "include", method: "POST"})
                                                                     }
                                                                     } 
-                                                                    className={`w-[20px] ${!deleteRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[20px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
+                                                                    className={`w-[20px] xl:ml-[-30px] ${!deleteRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[20px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                     <BsCheckLg className='text-[7px] font-[400] font-sora flex items-center'/>
                                                                 </button>
                                                                 <button onClick={() => {

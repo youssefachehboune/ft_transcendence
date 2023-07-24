@@ -107,7 +107,7 @@ function Dashebord() {
 
             }
             <Search />
-            <Section massagenotif={massagenotif} setonlyChat={setonlyChat} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
+            <Section showprofile={showprofile} setshowprofile={setshowprofile}/>
             <Profile showprofile={showprofile} data={data} dataisloded={dataisloded} setdataisloded={setdataisloded}/>
             {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && <Achievements/>}
