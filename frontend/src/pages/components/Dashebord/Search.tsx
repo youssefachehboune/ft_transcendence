@@ -3,7 +3,9 @@ import { VscSearch } from 'react-icons/vsc'
 import { ChangeEvent, KeyboardEvent, useEffect, useRef, useState} from 'react'
 import { BsCheckLg, BsFillPersonPlusFill, BsPersonCheckFill, BsPersonFillSlash } from 'react-icons/bs';
 import {BiGitPullRequest} from 'react-icons/bi'
-
+import { Alert, AlertIcon } from '@chakra-ui/react';
+import { useToast } from '@chakra-ui/react'
+import {RxCross2} from 'react-icons/rx'
 
 interface block {
     block: boolean,
@@ -19,11 +21,13 @@ function Search() {
     const [sendRequest, setsendRequest] = useState<boolean>(true)
     const [deleteRequest, setdeleteRequest] = useState<boolean>(true)
     const searchref = useRef<HTMLInputElement | null>(null);
+    const [checkrequest, setcheckrequest] = useState<any>();
     const [handelblock, sethandelblock] = useState<block>({
         block: true,
         notfriend: false,
         requsetd: false
     })
+    const toast = useToast()
 
     useEffect(() => {
         document.addEventListener('click', handleClickOutside);
@@ -47,7 +51,11 @@ function Search() {
     }
     useEffect(() => {
             if (search)
-                fetch('http://localhost:3000/search/' + search, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatasearch(data);}).then(() => setshowSearchfriend(false))
+            {
+                fetch('http://localhost:3000/search/' + search, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatasearch(data);}).then(() => 
+                fetch('http://localhost:3000/friends/username/' + search, { credentials: "include" }).then((resp) => resp.text()).then((data) => {setcheckrequest(data)}).then(() => setshowSearchfriend(false))
+                )
+            }
     }, [search])
     const divtest = showSearchfriend ? "w-[100%] h-[100%] flex flex-col justify-center items-center" : "w-[100%] h-[250%] flex flex-col justify-center items-center"
     const borderRaduis = showSearchfriend ? "rounded-[15px]" : "rounded-t-[15px]"
@@ -81,53 +89,160 @@ function Search() {
                                                         datasearch?.friendShipStatus === "NOTFRIENDS" ? (
                                                             <button onClick={() => {
                                                             if (sendRequest)
-                                                                fetch("http://localhost:3000/friends/REQUEST/" + datasearch?.username, { credentials: "include", method: "POST"}).then(() => setsendRequest(!sendRequest))
+                                                            {
+                                                                setsendRequest(!sendRequest)
+                                                                toast({
+                                                                    title: `request sent successfully`,
+                                                                    position: 'top-right',
+                                                                    status: 'success',
+                                                                    duration: 9000,
+                                                                    isClosable: true,
+                                                                })
+                                                                fetch("http://localhost:3000/friends/REQUEST/" + datasearch?.username, { credentials: "include", method: "POST"})
+                                                                
+                                                            }
                                                             else if (!sendRequest)
-                                                                fetch("http://localhost:3000/friends/REMOVE/" + datasearch?.username, { credentials: "include", method: "POST"}).then(() => setsendRequest(!sendRequest))
+                                                            {
+                                                                setsendRequest(!sendRequest)
+                                                                toast({
+                                                                    title: `remove request`,
+                                                                    position: 'top-right',
+                                                                    status: 'success',
+                                                                    duration: 9000,
+                                                                    isClosable: true,
+                                                                  })
+                                                                fetch("http://localhost:3000/friends/REMOVE/" + datasearch?.username, { credentials: "include", method: "POST"})
+                                                            }
+                                                                
                                                             }
                                                                 } className={`w-[111px] ${sendRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                 {sendRequest && <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsFillPersonPlusFill className='mr-[5px]'/>Send Request</h1>}
                                                                 {!sendRequest && <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BiGitPullRequest className='mr-[5px]'/>Requested</h1>}
-                                                            </button>
+                                                                </button>
                                                         ) : datasearch?.friendShipStatus === "FRIENDS" ? (
                                                             <button className="w-[111px] h-[24px] bg-[#00DAEA] self-end mr-[15%] rounded-[4px] flex justify-center items-center">
                                                                 <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsPersonCheckFill className='mr-[5px]'/>Friends</h1>
                                                             </button>
-                                                        ) : datasearch?.friendShipStatus === "REQUESTED" ?
+                                                        ) : datasearch?.friendShipStatus === "REQUESTED" &&  checkrequest == "SentRequest" ?
                                                         (
                                                             <button onClick={() => {
                                                                 if (deleteRequest)
-                                                                    fetch("http://localhost:3000/friends/REMOVE/" + datasearch?.username, { credentials: "include", method: "POST"}).then(() => setdeleteRequest(!deleteRequest))
+                                                                {
+                                                                    setdeleteRequest(!deleteRequest)
+                                                                    toast({
+                                                                        title: `remove request`,
+                                                                        position: 'top-right',
+                                                                        status: 'success',
+                                                                        duration: 9000,
+                                                                        isClosable: true,
+                                                                      })
+                                                                    fetch("http://localhost:3000/friends/REMOVE/" + datasearch?.username, { credentials: "include", method: "POST"})
+                                                                }
+                                                                    
                                                                 else if (!deleteRequest)
-                                                                    fetch("http://localhost:3000/friends/REQUEST/" + datasearch?.username, { credentials: "include", method: "POST"}).then(() => setdeleteRequest(!deleteRequest))
+                                                                {
+                                                                    setdeleteRequest(!deleteRequest)
+                                                                    toast({
+                                                                        title: `request sent successfully`,
+                                                                        position: 'top-right',
+                                                                        status: 'success',
+                                                                        duration: 9000,
+                                                                        isClosable: true,
+                                                                      })
+                                                                    fetch("http://localhost:3000/friends/REQUEST/" + datasearch?.username, { credentials: "include", method: "POST"})
+                                                                }
                                                                 }
                                                                 } 
                                                                 className={`w-[111px] ${!deleteRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                 {deleteRequest && <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BiGitPullRequest className='mr-[5px]'/>Requested</h1>}
                                                                 {!deleteRequest && <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsFillPersonPlusFill className='mr-[5px]'/>Send Request</h1>}
                                                             </button>
-                                                        ): datasearch?.friendShipStatus === "BLOCKED" ?
+                                                        ): datasearch?.friendShipStatus === "BLOCKED" && checkrequest == "BLOCKED" ?
                                                         (
                                                             handelblock.block && !handelblock.notfriend && !handelblock.requsetd ?
                                                             (
                                                                 <button onClick={() => {
-                                                                    fetch("http://localhost:3000/friends/UNBLOCK/" + datasearch?.username, { credentials: "include", method: "POST"}).then(() => sethandelblock({block: false, notfriend: true, requsetd: false}))
+                                                                    sethandelblock({block: false, notfriend: true, requsetd: false})
+                                                                    toast({
+                                                                        title: `The user has been unblocked successfully.`,
+                                                                        position: 'top-right',
+                                                                        status: 'success',
+                                                                        duration: 9000,
+                                                                        isClosable: true,
+                                                                      })
+                                                                    fetch("http://localhost:3000/friends/UNBLOCK/" + datasearch?.username, { credentials: "include", method: "POST"})
+                                                                    
                                                                 }} className={`w-[111px] bg-[red] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                     <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsPersonFillSlash className='mr-[5px]'/>unblock</h1>
                                                                 </button>
                                                             ): !handelblock.block && handelblock.notfriend && !handelblock.requsetd ?  (
                                                                 <button onClick={() =>
-                                                                    fetch("http://localhost:3000/friends/REQUEST/" + datasearch?.username, { credentials: "include", method: "POST"}).then(() => sethandelblock({block: false, notfriend: false, requsetd: true}))
+                                                                    {
+                                                                        sethandelblock({block: false, notfriend: false, requsetd: true})
+                                                                        toast({
+                                                                            title: `request sent successfully`,
+                                                                            position: 'top-right',
+                                                                            status: 'success',
+                                                                            duration: 9000,
+                                                                            isClosable: true,
+                                                                          })
+                                                                        fetch("http://localhost:3000/friends/REQUEST/" + datasearch?.username, { credentials: "include", method: "POST"})
+                                                                    }
                                                                 } className={`w-[111px]  hover:bg-[#00DAEA]" bg-[#5ACDA4] hover:bg-[#00DAEA] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                     <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BsFillPersonPlusFill className='mr-[5px]'/>Send Request</h1>
                                                                 </button>
                                                             ) : !handelblock.block && !handelblock.notfriend && handelblock.requsetd ? (
                                                                 <button onClick={() => 
-                                                                    fetch("http://localhost:3000/friends/REMOVE/" + datasearch?.username, { credentials: "include", method: "POST"}).then(() => sethandelblock({block: false, notfriend: true, requsetd: false}))
+                                                                    {
+                                                                        sethandelblock({block: false, notfriend: true, requsetd: false})
+                                                                        toast({
+                                                                            title: `remove request`,
+                                                                            position: 'top-right',
+                                                                            status: 'success',
+                                                                            duration: 9000,
+                                                                            isClosable: true,
+                                                                          })
+                                                                        fetch("http://localhost:3000/friends/REMOVE/" + datasearch?.username, { credentials: "include", method: "POST"})
+                                                                    }
                                                                 } className={`w-[111px]  hover:bg-[#00DAEA]" bg-[#5ACDA4] h-[24px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
                                                                     <h1 className='text-[7px] font-[400] font-sora flex items-center mr-[-5px]'><BiGitPullRequest className='mr-[5px]'/>Requested</h1>
                                                                 </button>
                                                             ) : null
+                                                        ):  datasearch?.friendShipStatus === "REQUESTED" &&  checkrequest == "ReceivedRequest" ?
+                                                        (
+                                                            <div className='w-[100px] h-[50px] flex'>
+                                                                <button onClick={() => {
+                                                                        setshowSearchfriend(true)
+                                                                        toast({
+                                                                            title: `accept`,
+                                                                            position: 'top-right',
+                                                                            status: 'success',
+                                                                            duration: 9000,
+                                                                            isClosable: true,
+                                                                        })
+                                                                        fetch("http://localhost:3000/friends/ACCEPT/" + datasearch?.username, { credentials: "include", method: "POST"})
+                                                                    }
+                                                                    } 
+                                                                    className={`w-[20px] ${!deleteRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#5ACDA4]"} h-[20px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
+                                                                    <BsCheckLg className='text-[7px] font-[400] font-sora flex items-center'/>
+                                                                </button>
+                                                                <button onClick={() => {
+                                                                    setshowSearchfriend(true)
+                                                                    toast({
+                                                                        title: `reject`,
+                                                                        position: 'top-right',
+                                                                        status: 'success',
+                                                                        duration: 9000,
+                                                                        isClosable: true,
+                                                                    })
+                                                                    fetch("http://localhost:3000/friends/REJECT/" + datasearch?.username, { credentials: "include", method: "POST"})     
+                                                                    }
+                                                                    } 
+                                                                    className={`w-[20px] ${!deleteRequest ? "bg-[#2F313D] hover:bg-[#00DAEA]" : "bg-[#cd3a3a]"} h-[20px] self-end mr-[15%] rounded-[4px] flex justify-center items-center`}>
+                                                                    <RxCross2 className='text-[7px] font-[400] font-sora flex items-center'/>
+                                                                </button>
+                                                            </div>
+                                                            
                                                         ): null
                                                     }
                                             </div>

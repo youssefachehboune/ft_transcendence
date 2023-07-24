@@ -130,6 +130,13 @@ export class FriendsService {
           return "ReceivedRequest";
         }
       }
+      else if (friendship.status === "BLOCKED") {
+        if (friendship.user_id === user.id) {
+          return "BLOCKED";
+        } else {
+          return "GOTBLOCKED";
+        }
+      }
       else
       {
         return friendship.status;

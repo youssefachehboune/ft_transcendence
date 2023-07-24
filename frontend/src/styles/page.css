@@ -1,13 +1,13 @@
 .rectangele_left_border
 {
-	@apply w-[230px] h-[490px] fixed ml-[-93px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[-140.9deg] bg-mix-tow duration-1000
+	@apply w-[230px] h-[490px] absolute ml-[-93px] left-0 mb-[-250px] bottom-[0] animate-rectangel-left rounded-t-[0px]  rounded-b-[135px] rounded-l-[135px] rotate-[-140.9deg] bg-mix-tow duration-1000
 		phone:w-[120px]  phone:h-[417px] phone:ml-[-106px] phone:mb-[-250px]
 		Large-phone:w-[120px]  Large-phone:h-[410px] Large-phone:ml-[-108px] Large-phone:mb-[-245px]
 		laptop:w-[170px]  laptop:h-[318px] laptop:ml-[-88px] laptop:mb-[-150px]
 }
 .rectangele_left_one
 {
-	@apply w-[205px] h-[478px] fixed ml-[-87px] mb-[-250px] bottom-[0] animate-rectangel-left rounded-b-[135px] rounded-l-[135px] bg-[#00DAEA] rotate-[-140.9deg] duration-1000
+	@apply w-[205px] h-[478px] absolute ml-[-87px] left-0 mb-[-250px] bottom-[0] animate-rectangel-left rounded-b-[135px] rounded-l-[135px] bg-[#00DAEA] rotate-[-140.9deg] duration-1000
 		phone:w-[105px]  phone:h-[408px] phone:ml-[-102px]
 		Large-phone:w-[105px]  Large-phone:h-[408px] Large-phone:ml-[-105px]
 		laptop:w-[154px]  laptop:h-[308px] laptop:ml-[-85px] laptop:mb-[-150px]
@@ -69,25 +69,17 @@
 }
 .svg_img
 {
-	@apply absolute h-[100%] right-[0] object-cover max-w-none
-			phone:left-[40%] 
+	@apply absolute min-h-[100%] left-[50%] top-0 object-cover max-w-none
+			phone:left-[40%]
 			Large-phone:left-[50%]
 			laptop:left-[57%]
-			desktop:left-[55%]
+			desktop:left-[50%]
 }
 .svg_text
 {
-	@apply z-10 text-white absolute right-[5%] top-[30%] text-[50px] w-[470px] animate-text-animation duration-500 font-sora  font-extrabold text-center
-			phone:right-[5%] phone:text-[20px] phone:w-[190px] phone:top-[18%]
+	@apply z-10 text-white absolute mt-[-7%] right-[10%] text-[50px] w-[470px] animate-text-animation duration-500 font-sora  font-extrabold text-center
+			phone:text-[20px] phone:w-[190px] phone:top-[18%] phone:right-[10%]
 			Large-phone:text-[20px] Large-phone:w-[200px] Large-phone:top-[18%] Large-phone:right-[10%]
-			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%] laptop:right-[10%]
-			desktop:right-[0] desktop:text-[40px] desktop:w-[400px]
-}
-.svg_text
-{
-	@apply z-10 text-white absolute right-[5%] top-[30%] text-[50px] w-[470px] animate-text-animation duration-500 font-sora  font-extrabold text-center
-			phone:right-[5%] phone:text-[20px] phone:w-[190px] phone:top-[18%]
-			Large-phone:text-[20px] Large-phone:w-[200px] Large-phone:top-[18%] Large-phone:right-[10%]
-			laptop:text-[25px] laptop:w-[210px] laptop:top-[20%] laptop:right-[10%]
-			desktop:right-[0] desktop:text-[40px] desktop:w-[400px]
+			laptop:text-[25px] laptop:w-[210px] laptop:top-[25%] laptop:right-[14%]
+			desktop:right-[1%] desktop:text-[40px] desktop:w-[400px]
 }
