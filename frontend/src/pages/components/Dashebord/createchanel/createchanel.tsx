@@ -78,7 +78,7 @@ function Createchanel({isOpen, onClose}: any) {
     if (file) {
       if (file.size > MAX_IMAGE_SIZE) {
         setavatarchanel("")
-        setlarge_img("the image is too large: max size(80kb)")
+        setlarge_img("the image is too large: max size(5mb)")
       event.target.value = "";
       }
       reader.readAsDataURL(file);
