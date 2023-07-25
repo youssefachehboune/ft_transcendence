@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import TopPlayer from "./TopPlayer";
 
 export default function Main() {
     const [isShow, setIsShow] = useState<boolean>(false);
@@ -49,9 +49,22 @@ export default function Main() {
                     <div className="backc1 w-[40%] h-[90%] rounded-[20px]">
                         <img src="TT.png" 
                         alt="" className="ShapeHover2" />
-                        <h1 className="header_play4">Top players</h1>
+                        <h1 className="header_play4 ">Top players</h1>
                         <div className="par_hover">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+                            <div className="w-[92%] h-[90%] flex items-center justify-start phone:h-[100%]">
+                                    <div className="w-[100%] h-[100%] flex flex-col justify-between items-start
+                                    2xl:w-[75%] 2xl:h-[100%]
+                                    xl:w-[75%] xl:h-[100%]
+                                    laptop:w-[100%] laptop:h-[100%]
+                                    Large-phone:w-[100%]
+                                    phone:w-[100%] phone:h-[100%]
+
+                                    ">
+                                    <TopPlayer avatar="mbjaghou.jpeg" name="Mohamed Bjaghou" username="mbjaghou" rank={1} />
+                                    <TopPlayer avatar="iconAch.jpeg" name="Mohamed Bjaghou" username="mbjaghou" rank={2} />
+                                    <TopPlayer avatar="profil.png" name="Mohamed Bjaghou" username="mbjaghou" rank={3} />
+                                    </div>
+                            </div>
                         </div>
                     </div>
                     <div className="backc2 w-[40%] h-[90%]  rounded-[20px]">
