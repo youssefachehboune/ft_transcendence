@@ -122,6 +122,6 @@ export class ChatGateway {
 			const sockets = this.connectedUsers.get(username);
 			sockets.forEach(socket => blockedSocketIds.push(socket.id));
 		});
-		this.server.to(content.channel).except(blockedSocketIds).emit('receive_channel_message', content.message)
+		this.server.to(content.channel).except(blockedSocketIds).emit('receive_channel_message', {avatar: user.userProfile[0].avatar , message: content.message})
 	}
 }

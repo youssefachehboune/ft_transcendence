@@ -4,45 +4,9 @@ import { FaCompass } from 'react-icons/fa'
 import Link from "next/link";
 import IconNavBar from "./IconNavBar";
 
-
-interface IconNavBarProps{
-    'image' : string,
-    'color' : string,
-}
-
 export default function NavBar(props : any) {
-    const data : IconNavBarProps[] = [
-        {
-            'image' : '1337.jpeg',
-            'color' : 'black',
-        },
-        {
-            'image' : 'mbjaghou.jpeg',
-            'color' : '#f5bc39',
-        },
-        {
-            'image' : 'mbjaghou.jpeg',
-            'color' : '#f5bc39',
-        },
-        {
-            'image' : 'mbjaghou.jpeg',
-            'color' : '#f5bc39',
-        },
-        {
-            'image' : 'mbjaghou.jpeg',
-            'color' : '#f5bc39',
-        },
-        {
-            'image' : 'mbjaghou.jpeg',
-            'color' : '#f5bc39',
-        },
-        {
-            'image' : 'mbjaghou.jpeg',
-            'color' : '#f5bc39',
-        },
-        
-    ];
-    const lastkey = data.length + 1;
+
+    const lastkey = props.mychanel?.length + 1;
     const [isShow, setIsShow] = useState<boolean>(false);
     const [activeIndex, setActiveIndex] = useState<null | number>(null);
     const handleClick = (index : number) => {
@@ -54,7 +18,7 @@ export default function NavBar(props : any) {
                     <Link  href={'/'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none absolute left-0 top-0"/></Link>
                         <div   className="div_navbar ">
                             <div className={`relative w-[100px] h-[71px] flex items-center overflow-y-auto`}>
-                                <div onClick={() => {handleClick(0); props.setshowchatsection(!props.showchatsection); props.setonlyChat(false)}} className={`${0 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center`}>
+                                <div onClick={() => {handleClick(0); props.setshowchanel(false); props.setshowchatsection(!props.showchatsection); props.setonlyChat(false)}} className={`${0 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center`}>
                                     <FaCompass color="white" className="Compass_icon"/>
                                 </div>
                                 <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${0 === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>
@@ -68,11 +32,15 @@ export default function NavBar(props : any) {
                             }
                             >
                                 {
-                                    data.map((item : IconNavBarProps, key : any) => {
+                                    props.mychanel?.map((item: any, key : any) => {
                                         return (
                                             <div className="relative w-[100px] h-[71px] flex items-center ">
-                                                <div onClick={() => handleClick(key + 1)} className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[${item.color}] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
-                                                        <img src={item.image} className="" alt="" />
+                                                <div onClick={() => {handleClick(key + 1);props.setshowchatsection(false); props.setshowchanel(true); 
+                                                    fetch(`http://localhost:3000/channel/${item.name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmemebers(data)})
+                                                    fetch(`http://localhost:3000/channel/${item.name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setchanel(data)})
+                                                    }} 
+                                                    className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
+                                                        <img src={item.avatar} className="" alt="" />
                                                 </div>
                                                 <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${(key + 1) === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>
                                                 </div>

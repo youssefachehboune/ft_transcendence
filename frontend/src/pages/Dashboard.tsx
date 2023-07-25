@@ -16,6 +16,7 @@ import React from "react";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
 import Createchanel from "./components/Dashebord/createchanel/createchanel";
 import { io } from "socket.io-client";
+import List_memebres from "./components/Dashebord/Chanels/List_memebres";
 
 function Dashebord() {
   var check = true;
@@ -33,8 +34,12 @@ function Dashebord() {
     const [allhistorie, setallhistorie] = useState<boolean>(false);
     const [showprofile, setshowprofile] = useState<boolean>(true)
     const { isOpen, onOpen, onClose } = useDisclosure()
-
     const [massagenotif, setmassagenotif] = useState<boolean>(false)
+    
+    const [mychanel, setmychanel] = useState<any>()
+    const [showchanel, setshowchanel] = useState<boolean>(false)
+    const [memebers, setmemebers] = useState<any>()
+    const [chanel, setchanel] = useState<any>()
 
     useEffect(() => {
       if (!showchatsection)
@@ -66,6 +71,11 @@ function Dashebord() {
             const historiedata = await HistorieResponse.json();
             setallhistorie(historiedata)
             
+            const mychanels = await fetch('http://localhost:3000/channel/my_channels', { credentials: "include" });
+            const chanelsdata = await mychanels.json();
+            setmychanel(chanelsdata)
+
+
             setdataisloded(true)
           } catch (error) {
             console.log("error: " + error)
@@ -89,11 +99,11 @@ function Dashebord() {
       }, [showprofile]);
 
     return ( 
-        <div className={`${!showchatsection ? "container_page" : "chatsection"}`}>
+        <div className={`${!showchatsection && !showchanel ? "container_page" : "chatsection"}`}>
 
-            {main && !showchatsection && <Main/>}
-            <div className="chanel"><NavBar socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
-            {!showchatsection &&
+            {main && !showchatsection && !showchanel && <Main/>}
+            <div className="chanel"><NavBar setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} mychanel={mychanel} socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
+            {!showchatsection && !showchanel &&
                     <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                         <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
@@ -109,10 +119,11 @@ function Dashebord() {
             <Search />
             <Section showprofile={showprofile} setshowprofile={setshowprofile}/>
             <Profile showprofile={showprofile} data={data} dataisloded={dataisloded} setdataisloded={setdataisloded}/>
-            {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
-            {!showAchievements && !showchatsection && <Achievements/>}
-            {!Friend && !showchatsection && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
+            {!setshowHistorie  && !showchatsection && !showchanel && <History historieloding={dataisloded} all={allhistorie}/>}
+            {!showAchievements && !showchatsection && !showchanel && <Achievements/>}
+            {!Friend && !showchatsection && !showchanel && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
+            {showchanel && <List_memebres data ={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
             <Createchanel isOpen={isOpen} onClose={onClose}/>
         </div>
      );
