@@ -8,7 +8,7 @@ interface country {
 	dispatch: Dispatch<any>;
 }
 
-const CountryDropdown  = ({ dispatch }: country) => {
+const CountryDropdown  = ({ dispatch }: any) => {
   const [countries, setCountries] = useState<Country[]>([]);
 
   const handleCountrySelect = (event: ChangeEvent<HTMLSelectElement>) => {

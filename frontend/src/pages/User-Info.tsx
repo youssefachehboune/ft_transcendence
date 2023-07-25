@@ -20,7 +20,7 @@ function Sign_up()
 			<Head>
 				<title>Pong Game ,sign-up Page</title>
 			</Head>
-			<div className="m-0 h-[100vh] w-[100%] relative overflow-hidden overscroll-none bg-[#070012]">
+			<div className="m-0 h-[100vh] w-[100%] flex justify-center items-center relative overflow-hidden overscroll-none bg-[#070012]">
 						<Cursor setColor={setChangeColor} color={changeColor}/>
 						<Svg_image setColor={setChangeColor} color={changeColor}/>
 						<Logo />
