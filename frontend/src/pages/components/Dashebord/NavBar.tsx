@@ -36,8 +36,10 @@ export default function NavBar(props : any) {
                                         return (
                                             <div className="relative w-[100px] h-[71px] flex items-center ">
                                                 <div onClick={() => {handleClick(key + 1);props.setshowchatsection(false); props.setshowchanel(true); 
-                                                    fetch(`http://localhost:3000/channel/${item.name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmemebers(data)})
-                                                    fetch(`http://localhost:3000/channel/${item.name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setchanel(data)})
+                                                    props.setchannelloding(true)
+                                                    props.setmumeberschannelloding(false)
+                                                    fetch(`http://localhost:3000/channel/${item.name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmemebers(data); props.setmumeberschannelloding(true)})
+                                                    fetch(`http://localhost:3000/channel/${item.name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setchanel(data); props.setchannelloding(false) })
                                                     }} 
                                                     className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
                                                         <img src={item.avatar} className="" alt="" />

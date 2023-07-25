@@ -40,7 +40,8 @@ function Dashebord() {
     const [showchanel, setshowchanel] = useState<boolean>(false)
     const [memebers, setmemebers] = useState<any>()
     const [chanel, setchanel] = useState<any>()
-
+    const [channelloding, setchannelloding] = useState<boolean>(false)
+    const [mumeberschannelloding, setmumeberschannelloding] = useState<boolean>(false)
     useEffect(() => {
       if (!showchatsection)
       {
@@ -102,7 +103,10 @@ function Dashebord() {
         <div className={`${!showchatsection && !showchanel ? "container_page" : "chatsection"}`}>
 
             {main && !showchatsection && !showchanel && <Main/>}
-            <div className="chanel"><NavBar setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} mychanel={mychanel} socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
+            <div className="chanel">
+              <NavBar setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
+              mychanel={mychanel} socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
+            </div>
             {!showchatsection && !showchanel &&
                     <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
@@ -123,7 +127,7 @@ function Dashebord() {
             {!showAchievements && !showchatsection && !showchanel && <Achievements/>}
             {!Friend && !showchatsection && !showchanel && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
-            {showchanel && <List_memebres data ={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
+            {showchanel && <List_memebres mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data ={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
             <Createchanel isOpen={isOpen} onClose={onClose}/>
         </div>
      );
