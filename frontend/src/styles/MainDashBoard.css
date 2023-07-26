@@ -221,7 +221,7 @@
 }
 
 .par_hover {
-    @apply  w-[80%] h-[40%] absolute bottom-[-65%] left-[5%] z-[99]
+    @apply  w-[90%]  h-[40%] absolute bottom-[-65%] left-[5%] z-[99]
 }
 
 .par_hover p {

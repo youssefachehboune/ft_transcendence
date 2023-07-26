@@ -52,7 +52,7 @@ export default function TopPlayer(props : TopPlayerProps) {
                                                 ">
                                                     @{props.username}
                                                 </h1>
-            </div>
+                                            </div>
         </div>
     );
 }

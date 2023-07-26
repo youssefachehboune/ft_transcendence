@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TopPlayer from "./TopPlayer";
-
+import LasMatches from "./LasMatches";
 export default function Main() {
     const [data, setData] = useState<any>([]);
     useEffect(() => {
@@ -84,7 +84,11 @@ export default function Main() {
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Last achievements</h1>
                         <div className="par_hover">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+                            <div className="w-full h-full bg-white">
+                                <div className="w-[50%] h-[40%] bg-orange flex items-center justify-center">
+                                        
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,10 +98,15 @@ export default function Main() {
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Last matches</h1>
                         <div className="par_hover">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+                            <div className=" w-[100%] h-full flex items-center justify-center">
+                                <div className="w-[98%] h-[80%]   flex flex-col justify-between">
+                                    <LasMatches score1={5} score2={2} name1="Youssef Achehbou" name2="Elmehdi lihwak" avatar1="mbjaghou.jpeg" avatar2="mbjaghou.jpeg" username1="lihwak" username2="zbifkrk"/>
+                                    <LasMatches score1={5} score2={2} name1="Youssef Achehbou" name2="Elmehdi lihwak" avatar1="mbjaghou.jpeg" avatar2="mbjaghou.jpeg" username1="lihwak" username2="zbifkrk"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="backc4 w-[40%] h-[90%] rounded-[20px]">
+                    <div className="backc4">
                         <img src="TT.png" 
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Play a game</h1>
