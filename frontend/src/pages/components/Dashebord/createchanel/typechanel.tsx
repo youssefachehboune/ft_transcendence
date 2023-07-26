@@ -6,9 +6,9 @@ function Typechanel({handleCountrySelect, Error}: any) {
         <FormLabel>Channel Type</FormLabel>
         <Select borderStyle={Error ? 'solid' : ''} borderWidth={Error ? '2px' : ''} borderColor={Error ? 'red' : ''} onChange={handleCountrySelect}>
           <option value={''}>chose type of chanel</option>
-          <option value="Private">Private</option>
-          <option value="Public">Public</option>
-          <option value="Protected">Protected</option>
+          <option value="PRIVATE">Private</option>
+          <option value="PUBLIC">Public</option>
+          <option value="PROTECTED">Protected</option>
         </Select>
         {Error ? 
               (

@@ -6,12 +6,13 @@ import Chanel_name from "./chanel_name";
 import Typechanel from "./typechanel";
 import Channel_Description from "./Channel_Description";
 import Chanel_password from "./chanel_password";
+import Creat_channel from "@/pages/api/Createchannel";
 
 function Createchanel({isOpen, onClose}: any) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [large_img, setlarge_img] = useState<string>('')
   const [avatarchanel, setavatarchanel] = useState<any>('')
-  const MAX_IMAGE_SIZE = 80000;
+  const MAX_IMAGE_SIZE = 5242880;
   const [chanelname, setchanelname] = useState<string>("")
   const [Errornamechanel, setErrornamechanel] = useState<string>("")
   const [Errorpassword, setErrorpassword] = useState<string>("")
@@ -41,13 +42,13 @@ function Createchanel({isOpen, onClose}: any) {
       setErrortypechanel('')
       onClose()
   }
-  const confirm = () => 
+  const confirm = async () => 
   {
       if (!chanelname)
         setErrornamechanel("required")
       if (!ChannelDescription)
         setErrorDescriptionchanel("required")
-      if (typechanel === "Protected" && !password)
+      if (typechanel === "PROTECTED" && !password)
         setErrorpassword("required")
       if (!typechanel)
         setErrortypechanel("required")
@@ -55,14 +56,8 @@ function Createchanel({isOpen, onClose}: any) {
         setlarge_img("required")
       if (!Errornamechanel && !ErrorDescriptionchanel && !Errorpassword && chanelname && ChannelDescription && typechanel &&  !large_img)
       {
-        if (typechanel === "Protected" && password || typechanel != "Protected" && !password)
-        {
-          console.log("chanelname=" + chanelname)
-          console.log("ChannelDescription=" + ChannelDescription)
-          console.log("password=" + password)
-          console.log("typechanel=" + typechanel)
-          onclose()
-        }
+        if (typechanel === "PROTECTED" && password || typechanel != "PROTECTED" && !password)
+          await Creat_channel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, () => onclose(), setErrornamechanel);
       }
 
   }
@@ -105,7 +100,7 @@ function Createchanel({isOpen, onClose}: any) {
             <Chanel_name chanelname={chanelname} setchanelname={setchanelname} Error={Errornamechanel} setError={setErrornamechanel}/>
             <Channel_Description ChannelDescription={ChannelDescription} setChannelDescription={setChannelDescription} Error={ErrorDescriptionchanel} setError={setErrorDescriptionchanel}/>
             <Typechanel handleCountrySelect={handleCountrySelect} Error={Errortypechanel}/>
-            {typechanel === "Protected" && <Chanel_password Error={Errorpassword} setError={setErrorpassword} setpassword={setpassword}/>}
+            {typechanel === "PROTECTED" && <Chanel_password Error={Errorpassword} setError={setErrorpassword} setpassword={setpassword}/>}
           </ModalBody>
           <ModalFooter>
             <Button onClick={confirm} colorScheme='blue' mr={3}>

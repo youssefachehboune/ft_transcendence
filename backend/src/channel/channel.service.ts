@@ -37,7 +37,7 @@ export class ChannelService {
     async getMyChannels(@Req() req: Request) {
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-            return 'User not found';
+            return {error: 'User not found'}
         }
         const myChannels = await prisma.channelMembers.findMany({
             where: {
@@ -100,7 +100,7 @@ export class ChannelService {
             },
         });
         if (!channel || channel.type === 'NOTACTIVE') {
-            return 'Channel not found';
+            return {error: 'Channel not found'}
         }
         if (channel.type === 'PUBLIC') {
             return {
@@ -115,7 +115,7 @@ export class ChannelService {
         else {
             const user = await this.searchUserById(req.user['id']);
             if (!user) {
-                return 'User not found';
+                return {error: 'User not found'}
             }
             const channelMember = await prisma.channelMembers.findFirst({
 								where: {
@@ -126,7 +126,7 @@ export class ChannelService {
                 },
             });
             if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
-                return 'User is not a member of the channel';
+                return {error: 'User is not a member of the channel'}
             }
             return {
                 name: channel.name,
@@ -150,11 +150,11 @@ export class ChannelService {
             },
         });
         if (!channel || channel.type === 'NOTACTIVE') {
-            return 'Channel not found';
+            return {error: 'Channel not found'}
         }
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-            return 'User not found';
+            return {error: 'User not found'}
         }
         const channelMember = await prisma.channelMembers.findFirst({
             where: {
@@ -165,7 +165,7 @@ export class ChannelService {
             },
         });
         if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
-            return 'User is not a member of the channel';
+            return {error: 'User is not a member of the channel'}
         }
         const channelMembers = await prisma.channelMembers.findMany({
             where: {
@@ -204,7 +204,7 @@ export class ChannelService {
     async getInvitations(@Req() req: Request) {
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-            return 'User not found';
+            return {error: 'User not found'}
         }
         const invitations = await prisma.channelMembers.findMany({
             where: {
@@ -231,7 +231,7 @@ export class ChannelService {
     async createChannel(@Req() req: Request, data: ChannelDTO) {
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-            return 'User not found';
+            return {error: 'User not found'}
         }
         const channel = await prisma.channel.findUnique({
             where: {
@@ -239,7 +239,7 @@ export class ChannelService {
             },
         });
         if (channel) {
-            return 'Channel already exists';
+            return {error: 'Channel already exists'}
         }
 				const hashedPassword = await bcrypt.hash(data.password, 10);
         const newChannel = await prisma.channel.create({
@@ -277,11 +277,11 @@ export class ChannelService {
             },
         });
         if (!channel || channel.type === 'NOTACTIVE') {
-            return 'Channel not found';
+            return {error: 'Channel not found'}
         }
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-					return 'User not found';
+					return {error: 'User not found'}
         }
         const channelex = await prisma.channel.findUnique({
 					where: {
@@ -289,7 +289,7 @@ export class ChannelService {
 					},
         });
         if (channelex && name !== data.name) {
-					return 'Channel name already exists';
+					return {error: 'Channel name already exists'}
         }
         const channelMember = await prisma.channelMembers.findFirst({
 					where: {
@@ -300,7 +300,7 @@ export class ChannelService {
 					},
         });
         if (!channelMember || channelMember.MemberType !== 'OWNER') {
-					return 'Only the owner can modify the channel';
+					return {error: 'Only the owner can modify the channel'}
         }
 				if (data.avatar.length > 500)
 					data.avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: "avatar" } )).url;
@@ -337,11 +337,11 @@ export class ChannelService {
             },
         });
         if (!channel || channel.type === 'NOTACTIVE') {
-            return 'Channel not found';
+            return {error: 'Channel not found'}
         }
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-            return 'User not found';
+            return {error: 'User not found'}
         }
         const channelMember = await prisma.channelMembers.findFirst({
             where: {
@@ -352,10 +352,10 @@ export class ChannelService {
             },
         });
         if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
-            return 'User is not a member of the channel';
+            return {error: 'User is not a member of the channel'}
         }
         if (channelMember.MemberType !== 'OWNER') {
-            return 'User is not the owner of the channel';
+            return {error: 'User is not the owner of the channel'}
         }
         await prisma.channel.update({
             where: {
@@ -365,7 +365,7 @@ export class ChannelService {
 							type: 'NOTACTIVE'
 						}
         });
-        return 'Channel deleted';
+        return {error: 'Channel deleted'}
     }
 
     async createChannelMember(username: string, channel_name: string, memberType: 'MEMBER' | 'REQUESTED' | 'INVITED') {
@@ -413,11 +413,11 @@ export class ChannelService {
             },
         });
         if (!channel || channel.type === 'NOTACTIVE') {
-            return 'Channel not found';
+            return {error: 'Channel not found'}
         }
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-            return 'User not found';
+            return {error: 'User not found'}
         }
         const channelMember = await prisma.channelMembers.findFirst({
             where: {
@@ -428,7 +428,7 @@ export class ChannelService {
             },
         });
         if (!channelMember || !['OWNER', 'ADMIN'].includes(channelMember.MemberType)) {
-            return 'You do not have admin access to this channel';
+            return {error: 'You do not have admin access to this channel'}
         }
 				const profile = await prisma.userProfile.findFirst({
 					where: {
@@ -448,85 +448,85 @@ export class ChannelService {
         });
         if (!channelMember2 && action === 'invite') {
             await this.createChannelMember(username, channel_name, 'INVITED');
-            return 'User invited';
+            return {error: 'User invited'}
         }
 				else if (channelMember2 && channelMember2.MemberType === 'NOTMEMBER' && action === 'invite') {
 					await this.updateChannelMember(channelMember2.id, 'INVITED');
-					return 'User invited';
+					return {error: 'User invited'}
 				}
         else if (channelMember2) {
 						if (channelMember2.MemberType === 'OWNER' && ['kick', 'ban', 'mute'].includes(action))
-							return 'You cannot kick, ban or mute an owner'
+							return {error: 'You cannot kick, ban or mute an owner'}
             switch (action) {
                 case 'ban':
                     if (channelMember2.MemberType === 'BANNED') {
-                        return 'User is already banned';
+                        return {error: 'User is already banned'}
                     }
 										else if (!['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember2.MemberType))
-											return 'The user has to be a member to be banned'
+											return {error: 'The user has to be a member to be banned'}
                     await this.updateChannelMember(channelMember2.id, 'BANNED');
-                    return 'User banned';
+                    return {error: 'User banned'}
                 case 'mute':
                     if (channelMember2.MemberType === 'MUTED') {
-                        return 'User is already muted';
+                        return {error: 'User is already muted'}
                     }
 										else if (!['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember2.MemberType))
-											return 'The user has to be a member to be muted'
+											return {error: 'The user has to be a member to be muted'}
                     await this.updateChannelMember(channelMember2.id, 'MUTED');
-                    return 'User muted';
+                    return {error: 'User muted'}
                 case 'kick':
 										if (!['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember2.MemberType))
-											return 'The user has to be a member to be kicked out'
+											return {error: 'The user has to be a member to be kicked out'}
                     await this.updateChannelMember(channelMember2.id, 'NOTMEMBER');
-                    return 'User kicked';
+                    return {error: 'User kicked'}
                 case 'unban':
                     if (channelMember2.MemberType !== 'BANNED') {
-                        return 'User is not banned';
+                        return {error: 'User is not banned'}
                     }
                     await this.updateChannelMember(channelMember2.id, 'MEMBER');
-                    return 'User unbanned';
+                    return {error: 'User unbanned'}
                 case 'unmute':
                     if (channelMember2.MemberType !== 'MUTED') {
-                        return 'User is not muted';
+                        return {error: 'User is not muted'}
                     }
                     await this.updateChannelMember(channelMember2.id, 'MEMBER');
-                    return 'User unmuted';
+                    return {error: 'User unmuted'}
                 case 'accept':
                     if (channelMember2.MemberType !== 'REQUESTED') {
-                        return 'User is not requesting to join'
+                        return {error: 'User is not requesting to join'}
                     }
                     await this.updateChannelMember(channelMember2.id, 'MEMBER');
-                    return 'User accepted';
+                    return {error: 'User accepted'}
                 case 'reject':
                     if (channelMember2.MemberType !== 'REQUESTED') {
-                        return 'User is not requesting to join'
+                        return {error: 'User is not requesting to join'}
                     }
                     await this.updateChannelMember(channelMember2.id, 'NOTMEMBER');
-                    return 'User rejected';
+                    return {error: 'User rejected'}
                 case 'uninvite':
 										if (channelMember2.MemberType !== 'INVITED')
-											return 'User is not invited'
+											return {error: 'User is not invited'}
                     await this.updateChannelMember(channelMember2.id, 'NOTMEMBER');
-                    return 'User uninvited';
+                    return {error: 'User uninvited'}
                 case 'makeAdmin':
                     if (channelMember2.MemberType === 'OWNER' || channelMember2.MemberType === 'ADMIN') {
-                        return 'The user is already an admin';
+                        return {error: 'The user is already an admin'}
                     }
 										else if (channelMember2.MemberType !== 'MEMBER')
-											return 'The user is not a member in the channel'
+											return {error: 'The user is not a member in the channel'}
                     await this.updateChannelMember(channelMember2.id, 'ADMIN');
-                    return 'The user is now an admin';
+                    return {error: 'The user is now an admin'}
                 case 'makeUser':
 										if (!['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember2.MemberType))
-												return 'The user is not a member in the channel'
+												return {error: 'The user is not a member in the channel'}
                     await this.updateChannelMember(channelMember2.id, 'MEMBER');
                     return "The user's admin rights have been revoked";
                 default:
-                    return 'Invalid action';
+                    return {error: 'Invalid action'}
             }
         }
         else {
-            return 'Invalid action';
+            return {error: 'Invalid action'}
         }
     }
 
@@ -540,11 +540,11 @@ export class ChannelService {
             },
         });
         if (!channel || channel.type === 'NOTACTIVE') {
-            return 'Channel not found';
+            return {error: 'Channel not found'}
         }
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-            return 'User not found';
+            return {error: 'User not found'}
 					}
 					const channelMember = await prisma.channelMembers.findFirst({
 						where: {
@@ -560,62 +560,62 @@ export class ChannelService {
 					else if (channelMember.MemberType === 'NOTMEMBER')
 						this.updateChannelMember(channelMember.id, 'REQUESTED')
 					else
-						return 'The user cannot join this channel'
-					return 'A request to join the channel has been sent'
+						return {error: 'The user cannot join this channel'}
+					return {error: 'A request to join the channel has been sent'}
 				}
         if ((!channelMember || channelMember.MemberType === 'NOTMEMBER') && action === 'leave') {
-            return 'You are not a member of the channel';
+            return {error: 'You are not a member of the channel'}
         }
 				if ((!channelMember || channelMember.MemberType === 'NOTMEMBER') && action === 'cancel') {
-					return 'You did not request to join the channel';
+					return {error: 'You did not request to join the channel'}
 				}
 				else if (channelMember.MemberType === 'MEMBER' && action === 'join') {
-					return 'You are already a member in the channel';
+					return {error: 'You are already a member in the channel'}
 				}
         else if (channelMember.MemberType === 'BANNED') {
-					return 'You are banned from the channel';
+					return {error: 'You are banned from the channel'}
         }
         else if (channelMember.MemberType === 'MUTED') {
-					return 'You are muted in the channel';
+					return {error: 'You are muted in the channel'}
         }
         else if (channelMember.MemberType === 'REQUESTED' && !['join', 'cancel'].includes(action)) {
-					return 'You have a pending request to join the channel'
+					return {error: 'You have a pending request to join the channel'}
         }
 				else if (channelMember.MemberType !== 'REQUESTED' && action === 'cancel') {
-					return 'You did not request to join the channel'
+					return {error: 'You did not request to join the channel'}
         }
         else if (channelMember.MemberType === 'INVITED' && !['accept', 'reject'].includes(action)) {
-					return 'You are invited to the channel';
+					return {error: 'You are invited to the channel'}
         }
 				else if (channelMember.MemberType !== 'INVITED' && ['accept', 'reject'].includes(action)) {
-					return 'You are not invited to the channel';
+					return {error: 'You are not invited to the channel'}
 				}
         switch (action) {
             case 'join':
 							if (channel.type === 'PROTECTED'){
 								if (! await bcrypt.compare(password, channel.password))
-									return 'Wrong password'
+									return {error: 'Wrong password'}
 							}
 							if (channelMember.MemberType === 'NOTMEMBER') {
 								await this.updateChannelMember(channelMember.id, 'MEMBER');
-								return 'Joined channel';								
+								return {error: 'Joined channel'}
 							}
 							await this.createChannelMember(user.userProfile[0].username, name, 'MEMBER');
-							return 'Joined channel';
+							return {error: 'Joined channel'}
             case 'leave':
                 await this.updateChannelMember(channelMember.id, 'NOTMEMBER');
-                return 'Left channel';
+                return {error: 'Left channel'}
             case 'cancel':
                 await this.updateChannelMember(channelMember.id, 'NOTMEMBER');
-                return 'Cancelled request';
+                return {error: 'Cancelled request'}
             case 'accept':
                 await this.updateChannelMember(channelMember.id, 'MEMBER');
-                return 'Accepted invite';
+                return {error: 'Accepted invite'}
             case 'reject':
                 await this.updateChannelMember(channelMember.id, 'NOTMEMBER');
-                return 'Rejected invite';
+                return {error: 'Rejected invite'}
             default:
-                return 'Invalid action';
+                return {error: 'Invalid action'}
         }
     }
 }
