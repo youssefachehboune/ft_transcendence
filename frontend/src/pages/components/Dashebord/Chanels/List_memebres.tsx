@@ -1,14 +1,22 @@
-import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { VscSearch, VscSettingsGear } from "react-icons/vsc";
-import { AiOutlineArrowLeft, AiOutlineMessage } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineMessage, AiTwotoneDelete } from "react-icons/ai";
 import Memeber from "./memeber";
 import Chat_chanel from "./Chat_chanel";
+import {GrUpdate} from 'react-icons/gr'
+import { BsPersonFillAdd } from "react-icons/bs";
+import { HiOutlineBan } from "react-icons/hi";
+import React from "react";
+import Delete_chanel from "./delete_chanel";
+import Parameteradmin from "./parameteradmin";
 
 function List_memebres(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
     const [back , setback] = useState<boolean>(true)
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const handelsearchChanges = () =>
     {
         setsearchfriend(inputRef.current?.value);
@@ -32,8 +40,9 @@ function List_memebres(props: any) {
                                             <h1 onClick={() => props.setshowchanel(false)} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center">
-                                            <button className={`self-end absolute mr-[30px] xl:mr-[50px] mt-[25px] ${back ? "xl:hidden" : ""} `}><VscSettingsGear className="hovring w-[18px] h-[18px]"/></button>
                                             <button onClick={() => setback(true)} className={`self-end absolute mt-[25px] mr-[20px] ${back ? "hidden" : ""} `}><AiOutlineMessage className="hovring w-[18px] h-[18px]"/></button>
+                                            <Parameteradmin back={back} onOpen={onOpen}/>
+                                            <Delete_chanel isOpen={isOpen} onClose={onClose}/>
                                             <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
                                                 <div className="mr-[-5px]">
                                                     <VscSearch className="w-[12px] h-[12px]" color="white" />

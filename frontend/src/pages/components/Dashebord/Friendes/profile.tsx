@@ -20,12 +20,14 @@ function Profile({data, dataisloded, showprofile, setdataisloded} : Profile) {
     const [ErrorBio, setErrorBio] = useState<string>("")
     const [location, setlocation] = useState<string>('')
     const [avatar, setavatar] = useState<string>('')
+    const [Erroravatar, setErroravatar] = useState<string>("")
     const onopen = () => 
     {
         setusername(data.username)
         setBio(data.info?.bio)
         setlocation(data.info?.location)
         setavatar(data.avatar)
+        setErroravatar("")
         setErrorusername("")
         setErrorBio("")
         onOpen()
@@ -108,7 +110,7 @@ function Profile({data, dataisloded, showprofile, setdataisloded} : Profile) {
                                     </div>
                         </div>
                     </div>
-                    <Edite_profile isOpen={isOpen} onOpen={onOpen} onClose={onClose} data={data} username={username} setusername={setusername} Errorusername={Errorusername} setErrorusername={setErrorusername} Bio={Bio}
+                    <Edite_profile Erroravatar={Erroravatar} setErroravatar={setErroravatar} isOpen={isOpen} onOpen={onOpen} onClose={onClose} data={data} username={username} setusername={setusername} Errorusername={Errorusername} setErrorusername={setErrorusername} Bio={Bio}
                      setBio={setBio} ErrorBio={ErrorBio} setErrorBio={setErrorBio} location={location} setlocation={setlocation} avatar={avatar} setavatar={setavatar} setdataisloded={setdataisloded}/>
         </div>
     );

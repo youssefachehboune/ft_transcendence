@@ -3,6 +3,9 @@ import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect} from "react";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
 import { io } from "socket.io-client";
+import {IoMdOptions} from 'react-icons/io'
+import { BsPersonFillSlash } from "react-icons/bs";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 
 var socket : any;
 function Chat_chanel({back, chanel, data}: any) {
@@ -16,7 +19,6 @@ function Chat_chanel({back, chanel, data}: any) {
         message: string;
     }[]>([]);
     const containerRef = useRef<HTMLDivElement>(null);
-
 
     useEffect(() => {
         const fetchchat = async () =>
