@@ -83,17 +83,17 @@ export default function NavBar(props : any) {
                                 }
                             </div>
                             <div className="relative w-[100px] h-[71px] flex items-center ">
-                                <div onClick={() => {handleClick(lastkey); props.onOpen()}} className={`${(lastkey) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center `}>
-                                    <BsPlus color="white" className="Add_icon"/>
+                                <div onClick={() => handleClick(lastkey)} className={`${(lastkey) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center `}>
+                                    <BiSearch color="white" />
                                 </div>
                                 <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${lastkey === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>
                                 </div>
                             </div>
                             <div className="relative w-[100px] h-[71px] flex items-center ">
-                                <div onClick={() => handleClick(LastKeyPlus)} className={`${(LastKeyPlus) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center `}>
+                                <div onClick={() => {handleClick(LastKeyPlus); props.onOpen()}} className={`${(LastKeyPlus) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center `}>
                                     <BsPlus color="white" className="Add_icon"/>
                                 </div>
-                                <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${(LastKeyPlus) === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>
+                                <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${LastKeyPlus === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>
                                 </div>
                             </div>
                         </div>

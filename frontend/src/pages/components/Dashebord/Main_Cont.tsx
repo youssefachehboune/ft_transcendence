@@ -1,7 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TopPlayer from "./TopPlayer";
 
 export default function Main() {
+    const [data, setData] = useState<any>([]);
+    useEffect(() => {
+        const fetchData = async () => {
+            const topPlayers = await fetch('http://localhost:3000/top-player', { credentials: "include" });
+            const topPlayersData = await topPlayers.json();
+            setData(topPlayersData);
+        };
+        fetchData();
+    }, []);
     const [isShow, setIsShow] = useState<boolean>(false);
     function handlePlayClick()
     {
@@ -58,11 +67,14 @@ export default function Main() {
                                     laptop:w-[100%] laptop:h-[100%]
                                     Large-phone:w-[100%]
                                     phone:w-[100%] phone:h-[100%]
-
                                     ">
-                                    <TopPlayer avatar="mbjaghou.jpeg" name="Mohamed Bjaghou" username="mbjaghou" rank={1} />
-                                    <TopPlayer avatar="iconAch.jpeg" name="Mohamed Bjaghou" username="mbjaghou" rank={2} />
-                                    <TopPlayer avatar="profil.png" name="Mohamed Bjaghou" username="mbjaghou" rank={3} />
+                                        {
+                                            data.map((item: any, key: number) => {
+                                                return (
+                                                    <TopPlayer key={key} avatar={item.avatar} name={(item.firstName + ' ' + item.lastName)} username={item.username} rank={key + 1} />
+                                                )
+                                            })
+                                        }
                                     </div>
                             </div>
                         </div>

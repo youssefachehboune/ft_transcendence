@@ -3,6 +3,7 @@ interface TopPlayerProps {
     name: string;
     username: string;
     rank: number;
+    key: number;
 }
 
 export default function TopPlayer(props : TopPlayerProps) {
