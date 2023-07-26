@@ -3,6 +3,16 @@ import { Request } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { ChannelDTO } from './channel.dto';
 import * as bcrypt from 'bcrypt';
+import {v2 as cloudinary} from 'cloudinary';
+import { config } from 'dotenv';
+
+config();
+
+cloudinary.config({ 
+  cloud_name: 'dlubm2sog', 
+  api_key: process.env.CLOUDINARY_KEY, 
+  api_secret: process.env.CLOUDINARY_SECRET
+});
 
 const prisma = new PrismaClient();
 @Injectable()
@@ -271,27 +281,29 @@ export class ChannelService {
         }
         const user = await this.searchUserById(req.user['id']);
         if (!user) {
-            return 'User not found';
+					return 'User not found';
         }
         const channelex = await prisma.channel.findUnique({
-            where: {
-                name: data.name,
-            },
+					where: {
+						name: data.name,
+					},
         });
         if (channelex && name !== data.name) {
-            return 'Channel name already exists';
+					return 'Channel name already exists';
         }
         const channelMember = await prisma.channelMembers.findFirst({
-            where: {
-								user_id: user.id,
-                Channel: {
-									name: name
-								}
-            },
+					where: {
+						user_id: user.id,
+						Channel: {
+							name: name
+						}
+					},
         });
         if (!channelMember || channelMember.MemberType !== 'OWNER') {
-            return 'Only the owner can modify the channel';
+					return 'Only the owner can modify the channel';
         }
+				if (data.avatar.length > 500)
+					data.avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: "avatar" } )).url;
 				const hashedPassword = await bcrypt.hash(data.password, 10);
         const updatedChannel = await prisma.channel.update({
             where: {

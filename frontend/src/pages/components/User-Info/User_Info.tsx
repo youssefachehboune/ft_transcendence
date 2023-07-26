@@ -28,7 +28,7 @@
 	const [data, setdata] = useState<any>('');
 	const return_avatar = data.avatar;
 	const avatar = state.selectedAvatar ? state.selectedAvatar : return_avatar;
-	const MAX_IMAGE_SIZE = 80000; //80kb
+	const MAX_IMAGE_SIZE = 5242880; //5mb
 	const [formData, setFormData] = useState<FormData>({
 		name: "",
 		bio: "",
