@@ -28,7 +28,7 @@ key, en, fr
 "USER_MAX_CHARACTER", "Username can contain 15 characters maximum", "Nom d'utilisateur: 15 caractères max."
 "BIO_ALPHANUMERIC", "bio must only contain alphanumeric characters", "Bio d'utilisateur: caractères alphanumériques uniquement."
 "BIO_MAX_CHARACTER", "Bio can contain 200 characters maximum", "Bio d'utilisateur: 200 caractères max."
-"LARGE_IMG", "the image is too large: max size(80kb)", "l'image est trop grande : taille maximale (80 ko)"
+"LARGE_IMG", "the image is too large: max size(5 mb)", "l'image est trop grande : taille maximale (5 mb)"
 "AUTH_TEXT1", "Two-Factor", "Authentification"
 "AUTH_TEXT2", "Authentication", "à deux facteurs"
 "GENERATE_P", "You need to scan this QR Code with your google Authentication App and enter the verification code bellow", "Vous devez scanner ce code QR avec votre application d'authentification Google et saisir le code de vérification ci-dessous"
