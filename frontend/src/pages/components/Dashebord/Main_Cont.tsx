@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import TopPlayer from "./TopPlayer";
 import LasMatches from "./LasMatches";
+import AchievComp from "./AchievComp";
 export default function Main() {
     const [data, setData] = useState<any>([]);
     useEffect(() => {
@@ -84,10 +85,9 @@ export default function Main() {
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Last achievements</h1>
                         <div className="par_hover">
-                            <div className="w-full h-full bg-white">
-                                <div className="w-[50%] h-[40%] bg-orange flex items-center justify-center">
-                                        
-                                </div>
+                            <div className="w-full h-full flex flex-col justify-between">
+                                <AchievComp title="Perfect Game" description="Win 3 matches without allowing the opponent to score a single point." reward={1000}/>
+                                <AchievComp title="Perfect Game" description="Win 3 matches without allowing the opponent to score a single point." reward={1000}/>
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@ export default function Main() {
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Play a game</h1>
                         <div className="par_hover">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+                            <p className="pa">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
                         </div>
                     </div>
                 </div>

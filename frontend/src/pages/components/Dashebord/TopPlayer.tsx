@@ -29,7 +29,8 @@ export default function TopPlayer(props : TopPlayerProps) {
                                                 2xl:w-[23px] 2xl:h-[23px]
                                                 xl:w-[24px] xl:h-[24px]
                                                 laptop:w-[22px] laptop:h-[22px]
-                                                phone:w-[18px] phone:h-[18px]
+                                                Large-phone:w-[14px] Large-phone:h-[14px]
+                                                phone:w-[14px] phone:h-[14px]
                                                 "/>
                                             </div>
                                             <div className="w-[62%] h-[85%] flex flex-col justify-between
