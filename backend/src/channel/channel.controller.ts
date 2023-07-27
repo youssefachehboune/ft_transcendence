@@ -44,6 +44,14 @@ export class ChannelController {
     }
 
     @UseGuards(JwtGuard)
+    @Get(':channel_name/:type')
+    @ApiParam({ name: 'channel_name', type: String })
+    @ApiParam({ name: 'type', enum: ['INVITED', 'BANNED'], type: String })
+    async getInvitedOrBannedUsers(@Req() req: Request, @Param('channel_name') channel_name: string, @Param('type') type: 'INVITED' | 'BANNED') {
+        return await this.channelService.getInvitedOrBannedUsers(req, channel_name, type);
+    }
+
+    @UseGuards(JwtGuard)
     @Post('create')
     async createChannel(@Req() req: Request, @Body() channelDto: ChannelDTO) {
         return await this.channelService.createChannel(req, channelDto);

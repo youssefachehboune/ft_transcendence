@@ -17,6 +17,32 @@ cloudinary.config({
 const prisma = new PrismaClient();
 @Injectable()
 export class ChannelService {
+    async getInvitedOrBannedUsers(@Req() req: Request, name: string, type: 'INVITED' | 'BANNED') {
+        const channel = await prisma.channel.findUnique({
+            where: {
+                name: name
+            }
+        });
+        const channelMembers = await prisma.channelMembers.findMany({
+            where: {
+                channel_id: channel.id,
+                MemberType: type
+            }
+        });
+        return await Promise.all(channelMembers.map( async (member) => {
+            const profile = await prisma.userProfile.findFirst({
+                where: {
+                    user_id: member.user_id
+                }
+            });
+            return {
+                username: profile.username,
+                firstName: profile.firstName,
+                lastName: profile.lastName,
+                avatar: profile.avatar
+            }
+        }))
+    }
 
     async searchUserById(id: number) {
         return await prisma.user.findUnique({
@@ -365,7 +391,7 @@ export class ChannelService {
 							type: 'NOTACTIVE'
 						}
         });
-        return {error: 'Channel deleted'}
+        return {success: 'Channel deleted'}
     }
 
     async createChannelMember(username: string, channel_name: string, memberType: 'MEMBER' | 'REQUESTED' | 'INVITED') {

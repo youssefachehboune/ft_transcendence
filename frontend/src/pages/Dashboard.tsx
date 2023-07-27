@@ -42,6 +42,8 @@ function Dashebord() {
     const [chanel, setchanel] = useState<any>()
     const [channelloding, setchannelloding] = useState<boolean>(false)
     const [mumeberschannelloding, setmumeberschannelloding] = useState<boolean>(false)
+    const [invitationList, setinvitationList] = useState<any>()
+    const [banList, setbanList] = useState<any>()
     useEffect(() => {
       if (!showchatsection)
       {
@@ -83,7 +85,7 @@ function Dashebord() {
           }
         };
         fetchData();
-        const interval = setInterval(fetchData, 5000);
+        const interval = setInterval(fetchData, 2000);
         return () => clearInterval(interval);
 
       }, []);
@@ -104,7 +106,7 @@ function Dashebord() {
 
             {main && !showchatsection && !showchanel && <Main/>}
             <div className="chanel">
-              <NavBar setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
+              <NavBar setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
               mychanel={mychanel} socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
             </div>
             {!showchatsection && !showchanel &&
@@ -127,7 +129,7 @@ function Dashebord() {
             {!showAchievements && !showchatsection && !showchanel && <Achievements/>}
             {!Friend && !showchatsection && !showchanel && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
-            {showchanel && <List_memebres mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data ={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
+            {showchanel && <List_memebres invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
             <Createchanel isOpen={isOpen} onClose={onClose}/>
         </div>
      );

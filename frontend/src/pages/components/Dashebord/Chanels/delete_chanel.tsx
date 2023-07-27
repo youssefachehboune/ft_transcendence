@@ -1,7 +1,7 @@
 import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 
-function Delete_chanel({onClose, isOpen} : any) {
+function Delete_chanel({setshowchanel, onClose, isOpen, chanel} : any) {
     const cancelRef = React.useRef(null)
     return ( 
         <AlertDialog
@@ -9,7 +9,6 @@ function Delete_chanel({onClose, isOpen} : any) {
         leastDestructiveRef={cancelRef}
         onClose={onClose}
         isOpen={isOpen}
-        isCentered
     >
         <AlertDialogOverlay />
 
@@ -23,7 +22,11 @@ function Delete_chanel({onClose, isOpen} : any) {
                     <Button ref={cancelRef} onClick={onClose}>
                     No
                     </Button>
-                    <Button colorScheme='red' ml={3}>
+                    <Button colorScheme='red' ml={3} onClick={() =>
+                    {
+                        fetch('http://localhost:3000/channel/delete/' + chanel.name, {credentials: "include",method: 'PUT',}).then(() => {setshowchanel(false);onClose()})
+                    }
+                    }>
                     Yes
                     </Button>
                 </AlertDialogFooter>

@@ -39,6 +39,8 @@ export default function NavBar(props : any) {
                                                     props.setchannelloding(true)
                                                     props.setmumeberschannelloding(false)
                                                     fetch(`http://localhost:3000/channel/${item.name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmemebers(data); props.setmumeberschannelloding(true)})
+                                                    fetch('http://localhost:3000/channel/' + item.name + '/BANNED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setbanList(data)})
+                                                    fetch('http://localhost:3000/channel/' + item.name + '/INVITED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setinvitationList(data)})
                                                     fetch(`http://localhost:3000/channel/${item.name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setchanel(data); props.setchannelloding(false) })
                                                     }} 
                                                     className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>

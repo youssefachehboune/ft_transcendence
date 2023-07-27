@@ -4,8 +4,7 @@ import { FaBan, FaGamepad } from "react-icons/fa";
 import { VscUnmute } from "react-icons/vsc";
 import {TbUserCancel} from 'react-icons/tb'
 
-function Memeber({index, user}: any) {
-
+function Memeber({data, index, user}: any) {
     return ( 
         <div key={index} className="min-h-[61px] flex items-center">
         <button className={`w-[80%] flex items-center justify-center rounded-l-[6px]`}>
@@ -19,7 +18,7 @@ function Memeber({index, user}: any) {
             </div>
         </button>
         {
-            user.type == "MEMBER" ?
+           user.type == "MEMBER" ?
             (
                 <Menu>
                     <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">
@@ -34,7 +33,7 @@ function Memeber({index, user}: any) {
                         <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
                     </MenuList>
                 </Menu>
-            ): user.type == "ADMIN"?
+            ): user.type == "ADMIN" ?
             (
                 <Menu>
                 <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">

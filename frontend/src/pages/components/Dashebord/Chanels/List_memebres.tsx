@@ -10,13 +10,18 @@ import { HiOutlineBan } from "react-icons/hi";
 import React from "react";
 import Delete_chanel from "./delete_chanel";
 import Parameteradmin from "./parameteradmin";
+import List_of_invitation from "./List_of_invitation";
+import List_of_Ban from "./List_of_Ban";
 
 function List_memebres(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
     const [back , setback] = useState<boolean>(true)
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen: ismodel, onOpen: openmodule, onClose: closemodule } = useDisclosure()
+    const { isOpen: isinvitation, onOpen: openlistinvitation, onClose: closelistinvitation } = useDisclosure()
+    const { isOpen: isban, onOpen: openbanlist, onClose: closebanlist } = useDisclosure()
+
     const handelsearchChanges = () =>
     {
         setsearchfriend(inputRef.current?.value);
@@ -32,6 +37,7 @@ function List_memebres(props: any) {
         window.removeEventListener('resize', handleResize);
         };
     }, [back]);
+
     return ( 
             <div className="Chat flex items-end">
                 <div className={`w-[40%] h-[100%] ${back ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} test5 ml-2`}>
@@ -39,10 +45,12 @@ function List_memebres(props: any) {
                                         <button className="bg-[#070012] w-[100%] flex cursor-auto">
                                             <h1 onClick={() => props.setshowchanel(false)} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
                                         </button>
-                                        <div className="w-[100%] h-auto flex flex-col items-center">
+                                        <div className="w-[100%] h-auto flex flex-col items-center relative">
                                             <button onClick={() => setback(true)} className={`self-end absolute mt-[25px] mr-[20px] ${back ? "hidden" : ""} `}><AiOutlineMessage className="hovring w-[18px] h-[18px]"/></button>
-                                            <Parameteradmin back={back} onOpen={onOpen}/>
-                                            <Delete_chanel isOpen={isOpen} onClose={onClose}/>
+                                            <Parameteradmin data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
+                                            <Delete_chanel setshowchanel={props.setshowchanel} chanel={props.chanel} isOpen={ismodel} onClose={closemodule}/>
+                                            <List_of_invitation invitationList={props.invitationList} isOpen={isinvitation} onClose={closelistinvitation}/>
+                                            <List_of_Ban banList={props.banList} isOpen={isban} onClose={closebanlist}/>
                                             <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
                                                 <div className="mr-[-5px]">
                                                     <VscSearch className="w-[12px] h-[12px]" color="white" />
@@ -72,7 +80,7 @@ function List_memebres(props: any) {
                                                 }
                                                 {
                                                     props.mumeberschannelloding && props.memebers?.map((user: any, index: number) => (
-                                                        <Memeber user={user} index={index}/>
+                                                        <Memeber data={props.data} user={user} index={index}/>
                                                     ))
                                                 }
                                             </div>
