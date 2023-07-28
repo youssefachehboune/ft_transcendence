@@ -20,18 +20,18 @@ export default function AchievComp(props : AchievementProps) {
                                                 <h1 className="text-white text-[9px] font-sora font-regular leading-normal
                                                 2xl:text-[7px]
                                                 xl:text-[7px]
-                                                laptop:text-[6px]
+                                                laptop:text-[5px]
                                                 Large-phone:text-[5px]
-                                                phone:text-[4px]
+                                                phone:text-[5px]
                                                 ">
                                                     {props.title}
                                                 </h1>
                                                 <p className="text-[#FFFFFF80] font-sora font-regulat text-[5px] leading-normal tracking-[0.025px] mt-2
-                                                2xl:text-[4px]
-                                                xl:text-[4px]
-                                                laptop:text-[3px]
-                                                Large-phone:text-[2px]
-                                                phone:text-[2px]
+                                                2xl:text-[5px]
+                                                xl:text-[5px]
+                                                laptop:text-[5px]
+                                                Large-phone:text-[5px]
+                                                phone:text-[3px]
                                                 ">
                                                     {props.description}
                                                 </p>
@@ -40,8 +40,8 @@ export default function AchievComp(props : AchievementProps) {
                                         2xl:text-[4px]
                                         xl:text-[4px]
                                         laptop:text-[3px] 
-                                        Large-phone:text-[2px] Large-phone:top-1 Large-phone:right-1
-                                        phone:text-[2px] phone:top-1 phone:right-1
+                                        Large-phone:text-[3px] Large-phone:top-1 Large-phone:right-1
+                                        phone:text-[3px] phone:top-1 phone:right-1
                                         ">+{props.reward} px</h1>
         </div>
 
