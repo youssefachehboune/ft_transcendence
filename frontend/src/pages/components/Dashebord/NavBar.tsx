@@ -70,7 +70,7 @@ export default function NavBar(props : any) {
                                 {
                                     data.map((item : IconNavBarProps, key : any) => {
                                         return (
-                                            <div className="relative w-[100px] h-[71px] flex items-center ">
+                                            <div key={key} className="relative w-[100px] h-[71px] flex items-center ">
                                                 <div onClick={() => handleClick(key + 1)} className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[${item.color}] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
                                                         <img src={item.image} className="" alt="" />
                                                 </div>

@@ -16,7 +16,7 @@ import React from "react";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
 import Createchanel from "./components/Dashebord/createchanel/createchanel";
 import { io } from "socket.io-client";
-
+import GameSection from "./components/Dashebord/Game";
 function Dashebord() {
   var check = true;
   var socket: any;
@@ -24,7 +24,8 @@ function Dashebord() {
   
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
     const [showAchievements, setshowAchievements] = useState<boolean>(true);
-    const [Friend, setFriends] = useState<boolean>(true)
+    const [Friend, setFriends] = useState<boolean>(true);
+    const [Gameview, setGame] = useState<boolean>(true);
     const [main, setmain] = useState<boolean>(true)
     const [dataisloded, setdataisloded] =  useState<boolean>(false)
     const [ListFriends, setListFriends] = useState<any>();
@@ -97,11 +98,11 @@ function Dashebord() {
                     <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                         <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaCompass} text={"Home"}/>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={BsFillPeopleFill} text={"Friends"}/>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={BsClockFill} text={"History"}/>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaMedal} text={"Achievements"}/>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaGamepad} text={"Game"}/>
+                        <Expolore setmain={setmain} setGame={setGame} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaCompass} text={"Home"}/>
+                        <Expolore setmain={setmain} setGame={setGame} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={BsFillPeopleFill} text={"Friends"}/>
+                        <Expolore setmain={setmain} setGame={setGame} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={BsClockFill} text={"History"}/>
+                        <Expolore setmain={setmain} setGame={setGame} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaMedal} text={"Achievements"}/>
+                        <Expolore setmain={setmain} setGame={setGame} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaGamepad} text={"Game"}/>
                         </div>
                     </div>
 
@@ -112,6 +113,7 @@ function Dashebord() {
             {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && <Achievements/>}
             {!Friend && !showchatsection && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
+            {!Gameview && <GameSection/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
             <Createchanel isOpen={isOpen} onClose={onClose}/>
         </div>
