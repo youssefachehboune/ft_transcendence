@@ -20,6 +20,7 @@ module.exports = {
 
       },
       textColor: {
+		
         'my-text' : '#F5F5F5',
       },
       backgroundImage: {
