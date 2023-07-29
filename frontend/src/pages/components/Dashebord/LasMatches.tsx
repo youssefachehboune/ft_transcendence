@@ -19,7 +19,10 @@ export default function LasMatches(props : LastMatchesProps) {
                                                     2xl:w-[24px] 2xl:h-[24px] xl:w-[24px] xl:h-[24px] laptop:w-[22px] laptop:h-[22px] phone:w-[14px] phone:h-[14px]
                                                     "/>
                                                 </div>
-                                                <div className="h-[100%] w-[73%]  flex flex-col justify-between items-start">
+                                                <div className="h-[100%] w-[73%]  flex flex-col justify-between items-start
+                                                                                                Large-phone:h-[65%]
+                                                                                                phone:h-[65%]
+                                                ">
                                                     <h1 className="font-sora text-[8px] font-bold text-[#fff] tracking-[0.36px] 
                                                     2xl:text-[6px]
                                                     xl:text-[6px]
@@ -29,9 +32,9 @@ export default function LasMatches(props : LastMatchesProps) {
                                                         {props.name1}
                                                     </h1>
                                                     <h1 className="font-sora font-regular text-[8px] text-[#969696]
-                                                    2xl:text-[9px]
-                                                    xl:text-[9px]
-                                                    laptop:text-[8px]
+                                                    2xl:text-[7px]
+                                                    xl:text-[7px]
+                                                    laptop:text-[6px]
                                                     phone:text-[4px]
                                                     ">
                                                         @{props.username1}
@@ -46,22 +49,25 @@ export default function LasMatches(props : LastMatchesProps) {
                                                 phone:text-[7px]">{props.score1 + '  :  ' + props.score2}</h1>
                                             </div>
                                             <div className="w-[42%] h-[100%]  flex items-center justify-center">
-                                                <div className="h-[100%] w-[73%] flex flex-col justify-between items-end">
+                                                <div className="h-[100%] w-[73%] flex flex-col justify-between items-end
+                                                Large-phone:h-[65%]
+                                                phone:h-[65%]
+                                                ">
                                                     <h1 className="font-sora text-[8px] font-bold text-[#fff] tracking-[0.36px] items-end
-                                                    2xl:text-[6px]
-                                                    xl:text-[6px]
+                                                    2xl:text-[7px]
+                                                    xl:text-[7px]
                                                     laptop:text-[5px]
                                                     phone:text-[3px]
                                                     ">
                                                         {props.name2}
                                                     </h1>
                                                     <h1 className="font-sora font-regular text-[8px] text-[#969696]
-                                                    2xl:text-[9px]
-                                                    xl:text-[9px]
-                                                    laptop:text-[8px]
+                                                    2xl:text-[7px]
+                                                    xl:text-[7px]
+                                                    laptop:text-[6px]
                                                     phone:text-[4px]
                                                     ">
-                                                        @{props.username2}
+                                                        @{props.username2}  
                                                     </h1>
                                                 </div>
                                                 <div className="w-[27%] h-[100%]  flex items-center justify-center">
