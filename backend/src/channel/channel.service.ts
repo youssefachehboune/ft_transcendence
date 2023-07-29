@@ -17,7 +17,27 @@ cloudinary.config({
 const prisma = new PrismaClient();
 @Injectable()
 export class ChannelService {
-    async getInvitedOrBannedUsers(@Req() req: Request, name: string, type: 'INVITED' | 'BANNED') {
+    async getMemberType(channel_name: string, username: string) {
+        try {
+            const profile = await prisma.userProfile.findUnique({
+                where: { username }
+            });
+            const channel = await prisma.channel.findUnique({
+                where: { name: channel_name }
+            });
+            const member = await prisma.channelMembers.findFirst({
+                where: {
+                    channel_id: channel.id,
+                    user_id: profile.user_id
+                }
+            });
+            return member.MemberType;
+        } catch (err) {
+            return null;
+        }
+    }
+
+    async getSpecificUsers(@Req() req: Request, name: string, type: 'INVITED' | 'BANNED' | 'MUTED') {
         const channel = await prisma.channel.findUnique({
             where: {
                 name: name
@@ -197,7 +217,12 @@ export class ChannelService {
             where: {
                 Channel: {
 									name: name
-								}
+								},
+                OR: [
+                    { MemberType: 'ADMIN' },
+                    { MemberType: 'OWNER' },
+                    { MemberType: 'MEMBER' },
+                ]
             },
             include: {
                 User: {

@@ -12,6 +12,8 @@ import Delete_chanel from "./delete_chanel";
 import Parameteradmin from "./parameteradmin";
 import List_of_invitation from "./List_of_invitation";
 import List_of_Ban from "./List_of_Ban";
+import Add_mumber from "./add_mumber";
+import MutedList from "./MutedList";
 
 function List_memebres(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -21,6 +23,9 @@ function List_memebres(props: any) {
     const { isOpen: ismodel, onOpen: openmodule, onClose: closemodule } = useDisclosure()
     const { isOpen: isinvitation, onOpen: openlistinvitation, onClose: closelistinvitation } = useDisclosure()
     const { isOpen: isban, onOpen: openbanlist, onClose: closebanlist } = useDisclosure()
+    const { isOpen: isaddmember, onOpen: openaddmember, onClose: closeaddmember } = useDisclosure()
+    const { isOpen: ismuted, onOpen: openmuted, onClose: closemuted } = useDisclosure()
+
 
     const handelsearchChanges = () =>
     {
@@ -47,10 +52,12 @@ function List_memebres(props: any) {
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center relative">
                                             <button onClick={() => setback(true)} className={`self-end absolute mt-[25px] mr-[20px] ${back ? "hidden" : ""} `}><AiOutlineMessage className="hovring w-[18px] h-[18px]"/></button>
-                                            <Parameteradmin data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
+                                            <Parameteradmin openmuted={openmuted} openaddmember={openaddmember} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
                                             <Delete_chanel setshowchanel={props.setshowchanel} chanel={props.chanel} isOpen={ismodel} onClose={closemodule}/>
-                                            <List_of_invitation invitationList={props.invitationList} isOpen={isinvitation} onClose={closelistinvitation}/>
+                                            <List_of_invitation chanel={props.chanel} invitationList={props.invitationList} isOpen={isinvitation} onClose={closelistinvitation}/>
                                             <List_of_Ban banList={props.banList} isOpen={isban} onClose={closebanlist}/>
+                                            <Add_mumber memebers={props.memebers} ListFriends={props.ListFriends} isOpen={isaddmember} onClose={closeaddmember}/>
+                                            <MutedList mutedList={props.mutedList} MutedList={props.MutedList} isOpen={ismuted} onClose={closemuted}/>
                                             <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
                                                 <div className="mr-[-5px]">
                                                     <VscSearch className="w-[12px] h-[12px]" color="white" />
@@ -80,7 +87,7 @@ function List_memebres(props: any) {
                                                 }
                                                 {
                                                     props.mumeberschannelloding && props.memebers?.map((user: any, index: number) => (
-                                                        <Memeber data={props.data} user={user} index={index}/>
+                                                            <Memeber chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
                                                     ))
                                                 }
                                             </div>

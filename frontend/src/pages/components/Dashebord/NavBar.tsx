@@ -1,5 +1,5 @@
 import { BsPlus } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCompass } from 'react-icons/fa'
 import Link from "next/link";
 import IconNavBar from "./IconNavBar";
@@ -13,6 +13,21 @@ export default function NavBar(props : any) {
         setIsShow(index === activeIndex ? false : true);
         setActiveIndex(index === activeIndex ? null : index);
     };
+
+    const fetchdata = (item: any) => 
+    {
+            props.setshowchatsection(false); 
+            props.setshowchanel(true); 
+            props.setchannelloding(true)
+            props.setmumeberschannelloding(false)
+            fetch(`http://localhost:3000/channel/${item.name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmemebers(data)}).then(() => 
+            fetch(`http://localhost:3000/channel/type/${item.name}/${props.data.username}`, { credentials: "include" }).then((resp) => {return resp.text();}).then((data) => {props.settypememeber(data); props.setmumeberschannelloding(true)})
+            )
+            fetch('http://localhost:3000/channel/' + item.name + '/BANNED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setbanList(data)})
+            fetch('http://localhost:3000/channel/' + item.name + '/INVITED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setinvitationList(data)})
+            fetch('http://localhost:3000/channel/' + item.name + '/MUTED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmutedList(data)})
+            fetch(`http://localhost:3000/channel/${item.name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setchanel(data); props.setchannelloding(false) })
+    }
     return (
             <div className=" h-[100%] w-[100%] flex items-center justify-end relative">
                     <Link  href={'/'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none absolute left-0 top-0"/></Link>
@@ -35,14 +50,7 @@ export default function NavBar(props : any) {
                                     props.mychanel?.map((item: any, key : any) => {
                                         return (
                                             <div className="relative w-[100px] h-[71px] flex items-center ">
-                                                <div onClick={() => {handleClick(key + 1);props.setshowchatsection(false); props.setshowchanel(true); 
-                                                    props.setchannelloding(true)
-                                                    props.setmumeberschannelloding(false)
-                                                    fetch(`http://localhost:3000/channel/${item.name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmemebers(data); props.setmumeberschannelloding(true)})
-                                                    fetch('http://localhost:3000/channel/' + item.name + '/BANNED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setbanList(data)})
-                                                    fetch('http://localhost:3000/channel/' + item.name + '/INVITED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setinvitationList(data)})
-                                                    fetch(`http://localhost:3000/channel/${item.name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setchanel(data); props.setchannelloding(false) })
-                                                    }} 
+                                                <div onClick={() => {handleClick(key + 1), fetchdata(item)}}
                                                     className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
                                                         <img src={item.avatar} className="" alt="" />
                                                 </div>

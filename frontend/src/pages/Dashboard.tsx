@@ -14,7 +14,7 @@ import ChatFriends from "./components/Dashebord/Chat/ChatFriends";
 import Chat from "./components/Dashebord/Chat/Chat";
 import React from "react";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
-import Createchanel from "./components/Dashebord/createchanel/createchanel";
+import Createchanel from "./components/Dashebord/Chanels/createchanel/createchanel";
 import { io } from "socket.io-client";
 import List_memebres from "./components/Dashebord/Chanels/List_memebres";
 
@@ -44,6 +44,8 @@ function Dashebord() {
     const [mumeberschannelloding, setmumeberschannelloding] = useState<boolean>(false)
     const [invitationList, setinvitationList] = useState<any>()
     const [banList, setbanList] = useState<any>()
+    const [mutedList, setmutedList] = useState<any>()
+    const [typememeber, settypememeber] = useState<any>()
     useEffect(() => {
       if (!showchatsection)
       {
@@ -106,7 +108,7 @@ function Dashebord() {
 
             {main && !showchatsection && !showchanel && <Main/>}
             <div className="chanel">
-              <NavBar setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
+              <NavBar setmutedList={setmutedList} data={data} settypememeber={settypememeber} setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
               mychanel={mychanel} socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
             </div>
             {!showchatsection && !showchanel &&
@@ -129,7 +131,7 @@ function Dashebord() {
             {!showAchievements && !showchatsection && !showchanel && <Achievements/>}
             {!Friend && !showchatsection && !showchanel && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
-            {showchanel && <List_memebres invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
+            {showchanel && <List_memebres ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
             <Createchanel isOpen={isOpen} onClose={onClose}/>
         </div>
      );

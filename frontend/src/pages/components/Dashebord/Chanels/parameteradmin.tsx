@@ -5,7 +5,7 @@ import { GrUpdate } from "react-icons/gr";
 import { HiOutlineBan } from "react-icons/hi";
 import { VscSettingsGear } from "react-icons/vsc";
 
-function Param({openbanlist, data, user, index, onOpen, back, openlistinvitation}: any)
+function Param({openmuted, openaddmember, openbanlist, data, user, index, onOpen, back, openlistinvitation}: any)
 {
     return (
         data?.username == user.username && user.type == "MEMBER" ? (
@@ -27,11 +27,14 @@ function Param({openbanlist, data, user, index, onOpen, back, openlistinvitation
                         <MenuItem onClick={openlistinvitation} icon={<BsPersonFillAdd />}>
                         invitation list
                         </MenuItem>
-                        <MenuItem icon={<BsPersonFillAdd />}>
+                        <MenuItem onClick={openaddmember} icon={<BsPersonFillAdd />}>
                         add member
                         </MenuItem>
                         <MenuItem onClick={openbanlist} icon={<HiOutlineBan />}>
                         list of ban
+                        </MenuItem>
+                        <MenuItem onClick={openmuted} icon={<HiOutlineBan />}>
+                        muted list
                         </MenuItem>
                         <MenuItem icon={<BsPersonFillSlash />}>leave</MenuItem>
                     </MenuList>
@@ -49,11 +52,14 @@ function Param({openbanlist, data, user, index, onOpen, back, openlistinvitation
                         <MenuItem onClick={openlistinvitation} icon={<BsPersonFillAdd />}>
                         invitation list
                         </MenuItem>
-                        <MenuItem icon={<BsPersonFillAdd />}>
+                        <MenuItem onClick={openaddmember} icon={<BsPersonFillAdd />}>
                         add member
                         </MenuItem>
                         <MenuItem onClick={openbanlist} icon={<HiOutlineBan />}>
                         list of ban
+                        </MenuItem>
+                        <MenuItem onClick={openmuted} icon={<HiOutlineBan />}>
+                        muted list
                         </MenuItem>
                         <MenuItem onClick={onOpen} icon={<AiTwotoneDelete />}>
                         delete chanel
@@ -66,10 +72,10 @@ function Param({openbanlist, data, user, index, onOpen, back, openlistinvitation
     )
 }
 
-function Parameteradmin({openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
+function Parameteradmin({openmuted, openaddmember, openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
     return (
         memebers?.map((user: any, index: number) => (
-            <Param openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
+            <Param openmuted={openmuted} openaddmember={openaddmember} openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
         ))
      );
 }
