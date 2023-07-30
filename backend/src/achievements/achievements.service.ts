@@ -38,7 +38,7 @@ export class AchievementsService {
 			};
 		});
 		if (take)
-			updatedAchievements = updatedAchievements.slice(0, take + 1);
+			updatedAchievements = updatedAchievements.slice(0, take);
 		if (type === 'UNCOMPLETE')
 			return updatedAchievements.filter(entry => entry.score !== +entry.milestone);
 		else if (type === 'COMPLETE')
