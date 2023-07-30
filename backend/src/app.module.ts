@@ -16,10 +16,10 @@ import { topPlayerModule } from './top-player/topPlayer.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { ChannelModule } from './channel/channel.module';
 import { AuthMiddleware } from './auth/auth.middleware';
-import { HttpModule } from '@nestjs/axios'
+
 
 @Module({
-  imports: [ HttpModule, ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule],
+  imports: [ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule],
   controllers: [AppController],
   providers: [AppService],
 })

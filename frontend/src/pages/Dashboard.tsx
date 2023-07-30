@@ -16,7 +16,7 @@ import React from "react";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
 import Createchanel from "./components/Dashebord/createchanel/createchanel";
 import { io } from "socket.io-client";
-
+import { MdLeaderboard } from "react-icons/md";
 function Dashebord() {
   var check = true;
   var socket: any;
@@ -31,7 +31,8 @@ function Dashebord() {
     const [showchatsection, setshowchatsection] = useState<boolean>(false);
     const [onlyChat, setonlyChat] = useState<boolean>(false);
     const [allhistorie, setallhistorie] = useState<boolean>(false);
-    const [showprofile, setshowprofile] = useState<boolean>(true)
+    const [showprofile, setshowprofile] = useState<boolean>(true);
+    const [showLeaderboard, setshowLeaderboard] = useState<boolean>(true);
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const [massagenotif, setmassagenotif] = useState<boolean>(false)
@@ -97,11 +98,12 @@ function Dashebord() {
                     <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                         <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaCompass} text={"Home"}/>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={BsFillPeopleFill} text={"Friends"}/>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={BsClockFill} text={"History"}/>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaMedal} text={"Achievements"}/>
-                        <Expolore setmain={setmain} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaGamepad} text={"Game"}/>
+                        <Expolore setmain={setmain} setLeaderboard={setshowLeaderboard} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaCompass} text={"Home"}/>
+                        <Expolore setmain={setmain} setLeaderboard={setshowLeaderboard} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={BsFillPeopleFill} text={"Friends"}/>
+                        <Expolore setmain={setmain} setLeaderboard={setshowLeaderboard} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={BsClockFill} text={"History"}/>
+                        <Expolore setmain={setmain} setLeaderboard={setshowLeaderboard} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaMedal} text={"Achievements"}/>
+                        <Expolore setmain={setmain} setLeaderboard={setshowLeaderboard} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={MdLeaderboard} text={"Leaderboard"}/>
+                        <Expolore setmain={setmain} setLeaderboard={setshowLeaderboard} setsetshowHistorie={setsetshowHistorie} setFriends={setFriends} setAchievements={setshowAchievements} Icone={FaGamepad} text={"Game"}/>
                         </div>
                     </div>
 
