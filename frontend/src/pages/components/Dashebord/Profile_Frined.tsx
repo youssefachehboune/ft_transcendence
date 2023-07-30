@@ -5,15 +5,16 @@ import { FaBolt, FaChartBar, FaChartPie } from "react-icons/fa";
 import { IoArrowBackCircle, IoLocationOutline } from "react-icons/io5";
 import {ImBlocked} from 'react-icons/im'
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import { RxCross2 } from "react-icons/rx";
 
-function Profile_Frined({setvisible, Profile, profileloding, setblock, block}: any) {
+function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, profileloding, setblock, block, setshowchatsection, setonlyChat}: any) {
 
     return (
-                    <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[100%] 2xl:w-[100%] flex flex-col overflow-y-auto overflow-x-hidden test5 relative">
+                    <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[95%] 2xl:w-[95%] flex flex-col overflow-y-auto overflow-x-hidden test5 relative">
                         <div className="w-[100%] min-h-[320px] flex flex-col items-end overflow-hidden">
                                     <div className="w-[100%] h-[50%] test5">
-                                        <button onClick={() => {setvisible(false)}}>
-                                            <IoArrowBackCircle color="white"  className="w-[30px] h-[30px]"/>
+                                        <button onClick={() => {setvisible(false); setclickFriend(false); setFriendClicked((prev: any) => prev == null)}} className="absolute right-0">
+                                            <RxCross2 color="white"  className="w-[30px] h-[30px]"/>
                                         </button>
                                     </div>
                                     <div className="w-[100%] h-[50%] mt-[-30px] flex items-center mr-[-20px] self-end">
@@ -32,7 +33,7 @@ function Profile_Frined({setvisible, Profile, profileloding, setblock, block}: a
                                                 <button className="w-[88px] h-[24px] test5 rounded-[4px] hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[15px]"><span className="mr-[5px]"><BsPersonCheckFill/></span>Friends</h1></button>
                                             </Skeleton>
                                             <Skeleton isLoaded={profileloding}>
-                                                <button className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
+                                                <button onClick={() => {setshowchatsection(true); setonlyChat(false)}} className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
                                             </Skeleton>
                                             <Skeleton isLoaded={profileloding}>
                                                 <button onClick={() => setblock(!block)} className="w-[30px] h-[24px] rounded-[4px] test5 flex justify-center items-center text-white"><BsChevronDown/></button>
@@ -65,15 +66,18 @@ function Profile_Frined({setvisible, Profile, profileloding, setblock, block}: a
                         <div className="w-[95%] min-h-[220px] flex relative ">
                                 <div className="w-[2px] h-[150px] top-[5%] left-[53%] test5 absolute"></div>
                                 <div className="w-[60%] h-[100%]">
-                                        <div className="w-[100%] h-[50%] flex flex-col justify-around ml-[10px]">
                                             <SkeletonText width={'80%'} isLoaded={profileloding}>
-                                                <h1 className="text-[white] text-[15px] font-sora font-[700] pl-[10px] mt-[-10px]">info</h1>
+                                            </SkeletonText>
+                                            {profileloding && 
+                                            <div className="w-[100%] h-[70%] flex flex-col justify-around ml-[10px]">
+                                                <h1 className="text-[white] text-[15px] font-sora font-[700] ml-[5px] mt-[-10px]">info</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><IoLocationOutline  className="w-[17px] h-[17px]"/></span>{Profile?.info.location}</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsPeople className="w-[17px] h-[17px]"/></span>{Profile?.info.count_friends} Friends</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsClock className="w-[17px] h-[17px]"/></span>{Profile?.info.member_since}</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><img src="g3.svg" className="w-[17px] h-[17px]"/></span>{Profile?.info.email}</h1>
-                                            </SkeletonText>
-                                        </div>
+
+                                            </div>
+                                            }
                                 </div>
                                 <div className="w-[40%] h-[100%]">
                                                 <div className="w-[100%] h-[100%] flex flex-col items-center  ml-[20px]">
@@ -146,7 +150,7 @@ function Profile_Frined({setvisible, Profile, profileloding, setblock, block}: a
                                     ))}
 
                             </div>
-        </div>
+                 </div>
      );
 }
 

@@ -16,7 +16,7 @@ function Sign_in()
 			<Head>
 				<title>Pong Game ,sign-in Page</title>
 			</Head>
-			<div className="h-[100vh] w-[100%] relative overflow-hidden overscroll-none bg-[#070012]">
+			<div className="h-[100vh] w-[100%] relative flex justify-center items-center overflow-hidden overscroll-none bg-[#070012]">
 						<Cursor setColor={setChangeColor} color={changeColor}/>
 						<Svg_image setColor={setChangeColor} color={changeColor}/>
 						<Logo />

@@ -2,6 +2,16 @@ import { BadRequestException, Body, Injectable, Req } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Request } from 'express'
 import { UserDto } from './user.dto'
+import {v2 as cloudinary} from 'cloudinary';
+import { config } from 'dotenv';
+
+config();
+
+cloudinary.config({ 
+  cloud_name: 'dlubm2sog', 
+  api_key: process.env.CLOUDINARY_KEY, 
+  api_secret: process.env.CLOUDINARY_SECRET
+});
 
 const prisma = new PrismaClient();
 
@@ -26,6 +36,8 @@ export class UserService {
 			where: { email: req.user["email"] }
 		});
 		const updatedField: any = await prisma.userProfile.findFirst({where: { User: user}});
+		if (data.avatar.length > 500)
+			data.avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: "avatar" } )).url;
 		const parsedJson = JSON.parse(JSON.stringify(data));
 		const keys = Object.keys(parsedJson);
 	  keys.forEach((key) => {

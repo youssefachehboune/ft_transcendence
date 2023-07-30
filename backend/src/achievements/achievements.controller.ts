@@ -13,7 +13,7 @@ export class AchievementsController {
 	@UseGuards(JwtGuard)
 	@Get('last')
 	async getLastAchievements(@Req() req: Request){
-		return await this.achievementsService.getAchievements(req, 'COMPLETE', 3);
+		return await this.achievementsService.getAchievements(req, 'COMPLETE', 2);
 	}
 
 	@UseGuards(JwtGuard)

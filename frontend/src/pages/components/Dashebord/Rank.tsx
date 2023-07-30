@@ -100,13 +100,19 @@ export default function Rank(props : RankProps) {
                 laptop:text-[11px]
                 phone:text-[8px]    
                 ">{props.level}</h1>
-                <div className="w-[70%] h-[20%] bg-[#ffffff1A] rounded-[2px]
+                <div className="w-[70%] h-[20%] bg-[#ffffff1A] rounded-[2px] overflow-hidden
                 2xl:w-[70%]
                 xl:w-[70%]
                 laptop:w-[70%]
                 phone:w-[60%]
                 ">
-                    <div className={`h-[100%] w-[${props.levelProgress}%] bg-[#4BA1B7] rounded-l-[2px]`}>
+                    <div className={`h-[100%] bg-[#4BA1B7] rounded-l-[2px]`}
+                    style={
+                        {
+                            width: props.levelProgress === 0 ? '0%' : (props.levelProgress + '%')
+                        }
+                    }
+                    >
                     </div>
                 </div>
             </div>

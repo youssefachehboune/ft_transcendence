@@ -12,6 +12,22 @@
      "chanel search search search search search search search section section"
      "chanel Expolore cont cont cont cont cont  cont profile profile";
 }
+.chatsection {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    background: #070012;
+    grid-template-columns: 100px repeat(9, 1fr);
+    grid-template-rows: 50px auto;
+    grid-template-areas: 
+     "chanel search search search search search search search section section"
+     "chanel Chat Chat Chat Chat Chat Chat  Chat profile profile";
+}
+.Chat
+{
+    background: #070012;
+    grid-area: Chat;
+}
 .chanel
 {
     background: #070012;
@@ -75,19 +91,22 @@
 
 .div_navbar {
     position: absolute;
-    height: 580px;
     width: 95%;
     border-bottom: 45px solid transparent;
     border-top: 45px solid transparent;
     border-right: 75px solid #4142434D;
-    /* background-color: #05FF00; */
     left: 0;
-    /* transform: rotate(-90deg); */
     z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+
+}
+
+
+.active_bar {
+    width : 50%;
 }
 
 .line_navbar {
@@ -112,16 +131,16 @@
 }
 
 .nav_hover {
-    
     transition: 0.7s;
 }
 .nav_hover:hover {
     border-radius: 50%;
-    filter:drop-shadow(0px 0px 0.1vw #C322FF) drop-shadow(0px 0px 0.1vw #00BAE1);
+    filter:drop-shadow(0px 0px 0.1vw #fff4f4) drop-shadow(0px 0px 0.1vw #222222);
 }
 
 .active {
-    filter:drop-shadow(-12px -2px 1vw #C322FF) drop-shadow(-8px 10px 0.5vw #00bbe1c4);
+    border-radius: 50%;
+    filter:drop-shadow(0px 0px 0.1vw #ffffff) drop-shadow(0px 0px 0.1vw #ffffff);
 }
 @media (max-width: 768px) {
     .container_page
@@ -129,12 +148,23 @@
         width: 100%;
         height: 100vh;
         display: grid;
-        grid-template-columns: repeat(10, 1fr);
+        grid-template-columns: 100px repeat(9, 1fr);
         grid-template-rows: 50px auto 50px;
         grid-template-areas: 
-        "chanel chanel chanel chanel chanel chanel section section section section"
+        "chanel section section section section section section section section section"
         "cont cont cont cont cont cont cont cont cont cont"
         "Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore";
+    }
+    .chatsection {
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        background: #070012;
+        grid-template-columns: 100px repeat(9, 1fr);
+        grid-template-rows: 50px auto;
+        grid-template-areas: 
+         "chanel section section section section section section section section section"
+         "chanel Chat Chat Chat Chat Chat Chat  Chat Chat Chat";
     }
     .profile
     {
@@ -158,14 +188,24 @@
         width: 100%;
         height: 100vh;
         display: grid;
-        grid-template-columns: repeat(7, 1fr) 100px 100px ;
+        grid-template-columns: 100px repeat(9, 1fr) ;
         grid-template-rows: 50px auto 100px;
         grid-template-areas: 
         "chanel search search search search search section section section section"
-        "cont cont cont cont cont cont profile  profile profile profile"
-        "Expolore Expolore Expolore Expolore Expolore Expolore profile  profile profile profile";
+        "cont cont cont cont cont cont cont  cont cont cont"
+        "Expolore Expolore Expolore Expolore Expolore Expolore Expolore  Expolore Expolore Expolore";
     }
-
+    .chatsection {
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        background: #070012;
+        grid-template-columns: 100px repeat(9, 1fr);
+        grid-template-rows: 50px auto;
+        grid-template-areas: 
+         "chanel search search search search search section section section section"
+         "chanel Chat Chat Chat Chat Chat  Chat  Chat Chat Chat";
+    }
     .div_navbar {
         display: none;
     }
@@ -186,5 +226,12 @@
 }
 
 ::-webkit-scrollbar-corner {
+    background: #00000000;
+}
+
+
+.scroll::-webkit-scrollbar {
+    height: 0px;
+    width: 0px;
     background: #00000000;
 }

@@ -14,17 +14,24 @@ export class HistoryController {
 	@UseGuards(JwtGuard)
 	@Get('lastMatches')
 	async getLastMatches(@Req() req: Request) {
-		return await this.historyService.getHistory(req, 'ALL', 4);
+		return await this.historyService.getHistory(req, 1, 'ALL', 2);
 	}
 
-	@Get(':filter')
+	@Get('pages')
+	@UseGuards(JwtGuard)
+	async getNumberOfPages(@Req() req: Request) {
+		return await this.historyService.getNumberOfPages(req);
+	}
+	
+	@Get(':filter/:page')
 	@UseGuards(JwtGuard)
 	@ApiBadRequestResponse({description: "the filter must be either 'ALL' or 'WON' or 'LOST'"})
 	@ApiParam({name: 'filter', enum: ['WON', 'LOST', 'ALL'], type: 'string', description: 'the type of the matches'})
-	async getHistory(@Req() req: Request, @Param('filter') filter: 'WON' | 'LOST' | 'ALL') {
+	@ApiParam({name: 'page', type: Number, description: 'the number of the page to display'})
+	async getHistory(@Req() req: Request, @Param('filter') filter: 'WON' | 'LOST' | 'ALL', @Param('page') page: number) {
 		if (filter != 'WON' && filter != 'LOST' && filter != 'ALL')
 			throw new BadRequestException("the filter must be either 'ALL' or 'WON' or 'LOST'");
-		return await this.historyService.getHistory(req, filter);
+		return await this.historyService.getHistory(req, page, filter);
 	}
 
 	@UseGuards(JwtGuard)

@@ -6,7 +6,7 @@ interface chose_img
 	return_avatar: string;
 	handleAvatarSelection: (avatarUrl: string) => void;
 }
-export default function Chose_img({avatar, return_avatar, handleAvatarSelection} : chose_img) {
+export default function Chose_img({avatar, return_avatar, handleAvatarSelection} : any) {
   return (
 	<div className="flex w-[220px] h-[70px] ml-[80px] justify-around items-center phone:w-[180px] phone:h-[35px] phone:ml-[35px] Large-phone:w-[180px] Large-phone:h-[40px] Large-phone:ml-[45px] laptop:h-[45px] laptop:w-[180px] laptop:ml-[90px] desktop:h-[50px]">
 	<img
