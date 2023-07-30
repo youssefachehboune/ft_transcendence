@@ -19,15 +19,19 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(GoogleGuard)
   async googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
-	const { accessToken, refreshToken } = await this.AuthService.login(req.user);
-    res.cookie('jwt', accessToken, {
-      httpOnly: true,
-      sameSite: 'lax',
-    }).cookie('refresh', refreshToken, {
-	  httpOnly: true,
-	  sameSite: 'lax',
-	})
-    return res.redirect("http://localhost:3001/User-Info")
+		const { accessToken, refreshToken } = await this.AuthService.login(req.user);
+		if (!req.cookies['jwt']) {
+			res.cookie('jwt', accessToken, {
+				httpOnly: true,
+				sameSite: 'lax',
+			}).cookie('refresh', refreshToken, {
+				httpOnly: true,
+				sameSite: 'lax',
+			})
+			return res.redirect("http://localhost:3001/User-Info")
+		}
+		else
+			res.redirect("http://localhost:3001/Dashboard")
   }
 
   @Get('intra')
@@ -38,27 +42,32 @@ export class AuthController {
   @UseGuards(IntraGuard)
   async intraAuthRedirect(@Req() req: Request, @Res() res: Response) {
     const { accessToken, refreshToken } = await this.AuthService.login(req.user);
-    res.cookie('jwt', accessToken, {
-      httpOnly: true,
-      sameSite: 'lax',
-    }).cookie('refresh', refreshToken, {
-      httpOnly: true,
-      sameSite: 'lax',
-    })
-    return res.redirect("http://localhost:3001/User-Info")
+		if (!req.cookies['jwt']) {
+			res.cookie('jwt', accessToken, {
+				httpOnly: true,
+				sameSite: 'lax',
+			}).cookie('refresh', refreshToken, {
+				httpOnly: true,
+				sameSite: 'lax',
+			})
+			res.redirect("http://localhost:3001/User-Info")
+		}
+		else
+			res.redirect("http://localhost:3001/Dashboard")
   }
 
   @Get('refresh')
   @UseGuards(JwtRefreshGuard)
   async refresh(@Req() req: Request, @Res() res: Response) {
-	const { newaccessToken : accessToken } = await this.AuthService.refreshToken(req.user['email'], req.cookies['refresh']);
-	res.cookie('jwt', accessToken, {
-	  httpOnly: true,
-	  sameSite: 'lax',
-	});
-	return res.send({
-	  accesstoken: accessToken
-	});
+		const { newaccessToken : accessToken } = await this.AuthService.refreshToken(req.user['email'], req.cookies['refresh']);
+		res.cookie('jwt', accessToken, {
+			httpOnly: true,
+			sameSite: 'lax',
+		});
+		req.cookies['jwt'] = accessToken;
+		return res.send({
+			accesstoken: accessToken
+		});
   }
 
   @Get('logout')
