@@ -221,18 +221,16 @@
 }
 
 .par_hover {
-    @apply  w-[80%] h-[40%] absolute bottom-[-65%] left-[5%] z-[99]
+    @apply  w-[90%]  h-[40%] absolute bottom-[-65%] left-[5%] z-[99]
 }
 
-.par_hover p {
+.par_hover .pa {
     @apply font-sora text-[15px] text-[#ffffffad]
     desktop:font-sora desktop:text-[15px] desktop:text-[#ffffffad]
     laptop:font-sora laptop:text-[10px] laptop:text-[#ffffffad]
     Large-phone:font-sora Large-phone:text-[9px] Large-phone:text-[#ffffffad]
     phone:font-sora phone:text-[7px] phone:text-[#ffffffad]
 }
-
-
 
 .circle1 {
     position: absolute;

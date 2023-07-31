@@ -1,4 +1,4 @@
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure, useColorMode } from "@chakra-ui/react";
 import Update_avatar from "./Update_avatar";
 import Select_contry from "./select_contry";
 import Update_Bio from "./Update_Bio";
@@ -15,7 +15,7 @@ function Edite_profile(props: any) {
     }
     return ( 
         <div>
-        <Modal
+        <Modal 
             isOpen={props.isOpen}
             onClose={props.onClose}
         >

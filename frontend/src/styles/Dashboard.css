@@ -151,9 +151,9 @@
         grid-template-columns: 100px repeat(9, 1fr);
         grid-template-rows: 50px auto 50px;
         grid-template-areas: 
-        "chanel search search search search search section section section section"
-        "chanel cont cont cont cont cont cont cont cont cont"
-        "chanel Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore";
+        "chanel section section section section section section section section section"
+        "cont cont cont cont cont cont cont cont cont cont"
+        "Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore Expolore";
     }
     .chatsection {
         width: 100%;
@@ -164,13 +164,22 @@
         grid-template-rows: 50px auto;
         grid-template-areas: 
          "chanel search search search search search section section section section"
-         "chanel Chat Chat Chat Chat Chat Chat  Chat Chat Chat";
+         "Chat Chat Chat Chat Chat Chat Chat  Chat Chat Chat";
     }
     .profile
     {
         display: none;
     }
-
+    .search
+    {
+        display: none;
+    }
+    .div_navbar {
+        display: none;
+    }
+    .line_navbar {
+        display: none;
+    }
 }
 @media (min-width: 769px) and (max-width:1300px)
 {
@@ -183,8 +192,8 @@
         grid-template-rows: 50px auto 100px;
         grid-template-areas: 
         "chanel search search search search search section section section section"
-        "chanel cont cont cont cont cont cont  cont cont cont"
-        "chanel Expolore Expolore Expolore Expolore Expolore Expolore  Expolore Expolore Expolore";
+        "cont cont cont cont cont cont cont  cont cont cont"
+        "Expolore Expolore Expolore Expolore Expolore Expolore Expolore  Expolore Expolore Expolore";
     }
     .chatsection {
         width: 100%;
@@ -195,7 +204,13 @@
         grid-template-rows: 50px auto;
         grid-template-areas: 
          "chanel search search search search search section section section section"
-         "chanel Chat Chat Chat Chat Chat  Chat  Chat Chat Chat";
+         "Chat Chat Chat Chat Chat Chat  Chat  Chat Chat Chat";
+    }
+    .div_navbar {
+        display: none;
+    }
+    .line_navbar {
+        display: none;
     }
 }
 ::-webkit-scrollbar {
