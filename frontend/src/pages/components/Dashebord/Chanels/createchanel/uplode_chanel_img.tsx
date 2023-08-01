@@ -21,11 +21,7 @@ function Uplode_chanel_img({handleClick, handleImageUpload, large_img, avatarcha
         {large_img ? 
               (
                 <h1 className="text-[12px] text-[red] text-center">{large_img}</h1>
-              ) : (
-              <FormHelperText textAlign={'center'}>
-                      you must Uplode Img
-              </FormHelperText>
-              )
+              ) : null
         }
       </FormControl>
      );

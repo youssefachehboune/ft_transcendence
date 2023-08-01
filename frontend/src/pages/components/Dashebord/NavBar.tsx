@@ -28,6 +28,7 @@ export default function NavBar(props : any) {
             fetch('http://localhost:3000/channel/' + item.name + '/BANNED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setbanList(data)})
             fetch('http://localhost:3000/channel/' + item.name + '/INVITED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setinvitationList(data)})
             fetch('http://localhost:3000/channel/' + item.name + '/MUTED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmutedList(data)})
+            fetch('http://localhost:3000/channel/' + item.name + '/REQUESTED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setrequestList(data)})
             fetch(`http://localhost:3000/channel/${item.name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setchanel(data); props.setchannelloding(false) })
     }
     return (
@@ -51,7 +52,7 @@ export default function NavBar(props : any) {
                                 {
                                     props.mychanel?.map((item: any, key : any) => {
                                         return (
-                                            <div className="relative w-[100px] h-[71px] flex items-center ">
+                                            <div key={key} className="relative w-[100px] h-[71px] flex items-center ">
                                                 <div onClick={() => {handleClick(key + 1), fetchdata(item)}}
                                                     className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
                                                         <img src={item.avatar} className="" alt="" />

@@ -37,7 +37,7 @@ export class ChannelService {
         }
     }
 
-    async getSpecificUsers(@Req() req: Request, name: string, type: 'INVITED' | 'BANNED' | 'MUTED') {
+    async getSpecificUsers(@Req() req: Request, name: string, type: 'INVITED' | 'BANNED' | 'MUTED' | 'REQUESTED') {
         const channel = await prisma.channel.findUnique({
             where: {
                 name: name

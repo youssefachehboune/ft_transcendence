@@ -5,21 +5,38 @@ import Chanel_name from "../createchanel/chanel_name";
 import Channel_Description from "../createchanel/Channel_Description";
 import Typechanel from "../createchanel/typechanel";
 import Chanel_password from "../createchanel/chanel_password";
+import Updatechanel from "@/pages/api/Updatechanel";
 
-function Update_chanel({isOpen, onClose}: any) {
-        const fileInputRef = useRef<HTMLInputElement>(null);
-        const [large_img, setlarge_img] = useState<string>('')
-        const [avatarchanel, setavatarchanel] = useState<any>('')
-        const MAX_IMAGE_SIZE = 5242880;
-        const [chanelname, setchanelname] = useState<string>("")
-        const [Errornamechanel, setErrornamechanel] = useState<string>("")
-        const [Errorpassword, setErrorpassword] = useState<string>("")
-        const [ErrorDescriptionchanel, setErrorDescriptionchanel] = useState<string>("")
-        const [ChannelDescription, setChannelDescription] = useState<string>("")
-        const [password, setpassword] = useState<string>("")
-        const [typechanel , settypechanel] = useState<any>("")
-        const [Errortypechanel , setErrortypechanel] = useState<any>("")
-      
+function Update_chanel({
+large_img,
+setlarge_img,
+avatarchanel,
+setavatarchanel,
+chanelname,
+setchanelname,
+Errornamechanel,
+setErrornamechanel,
+Errorpassword,
+setErrorpassword,
+ErrorDescriptionchanel,
+setErrorDescriptionchanel,
+ChannelDescription,
+setChannelDescription,
+password,
+setpassword,
+typechanel,
+settypechanel,
+Errortypechanel,
+setErrortypechanel,
+chanel, 
+isOpen, 
+onClose
+}: any) 
+{
+
+  const MAX_IMAGE_SIZE = 5242880;
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
       
         const handleCountrySelect = (event: ChangeEvent<HTMLSelectElement>) => {
           setErrorpassword('')
@@ -52,11 +69,11 @@ function Update_chanel({isOpen, onClose}: any) {
               setErrortypechanel("required")
             if (!avatarchanel)
               setlarge_img("required")
-            // if (!Errornamechanel && !ErrorDescriptionchanel && !Errorpassword && chanelname && ChannelDescription && typechanel &&  !large_img)
-            // {
-            //   if (typechanel === "PROTECTED" && password || typechanel != "PROTECTED" && !password)
-            //     await Creat_channel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, () => onclose(), setErrornamechanel);
-            // }
+            if (!Errornamechanel && !ErrorDescriptionchanel && !Errorpassword && chanelname && ChannelDescription && typechanel &&  !large_img)
+            {
+              if (typechanel === "PROTECTED" && password || typechanel != "PROTECTED" && !password)
+                await Updatechanel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, chanel, () => onclose(), setErrornamechanel);
+            }
       
         }
         const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -91,13 +108,13 @@ function Update_chanel({isOpen, onClose}: any) {
             >
               <ModalOverlay />
               <ModalContent height={['800px', '900px', '800px', '800px']}     width={['100%','60%','100%', '100%',]}>
-                <ModalHeader>Create channel</ModalHeader>
+                <ModalHeader>Update channel</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
                   <Uplode_chanel_img handleClick={handleClick} handleImageUpload={handleImageUpload} large_img={large_img} avatarchanel={avatarchanel} fileInputRef={fileInputRef}/>
-                  <Chanel_name chanelname={chanelname} setchanelname={setchanelname} Error={Errornamechanel} setError={setErrornamechanel}/>
+                  <Chanel_name  chanelname={chanelname} setchanelname={setchanelname} Error={Errornamechanel} setError={setErrornamechanel}/>
                   <Channel_Description ChannelDescription={ChannelDescription} setChannelDescription={setChannelDescription} Error={ErrorDescriptionchanel} setError={setErrorDescriptionchanel}/>
-                  <Typechanel handleCountrySelect={handleCountrySelect} Error={Errortypechanel}/>
+                  <Typechanel typechanel={typechanel} handleCountrySelect={handleCountrySelect} Error={Errortypechanel}/>
                   {typechanel === "PROTECTED" && <Chanel_password Error={Errorpassword} setError={setErrorpassword} setpassword={setpassword}/>}
                 </ModalBody>
                 <ModalFooter>

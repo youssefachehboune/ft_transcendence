@@ -1,14 +1,19 @@
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { HiUserAdd } from "react-icons/hi";
 function Search_Public_chanel({onClose, isOpen, public_channel}: any) {
 
     return ( 
         <Modal size={'xl'} onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent background={'#41424D'} height={'400px'}>
-            <ModalHeader borderBottomWidth='1px' color={'white'} className="font-sora font-500">Search for Public chanels</ModalHeader>
+        <ModalContent background={'#41424D'} height={'450px'}>
+            <ModalHeader borderBottomWidth='1px' color={'white'} className="font-sora font-500">Search for chanels</ModalHeader>
             <ModalCloseButton />
             <ModalBody overflow={'hidden'}>
+                <FormControl>
+                <FormLabel textColor={'white'}>search</FormLabel>
+                  <Input textColor={'white'} placeholder='name chanel' />
+                </FormControl>
+                <br/>
                 <div className="w-[100%] h-[270px] test5 flex flex-col gap-1 rounded-[7px] overflow-y-auto">
                   {
                     public_channel?.map((user: any, index: number) => (

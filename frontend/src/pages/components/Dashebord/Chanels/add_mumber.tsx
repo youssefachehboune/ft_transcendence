@@ -21,7 +21,7 @@ function Add_mumber({memebers, ListFriends, isOpen, onClose, chanel}: any) {
                             {
                                 ListFriends.map((user: any, index: number) => (
                                     !isUserAlreadyMember(user) &&
-                                        <button  className={`w-[100%] flex items-center justify-center`}>
+                                        <button key={index} className={`w-[100%] flex items-center justify-center`}>
                                             <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                                                     <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                             </div>

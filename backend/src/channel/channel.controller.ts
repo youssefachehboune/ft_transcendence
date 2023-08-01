@@ -54,8 +54,8 @@ export class ChannelController {
     @UseGuards(JwtGuard)
     @Get(':channel_name/:type')
     @ApiParam({ name: 'channel_name', type: String })
-    @ApiParam({ name: 'type', enum: ['INVITED', 'BANNED', 'MUTED'], type: String })
-    async getSpecificUsers(@Req() req: Request, @Param('channel_name') channel_name: string, @Param('type') type: 'INVITED' | 'BANNED' | 'MUTED') {
+    @ApiParam({ name: 'type', enum: ['INVITED', 'BANNED', 'MUTED', 'REQUESTED'], type: String })
+    async getSpecificUsers(@Req() req: Request, @Param('channel_name') channel_name: string, @Param('type') type: 'INVITED' | 'BANNED' | 'MUTED' | 'REQUESTED') {
         return await this.channelService.getSpecificUsers(req, channel_name, type);
     }
 

@@ -5,7 +5,7 @@ import { GrUpdate } from "react-icons/gr";
 import { HiOutlineBan } from "react-icons/hi";
 import { VscSettingsGear } from "react-icons/vsc";
 
-function Param({openupdate, openmuted, openaddmember, openbanlist, data, user, index, onOpen, back, openlistinvitation}: any)
+function Param({openrequested, openupdate, openmuted, openaddmember, openbanlist, data, user, index, onOpen, back, openlistinvitation}: any)
 {
     return (
         data?.username == user.username && user.type == "MEMBER" ? (
@@ -27,7 +27,7 @@ function Param({openupdate, openmuted, openaddmember, openbanlist, data, user, i
                         <MenuItem onClick={openlistinvitation} icon={<BsPersonFillAdd />}>
                         invitation list
                         </MenuItem>
-                        <MenuItem onClick={openmuted} icon={<HiOutlineBan />}>
+                        <MenuItem onClick={openrequested} icon={<BsPersonFillAdd />}>
                         requested list
                         </MenuItem>
                         <MenuItem onClick={openaddmember} icon={<BsPersonFillAdd />}>
@@ -55,7 +55,7 @@ function Param({openupdate, openmuted, openaddmember, openbanlist, data, user, i
                         <MenuItem onClick={openlistinvitation} icon={<BsPersonFillAdd />}>
                         invitation list
                         </MenuItem>
-                        <MenuItem onClick={openmuted} icon={<HiOutlineBan />}>
+                        <MenuItem onClick={openrequested} icon={<BsPersonFillAdd />}>
                         requested list
                         </MenuItem>
                         <MenuItem onClick={openaddmember} icon={<BsPersonFillAdd />}>
@@ -78,10 +78,10 @@ function Param({openupdate, openmuted, openaddmember, openbanlist, data, user, i
     )
 }
 
-function Parameteradmin({openupdate, openmuted, openaddmember, openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
+function Parameteradmin({openrequested, openupdate, openmuted, openaddmember, openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
     return (
         memebers?.map((user: any, index: number) => (
-            <Param openupdate={openupdate} openmuted={openmuted} openaddmember={openaddmember} openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
+            <Param openrequested={openrequested} openupdate={openupdate} openmuted={openmuted} openaddmember={openaddmember} openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
         ))
      );
 }
