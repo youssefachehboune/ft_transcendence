@@ -75,8 +75,7 @@ export class FriendsService {
     }
   }
 
-  async getFriendsCount(username: string) : Promise<number | { message: string }>
-  {
+  async getFriendsCount(username: string): Promise<number | { message: string }> {
     try {
       const userProfile: UserProfile = await this.prisma.userProfile.findUnique({
         where: { username: username },
@@ -137,8 +136,7 @@ export class FriendsService {
           return "GOTBLOCKED";
         }
       }
-      else
-      {
+      else {
         return friendship.status;
       }
     }
@@ -201,8 +199,8 @@ export class FriendsService {
           return { message: "You can't accept your own request" };
         else {
           updateData.status = 'FRIENDS';
-					this.notificationService.setNotification(NotificationType.ACCEPTED_REQUEST, user.id, friendProfile.user_id);
-				}
+          this.notificationService.setNotification(NotificationType.ACCEPTED_REQUEST, user.id, friendProfile.user_id);
+        }
         break;
       case 'REJECT':
         if (friendship.user_id == user.id)
@@ -297,15 +295,15 @@ export class FriendsService {
 
 
   async createFriendship(req: Request, status: FriendshipStatus, user: User, friendProfile: UserProfile): Promise<Friendship> {
-    const friendship =  await this.prisma.friendship.create({
+    const friendship = await this.prisma.friendship.create({
       data: {
         user_id: user.id,
         friend_id: friendProfile.user_id,
         status: status,
       },
     });
-		this.notificationService.setNotification(NotificationType.FRIEND_REQUEST, user.id, friendProfile.user_id);
-		return friendship;
+    this.notificationService.setNotification(NotificationType.FRIEND_REQUEST, user.id, friendProfile.user_id);
+    return friendship;
   }
 
   async updateFriendStatus(req: Request, status: Status, username: string): Promise<FriendshipUpdateData | { message: string }> {
@@ -349,6 +347,34 @@ export class FriendsService {
         default:
           return { message: "You can't do this action" };
       }
+    }
+  }
+
+  async getFriendsFromUser(userId: number) {
+    try {
+      const [friends1, friends2] = await Promise.all([
+        this.prisma.friendship.findMany({
+          where: {
+            user_id: userId,
+            status: "FRIENDS"
+          }
+        }),
+        this.prisma.friendship.findMany({
+          where: {
+            friend_id: userId,
+            status: "FRIENDS"
+          }
+        })
+      ]);
+
+      const friendIds = [
+        ...friends1.map(element => element.friend_id),
+        ...friends2.map(element => element.user_id)
+      ];
+
+      return friendIds;
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
   }
 }

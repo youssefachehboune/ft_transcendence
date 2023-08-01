@@ -1,0 +1,365 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+
+#friends {
+    position: absolute;
+    width: 284px;
+    height: 100vh;
+    left: 0px;
+    top: 0px;
+}
+
+#head {
+    position: absolute;
+    width: 500px;
+    height: 39px;
+    left: 10px;
+    top: 62px;
+}
+
+#head h1 {
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 39px;
+    color: aliceblue;
+
+    text-transform: capitalize;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    position: absolute;
+    width: 273px;
+    left: 10px;
+    top: 107px;
+}
+
+#content #friend {
+    width: 253px;
+    height: 63px;
+
+    position: relative;
+
+    flex: none;
+    flex-grow: 0;
+    border: 1px solid #C1C1C1;
+    background-color: slategray;
+    border-radius: 10px;
+}
+
+#friend #con {
+    position: absolute;
+    width: 185px;
+    height: 44px;
+    left: 14px;
+    top: 9px;
+}
+
+#friend #con #pic {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    left: 0px;
+    top: 0px;
+}
+
+#pic img {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    left: 0px;
+    top: 0px;
+    border-radius: 50%;
+}
+
+#pic #elipse {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: 34px;
+    top: 34px;
+
+    background: #a7a7a7;
+    border-radius: 50%;
+}
+
+#name {
+    position: absolute;
+    width: 130px;
+    height: 26px;
+    left: 55px;
+    top: 9px;
+
+}
+
+#name #fullname {
+    position: absolute;
+    margin-top: 0px;
+    width: 160px;
+    height: 15px;
+    left: 0px;
+    top: 0px;
+
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+
+    color: #000000;
+}
+
+#name #username {
+    margin-top: 0px;
+
+    position: absolute;
+    width: 46px;
+    height: 11px;
+    left: 0px;
+    top: 15px;
+
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 9px;
+    line-height: 11px;
+    text-transform: capitalize;
+
+    color: #000000;
+}
+
+#content button {
+    position: absolute;
+    width: 75px;
+    height: 35px;
+    left: 259px;
+    top: 14px;
+
+    background: #FFFFFF;
+    border: 1px solid #C1C1C1;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+/* invitation has li and inside of li there is h1 and two bottons */
+
+#invitation {
+    position: absolute;
+    width: 284px;
+    height: 100vh;
+    left: 19px;
+    top: 188px;
+}
+
+#invitation li {
+    position: relative;
+    width: 253px;
+    height: 63px;
+    flex: none;
+    flex-grow: 0;
+    border: 1px solid #C1C1C1;
+    border-radius: 10px;
+    list-style-type: none;
+    font-size: unset;
+    font-family: monospace;
+    text-align: center;
+    cursor: text;
+    margin-top: 8px;
+}
+
+#invitation li h1 {
+    margin-top: 15px;
+}
+
+#invitation li button {
+    position: absolute;
+    width: 75px;
+    height: 35px;
+    left: 259px;
+    top: 14px;
+
+    background: #FFFFFF;
+    border: 1px solid #C1C1C1;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+
+
+#invitation li button:hover {
+    background: #C1C1C1;
+}
+
+
+#game {
+    top: 80px;
+    position: absolute;
+    width: inherit;
+    height: inherit;
+
+    justify-content: center;
+    align-items: center;
+}
+
+#game #scoor-section {
+    width: 716px;
+    height: 62px;
+    left: 260px;
+    position: absolute;
+    border-radius: 11px;
+    background: #ADADAD;
+}
+
+#game #scoor-section #player1 {
+    width: 219px;
+    height: 50px;
+    top: 6px;
+    position: absolute;
+    left: 5px;
+}
+
+#game #scoor-section #player2 {
+    width: 219px;
+    height: 50px;
+    top: 6px;
+    position: absolute;
+    right: 5px;
+}
+
+#game #scoor-section #player1 h1 {
+    position: absolute;
+    width: 217px;
+    left: 14px;
+    top: 7px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    color: #000000;
+}
+
+#game #scoor-section #player2 h1 {
+    position: absolute;
+    width: 217px;
+    left: 14px;
+    top: 7px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    color: #000000;
+}
+
+#game #scoor-section #player2 img {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    left: 2px;
+    top: 3px;
+    border-radius: 50px;
+
+}
+
+#game #scoor-section #player1 img {
+    position: absolute;
+    width: 44px;
+    height: 44px;
+    left: 2px;
+    top: 3px;
+    border-radius: 50px;
+
+}
+
+#game #scoor-section #player2 h4 {
+    position: absolute;
+    left: 58px;
+    top: 23px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    text-align: center;
+    color: #000000;
+}
+
+#game #scoor-section #player1 h4 {
+    position: absolute;
+    left: 58px;
+    top: 23px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    text-align: center;
+    color: #000000;
+}
+
+
+#game #scoor-section #score {
+    width: 100px;
+    height: 50px;
+    top: 6px;
+    position: absolute;
+    left: 314px;
+}
+
+#game #scoor-section #score #player1-score {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: -37px;
+    top: 0px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    text-align: center;
+    color: #000000;
+
+}
+
+#game #scoor-section #score #player2-score {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    right: -37px;
+    top: 0px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 32px;
+    text-align: center;
+    color: #000000;
+}
+
+#game #scoor-section #score #spe {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    left: 0px;
+    top: -9px;
+    font-family: 'Sora';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 39px;
+    text-align: center;
+    color: #000000;
+}
+
+#game #game-canvas {
+    left: 424px;
+    top: 80px;
+    position: absolute;
+    border-radius: 11px;
+    background: #000000;
+}

@@ -6,10 +6,11 @@ import { AuthService } from '../auth/auth.service';
 import { FriendsService } from '../friend/friends.service';
 import { JwtService } from '@nestjs/jwt';
 import { NotificationService } from 'src/notification/notification.service';
+import { GameService } from 'src/game/game.service';
 
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, UserStatusGateway, AuthService, FriendsService, JwtService, NotificationService]
+  providers: [UserService, UserStatusGateway, AuthService, FriendsService, JwtService, NotificationService, GameService],
 })
 export class UserModule {}

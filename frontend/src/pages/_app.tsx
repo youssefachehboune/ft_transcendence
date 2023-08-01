@@ -6,6 +6,7 @@ import '../styles/landing.css'
 import '../styles/auth.css'
 import '../styles/MainDashBoard.css';
 import '../styles/Dashboard.css'
+import '../styles/style.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
 
