@@ -1,11 +1,12 @@
 import { Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { config } from 'dotenv';
+import { PrismaClient } from '@prisma/client';
 
 config();
 export type JwtPayload = { sub: number; email: string };
-
+const prisma = new PrismaClient();
 @Injectable()
 export class JwtAuthStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor() {
@@ -24,6 +25,13 @@ export class JwtAuthStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: JwtPayload) {
+		const user = await prisma.user.findUnique({
+			where: {
+				email: payload.email
+			}
+		});
+		if (user.role == 'BANNED')
+			throw new BadRequestException('Your account has been deleted');
     return { id: payload.sub, email: payload.email };
   }
 }
