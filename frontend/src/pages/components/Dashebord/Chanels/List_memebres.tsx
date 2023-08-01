@@ -14,6 +14,7 @@ import List_of_invitation from "./List_of_invitation";
 import List_of_Ban from "./List_of_Ban";
 import Add_mumber from "./add_mumber";
 import MutedList from "./MutedList";
+import Update_chanel from "./Update_chanel/Update_chanel";
 
 function List_memebres(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -25,6 +26,7 @@ function List_memebres(props: any) {
     const { isOpen: isban, onOpen: openbanlist, onClose: closebanlist } = useDisclosure()
     const { isOpen: isaddmember, onOpen: openaddmember, onClose: closeaddmember } = useDisclosure()
     const { isOpen: ismuted, onOpen: openmuted, onClose: closemuted } = useDisclosure()
+    const { isOpen: isupdate, onOpen: openupdate, onClose: closeupdate } = useDisclosure()
 
 
     const handelsearchChanges = () =>
@@ -52,12 +54,13 @@ function List_memebres(props: any) {
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center relative">
                                             <button onClick={() => setback(true)} className={`self-end absolute mt-[25px] mr-[20px] ${back ? "hidden" : ""} `}><AiOutlineMessage className="hovring w-[18px] h-[18px]"/></button>
-                                            <Parameteradmin openmuted={openmuted} openaddmember={openaddmember} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
+                                            <Parameteradmin openupdate={openupdate} openmuted={openmuted} openaddmember={openaddmember} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
                                             <Delete_chanel setshowchanel={props.setshowchanel} chanel={props.chanel} isOpen={ismodel} onClose={closemodule}/>
                                             <List_of_invitation chanel={props.chanel} invitationList={props.invitationList} isOpen={isinvitation} onClose={closelistinvitation}/>
-                                            <List_of_Ban banList={props.banList} isOpen={isban} onClose={closebanlist}/>
-                                            <Add_mumber memebers={props.memebers} ListFriends={props.ListFriends} isOpen={isaddmember} onClose={closeaddmember}/>
-                                            <MutedList mutedList={props.mutedList} MutedList={props.MutedList} isOpen={ismuted} onClose={closemuted}/>
+                                            <List_of_Ban chanel={props.chanel} banList={props.banList} isOpen={isban} onClose={closebanlist}/>
+                                            <Add_mumber chanel={props.chanel} memebers={props.memebers} ListFriends={props.ListFriends} isOpen={isaddmember} onClose={closeaddmember}/>
+                                            <MutedList chanel={props.chanel} mutedList={props.mutedList} MutedList={props.MutedList} isOpen={ismuted} onClose={closemuted}/>
+                                            <Update_chanel isOpen={isupdate} onClose={closeupdate}/>
                                             <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
                                                 <div className="mr-[-5px]">
                                                     <VscSearch className="w-[12px] h-[12px]" color="white" />

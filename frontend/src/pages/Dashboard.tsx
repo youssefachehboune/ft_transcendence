@@ -18,6 +18,7 @@ import Createchanel from "./components/Dashebord/Chanels/createchanel/createchan
 import { io } from "socket.io-client";
 import List_memebres from "./components/Dashebord/Chanels/List_memebres";
 import { MdLeaderboard } from "react-icons/md";
+import Search_Public_chanel from "./components/Dashebord/Chanels/Search_public_chanel/Search_Public_chanel";
 function Dashebord() {
   var check = true;
   var socket: any;
@@ -47,6 +48,8 @@ function Dashebord() {
     const [banList, setbanList] = useState<any>()
     const [mutedList, setmutedList] = useState<any>()
     const [typememeber, settypememeber] = useState<any>()
+    const [public_channel, setpublic_channel] = useState<any>()
+    const { isOpen: ispublic, onOpen: openpublic, onClose: closepublic } = useDisclosure()
     useEffect(() => {
       if (!showchatsection)
       {
@@ -80,7 +83,9 @@ function Dashebord() {
             const mychanels = await fetch('http://localhost:3000/channel/my_channels', { credentials: "include" });
             const chanelsdata = await mychanels.json();
             setmychanel(chanelsdata)
-
+            const publicmychanels = await fetch('http://localhost:3000/channel/public_channels', { credentials: "include" });
+            const publicchanelsdata = await publicmychanels.json();
+            setpublic_channel(publicchanelsdata)
 
             setdataisloded(true)
           } catch (error) {
@@ -109,7 +114,7 @@ function Dashebord() {
 
             {main && !showchatsection && !showchanel && <Main/>}
             <div className="chanel">
-              <NavBar setmutedList={setmutedList} data={data} settypememeber={settypememeber} setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
+              <NavBar openpublic={openpublic} setmutedList={setmutedList} data={data} settypememeber={settypememeber} setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
               mychanel={mychanel} socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
             </div>
             {!showchatsection && !showchanel &&
@@ -134,7 +139,8 @@ function Dashebord() {
             {!Friend && !showchatsection && !showchanel && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
             {showchanel && <List_memebres ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
-            <Createchanel isOpen={isOpen} onClose={onClose}/>
+            {dataisloded && <Createchanel isOpen={isOpen} onClose={onClose}/>}
+           {dataisloded && <Search_Public_chanel onClose={closepublic} isOpen={ispublic} public_channel={public_channel}/>}
         </div>
      );
 }

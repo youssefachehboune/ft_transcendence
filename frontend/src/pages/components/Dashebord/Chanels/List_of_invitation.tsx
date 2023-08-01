@@ -1,5 +1,5 @@
 import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay } from "@chakra-ui/react";
-import { BsCheckLg } from "react-icons/bs";
+import { BsCheckLg, BsPersonFillSlash } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 
@@ -24,13 +24,17 @@ function List_of_invitation({chanel, invitationList, onClose, isOpen}: any) {
                                     <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff]`}>{"@" + user.username}</h1>
                                 </div>
                               </div>
-                              <button onClick={() => fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/accept`, {credentials: "include",method: 'PUT',})} className={`w-[30px] bg-[#5ACDA4] h-[30px] self-center rounded-[4px] flex justify-center items-center`}>
+                              {/* <button onClick={() => fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/accept`, {credentials: "include",method: 'PUT'})} className={`w-[30px] bg-[#5ACDA4] h-[30px] self-center rounded-[4px] flex justify-center items-center`}>
                                       <BsCheckLg className='text-[12px] font-[400] font-sora flex items-center'/>
                               </button>
-                              <button onClick={() => fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/reject`, {credentials: "include",method: 'PUT',})} className={`w-[30px] bg-[#cd3a3a] h-[30px] self-center rounded-[4px] flex justify-center items-center`}>
+                              <button onClick={() => fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/reject`, {credentials: "include",method: 'PUT'})} className={`w-[30px] bg-[#cd3a3a] h-[30px] self-center rounded-[4px] flex justify-center items-center`}>
                                   <RxCross2 className='text-[12px] font-[400] font-sora flex items-center'/>
                                 
-                              </button>
+                              </button> */}
+                            <button onClick={() => {fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/uninvite`, {credentials: "include",method: 'PUT'})}} className={`w-[111px] bg-[red] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
+                            <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><BsPersonFillSlash className='mr-[5px]'/>uninvite</h1>
+                          </button>
+
                           </div>
 
                       )

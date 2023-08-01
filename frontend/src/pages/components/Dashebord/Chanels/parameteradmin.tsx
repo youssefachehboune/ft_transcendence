@@ -5,7 +5,7 @@ import { GrUpdate } from "react-icons/gr";
 import { HiOutlineBan } from "react-icons/hi";
 import { VscSettingsGear } from "react-icons/vsc";
 
-function Param({openmuted, openaddmember, openbanlist, data, user, index, onOpen, back, openlistinvitation}: any)
+function Param({openupdate, openmuted, openaddmember, openbanlist, data, user, index, onOpen, back, openlistinvitation}: any)
 {
     return (
         data?.username == user.username && user.type == "MEMBER" ? (
@@ -27,6 +27,9 @@ function Param({openmuted, openaddmember, openbanlist, data, user, index, onOpen
                         <MenuItem onClick={openlistinvitation} icon={<BsPersonFillAdd />}>
                         invitation list
                         </MenuItem>
+                        <MenuItem onClick={openmuted} icon={<HiOutlineBan />}>
+                        requested list
+                        </MenuItem>
                         <MenuItem onClick={openaddmember} icon={<BsPersonFillAdd />}>
                         add member
                         </MenuItem>
@@ -46,11 +49,14 @@ function Param({openmuted, openaddmember, openbanlist, data, user, index, onOpen
                         <VscSettingsGear className="hovring w-[18px] h-[18px]"/>
                     </MenuButton>
                     <MenuList>
-                        <MenuItem icon={<GrUpdate />}>
+                        <MenuItem onClick={openupdate} icon={<GrUpdate />}>
                         update chanel
                         </MenuItem>
                         <MenuItem onClick={openlistinvitation} icon={<BsPersonFillAdd />}>
                         invitation list
+                        </MenuItem>
+                        <MenuItem onClick={openmuted} icon={<HiOutlineBan />}>
+                        requested list
                         </MenuItem>
                         <MenuItem onClick={openaddmember} icon={<BsPersonFillAdd />}>
                         add member
@@ -72,10 +78,10 @@ function Param({openmuted, openaddmember, openbanlist, data, user, index, onOpen
     )
 }
 
-function Parameteradmin({openmuted, openaddmember, openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
+function Parameteradmin({openupdate, openmuted, openaddmember, openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
     return (
         memebers?.map((user: any, index: number) => (
-            <Param openmuted={openmuted} openaddmember={openaddmember} openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
+            <Param openupdate={openupdate} openmuted={openmuted} openaddmember={openaddmember} openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
         ))
      );
 }

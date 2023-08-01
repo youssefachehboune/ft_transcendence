@@ -65,7 +65,7 @@ export default function NavBar(props : any) {
                                 }
                             </div>
                             <div className="relative w-[100px] h-[71px] flex items-center ">
-                                <div onClick={() => handleClick(lastkey)} className={`${(lastkey) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center `}>
+                                <div onClick={() => {handleClick(lastkey); props.openpublic()}} className={`${(lastkey) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center `}>
                                     <BiSearch color="white" />
                                 </div>
                                 <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${lastkey === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>
