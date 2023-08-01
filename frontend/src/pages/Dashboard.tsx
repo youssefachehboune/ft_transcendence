@@ -17,6 +17,7 @@ import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButt
 import Createchanel from "./components/Dashebord/createchanel/createchanel";
 import { io } from "socket.io-client";
 import { MdLeaderboard } from "react-icons/md";
+import Leaderboard from "./components/Dashebord/Leaderboard";
 function Dashebord() {
   var check = true;
   var socket: any;
@@ -113,6 +114,7 @@ function Dashebord() {
             <Profile showprofile={showprofile} data={data} dataisloded={dataisloded} setdataisloded={setdataisloded}/>
             {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && <Achievements/>}
+            {!showLeaderboard && !showchatsection && <Leaderboard username={data.username}/>}
             {!Friend && !showchatsection && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
             <Createchanel isOpen={isOpen} onClose={onClose}/>
