@@ -58,7 +58,7 @@ export default function Leaderboard(props : Props) {
             ">
                 {
                     data && data.map((item : any, index : number) => (
-                        <Rank key={index} rank={index + 1} image={item.avatar} 
+                        <Rank key={index} rank= { ((indexlevel - 1) * 10) + index + 1} image={item.avatar} 
                         username={item.firstName + ' ' + item.lastName} login={item.username} 
                         level={item.level} levelProgress={Math.round((item.level % 1) * 100)} wins={item.won} 
                         loses={item.lost} me={props.username === item.username ? true : false}/>

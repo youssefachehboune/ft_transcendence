@@ -19,7 +19,7 @@ export default function Rank(props : RankProps) {
         laptop:w-[8%]
         phone:w-[8%]
         ">
-                <h1 className="font-sora font-bold text-[20px] leading-normal text-[#ffffffd6]
+                <h1 className="font-sora font-bold text-[20px] leading-normal text-[#ffffffd6] transition-all duration-1000
                 2xl:text-p[20px]
                 xl:text-[18px]
                 laptop:text-[16px]
