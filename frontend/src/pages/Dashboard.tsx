@@ -19,6 +19,7 @@ import { io } from "socket.io-client";
 import List_memebres from "./components/Dashebord/Chanels/List_memebres";
 import { MdLeaderboard } from "react-icons/md";
 import Search_Public_chanel from "./components/Dashebord/Chanels/Search_public_chanel/Search_Public_chanel";
+import Leaderboard from "./components/Dashebord/Leaderboard";
 function Dashebord() {
   var check = true;
   var socket: any;
@@ -136,6 +137,7 @@ function Dashebord() {
             <Profile showprofile={showprofile} data={data} dataisloded={dataisloded} setdataisloded={setdataisloded}/>
             {!setshowHistorie  && !showchatsection && !showchanel && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && !showchanel && <Achievements/>}
+            {!showLeaderboard && !showchatsection && <Leaderboard username={data.username}/>}
             {!Friend && !showchatsection && !showchanel && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
             {showchanel && <List_memebres ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
