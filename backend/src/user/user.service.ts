@@ -30,6 +30,20 @@ export class UserService {
 			username: userProfile.username,
 		}
 	}
+	async getUserDataById(@Req() req: Request, id : number) {
+		id = parseInt(id.toString());
+		const user = await prisma.user.findUnique({
+			where: { id: id }
+		});
+		const userProfile = await prisma.userProfile.findFirst({
+			where:{ User: user}
+		});
+		return {
+			avatar: userProfile.avatar,
+			name: userProfile.firstName + " " + userProfile.lastName,
+			username: userProfile.username,
+		}
+	}
 
 	async updateUser(@Req() req: Request, @Body() data: UserDto) {
 		const user = await prisma.user.findUnique({
@@ -52,5 +66,12 @@ export class UserService {
 		} catch (err) {
 			throw new BadRequestException;
 		}
+	}
+	
+	async getUserId(@Req() req: Request) {
+		const user = await prisma.user.findUnique({
+			where: { email: req.user["email"] }
+		});
+		return user.id;
 	}
 }
