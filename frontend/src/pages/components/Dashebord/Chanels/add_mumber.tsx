@@ -4,10 +4,21 @@ import { useState } from "react";
 import { BsPersonFillSlash } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
 
-function Add_mumber({memebers, ListFriends, isOpen, onClose, chanel}: any) {
-
+function Add_mumber({setListfriends, setinvitationList, memebers, ListFriends, isOpen, onClose, chanel}: any) {
+    // const [test, settest] = useState<string>("")
     const isUserAlreadyMember = (user: any) => {
-        return memebers && memebers.some((member: any) => member.username === user.username);
+        //   const response = await fetch(`http://localhost:3000/channel/type/${chanel?.name}/${user.username}`, { credentials: "include" });
+        //   const data = await response.text();
+        //   settest(data);
+          return memebers && memebers.some((member: any) => member.username === user.username);
+      };
+      const handleBanClick = (user: any) => {
+        setinvitationList((prevBanList : any) => [...prevBanList, user])
+        setListfriends((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
+        fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/invite`, {
+          credentials: "include",
+          method: 'PUT',
+        })
       };
     return ( 
         <>
@@ -19,8 +30,8 @@ function Add_mumber({memebers, ListFriends, isOpen, onClose, chanel}: any) {
                     <ModalBody overflow={'hidden'}>
                         <div className="w-[100%] h-[270px] flex flex-col gap-1 rounded-[7px] overflow-y-auto">
                             {
-                                ListFriends.map((user: any, index: number) => (
-                                    !isUserAlreadyMember(user) &&
+                                ListFriends && ListFriends.map((user: any, index: number) => (
+                                    !isUserAlreadyMember(user) && (
                                         <button key={index} className={`w-[100%] flex items-center justify-center`}>
                                             <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                                                     <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
@@ -29,10 +40,11 @@ function Add_mumber({memebers, ListFriends, isOpen, onClose, chanel}: any) {
                                                 <h1 className={`text-[13px] font-sora font-[600] text-[white]`}>{user.firstName + " " + user.lastName}</h1>
                                                 <h1 className={`text-[10px] font-sora font-[400] text-[white]`}>{"@" + user.username}</h1>
                                             </div>
-                                            <button onClick={() => fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/invite`, {credentials: "include",method: 'PUT'})} className={`w-[111px] cursor-pointer bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
+                                            <button onClick={() => handleBanClick(user)} className={`w-[111px] cursor-pointer bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                                                 <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>Invite</h1>
                                             </button>
                                         </button>
+                                    )
 
                                 ))
 

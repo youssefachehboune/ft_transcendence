@@ -1,4 +1,4 @@
-async function Updatechanel(data : any, chanel: any, onCloseFn: () => void, setErrornamechanel: (value: any) => void) {
+async function Updatechanel(data : any, chanel: any, onCloseFn: () => void, setErrornamechanel: (value: any) => void,  setchanel: (value: any) => void) {
 
     const fetchuser = async () => {
       try {
@@ -14,7 +14,10 @@ async function Updatechanel(data : any, chanel: any, onCloseFn: () => void, setE
 				setErrornamechanel(res.error)
 			}
 			else
+			{
+				setchanel({avatar: data.avatar, name: data.name, descrption: data.description, password: data.password, type: data.type})
 				onCloseFn()
+			}
 
 		} catch (error) {
 			console.log('Error fetching user:', error);

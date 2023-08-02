@@ -1,7 +1,15 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { BsPersonFillSlash } from "react-icons/bs";
 
-function List_of_Ban({chanel, onClose, isOpen, banList}: any) {
+function List_of_Ban({setmemebers, setbanList, chanel, onClose, isOpen, banList}: any) {
+  const handleBanClick = (user: any) => {
+    setmemebers((prevBanList : any) => [...prevBanList, user])
+    setbanList((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
+    fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/unban`, {
+      credentials: "include",
+      method: 'PUT',
+    })
+  };
     return ( 
         <Modal  onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
@@ -22,7 +30,7 @@ function List_of_Ban({chanel, onClose, isOpen, banList}: any) {
                                 <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff]`}>{"@" + user.username}</h1>
                             </div>
                           </div>
-                          <button onClick={() => fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/unban`, {credentials: "include",method: 'PUT'})} className={`w-[111px] bg-[red] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
+                          <button onClick={() => handleBanClick(user)} className={`w-[111px] bg-[red] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                             <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><BsPersonFillSlash className='mr-[5px]'/>unblock</h1>
                           </button>
                       </div>

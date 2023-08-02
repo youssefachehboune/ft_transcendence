@@ -1,3 +1,4 @@
+"use client"
 import { BsClockFill, BsFillPeopleFill, BsGlobe } from "react-icons/bs";
 import {FaCompass, FaGamepad, FaMedal} from 'react-icons/fa'
 import Expolore from "./components/Dashebord/Expolore";
@@ -141,9 +142,9 @@ function Dashebord() {
             {!showLeaderboard && !showchatsection && !showchanel  && <Leaderboard username={data.username}/>}
             {!Friend && !showchatsection && !showchanel && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
-            {showchanel && <List_memebres requestList={requestList} ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
+            {showchanel && <List_memebres setchanel={setchanel} setrequestList={setrequestList} setbanList={setbanList} setmutedList={setmutedList} setinvitationList={setinvitationList}  setmemebers={setmemebers} requestList={requestList} ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
             {dataisloded && <Createchanel isOpen={isOpen} onClose={onClose}/>}
-           {dataisloded && <Search_Public_chanel onClose={closepublic} isOpen={ispublic} public_channel={public_channel}/>}
+           {dataisloded && <Search_Public_chanel setpublic_channel={setpublic_channel} onClose={closepublic} isOpen={ispublic} public_channel={public_channel}/>}
         </div>
      );
 }

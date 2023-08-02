@@ -2,7 +2,15 @@ import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButt
 import { BsPersonFillSlash } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
 
-function MutedList({chanel, mutedList, isOpen, onClose}: any) {
+function MutedList({setmemebers, setmutedList, chanel, mutedList, isOpen, onClose}: any) {
+    const handleBanClick = (user: any) => {
+        setmemebers((prevBanList : any) => [...prevBanList, user])
+        setmutedList((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
+        fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/unmute`, {
+          credentials: "include",
+          method: 'PUT',
+        })
+      };
     return ( 
             <>
                 <Modal onClose={onClose} isOpen={isOpen} isCentered>
@@ -24,7 +32,7 @@ function MutedList({chanel, mutedList, isOpen, onClose}: any) {
                                             <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff]`}>{"@" + user.username}</h1>
                                         </div>
                                     </div>
-                                    <button onClick={() => fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/unmute`, {credentials: "include",method: 'PUT'})} className={`w-[111px] bg-[red] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
+                                    <button onClick={() => handleBanClick(user)} className={`w-[111px] bg-[red] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                                         <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><BsPersonFillSlash className='mr-[5px]'/>unmute</h1>
                                     </button>
                                 </div>

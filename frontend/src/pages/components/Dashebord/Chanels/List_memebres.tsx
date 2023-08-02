@@ -41,6 +41,7 @@ function List_memebres(props: any) {
     const [password, setpassword] = useState<string>("")
     const [typechanel , settypechanel] = useState<any>("")
     const [Errortypechanel , setErrortypechanel] = useState<any>("")
+    const [listfrined_for_add_mumber, setlistfrined_for_add_mumber] = useState<any>();
 
     const openupdtechanel = () => {
         setchanelname(props.chanel.name);
@@ -49,6 +50,11 @@ function List_memebres(props: any) {
         settypechanel(props.chanel.type);
         openupdate();
     } 
+    const onopenaddmumbers = () =>
+    {
+        setlistfrined_for_add_mumber(props.ListFriends)
+        openaddmember();
+    }
 
     const handelsearchChanges = () =>
     {
@@ -75,13 +81,14 @@ function List_memebres(props: any) {
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center relative">
                                             <button onClick={() => setback(true)} className={`self-end absolute mt-[25px] mr-[20px] ${back ? "hidden" : ""} `}><AiOutlineMessage className="hovring w-[18px] h-[18px]"/></button>
-                                            <Parameteradmin openrequested={openrequested} openupdate={openupdtechanel} openmuted={openmuted} openaddmember={openaddmember} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
+                                            <Parameteradmin openrequested={openrequested} openupdate={openupdtechanel} openmuted={openmuted} openaddmember={onopenaddmumbers} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
                                             <Delete_chanel setshowchanel={props.setshowchanel} chanel={props.chanel} isOpen={ismodel} onClose={closemodule}/>
-                                            <List_of_invitation chanel={props.chanel} invitationList={props.invitationList} isOpen={isinvitation} onClose={closelistinvitation}/>
-                                            <List_of_Ban chanel={props.chanel} banList={props.banList} isOpen={isban} onClose={closebanlist}/>
-                                            <Add_mumber chanel={props.chanel} memebers={props.memebers} ListFriends={props.ListFriends} isOpen={isaddmember} onClose={closeaddmember}/>
-                                            <MutedList chanel={props.chanel} mutedList={props.mutedList} MutedList={props.MutedList} isOpen={ismuted} onClose={closemuted}/>
+                                            <List_of_invitation setListfriends={setlistfrined_for_add_mumber} setinvitationList={props.setinvitationList} chanel={props.chanel} invitationList={props.invitationList} isOpen={isinvitation} onClose={closelistinvitation}/>
+                                            <List_of_Ban setmemebers={props.setmemebers} setbanList={props.setbanList} chanel={props.chanel} banList={props.banList} isOpen={isban} onClose={closebanlist}/>
+                                            <Add_mumber setinvitationList={props.setinvitationList} chanel={props.chanel} memebers={props.memebers} setListfriends={setlistfrined_for_add_mumber} ListFriends={listfrined_for_add_mumber} isOpen={isaddmember} onClose={closeaddmember}/>
+                                            <MutedList setmemebers={props.setmemebers} setmutedList={props.setmutedList} chanel={props.chanel} mutedList={props.mutedList} MutedList={props.MutedList} isOpen={ismuted} onClose={closemuted}/>
                                             <Update_chanel
+                                            setchanel={props.setchanel}
                                             large_img={large_img}
                                             setlarge_img={setlarge_img}
                                             avatarchanel={avatarchanel}
@@ -103,7 +110,7 @@ function List_memebres(props: any) {
                                             Errortypechanel={Errortypechanel}
                                             setErrortypechanel={setErrortypechanel}
                                             chanel={props.chanel} isOpen={isupdate} onClose={closeupdate}/>
-                                            <RequestedList requestList={props.requestList} chanel={props.chanel} isOpen={isrequested} onClose={closerequested}/>
+                                            <RequestedList setmemebers={props.setmemebers} setrequestList={props.setrequestList} requestList={props.requestList} chanel={props.chanel} isOpen={isrequested} onClose={closerequested}/>
                                             <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
                                                 <div className="mr-[-5px]">
                                                     <VscSearch className="w-[12px] h-[12px]" color="white" />
@@ -112,7 +119,7 @@ function List_memebres(props: any) {
                                                     ref={inputRef}
                                                     onChange={handelsearchChanges}
                                                     type="text"
-                                                    placeholder="Search friends"
+                                                    placeholder="Search for mumber"
                                                     className="text-white text-[8px] font-sora font-[300] flex items-center bg-transparent  border-none outline-none pl-[20px] w-[70%]"
                                                     />
                                             </div>
@@ -133,7 +140,7 @@ function List_memebres(props: any) {
                                                 }
                                                 {
                                                     props.mumeberschannelloding && props.memebers?.map((user: any, index: number) => (
-                                                            <Memeber chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
+                                                            <Memeber setmutedList={props.setmutedList} setbanList={props.setbanList} setmemebers={props.setmemebers} chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
                                                     ))
                                                 }
                                             </div>

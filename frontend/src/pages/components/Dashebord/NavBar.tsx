@@ -20,8 +20,6 @@ export default function NavBar(props : any) {
     {
             props.setshowchatsection(false); 
             props.setshowchanel(true); 
-            props.setchannelloding(true)
-            props.setmumeberschannelloding(false)
             fetch(`http://localhost:3000/channel/${item.name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {props.setmemebers(data)}).then(() => 
             fetch(`http://localhost:3000/channel/type/${item.name}/${props.data.username}`, { credentials: "include" }).then((resp) => {return resp.text();}).then((data) => {props.settypememeber(data); props.setmumeberschannelloding(true)})
             )
@@ -53,7 +51,7 @@ export default function NavBar(props : any) {
                                     props.mychanel?.map((item: any, key : any) => {
                                         return (
                                             <div key={key} className="relative w-[100px] h-[71px] flex items-center ">
-                                                <div onClick={() => {handleClick(key + 1), fetchdata(item)}}
+                                                <div onClick={() => {handleClick(key + 1); props.setchannelloding(true); props.setmumeberschannelloding(false); fetchdata(item)}}
                                                     className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
                                                         <img src={item.avatar} className="" alt="" />
                                                 </div>

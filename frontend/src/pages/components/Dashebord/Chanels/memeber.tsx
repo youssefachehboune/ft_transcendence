@@ -4,7 +4,18 @@ import { FaBan, FaGamepad } from "react-icons/fa";
 import { VscUnmute } from "react-icons/vsc";
 import {TbUserCancel} from 'react-icons/tb'
 
-function Memeber({chanel, typememeber, index, user}: any) {
+function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, index, user}: any) {
+    const handleBanClick = (action: string) => {
+        if (action == 'ban')
+            setbanList((prevBanList : any) => [...prevBanList, user])
+        if (action == 'mute')
+            setmutedList((prevBanList : any) => [...prevBanList, user])
+        setmemebers((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
+        fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/${action}`, {
+          credentials: "include",
+          method: 'PUT',
+        })
+      };
     return ( 
         <div key={index} className="min-h-[61px] flex items-center">
                 
@@ -28,18 +39,10 @@ function Memeber({chanel, typememeber, index, user}: any) {
                                         ...
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/ban`, {credentials: "include",method: 'PUT',})
-                                    } icon={<FaBan/>}>Ban</MenuItem>
-                                    <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/mute`, {credentials: "include",method: 'PUT',})
-                                    } icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
-                                    <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/kick`, {credentials: "include",method: 'PUT',})
-                                    } icon={<TbUserCancel/>}>kick</MenuItem>
-                                    <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/makeAdmin`, {credentials: "include",method: 'PUT',})
-                                    } icon={<BsPersonFillAdd/>}>make admin</MenuItem>
+                                    <MenuItem onClick={() => handleBanClick("ban")} icon={<FaBan/>}>Ban</MenuItem>
+                                    <MenuItem onClick={() => handleBanClick("mute")} icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
+                                    <MenuItem onClick={() => handleBanClick("kick")} icon={<TbUserCancel/>}>kick</MenuItem>
+                                    <MenuItem onClick={() => {user.type = 'ADMIN'; fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/makeAdmin`, {credentials: "include",method: 'PUT',})}} icon={<BsPersonFillAdd/>}>make admin</MenuItem>
                                     <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
                                 </MenuList>
                             </Menu>
@@ -50,18 +53,10 @@ function Memeber({chanel, typememeber, index, user}: any) {
                                     ...
                             </MenuButton>
                             <MenuList>
-                                <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/ban`, {credentials: "include",method: 'PUT',})
-                                    } icon={<FaBan/>}>Ban</MenuItem>
-                                <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/mute`, {credentials: "include",method: 'PUT',})
-                                    } icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
-                                <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/kick`, {credentials: "include",method: 'PUT',})
-                                    } icon={<TbUserCancel/>}>kick</MenuItem>
-                                <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/makeUser`, {credentials: "include",method: 'PUT',})
-                                    } icon={<BsPersonFillAdd/>}>make User</MenuItem>
+                                <MenuItem onClick={() => handleBanClick("ban")} icon={<FaBan/>}>Ban</MenuItem>
+                                <MenuItem onClick={() => handleBanClick("mute")} icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
+                                <MenuItem onClick={() => handleBanClick("kick")} icon={<TbUserCancel/>}>kick</MenuItem>
+                                <MenuItem onClick={() =>  {user.type = 'MEMBER'; fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/makeUser`, {credentials: "include",method: 'PUT',})}} icon={<BsPersonFillAdd/>}>make User</MenuItem>
                                 <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
                             </MenuList>
                             </Menu>
@@ -85,15 +80,9 @@ function Memeber({chanel, typememeber, index, user}: any) {
                                         ...
                                 </MenuButton>
                                 <MenuList>
-                                    <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/ban`, {credentials: "include",method: 'PUT',})
-                                    } icon={<FaBan/>}>Ban</MenuItem>
-                                    <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/mute`, {credentials: "include",method: 'PUT',})
-                                    } icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
-                                    <MenuItem onClick={() => 
-                                     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/kick`, {credentials: "include",method: 'PUT',})
-                                    } icon={<TbUserCancel/>}>kick</MenuItem>
+                                    <MenuItem onClick={() => handleBanClick("ban")} icon={<FaBan/>}>Ban</MenuItem>
+                                    <MenuItem onClick={() => handleBanClick("mute")} icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
+                                    <MenuItem onClick={() => handleBanClick("kick")} icon={<TbUserCancel/>}>kick</MenuItem>
                                     <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
                                 </MenuList>
                             </Menu>

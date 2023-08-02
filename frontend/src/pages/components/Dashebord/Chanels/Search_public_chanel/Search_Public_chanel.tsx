@@ -1,7 +1,9 @@
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { HiUserAdd } from "react-icons/hi";
-function Search_Public_chanel({onClose, isOpen, public_channel}: any) {
-
+function Search_Public_chanel({setpublic_channel, onClose, isOpen, public_channel}: any) {
+  const handleBanClick = (user: any) => {
+    setpublic_channel((prevpublic_channel: any) => prevpublic_channel.filter((public_channel: any) => public_channel.name !== user.name));
+  };
     return ( 
         <Modal size={'xl'} onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
@@ -27,7 +29,7 @@ function Search_Public_chanel({onClose, isOpen, public_channel}: any) {
                                 <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff]`}>{user.description}</h1>
                             </div>
                           </div>
-                          <button className={`w-[111px] bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
+                          <button onClick={() => handleBanClick(user)} className={`w-[111px] bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                             <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>join</h1>
                           </button>
                       </div>
