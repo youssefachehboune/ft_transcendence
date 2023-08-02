@@ -5,14 +5,26 @@ import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
+import FriendRequest from "./FriendRequest";
+
 function Section({massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
     const SettingRef = useRef<HTMLDivElement>(null);
     const requestRef = useRef<HTMLDivElement>(null);
     const [showSettings, setshowSettings] = useState<boolean>(false);
     const [showRequest, setshowRequest] = useState<boolean>(false);
     const [isHovered, setIsHovered] = useState<boolean>(false);
+    const [requestdata, setrequestdata] = useState<any>([]);
     const [isHovered2, setIsHovered2] = useState<boolean>(false);
-
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await fetch("http://localhost:3000/friends/status/REQUESTED", {credentials: "include"});
+            const data = await res.json();
+            setrequestdata(data);
+        }
+        if (showRequest) {
+            fetchData();
+        }
+    }, [showRequest])
     function handleMouseEnter1() {
         setIsHovered(true);
     }
@@ -107,7 +119,7 @@ return (
                                 }
                                 >REQUESTS</h1>
                         </div>
-                        <div className="w-[32%] h-[50%] border-[#ED5253] border-[2px] flex items-center justify-center rounded-[1.3px] transition-all duration-500 cursor-pointer hover:bg-[#ED5253] hover:border-none"
+                        <div className="w-[32%] h-[50%] border-[#ED5253] border-[1.3px] flex items-center justify-center rounded-[2px] transition-all duration-500 cursor-pointer hover:bg-[#ED5253] hover:border-none"
                         onMouseEnter={handleMouseEnter2}
                         onMouseLeave={handleMouseLeave2}
                         >
@@ -121,27 +133,14 @@ return (
                         </div>
                     </div>
                     <div className="w-[100%] relative h-[87%]  overflow-y-auto">
-                        <div className="w-[100%] h-[16%] flex items-center justify-center">
-                                <div className="w-[27%] h-[100%] flex items-center justify-center">
-                                    <img src="mbjaghou.jpeg" alt=""  className="w-[52px] h-[52px] rounded-full"/>
-                                </div>
-                                <div className="w-[73%] h-[100%]">
-                                        <div className="w-[100%] h-[50%]  flex flex-col justify-end items-start">
-                                                <h1 className="text-[#fff] text-[10px]">Youssef Achehboun</h1>
-                                                <h1 className="text-[7px] text-[#969696]">@yachehbo</h1>
-                                        </div>
-                                        <div className="w-[100%] h-[50%]  flex items-center justify-end">
-                                            <div className="w-[78%] h-[100%] flex items-center justify-between">
-                                                    <div className="w-[45%] h-[82%] bg-[#2AA656] rounded-[4px]">
+                        {
+                            requestdata.map((item: any, key : number) => {
+                                return (
+                                    <FriendRequest key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
+                                )
+                            })
 
-                                                    </div>
-                                                    <div className="w-[45%] h-[82%] bg-[#ED5253] rounded-[4px]">
-
-</div>
-                                            </div>
-                                        </div>
-                                </div> 
-                        </div>
+                        }
                     </div>
                 </div>
             }
