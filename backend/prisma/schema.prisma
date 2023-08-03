@@ -14,6 +14,7 @@ model User {
     email            String   @unique
     createdAt        DateTime @default(now())
     twoFactorEnabled Boolean
+		firstTime				 Boolean
     role             Role
     refreshToken     String?
     twoFactorSecret  String?

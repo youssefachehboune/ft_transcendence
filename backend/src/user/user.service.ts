@@ -17,6 +17,18 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class UserService {
+	async deleteAccount(@Req() req: Request) {
+		await prisma.user.update({
+			where: {
+				email: req.user['email']
+			},
+			data: {
+				role: 'BANNED'
+			}
+		});
+		return 'Account deleted successfully';
+	}
+
 	async getUserData(@Req() req: Request) {
 		const user = await prisma.user.findUnique({
 			where: { email: req.user["email"] }
