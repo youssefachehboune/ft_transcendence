@@ -66,7 +66,8 @@ export class AuthService {
 			where: { email: user.email },
 			data: { refreshToken: await bcrypt.hash(refreshtoken, 10) }
 		});
-		return { accessToken: accesstoken, refreshToken: refreshtoken };
+		return { accessToken: accesstoken, refreshToken: refreshtoken,
+			firstTime: dbuser.firstTime, twoFactorEnabled: dbuser.twoFactorEnabled };
 	}
 
 	async refreshToken(email: string, refreshtoken: string) {

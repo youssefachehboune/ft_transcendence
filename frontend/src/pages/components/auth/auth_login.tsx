@@ -2,9 +2,14 @@ import Verfie from './Verification';
 import OTPField from './otp';
 import { useState } from 'react';
 import { getText } from '@/pages/api/lang';
-export default function authLogin()
+
+interface Prop {
+	val: boolean;
+	setVal : (val : boolean) => void;
+}
+
+export default function authLogin({setVal , val} : Prop)
 {
-    const [show, setShow] = useState(false);
     return (
         <div className="authLog">
             <div className="w-[100%] h-[25%] flex items-center justify-center">
@@ -13,7 +18,7 @@ export default function authLogin()
                 </div>
             </div>
             <Verfie/>
-            <OTPField setVal={setShow} val={show}/>
+            <OTPField setVal={setVal} val={val}/>
         </div>
     );
 }
