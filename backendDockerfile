@@ -1,0 +1,17 @@
+FROM node:18
+
+WORKDIR /backend
+
+RUN apt-get update -y
+
+COPY ./backend/*.json ./
+
+RUN npm i
+
+COPY ./backend/ ./
+
+RUN npx prisma generate
+
+RUN npm run build
+
+CMD ["npm", "run", "start:prod"]
