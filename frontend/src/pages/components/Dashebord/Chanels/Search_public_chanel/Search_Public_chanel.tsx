@@ -1,9 +1,11 @@
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
-function Search_Public_chanel({setpublic_channel, onClose, isOpen, public_channel}: any) {
-  const handleBanClick = (user: any) => {
-    setpublic_channel((prevpublic_channel: any) => prevpublic_channel.filter((public_channel: any) => public_channel.name !== user.name));
-  };
+function Search_Public_chanel({setpublic_channel, public_channel, onClose, isOpen}: any) {
+  
+    const handleBanClick = (user: any) => {
+      setpublic_channel((prevpublic_channel: any) => prevpublic_channel.filter((public_channel: any) => public_channel.name !== user.name));
+    };
     return ( 
         <Modal size={'xl'} onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />

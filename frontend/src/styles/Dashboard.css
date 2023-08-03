@@ -170,10 +170,7 @@
     {
         display: none;
     }
-    .search
-    {
-        display: none;
-    }
+
     .div_navbar {
         display: none;
     }
@@ -181,7 +178,7 @@
         display: none;
     }
 }
-@media (min-width: 769px) and (max-width:1300px)
+@media (min-width: 768px) and (max-width:1300px)
 {
     .container_page
     {

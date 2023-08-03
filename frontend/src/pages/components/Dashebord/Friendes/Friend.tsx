@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
+import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { FaBan, FaGamepad } from "react-icons/fa";
 
-function Friend({index, changecolor, setchangecolor, user, setblock, setvisible, setprofileloding, setProfile}: any) {
+function Friend({setListFriends, index, changecolor, setchangecolor, user, setblock, setvisible, setprofileloding, setProfile}: any) {
+    const handelclick = (action: string) =>
+    {
+        setchangecolor(null)
+        setListFriends((prevfriend: any) => prevfriend.filter((friend: any) => friend.username !== user.username));
+        setvisible(false)
+        fetch(`http://localhost:3000/friends/${action}/` + user.username, { credentials: "include", method: "POST"});
+    }
     return ( 
         <div key={user.user_id} className="min-h-[61px] flex items-center">
             <button onClick={ () => {
@@ -21,9 +30,16 @@ function Friend({index, changecolor, setchangecolor, user, setblock, setvisible,
                     <h1 className={`text-[10px] font-sora font-[400] text-[#969696] ${changecolor ? "text-black" : ""}`}>{"@" + user.username}</h1>
                 </div>
             </button>
-            <button className={`w-[20%] h-full rounded-r-[6px]  ${changecolor ? "bg-[#00DAEA] text-black": "text-white"}`}>
-                    ...
-            </button>
+            <Menu>
+                <MenuButton height={'full'} roundedRight={'6px'} transition={'none'} background={`${changecolor ? "#00DAEA": ""}`} textColor={`${changecolor ? "text-black": "white"}`} roundedLeft={'0px'} as={Button} colorScheme='none' className={`w-[20%]`}>
+                        ...
+                </MenuButton>
+                <MenuList>
+                    <MenuItem onClick={() => handelclick("BLOCK")} icon={<FaBan/>}>block</MenuItem>
+                    <MenuItem onClick={() => handelclick("UNFRIEND")} icon={<FaBan/>}>remove friend</MenuItem>
+                    <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
+                </MenuList>
+            </Menu>
 </div>
      );
 }

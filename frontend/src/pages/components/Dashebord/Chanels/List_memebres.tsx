@@ -44,10 +44,10 @@ function List_memebres(props: any) {
     const [listfrined_for_add_mumber, setlistfrined_for_add_mumber] = useState<any>();
 
     const openupdtechanel = () => {
-        setchanelname(props.chanel.name);
-        setavatarchanel(props.chanel.avatar);
-        setChannelDescription(props.chanel.descrption);
-        settypechanel(props.chanel.type);
+        setchanelname(props.chanel?.name);
+        setavatarchanel(props.chanel?.avatar);
+        setChannelDescription(props.chanel?.descrption);
+        settypechanel(props.chanel?.type);
         openupdate();
     } 
     const onopenaddmumbers = () =>
@@ -81,11 +81,11 @@ function List_memebres(props: any) {
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center relative">
                                             <button onClick={() => setback(true)} className={`self-end absolute mt-[25px] mr-[20px] ${back ? "hidden" : ""} `}><AiOutlineMessage className="hovring w-[18px] h-[18px]"/></button>
-                                            <Parameteradmin openrequested={openrequested} openupdate={openupdtechanel} openmuted={openmuted} openaddmember={onopenaddmumbers} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
-                                            <Delete_chanel setshowchanel={props.setshowchanel} chanel={props.chanel} isOpen={ismodel} onClose={closemodule}/>
+                                            <Parameteradmin chanel={props.chanel} openrequested={openrequested} openupdate={openupdtechanel} openmuted={openmuted} openaddmember={onopenaddmumbers} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
+                                            <Delete_chanel setmychanel={props.setmychanel} setshowchanel={props.setshowchanel} chanel={props.chanel} isOpen={ismodel} onClose={closemodule}/>
                                             <List_of_invitation setListfriends={setlistfrined_for_add_mumber} setinvitationList={props.setinvitationList} chanel={props.chanel} invitationList={props.invitationList} isOpen={isinvitation} onClose={closelistinvitation}/>
                                             <List_of_Ban setmemebers={props.setmemebers} setbanList={props.setbanList} chanel={props.chanel} banList={props.banList} isOpen={isban} onClose={closebanlist}/>
-                                            <Add_mumber setinvitationList={props.setinvitationList} chanel={props.chanel} memebers={props.memebers} setListfriends={setlistfrined_for_add_mumber} ListFriends={listfrined_for_add_mumber} isOpen={isaddmember} onClose={closeaddmember}/>
+                                            <Add_mumber  invitationList={props.invitationList} mutedList={props.mutedList} banList={props.banList} setinvitationList={props.setinvitationList} chanel={props.chanel} memebers={props.memebers} setListfriends={setlistfrined_for_add_mumber} ListFriends={listfrined_for_add_mumber} isOpen={isaddmember} onClose={closeaddmember}/>
                                             <MutedList setmemebers={props.setmemebers} setmutedList={props.setmutedList} chanel={props.chanel} mutedList={props.mutedList} MutedList={props.MutedList} isOpen={ismuted} onClose={closemuted}/>
                                             <Update_chanel
                                             setchanel={props.setchanel}

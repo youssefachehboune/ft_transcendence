@@ -12,7 +12,7 @@ interface block {
     notfriend: boolean,
     requsetd: boolean
 }
-function Search() {
+function Search({menu}: any) {
     
     const [search, setsearch] = useState<string | undefined>("");
     const [showSearchfriend, setshowSearchfriend] = useState<boolean>(true)
@@ -57,12 +57,12 @@ function Search() {
                 )
             }
     }, [search])
-    const divtest = showSearchfriend ? "w-[100%] h-[100%] flex flex-col justify-center items-center" : "w-[100%] h-[250%] flex flex-col justify-center items-center"
+    const divtest = showSearchfriend ? `w-[100%] h-[100%] flex flex-col justify-center ${menu ? "items-start" : "items-center"} ` : `w-[100%] h-[250%] flex flex-col justify-center ${menu ? "items-start" : "items-center"}`
     const borderRaduis = showSearchfriend ? "rounded-[15px]" : "rounded-t-[15px]"
     return ( 
-            <div className="search ">
+            <div className={`${menu ? "section" : "search xl:hidden"}`}>
             <div className={divtest} >
-                <div className={`test5 w-[302px] h-[28px] ${borderRaduis} xl:w-[200px] flex justify-center items-center z-[11]`}>
+                <div className={`test5 w-[302px] h-[28px] ${borderRaduis} xl:w-[70%] flex justify-center items-center z-[11]`}>
                         <div className="mr-[5px]">
                             <VscSearch className="w-[12px] h-[12px]" color="white" />
                         </div>
@@ -75,7 +75,7 @@ function Search() {
                             />
                 </div>
                         {!showSearchfriend && 
-                            <div className="w-[302px] h-[76px] xl:w-[200px] test5 rounded-b-[15px]  z-[10]" ref={searchref} >
+                            <div className="w-[302px] h-[76px] xl:w-[70%] test5 rounded-b-[15px]  z-[10]" ref={searchref} >
                                        { 
                                         !datasearch?.message ? (
                                             <div  className="w-[100%] min-h-[65px] text-white flex justify-between overflow-hidden">

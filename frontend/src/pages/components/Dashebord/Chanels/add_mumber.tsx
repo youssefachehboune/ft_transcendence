@@ -4,14 +4,19 @@ import { useState } from "react";
 import { BsPersonFillSlash } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
 
-function Add_mumber({setListfriends, setinvitationList, memebers, ListFriends, isOpen, onClose, chanel}: any) {
-    // const [test, settest] = useState<string>("")
+function Add_mumber({invitationList, mutedList, banList, setListfriends, setinvitationList, memebers, ListFriends, isOpen, onClose, chanel}: any) {
     const isUserAlreadyMember = (user: any) => {
-        //   const response = await fetch(`http://localhost:3000/channel/type/${chanel?.name}/${user.username}`, { credentials: "include" });
-        //   const data = await response.text();
-        //   settest(data);
           return memebers && memebers.some((member: any) => member.username === user.username);
       };
+    const isUserAlreadybaned = (user: any) => {
+        return banList && banList.some((band: any) => band.username === user.username);
+    };
+    const isUserAlreadymuted = (user: any) => {
+        return mutedList && mutedList.some((muted: any) => muted.username === user.username);
+    };
+    const isUserAlreadyinvited = (user: any) => {
+        return invitationList && invitationList.some((invite: any) => invite.username === user.username);
+    };
       const handleBanClick = (user: any) => {
         setinvitationList((prevBanList : any) => [...prevBanList, user])
         setListfriends((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
@@ -31,7 +36,7 @@ function Add_mumber({setListfriends, setinvitationList, memebers, ListFriends, i
                         <div className="w-[100%] h-[270px] flex flex-col gap-1 rounded-[7px] overflow-y-auto">
                             {
                                 ListFriends && ListFriends.map((user: any, index: number) => (
-                                    !isUserAlreadyMember(user) && (
+                                    !isUserAlreadyMember(user) && !isUserAlreadybaned(user) && !isUserAlreadymuted(user) && !isUserAlreadyinvited(user) && (
                                         <button key={index} className={`w-[100%] flex items-center justify-center`}>
                                             <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                                                     <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>

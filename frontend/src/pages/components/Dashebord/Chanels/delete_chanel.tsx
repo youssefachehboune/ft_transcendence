@@ -1,7 +1,7 @@
 import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 
-function Delete_chanel({setshowchanel, onClose, isOpen, chanel} : any) {
+function Delete_chanel({setmychanel, setshowchanel, onClose, isOpen, chanel} : any) {
     const cancelRef = React.useRef(null)
     return ( 
         <AlertDialog
@@ -24,7 +24,10 @@ function Delete_chanel({setshowchanel, onClose, isOpen, chanel} : any) {
                     </Button>
                     <Button colorScheme='red' ml={3} onClick={() =>
                     {
-                        fetch('http://localhost:3000/channel/delete/' + chanel.name, {credentials: "include",method: 'PUT',}).then(() => {setshowchanel(false);onClose()})
+                        setshowchanel(false)
+                        onClose()
+                        setmychanel((prevMembers: any) => prevMembers.filter((channel: any) => channel.name !== chanel.name));
+                        fetch('http://localhost:3000/channel/delete/' + chanel.name, {credentials: "include",method: 'PUT',})
                     }
                     }>
                     Yes

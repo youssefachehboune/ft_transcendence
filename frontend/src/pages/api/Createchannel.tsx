@@ -1,4 +1,4 @@
-async function Creat_channel(data : any, onCloseFn: () => void, setErrornamechanel: (value: any) => void) {
+async function Creat_channel(data : any, onCloseFn: () => void, setErrornamechanel: (value: any) => void, setmychanel: (value: any) => void) {
 
     const fetchuser = async () => {
       try {
@@ -14,7 +14,17 @@ async function Creat_channel(data : any, onCloseFn: () => void, setErrornamechan
 				setErrornamechanel(res.error)
 			}
 			else
+			{
+				const newChannel = {
+					avatar: data.avatar,
+					name: data.name,
+					description: data.description,
+					password: data.password,
+					type: data.typechanel,
+				};
+				setmychanel((prevChannels: any) => [...prevChannels, newChannel]);
 				onCloseFn()
+			}
 
 		} catch (error) {
 			console.log('Error fetching user:', error);

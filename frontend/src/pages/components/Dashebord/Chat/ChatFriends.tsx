@@ -1,9 +1,10 @@
-import { Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { Menu, Skeleton, SkeletonCircle, SkeletonText,MenuList, MenuItem, MenuButton, Button} from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { VscSearch } from "react-icons/vsc";
 import Chat from "./Chat";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Friend_chat from "./Friend_chat";
+import { FaBan, FaGamepad } from "react-icons/fa";
 
 function ChatFriends(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -12,8 +13,11 @@ function ChatFriends(props: any) {
     const [friendchat, setfriendchat] = useState<any>();
     const [chatloding, setchatloding] = useState(false)
     const [friendClicked, setFriendClicked] = useState<number | null>(null);
+    const [clickFriend, setclickFriend] = useState<boolean>(false)
+
     const handelsearchChanges = () =>
     {
+        setclickFriend(false)
         setsearchfriend(inputRef.current?.value);
     }
     useEffect(() => {
@@ -22,6 +26,14 @@ function ChatFriends(props: any) {
             fetch('http://localhost:3000/search/' + searchfriend, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatafriend(data);})
     }, [searchfriend])
 
+    const handelclick = (user: any , action: string) =>
+    {
+        setFriendClicked(null)
+        setdatafriend(null);
+        props.setListFriends((prevfriend: any) => prevfriend.filter((friend: any) => friend.username !== user.username));
+        props.setonlyChat(false)
+        fetch(`http://localhost:3000/friends/${action}/` + user.username, { credentials: "include", method: "POST"});
+    }
     return ( 
             <div className="Chat flex items-end">
                 <div className={`w-[40%] ${props.onlyChat || chatloding ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} h-[100%] test5 ml-2`}>
@@ -44,7 +56,7 @@ function ChatFriends(props: any) {
                                             </div>
                                                 <div className="w-[100%] h-[30px] mt-[20px] flex justify-center items-center">
                                                         <Skeleton isLoaded={props.friendsloding}>
-                                                            <h1 className="font-[700] font-sora text-[11px] text-white">{`${props.count_frinds?.info?.count_friends} Friends`}</h1>
+                                                            <h1 className="font-[700] font-sora text-[11px] text-white">{`${props.ListFriends?.length} Friends`}</h1>
                                                         </Skeleton>
                                                 </div>
                                         </div>
@@ -57,13 +69,13 @@ function ChatFriends(props: any) {
                                                                             <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                             </div>))
                                                 }
-                                                {props.count_frinds?.info?.count_friends == "0" && 
+                                                {props.ListFriends?.length == 0 && 
                                                             <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have friends</div>
                                                 }
                                                 {
                                                     searchfriend === "" && props.friendsloding ? (
                                                         props.ListFriends?.map((user: any, index: number) => (
-                                                            <Friend_chat index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={props.setonlyChat} setfriendchat={setfriendchat}/>
+                                                            <Friend_chat setListFriends={props.setListFriends} index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={props.setonlyChat} setfriendchat={setfriendchat}/>
 
                                                     ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                         <div  className="min-h-[61px] flex items-center">
@@ -71,24 +83,32 @@ function ChatFriends(props: any) {
                                                             {
                                                                 props.setonlyChat(false)
                                                                 setchatloding(true)
+                                                                setclickFriend(true)
                                                                 fetch('http://localhost:3000/profile/' + datafriend.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setfriendchat(data); setchatloding(false)}).then(() => props.setonlyChat(true))
                                                             }
-                                                            } className="w-[75%] flex items-center justify-center">
+                                                            } className={`w-[80%] flex items-center justify-center rounded-l-[6px] ${clickFriend ? "bg-[#00DAEA]" : ""}`}>
                                                                     <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                                                                         <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute 2xl:hidden xl:hidden}`}></div>
                                                                     </div>
                                                                     <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
-                                                                        <h1 className="text-[13px] font-sora font-[600] text-[white]">{datafriend.firstName + " " + datafriend.lastName}</h1>
-                                                                        <h1 className="text-[10px] font-sora font-[400] text-[#969696] ">{"@" + datafriend.username}</h1>
+                                                                        <h1 className={`text-[13px] font-sora font-[600] text-[white] ${clickFriend ? "text-black" : ""}`}>{datafriend.firstName + " " + datafriend.lastName}</h1>
+                                                                        <h1 className={`text-[10px] font-sora font-[400] text-[#969696] ${clickFriend ? "text-black" : ""}`}>{"@" + datafriend.username}</h1>
                                                                     </div>
-                                                                </button>
-                                                                <button className="text-white w-[20%] h-full">
-                                                                ...
-                                                                </button>
+                                                            </button>
+                                                            <Menu>
+                                                                <MenuButton height={'full'} roundedRight={'6px'} transition={'none'} background={`${clickFriend ? "#00DAEA": ""}`} textColor={`${clickFriend ? "text-black": "white"}`} roundedLeft={'0px'} as={Button} colorScheme='none' className={`w-[20%]`}>
+                                                                        ...
+                                                                </MenuButton>
+                                                                <MenuList>
+                                                                    <MenuItem onClick={() => handelclick(datafriend, "BLOCK")} icon={<FaBan/>}>block</MenuItem>
+                                                                    <MenuItem onClick={() => handelclick(datafriend, "UNFRIEND")} icon={<FaBan/>}>remove friend</MenuItem>
+                                                                    <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
+                                                                </MenuList>
+                                                            </Menu>
                                                             </div>
                                                     ) : (
-                                                        props.friendsloding && props.count_frinds?.info?.count_friends != "0" && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
+                                                        props.friendsloding && props.ListFriends?.length != 0 && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
                                                     )
                                                 }
                                             </div>
@@ -121,7 +141,7 @@ function ChatFriends(props: any) {
                         </div>
                     </div>
                 }
-                {props.onlyChat && <Chat setFriendClicked={setFriendClicked} data={props.data} setonlyChat={props.setonlyChat} friendchat={friendchat}/>}
+                {props.onlyChat && <Chat setclickFriend={setclickFriend} setFriendClicked={setFriendClicked} data={props.data} setonlyChat={props.setonlyChat} friendchat={friendchat}/>}
             </div> 
             
     );

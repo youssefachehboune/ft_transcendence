@@ -2,10 +2,12 @@ import Link from "next/link";
 import { useState, KeyboardEvent, useEffect, useRef } from "react";
 import { VscSearch } from "react-icons/vsc";
 import Profile_Frined from "../Profile_Frined";
-import { Box, Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import Friend from "./Friend";
+import { Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
+import { FaBan, FaGamepad } from "react-icons/fa";
 
-function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection, setonlyChat} : any) { 
+
+function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection, setonlyChat} : any) { 
     const [visible, setvisible] = useState<boolean>(false);
     const [block, setblock] = useState<boolean>(true);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
@@ -26,7 +28,14 @@ function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection, 
         setclickFriend(false)
         setsearchfriend(inputRef.current?.value);
     }
-
+    const handelclick = (user: any , action: string) =>
+    {
+        setFriendClicked(null);
+        setdatafriend(null);
+        setListFriends((prevfriend: any) => prevfriend.filter((friend: any) => friend.username !== user.username));
+        setvisible(false)
+        fetch(`http://localhost:3000/friends/${action}/` + user.username, { credentials: "include", method: "POST"});
+    }
     return (
         <div className="cont overflow-hidden flex gap-[10px] h-[100%]" >
             <div className={`w-[40%] ${visible ? "xl:w-[0%] 2xl:w-[55%]" : "xl:w-[95%] xl:ml-2 2xl:w-[55%] 2xl:ml-2"} h-[100%] test5 flex flex-col items-center overflow-y-auto rounded-[10px]`}>
@@ -45,7 +54,7 @@ function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection, 
                                             </div>
                                             <div className="w-[100%] h-[30px] mt-[20px] flex justify-center items-center">
                                                     <Skeleton isLoaded={friendsloding}>
-                                                        <h1 className="font-[700] font-sora text-[11px] text-white">{`${count_frinds?.info?.count_friends} Friends`}</h1>
+                                                        <h1 className="font-[700] font-sora text-[11px] text-white">{`${ListFriends?.length} Friends`}</h1>
                                                     </Skeleton>
                                             </div>
                                     </div>
@@ -58,13 +67,13 @@ function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection, 
                                                                         <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                         </div>))
                                             }
-                                            {count_frinds?.info?.count_friends == "0" && 
+                                            {ListFriends?.length == 0 && 
                                                         <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have friends</div>
                                             }
                                             {
                                                 searchfriend === "" && friendsloding ? (
                                                     ListFriends?.map((user: any, index: any) => (
-                                                        <Friend index={index} changecolor={friendClicked === index} setchangecolor={setFriendClicked} user={user} setblock={setblock} setvisible={setvisible} setprofileloding={setprofileloding} setProfile={setProfile}/>
+                                                        <Friend setListFriends={setListFriends}  index={index} changecolor={friendClicked === index} setchangecolor={setFriendClicked} user={user} setblock={setblock} setvisible={setvisible} setprofileloding={setprofileloding} setProfile={setProfile}/>
                                                 ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                     <div  className="min-h-[61px] flex items-center">
                                                             <button onClick={ () => {
@@ -82,12 +91,20 @@ function Friends({friendsloding, count_frinds, ListFriends, setshowchatsection, 
                                                                     <h1 className={`text-[10px] font-sora font-[400] text-[#969696] ${clickFriend ? "text-black" : ""}`}>{"@" + datafriend.username}</h1>
                                                                 </div>
                                                             </button>
-                                                            <button className={`w-[20%] h-full rounded-r-[6px] ${clickFriend ? "bg-[#00DAEA] text-black" : "text-white "}`}>
-                                                                ...
-                                                            </button>
+                                                            <Menu>
+                                                            <MenuButton height={'full'} roundedRight={'6px'} transition={'none'} background={`${clickFriend ? "#00DAEA": ""}`} textColor={`${clickFriend ? "text-black": "white"}`} roundedLeft={'0px'} as={Button} colorScheme='none' className={`w-[20%]`}>
+                                                                    ...
+                                                            </MenuButton>
+                                                            <MenuList>
+                                                                <MenuItem onClick={() => handelclick(datafriend, "BLOCK")} icon={<FaBan/>}>block</MenuItem>
+                                                                <MenuItem onClick={() => handelclick(datafriend, "UNFRIEND")} icon={<FaBan/>}>remove friend</MenuItem>
+                                                                <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
+                                                            </MenuList>
+                                                         </Menu>
+
                                                         </div>
                                                 ) : (
-                                                    friendsloding && count_frinds?.info?.count_friends != "0" && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
+                                                    friendsloding && ListFriends?.length != 0 && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
                                                 )
                                             }
                                         </div>

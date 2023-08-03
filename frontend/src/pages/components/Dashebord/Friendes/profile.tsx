@@ -9,10 +9,11 @@ interface Profile
 {
     data: any;
     dataisloded: boolean;
-    showprofile: boolean
-    setdataisloded: any
+    showprofile: boolean;
+    ListFriends: any;
+    setdata: any;
 }
-function Profile({data, dataisloded, showprofile, setdataisloded} : Profile) {
+function Profile({setdata, ListFriends, data, dataisloded, showprofile} : Profile) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [username, setusername] = useState<string>("")
     const [Errorusername, setErrorusername] = useState<string>("")
@@ -54,7 +55,7 @@ function Profile({data, dataisloded, showprofile, setdataisloded} : Profile) {
                             <div className="w-[100%] h-[100px] flex flex-col justify-around ml-[50px]">
                                 <SkeletonText isLoaded={dataisloded} width='70%'>
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><IoLocationOutline/></span>{data?.info?.location}</h1>
-                                        <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsPeople/></span>{data?.info?.count_friends} Friends</h1>
+                                        <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsPeople/></span>{ListFriends?.length} Friends</h1>
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsClock/></span>{data?.info?.member_since}</h1>
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><img src="g3.svg" className="w-[10px] h-[10px]"/></span>{data?.info?.email}</h1>
                                 </SkeletonText>
@@ -110,8 +111,8 @@ function Profile({data, dataisloded, showprofile, setdataisloded} : Profile) {
                                     </div>
                         </div>
                     </div>
-                    <Edite_profile Erroravatar={Erroravatar} setErroravatar={setErroravatar} isOpen={isOpen} onOpen={onOpen} onClose={onClose} data={data} username={username} setusername={setusername} Errorusername={Errorusername} setErrorusername={setErrorusername} Bio={Bio}
-                     setBio={setBio} ErrorBio={ErrorBio} setErrorBio={setErrorBio} location={location} setlocation={setlocation} avatar={avatar} setavatar={setavatar} setdataisloded={setdataisloded}/>
+                    <Edite_profile setdata={setdata} Erroravatar={Erroravatar} setErroravatar={setErroravatar} isOpen={isOpen} onOpen={onOpen} onClose={onClose} data={data} username={username} setusername={setusername} Errorusername={Errorusername} setErrorusername={setErrorusername} Bio={Bio}
+                     setBio={setBio} ErrorBio={ErrorBio} setErrorBio={setErrorBio} location={location} setlocation={setlocation} avatar={avatar} setavatar={setavatar}/>
         </div>
     );
 }

@@ -10,7 +10,7 @@ function Edite_profile(props: any) {
     {
         if (!props.ErrorBio && !props.Errorusername && !props.Erroravatar)
         {
-            await Update_user_tow({ bio: props.Bio,  avatar: props.avatar, username: props.username, location: props.location}, {error: props.setErrorusername}, () => props.onClose(), props.setdataisloded);
+            await Update_user_tow({ bio: props.Bio,  avatar: props.avatar, username: props.username, location: props.location}, {error: props.setErrorusername}, () => props.onClose(), props.setdata);
         }
     }
     return ( 

@@ -5,38 +5,54 @@ import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
-function Section({massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
+import { GiHamburgerMenu } from "react-icons/gi";
+function Section({setmenu, menu, massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
     const [showSettings, setshowSettings] = useState<boolean>(false);
     function handleClickSettings() {
         setshowprofile(true)
         setshowSettings(!showSettings);
     }
 return ( 
-    <div className="section ">
-            <div className="w-[100%] h-[100%] flex items-center justify-around">
-                <button>
-                    <LiaUserFriendsSolid className="hovring w-[18px] h-[18px]"/>
-                </button>
-                <button onClick={() => {setshowprofile(!showprofile); setshowSettings(false);}} className="hidden 2xl:block xl:block">
-                    <CgProfile className="hovring w-[18px] h-[18px]"/>
-                </button>
-                <button onClick={() => {setshowchatsection(!showchatsection); setonlyChat(false); setshowprofile(true); setshowSettings(false);}}>
-                <AiOutlineMessage color={massagenotif ? "red" : ""} className="hovring w-[18px] h-[18px]"/>
-                </button>
-                <button>
-                <VscBell className="hovring w-[18px] h-[18px]"/>
-                </button>
-                <button>
-                <BsGlobe className="hovring w-[18px] h-[18px] "/>
-                </button>
-                <button>
-                <VscSettingsGear className="hovring w-[18px] h-[20px]" onClick={handleClickSettings}
-                style={
-                    showSettings ? {color: "#fff"} : {}
-                }
-                />
-                </button>
-            </div>
+    <div className={"section"}>
+        {
+            !menu ? (
+                <div className="w-[100%] h-[100%] flex items-center justify-around">
+                    <button>
+                        <LiaUserFriendsSolid className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button onClick={() => {setshowprofile(!showprofile); setshowSettings(false);}} className="hidden 2xl:block xl:block">
+                        <CgProfile className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button className="hidden xl:block 2xl:block" onClick={() => {setshowchatsection(!showchatsection); setonlyChat(false); setshowprofile(true); setshowSettings(false);}}>
+                    <AiOutlineMessage color={massagenotif ? "red" : ""} className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button>
+                    <VscBell className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button>
+                    <BsGlobe className="hovring w-[18px] h-[18px] "/>
+                    </button>
+                    <button>
+                    <VscSettingsGear className="hovring w-[18px] h-[20px]" onClick={handleClickSettings}
+                    style={
+                        showSettings ? {color: "#fff"} : {}
+                    }
+                    />
+                    </button>
+                    <button onClick={() => setmenu(!menu)} className="hidden xl:block">
+                        <GiHamburgerMenu  className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                </div>
+
+            ): (
+                <div className="w-[100%] h-[100%] flex items-center justify-end ml-[-20px]">
+
+                    <button onClick={() => setmenu(!menu)} className="hidden xl:block">
+                        <GiHamburgerMenu  className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                </div>
+            )
+        }
             {
                 showSettings && <div className="w-[320px] h-[300px] absolute bg-[#261F30] top-[5%] right-[0.5%] z-[99] rounded-[6px] overflow-y-auto
                 phone:top-[7%] phone:w-[280px] phone:h-[270px]
