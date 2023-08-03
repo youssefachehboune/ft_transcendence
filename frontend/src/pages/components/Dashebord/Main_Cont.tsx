@@ -12,7 +12,7 @@ export default function Main() {
         setIsShow(false);
     }
     return (
-        <div className="cont">
+        <div className="cont Nest:h-[820px] tabletNest:h-[700px]">
             <div className="w-[100%] h-[35%] #070012 flex items-center justify-center phone:h-[50%]">
                 <div className="Play_div flex items-center justify-center" onMouseLeave={handlePlayLeave} onClick={handlePlayClick}>
                     <img  className="w-[370px] h-[100%]" src="Liquide.svg" alt="" />

@@ -1,11 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
 
 #friends {
-    position: absolute;
     width: 284px;
-    height: 100vh;
-    left: 0px;
-    top: 0px;
+    height: 100%;
 }
 
 #head {

@@ -123,7 +123,7 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
             && newBallX + ball.radius >= paddles.paddle2.x
             && newBallX - ball.radius <= paddles.paddle2.x + paddles.width
         ) {
-            console.log("paddle 2 hit");
+            // console.log("paddle 2 hit");
             let middlePaddle2 = paddles.paddle2.x + paddles.width / 2;
             let distanceBallXPaddleMiddle = ball.x - middlePaddle2;
             let newAngel = (((paddles.width / 2) - (distanceBallXPaddleMiddle)) / (paddles.width / 2)) * (Math.PI / 2);
@@ -136,7 +136,7 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         if (newBallY - ball.radius <= paddles.paddle1.y + paddles.height
             && newBallX + ball.radius >= paddles.paddle1.x
             && newBallX - ball.radius <= paddles.paddle1.x + paddles.width) {
-            console.log("paddle 1 hit");
+            // console.log("paddle 1 hit");
             let middlePaddle1 = newBallX + paddles.width / 2;
             let distanceBallXPaddleMiddle = paddles.paddle1.x - middlePaddle1;
             let newAngel = (((paddles.width / 2) - (distanceBallXPaddleMiddle)) / (paddles.width / 2)) * (Math.PI / 2);
@@ -147,12 +147,12 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
 
         // check for Goal
         if (newBallY + ball.radius >= paddles.paddle2.y + (paddles.height)) {
-            console.log("Goal for player 1");
+            // console.log("Goal for player 1");
             this.restBallPosition(gameData);
         }
 
         if (newBallY - ball.radius <= paddles.paddle1.y) {
-            console.log("Goal for player 2");
+            // console.log("Goal for player 2");
             this.restBallPosition(gameData);
         }
 

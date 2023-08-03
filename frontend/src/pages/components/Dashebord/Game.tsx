@@ -16,8 +16,10 @@ export default function Game() {
     const [showRobot, setShowRobot] = useState<boolean>(false);
     const [showMain, setShowMain] = useState<boolean>(true);
     return (
-        <div className="cont">
-            <div className="w-[100%] h-full test5 relative ">
+        <div className="cont Nest:h-[820px] tabletNest:h-[700px]">
+            <div className="w-[100%] h-full test5 relative 
+
+            ">
                 {
                     ((!showFriends && !showRandom && !showRobot) && showMain) && <div className="w-[100%] h-[50%]  flex items-center justify-center" 
                     style={

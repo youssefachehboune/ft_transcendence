@@ -157,7 +157,7 @@ export default function GameStarted({ data, socket }: GameStartedProps) {
 
 
   return (
-    <div id="game" style={{}}>
+    <div id="game" style={{}} className=" bg-red-400">
       <div id="scoor-section">
         <div id="player1">
           <img src={player1info?.avatar} />
