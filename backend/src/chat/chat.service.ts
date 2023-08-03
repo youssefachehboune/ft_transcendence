@@ -19,7 +19,7 @@ export class ChatService {
 			if (jwt) {
 				user = await this.authService.getUserFromAuthenticationToken(jwt);
 				if (!user) {
-					throw new WsException('Invalid credentials.'); 
+					return null;
 				}
 			}
 			return user;
