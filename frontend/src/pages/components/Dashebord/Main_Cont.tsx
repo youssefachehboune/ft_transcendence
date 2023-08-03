@@ -104,6 +104,9 @@ export default function Main() {
                                         )
                                     })
                                 }
+                                {
+                                    dataAchiev.length === 0 && <h1 className="text-[10px] font-sora font-bold text-[#ffffff7a]">No Achievement yet</h1>
+                                }
                             </div>
                         </div>
                     </div>
@@ -122,6 +125,9 @@ export default function Main() {
                                                     <LasMatches key={key} score1={item.userPoints} score2={item.opponentPoints} name1={item.User.firstName + ' ' + item.User.lastName} name2={item.Opponent.firstName + ' ' + item.Opponent.lastName} avatar1={item.User.avatar} avatar2={item.Opponent.avatar} username1={item.User.username} username2={item.Opponent.username} />
                                                 )
                                             })
+                                        }
+                                        {
+                                            dataMatch.length === 0 && <h1 className="text-[10px] font-sora font-bold text-[#ffffff7a]">No Match yet</h1>
                                         }
                                 </div>
                             </div>

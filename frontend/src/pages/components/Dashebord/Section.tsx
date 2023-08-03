@@ -6,6 +6,7 @@ import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
 import FriendRequest from "./FriendRequest";
+import Blocked from "./Blocked";
 
 function Section({massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
     const SettingRef = useRef<HTMLDivElement>(null);
@@ -14,9 +15,14 @@ function Section({massagenotif, setshowchatsection, showchatsection, setshowprof
     const [showRequest, setshowRequest] = useState<boolean>(false);
     const [isHovered, setIsHovered] = useState<boolean>(false);
     const [requestdata, setrequestdata] = useState<any>([]);
+    const [blockeddata, setblockeddata] = useState<any>([]);
     const [isHovered2, setIsHovered2] = useState<boolean>(false);
+    const [showdataRequest, setshowdataRequest] = useState<boolean>(true);
     useEffect(() => {
         const fetchData = async () => {
+            const resb = await fetch("http://localhost:3000/friends/status/BLOCKED", {credentials: "include"});
+            const datab = await resb.json();
+            setblockeddata(datab);
             const res = await fetch("http://localhost:3000/friends/status/REQUESTED", {credentials: "include"});
             const data = await res.json();
             setrequestdata(data);
@@ -68,6 +74,7 @@ function Section({massagenotif, setshowchatsection, showchatsection, setshowprof
     const handleOutsideClickRequest = (event: MouseEvent) => {
         if (requestRef.current && !requestRef.current.contains(event.target as Node)) {
           setshowRequest(false);
+          setshowdataRequest(true);
         }
       };
 return ( 
@@ -110,6 +117,7 @@ return (
                         <div className="w-[32%] h-[50%] bg-white rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-[#fff] hover:border-[1.3px] hover:bg-[#ffffff00]"
                         onMouseEnter={handleMouseEnter1}
                         onMouseLeave={handleMouseLeave1}
+                        onClick={() => {setshowdataRequest(true);}}
                         >
                                 <h1 className="text-[8px] font-sora font-semibold transition-all duration-500"
                                 style={
@@ -119,27 +127,42 @@ return (
                                 }
                                 >REQUESTS</h1>
                         </div>
-                        <div className="w-[32%] h-[50%] border-[#ED5253] border-[1.3px] flex items-center justify-center rounded-[2px] transition-all duration-500 cursor-pointer hover:bg-[#ED5253] hover:border-none"
+                        <div className="w-[32%] h-[50%] bg-[#ED5253] hover:border-[1.3px] flex items-center justify-center rounded-[2px] transition-all duration-500 cursor-pointer hover:border-[#ED5253]  hover:bg-[#ffffff00]"
                         onMouseEnter={handleMouseEnter2}
                         onMouseLeave={handleMouseLeave2}
+                        onClick={() => {setshowdataRequest(false);}}
                         >
                                 <h1 className="text-[8px] font-sora font-semibold transition-all duration-500   "
                                 style={
                                     {
-                                        color: isHovered2 ? "#fff" : "#ED5253"
+                                        color: !isHovered2 ? "#fff" : "#ED5253"
                                     }
                                 }
                                 >BLOCK-LIST</h1>
                         </div>
                     </div>
-                    <div className="w-[100%] relative h-[87%]  overflow-y-auto">
+                    <div className="w-[100%] relative h-[87%]  flex flex-col justify-start items-center overflow-y-auto">
                         {
+
+                            showdataRequest ?
                             requestdata.map((item: any, key : number) => {
                                 return (
                                     <FriendRequest key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
                                 )
                             })
+                            :
+                            blockeddata.map((item: any, key : number) => {
+                                return (
+                                    <Blocked key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
+                                )
+                            })
 
+                        }
+                        {
+                            requestdata.length === 0 && showdataRequest && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Request</h1>
+                        }
+                        {
+                            blockeddata.length === 0 && !showdataRequest && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Blocked</h1>
                         }
                     </div>
                 </div>

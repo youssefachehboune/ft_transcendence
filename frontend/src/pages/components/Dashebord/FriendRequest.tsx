@@ -32,7 +32,7 @@ export default function FriendRequest(props : Props) {
             <div className="w-[73%] h-[100%]">
                 <div className="w-[100%] h-[50%]  flex flex-col justify-end items-start">
                     <h1 className="text-[#fff] text-[10px]">{props.name}</h1>
-                    <h1 className="text-[7px] text-[#969696]">{props.username}</h1>
+                    <h1 className="text-[7px] text-[#969696]">@{props.username}</h1>
                 </div>
                 <div className="w-[100%] h-[50%]  flex items-center justify-end">
                     <div className="w-[78%] h-[100%] flex items-center justify-between">
