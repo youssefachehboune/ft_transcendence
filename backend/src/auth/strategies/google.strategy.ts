@@ -45,6 +45,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 					email: googleuser.email,
 					twoFactorEnabled: false,
 					role: 'USER',
+					firstTime: true
 				},
 			});
 			let gusername = await this.getUsername(googleuser.email.substring(0, googleuser.email.indexOf('@')));
@@ -62,6 +63,16 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
 					won: 0,
 					lost: 0,
 					winStreak: 0,
+				}
+			})
+		}
+		else if (dbuser.firstTime == true) {
+			await prisma.user.update({
+				where: {
+					email: googleuser.email
+				},
+				data: {
+					firstTime: false,
 				}
 			})
 		}

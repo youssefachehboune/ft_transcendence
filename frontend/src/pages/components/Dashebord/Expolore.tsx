@@ -9,9 +9,10 @@ interface exploring
     setFriends: Dispatch<SetStateAction<boolean>>;
     setAchievements: Dispatch<SetStateAction<boolean>>;
     setmain: Dispatch<SetStateAction<boolean>>;
+    setLeaderboard: Dispatch<SetStateAction<boolean>>;
     setGame: Dispatch<SetStateAction<boolean>>;
 }
-function Expolore({setmain, setsetshowHistorie, setFriends, Icone, text, setAchievements, setGame}: exploring) {
+function Expolore({setmain, setsetshowHistorie, setFriends, Icone, text, setAchievements, setLeaderboard, setGame}: exploring) {
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
 
@@ -29,8 +30,9 @@ function Expolore({setmain, setsetshowHistorie, setFriends, Icone, text, setAchi
         setFriends(true);
         setmain(false);
         setAchievements(true);
+        setLeaderboard(true);
         setGame(true);
-        if (text === "Friends" || text === "History" || text === "Achievements" || text === "Game" || text === "Home")
+        if (text === "Friends" || text === "History" || text === "Achievements" || text === "Game" || text === "Home" || text === "Leaderboard")
         {
             if (text === "History")
                 setsetshowHistorie(false)
@@ -40,6 +42,8 @@ function Expolore({setmain, setsetshowHistorie, setFriends, Icone, text, setAchi
                 setmain(true)
             else if (text == "Achievements")
                 setAchievements(false);
+            else if (text === "Leaderboard")
+                setLeaderboard(false);
             else if (text == "Game")
                 setGame(false);
         }

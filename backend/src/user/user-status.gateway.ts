@@ -182,7 +182,7 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
     @WebSocketServer() server: Server;
     async handleConnection(socket: Socket) {
         const userId = await this.getUserId(socket);
-        console.log("new One connected", userId);
+        // console.log("new One connected", userId);
         if (userId) {
             this.addUser(userId, socket.id);
             const onlineFriends = await this.getFriendsOnline(userId);

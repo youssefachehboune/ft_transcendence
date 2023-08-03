@@ -7,7 +7,6 @@ import Generate from "./components/auth/Generate";
 import Rectangle from "./components/sign_in/Header/Rectangle";
 import Text from "./components/auth/Text";
 import Success from "./components/auth/Success";
-import AuthLogin from "./components/auth/auth_login";
 export default function authGenerate() {
     const [changeColor, setChangeColor] = useState(false);
     const [show, setShow] = useState(true);

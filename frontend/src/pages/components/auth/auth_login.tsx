@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { getText } from '@/pages/api/lang';
 
 interface Prop {
-    val: boolean;
-    setVal : (val : boolean) => void;
-  }
+	val: boolean;
+	setVal : (val : boolean) => void;
+}
 
-export default function authLogin(props : Prop)
+export default function authLogin({setVal , val} : Prop)
 {
     return (
         <div className="authLog">
@@ -18,7 +18,7 @@ export default function authLogin(props : Prop)
                 </div>
             </div>
             <Verfie/>
-            <OTPField setVal={props.setVal} val={props.val}/>
+            <OTPField setVal={setVal} val={val}/>
         </div>
     );
 }

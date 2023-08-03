@@ -4,6 +4,7 @@ import { BsGlobe, BsXLg } from "react-icons/bs";
 import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
+import { LiaUserFriendsSolid } from "react-icons/lia";
 function Section({massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
     const [showSettings, setshowSettings] = useState<boolean>(false);
     function handleClickSettings() {
@@ -13,6 +14,9 @@ function Section({massagenotif, setshowchatsection, showchatsection, setshowprof
 return ( 
     <div className="section ">
             <div className="w-[100%] h-[100%] flex items-center justify-around">
+                <button>
+                    <LiaUserFriendsSolid className="hovring w-[18px] h-[18px]"/>
+                </button>
                 <button onClick={() => {setshowprofile(!showprofile); setshowSettings(false);}} className="hidden 2xl:block xl:block">
                     <CgProfile className="hovring w-[18px] h-[18px]"/>
                 </button>
@@ -26,7 +30,7 @@ return (
                 <BsGlobe className="hovring w-[18px] h-[18px] "/>
                 </button>
                 <button>
-                <VscSettingsGear className="hovring w-[18px] h-[18px]" onClick={handleClickSettings}
+                <VscSettingsGear className="hovring w-[18px] h-[20px]" onClick={handleClickSettings}
                 style={
                     showSettings ? {color: "#fff"} : {}
                 }

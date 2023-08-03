@@ -42,6 +42,7 @@ export class IntraStrategy extends PassportStrategy(Strategy, '42') {
                     email: intraUser.email,
                     twoFactorEnabled: false,
                     role: 'USER',
+										firstTime: true
                 },
             });
             let username1 = await this.getUsername(intraUser.username);
@@ -62,6 +63,16 @@ export class IntraStrategy extends PassportStrategy(Strategy, '42') {
                 }
             })
         }
+				else if (dbuser.firstTime == true) {
+					await prisma.user.update({
+						where: {
+							email: intraUser.email
+						},
+						data: {
+							firstTime: false,
+						}
+					})
+				}
         return intraUser;
     }
 }

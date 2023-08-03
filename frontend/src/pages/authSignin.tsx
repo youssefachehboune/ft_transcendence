@@ -3,7 +3,6 @@ import Logo from "./components/landing-page/logo";
 import Lang from './components/landing-page/button-lang'
 import { useState } from 'react'
 import Cursor from './components/landing-page/Cursor'
-import Generate from "./components/auth/Generate";
 import Rectangle from "./components/sign_in/Header/Rectangle";
 import Text from "./components/auth/Text";
 import Success from "./components/auth/Success";

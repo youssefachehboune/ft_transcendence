@@ -34,15 +34,19 @@ export class AuthService {
 	constructor(private jwtService: JwtService) { }
 
 	public async getUserFromAuthenticationToken(token: string) {
-    const payload: JwtPayload = this.jwtService.verify(token, {
-      secret: process.env.JWT_SECRET
-    });
-    if (payload.sub) {
-			return await prisma.user.findUnique({
-				where: { id: payload.sub },
-				include: { userProfile: true}
+		try {
+			const payload: JwtPayload = this.jwtService.verify(token, {
+				secret: process.env.JWT_SECRET
 			});
-    }
+			if (payload.sub) {
+				return await prisma.user.findUnique({
+					where: { id: payload.sub },
+					include: { userProfile: true}
+				});
+			}
+		} catch (err) {
+			console.log(err.message);
+		}
   }
 
 	async login(user) {
@@ -62,7 +66,8 @@ export class AuthService {
 			where: { email: user.email },
 			data: { refreshToken: await bcrypt.hash(refreshtoken, 10) }
 		});
-		return { accessToken: accesstoken, refreshToken: refreshtoken };
+		return { accessToken: accesstoken, refreshToken: refreshtoken,
+			firstTime: dbuser.firstTime, twoFactorEnabled: dbuser.twoFactorEnabled };
 	}
 
 	async refreshToken(email: string, refreshtoken: string) {
@@ -70,10 +75,10 @@ export class AuthService {
 			where: { email: email },
 		});
 		if (!user) {
-			throw new ForbiddenException('Forbidden');
+			throw new ForbiddenException('User not found');
 		}
 		if (! await bcrypt.compare(refreshtoken, user.refreshToken)) {
-			throw new ForbiddenException('Forbidden');
+			throw new ForbiddenException('Invalid refresh token');
 		}
 		const payload: JwtPayload = { email: user.email, sub: user.id };
 		const accesstoken = this.jwtService.sign(payload, {
