@@ -89,7 +89,7 @@ function Dashebord() {
             const chanelsdata = await mychanels.json();
             setmychanel(chanelsdata)
 
-            const publicmychanels = await fetch('http://localhost:3000/channel/public_channels', { credentials: "include" });
+            const publicmychanels = await fetch('http://localhost:3000/channel/channels', { credentials: "include" });
             const publicchanelsdata = await publicmychanels.json();
             setpublic_channel(publicchanelsdata)
 
@@ -155,9 +155,9 @@ function Dashebord() {
             {!showLeaderboard && !showchatsection && !showchanel  && <Leaderboard username={data.username}/>}
             {!Friend && !showchatsection && !showchanel && <Friends setListFriends={setListFriends} setonlyChat={setonlyChat} friendsloding={dataisloded} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
             {showchatsection && <ChatFriends setListFriends={setListFriends} setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
-            {showchanel && <List_memebres setmychanel={setmychanel} setchanel={setchanel} setrequestList={setrequestList} setbanList={setbanList} setmutedList={setmutedList} setinvitationList={setinvitationList}  setmemebers={setmemebers} requestList={requestList} ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
+            {showchanel && <List_memebres setpublic_channel={setpublic_channel} setmychanel={setmychanel} setchanel={setchanel} setrequestList={setrequestList} setbanList={setbanList} setmutedList={setmutedList} setinvitationList={setinvitationList}  setmemebers={setmemebers} requestList={requestList} ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
             {dataisloded && <Createchanel setmychanel={setmychanel} isOpen={isOpen} onClose={onClose}/>}
-           {dataisloded && <Search_Public_chanel setpublic_channel={setpublic_channel} public_channel={public_channel} onClose={closepublic} isOpen={ispublic}/>}
+           {dataisloded && <Search_Public_chanel setmychanel={setmychanel} setpublic_channel={setpublic_channel} public_channel={public_channel} onClose={closepublic} isOpen={ispublic}/>}
         </div>
      );
 }

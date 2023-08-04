@@ -73,7 +73,9 @@ onClose
             if (!Errornamechanel && !ErrorDescriptionchanel && !Errorpassword && chanelname && ChannelDescription && typechanel &&  !large_img)
             {
               if (typechanel === "PROTECTED" && password || typechanel != "PROTECTED" && !password)
-              await Updatechanel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, chanel, () => onclose(), setErrornamechanel, setchanel);
+              {
+                await Updatechanel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, chanel, () => onclose(), setErrornamechanel, setchanel);
+              }
             }
       
         }

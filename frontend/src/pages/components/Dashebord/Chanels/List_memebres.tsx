@@ -16,10 +16,16 @@ import Add_mumber from "./add_mumber";
 import MutedList from "./MutedList";
 import Update_chanel from "./Update_chanel/Update_chanel";
 import RequestedList from "./RequestedList";
+import { FaBan, FaGamepad } from "react-icons/fa";
+import Search_for_mumbers from "./search_for_mumbers";
 
 function List_memebres(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [searchfriend, setsearchfriend] = useState<string | undefined>("");
+    const [searchformembers, setsearchformembers] = useState<string | undefined>("");
+    const [datamumber, setdatamumber] = useState<any>();
+    const [searchtypeofmember, setsearchtypeofmember] = useState<any>();
+
+
     const [back , setback] = useState<boolean>(true)
 
     const { isOpen: ismodel, onOpen: openmodule, onClose: closemodule } = useDisclosure()
@@ -46,7 +52,7 @@ function List_memebres(props: any) {
     const openupdtechanel = () => {
         setchanelname(props.chanel?.name);
         setavatarchanel(props.chanel?.avatar);
-        setChannelDescription(props.chanel?.descrption);
+        setChannelDescription(props.chanel?.description);
         settypechanel(props.chanel?.type);
         openupdate();
     } 
@@ -55,10 +61,18 @@ function List_memebres(props: any) {
         setlistfrined_for_add_mumber(props.ListFriends)
         openaddmember();
     }
+    useEffect(() => {
+        setdatamumber(null)
+        if (searchformembers)
+        {
+            fetch('http://localhost:3000/search/' + searchformembers, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatamumber(data);})
+            fetch(`http://localhost:3000/channel/type/${props.chanel?.name}/${searchformembers}`, { credentials: "include" }).then((resp) => {return resp.text();}).then((data) => {setsearchtypeofmember(data)})
+        }
+    }, [searchformembers])
 
     const handelsearchChanges = () =>
     {
-        setsearchfriend(inputRef.current?.value);
+        setsearchformembers(inputRef.current?.value);
     }
     useEffect(() => {
         const handleResize = () => {
@@ -71,7 +85,14 @@ function List_memebres(props: any) {
         window.removeEventListener('resize', handleResize);
         };
     }, [back]);
-
+    const updateUserType = (username: any, userType: any) => {
+        setsearchtypeofmember(userType)
+        props.setmemebers((prevUsers: any) =>
+          prevUsers.map((user: any) =>
+            user.username === username ? { ...user, type: userType } : user
+          )
+        );
+      };
     return ( 
             <div className="Chat flex items-end">
                 <div className={`w-[40%] h-[100%] ${back ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} test5 ml-2`}>
@@ -81,12 +102,12 @@ function List_memebres(props: any) {
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center relative">
                                             <button onClick={() => setback(true)} className={`self-end absolute mt-[25px] mr-[20px] ${back ? "hidden" : ""} `}><AiOutlineMessage className="hovring w-[18px] h-[18px]"/></button>
-                                            <Parameteradmin chanel={props.chanel} openrequested={openrequested} openupdate={openupdtechanel} openmuted={openmuted} openaddmember={onopenaddmumbers} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
+                                            <Parameteradmin setpublic_channel={props.setpublic_channel} setshowchanel={props.setshowchanel} setmychanel={props.setmychanel} chanel={props.chanel} openrequested={openrequested} openupdate={openupdtechanel} openmuted={openmuted} openaddmember={onopenaddmumbers} data={props.data} memebers={props.memebers} back={back} onOpen={openmodule} openlistinvitation={openlistinvitation} openbanlist={openbanlist}/>
                                             <Delete_chanel setmychanel={props.setmychanel} setshowchanel={props.setshowchanel} chanel={props.chanel} isOpen={ismodel} onClose={closemodule}/>
                                             <List_of_invitation setListfriends={setlistfrined_for_add_mumber} setinvitationList={props.setinvitationList} chanel={props.chanel} invitationList={props.invitationList} isOpen={isinvitation} onClose={closelistinvitation}/>
-                                            <List_of_Ban setmemebers={props.setmemebers} setbanList={props.setbanList} chanel={props.chanel} banList={props.banList} isOpen={isban} onClose={closebanlist}/>
+                                            <List_of_Ban setbanList={props.setbanList} chanel={props.chanel} banList={props.banList} isOpen={isban} onClose={closebanlist}/>
                                             <Add_mumber  invitationList={props.invitationList} mutedList={props.mutedList} banList={props.banList} setinvitationList={props.setinvitationList} chanel={props.chanel} memebers={props.memebers} setListfriends={setlistfrined_for_add_mumber} ListFriends={listfrined_for_add_mumber} isOpen={isaddmember} onClose={closeaddmember}/>
-                                            <MutedList setmemebers={props.setmemebers} setmutedList={props.setmutedList} chanel={props.chanel} mutedList={props.mutedList} MutedList={props.MutedList} isOpen={ismuted} onClose={closemuted}/>
+                                            <MutedList setdatamumber={setdatamumber} setmemebers={props.setmemebers} setmutedList={props.setmutedList} chanel={props.chanel} mutedList={props.mutedList} MutedList={props.MutedList} isOpen={ismuted} onClose={closemuted}/>
                                             <Update_chanel
                                             setchanel={props.setchanel}
                                             large_img={large_img}
@@ -139,9 +160,14 @@ function List_memebres(props: any) {
                                                             </div>))
                                                 }
                                                 {
-                                                    props.mumeberschannelloding && props.memebers?.map((user: any, index: number) => (
-                                                            <Memeber setmutedList={props.setmutedList} setbanList={props.setbanList} setmemebers={props.setmemebers} chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
-                                                    ))
+                                                    searchformembers === "" && props.mumeberschannelloding ? (
+                                                        props.memebers?.map((user: any, index: number) => (
+                                                            <Memeber updateUserType={updateUserType} key={index} setmutedList={props.setmutedList} setbanList={props.setbanList} setmemebers={props.setmemebers} chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
+                                                    ))) : searchformembers && props.mumeberschannelloding && !datamumber?.message && datamumber && searchtypeofmember && (searchtypeofmember === "MEMBER" || searchtypeofmember === "ADMIN" || searchtypeofmember === "OWNER") ? (
+                                                            <Search_for_mumbers setdatamumber={setdatamumber} setmemebers={props.setmemebers} setmutedList={props.setmutedList} setbanList={props.setbanList} user={datamumber} typeofmumber={searchtypeofmember}  updateUserType={updateUserType} typememeber={props.typememeber} chanel={props.chanel}/>
+                                                    )  : (
+                                                        props.mumeberschannelloding && props.memebers?.length != 0 && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>     
+                                                    )
                                                 }
                                             </div>
                     </div>

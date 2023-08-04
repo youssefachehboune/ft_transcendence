@@ -18,9 +18,9 @@ export class ChannelController {
     }
 
     @UseGuards(JwtGuard)
-    @Get('public_channels')
-    async getPublicChannels(@Req() req: Request) {
-        return await this.channelService.getPublicChannels(req);
+    @Get('channels')
+    async getChannels(@Req() req: Request) {
+        return await this.channelService.getChannels(req);
     }
 
 		@UseGuards(JwtGuard)

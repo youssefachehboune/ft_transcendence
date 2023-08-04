@@ -1,11 +1,20 @@
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { HiUserAdd } from "react-icons/hi";
-function Search_Public_chanel({setpublic_channel, public_channel, onClose, isOpen}: any) {
-  
-    const handleBanClick = (user: any) => {
-      setpublic_channel((prevpublic_channel: any) => prevpublic_channel.filter((public_channel: any) => public_channel.name !== user.name));
-    };
+import Join_channels from "./join_channels";
+import { useEffect, useRef, useState } from "react";
+function Search_Public_chanel({setmychanel, setpublic_channel, public_channel, onClose, isOpen}: any) {
+    const inputeRef = useRef<HTMLInputElement | null>(null);
+    const [searchchanels, setsearchchanels] = useState<string | undefined>("");
+    const [chaneldata, setchaneldata] = useState<any>();
+
+
+    const handelsearchChanges = () =>
+    {
+        setsearchchanels(inputeRef.current?.value);
+    }
+    useEffect(() => {
+      if (searchchanels)
+          fetch(`http://localhost:3000/channel/${searchchanels}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setchaneldata(data);})
+  }, [searchchanels])
     return ( 
         <Modal size={'xl'} onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
@@ -14,29 +23,19 @@ function Search_Public_chanel({setpublic_channel, public_channel, onClose, isOpe
             <ModalCloseButton />
             <ModalBody overflow={'hidden'}>
                 <FormControl>
-                <FormLabel textColor={'white'}>search</FormLabel>
-                  <Input textColor={'white'} placeholder='name chanel' />
+                <FormLabel fontSize={'14px'} fontFamily={'sora'} fontWeight={'400'}  textColor={'white'}>search</FormLabel>
+                  <Input onChange={handelsearchChanges} ref={inputeRef} borderRadius={'5px'} fontSize={'12px'} fontFamily={'sora'} fontWeight={'400'} textColor={'white'} placeholder='name chanel'/>
                 </FormControl>
                 <br/>
                 <div className="w-[100%] h-[270px] test5 flex flex-col gap-1 rounded-[7px] overflow-y-auto">
                   {
-                    public_channel?.map((user: any, index: number) => (
-                      <div key={index} className="w-[100%] min-h-[61px] flex  gap-2">
-                          <div className={`w-[100%] flex items-center  rounded-l-[6px]`}>
-                            <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                                    <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                            </div>
-                            <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
-                                <h1 className={`text-[13px] font-sora font-[600] text-[#ffffff]`}>{user.name}</h1>
-                                <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff]`}>{user.description}</h1>
-                            </div>
-                          </div>
-                          <button onClick={() => handleBanClick(user)} className={`w-[111px] bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
-                            <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>join</h1>
-                          </button>
-                      </div>
-                    ))
-
+                    searchchanels === "" ? (
+                      public_channel?.map((user: any, index: number) => (
+                        <Join_channels setmychanel={setmychanel} setpublic_channel={setpublic_channel} user={user}/>
+                      ))
+                    ) : (
+                        public_channel?.length != 0 && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
+                    )
                     }
                 </div>
             </ModalBody>

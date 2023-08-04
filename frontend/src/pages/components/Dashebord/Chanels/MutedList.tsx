@@ -2,8 +2,9 @@ import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButt
 import { BsPersonFillSlash } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
 
-function MutedList({setmemebers, setmutedList, chanel, mutedList, isOpen, onClose}: any) {
+function MutedList({setdatamumber, setmemebers, setmutedList, chanel, mutedList, isOpen, onClose}: any) {
     const handleBanClick = (user: any) => {
+        setdatamumber(user)
         setmemebers((prevBanList : any) => [...prevBanList, user])
         setmutedList((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
         fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/unmute`, {

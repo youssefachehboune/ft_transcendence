@@ -5,7 +5,7 @@ import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
-import { GiHamburgerMenu } from "react-icons/gi";
+import {FaSearch} from 'react-icons/fa'
 function Section({setmenu, menu, massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
     const [showSettings, setshowSettings] = useState<boolean>(false);
     function handleClickSettings() {
@@ -40,7 +40,7 @@ return (
                     />
                     </button>
                     <button onClick={() => setmenu(!menu)} className="hidden xl:block">
-                        <GiHamburgerMenu  className="hovring w-[18px] h-[18px]"/>
+                        <FaSearch  className="hovring w-[18px] h-[18px]"/>
                     </button>
                 </div>
 
@@ -48,7 +48,7 @@ return (
                 <div className="w-[100%] h-[100%] flex items-center justify-end ml-[-20px]">
 
                     <button onClick={() => setmenu(!menu)} className="hidden xl:block">
-                        <GiHamburgerMenu  className="hovring w-[18px] h-[18px]"/>
+                        <FaSearch  className="hovring w-[18px] h-[18px]"/>
                     </button>
                 </div>
             )

@@ -94,7 +94,7 @@ function Chat_chanel({back, chanel, data}: any) {
                             </div>
                             <div className="w-[70%] h-[84px] flex flex-col justify-center ml-[5px]">
                                 <h1 className="text-[13px] font-sora font-[600] text-[white]">{chanel?.name}</h1>
-                                <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff] xl:w-[350px] 2xl:w-[370px]`}>{"@" + chanel?.descrption}</h1>
+                                <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff] xl:w-[350px] 2xl:w-[370px]`}>{"@" + chanel?.description}</h1>
                                 
                             </div>
                         </div>

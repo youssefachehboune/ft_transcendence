@@ -163,7 +163,7 @@
         grid-template-columns: 100px repeat(9, 1fr);
         grid-template-rows: 50px auto;
         grid-template-areas: 
-         "chanel search search search search search section section section section"
+         "chanel section section section section section section section section section"
          "Chat Chat Chat Chat Chat Chat Chat  Chat Chat Chat";
     }
     .profile

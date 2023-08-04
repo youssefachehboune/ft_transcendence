@@ -1,9 +1,8 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { BsPersonFillSlash } from "react-icons/bs";
 
-function List_of_Ban({setmemebers, setbanList, chanel, onClose, isOpen, banList}: any) {
+function List_of_Ban({setbanList, chanel, onClose, isOpen, banList}: any) {
   const handleBanClick = (user: any) => {
-    setmemebers((prevBanList : any) => [...prevBanList, user])
     setbanList((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/unban`, {
       credentials: "include",

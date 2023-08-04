@@ -3,13 +3,14 @@ import { BsFillVolumeMuteFill, BsPersonFillAdd } from "react-icons/bs";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import {TbUserCancel} from 'react-icons/tb'
 
-function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, index, user, updateUserType}: any) {
+function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemebers, chanel, typememeber, user, typeofmumber, updateUserType}: any) {
     const handleBanClick = (action: string) => {
         if (action == 'ban')
             setbanList((prevBanList : any) => [...prevBanList, user])
         if (action == 'mute')
             setmutedList((prevBanList : any) => [...prevBanList, user])
         setmemebers((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
+        setdatamumber(null);
         fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/${action}`, {
           credentials: "include",
           method: 'PUT',
@@ -26,7 +27,7 @@ function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, in
         fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/${action}`, {credentials: "include",method: 'PUT',})
       }
     return ( 
-        <div key={index} className="min-h-[61px] flex items-center">
+        <div className="min-h-[61px] flex items-center">
                 
                 <button className={`w-[80%] flex items-center justify-center rounded-l-[6px]`}>
                     <div className="w-[75px] h-[70px] flex justify-center items-center relative">
@@ -41,7 +42,7 @@ function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, in
                 
                 {
                     typememeber == 'OWNER' ? (
-                        user.type == "MEMBER" ?
+                        typeofmumber == "MEMBER" ?
                         (
                             <Menu>
                                 <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">
@@ -55,7 +56,7 @@ function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, in
                                     <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
                                 </MenuList>
                             </Menu>
-                        ): user.type == "ADMIN" ?
+                        ): typeofmumber == "ADMIN" ?
                         (
                             <Menu>
                             <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">
@@ -82,7 +83,7 @@ function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, in
                             </Menu>
                     ): typememeber == 'ADMIN' ?
                     (
-                        user.type == "MEMBER" ?
+                        typeofmumber == "MEMBER" ?
                         (
                             <Menu>
                                 <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">
@@ -110,7 +111,7 @@ function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, in
                     ): null
                 }
     </div>
-     );
+    );
 }
 
-export default Memeber;
+export default Search_for_mumbers;

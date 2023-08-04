@@ -5,8 +5,20 @@ import { GrUpdate } from "react-icons/gr";
 import { HiOutlineBan } from "react-icons/hi";
 import { VscSettingsGear } from "react-icons/vsc";
 
-function Param({chanel, openrequested, openupdate, openmuted, openaddmember, openbanlist, data, user, index, onOpen, back, openlistinvitation}: any)
+function Param({setpublic_channel, setshowchanel, setmychanel, chanel, openrequested, openupdate, openmuted, openaddmember, openbanlist, data, user, onOpen, back, openlistinvitation}: any)
 {
+    const handleliveClick = () => {
+        setshowchanel(false)
+        setpublic_channel((prevChannels: any) => [...prevChannels, chanel]);
+        setmychanel((prevMembers: any) => prevMembers.filter((channel: any) => channel.name !== chanel.name));
+        const leave : {name: string, password: string | undefined | null} = {name: chanel.name, password: chanel.password};
+        fetch(`http://localhost:3000/channel/user/leave`, {
+            credentials: "include",
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json' },
+            body: JSON.stringify(leave),
+          })
+      };
     return (
         data?.username == user.username && user.type == "MEMBER" ? (
                 <Menu>
@@ -14,7 +26,7 @@ function Param({chanel, openrequested, openupdate, openmuted, openaddmember, ope
                         <VscSettingsGear className="hovring w-[18px] h-[18px]"/>
                     </MenuButton>
                 <MenuList>
-                    <MenuItem icon={<BsPersonFillSlash />}>leave</MenuItem>
+                    <MenuItem onClick={handleliveClick} icon={<BsPersonFillSlash />}>leave</MenuItem>
                 </MenuList>
                 </Menu>
             ): data?.username == user.username && user.type == "ADMIN" ?
@@ -24,11 +36,9 @@ function Param({chanel, openrequested, openupdate, openmuted, openaddmember, ope
                         <VscSettingsGear className="hovring w-[18px] h-[18px]"/>
                     </MenuButton>
                         <MenuList>
-                        {chanel?.type == "PRIVATE" &&  
                         <MenuItem onClick={openlistinvitation} icon={<BsPersonFillAdd />}>
                         invitation list
                         </MenuItem>
-                        }
                         {chanel?.type == "PRIVATE" &&  
                         <MenuItem onClick={openrequested} icon={<BsPersonFillAdd />}>
                         requested list
@@ -43,7 +53,7 @@ function Param({chanel, openrequested, openupdate, openmuted, openaddmember, ope
                         <MenuItem onClick={openmuted} icon={<HiOutlineBan />}>
                         muted list
                         </MenuItem>
-                        <MenuItem icon={<BsPersonFillSlash />}>leave</MenuItem>
+                        <MenuItem onClick={handleliveClick} icon={<BsPersonFillSlash />}>leave</MenuItem>
                     </MenuList>
                 </Menu>
             ): data.username == user.username && user.type == "OWNER" ?
@@ -55,12 +65,11 @@ function Param({chanel, openrequested, openupdate, openmuted, openaddmember, ope
                     <MenuList>
                         <MenuItem onClick={openupdate} icon={<GrUpdate />}>
                         update chanel
-                        </MenuItem>
-                        {chanel?.type == "PRIVATE" &&  
+                        </MenuItem> 
                         <MenuItem onClick={openlistinvitation} icon={<BsPersonFillAdd />}>
                         invitation list
                         </MenuItem>
-                        }
+                        
                         {chanel?.type == "PRIVATE" &&  
                         <MenuItem onClick={openrequested} icon={<BsPersonFillAdd />}>
                         requested list
@@ -86,10 +95,10 @@ function Param({chanel, openrequested, openupdate, openmuted, openaddmember, ope
     )
 }
 
-function Parameteradmin({chanel, openrequested, openupdate, openmuted, openaddmember, openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
+function Parameteradmin({setpublic_channel, setshowchanel, setmychanel, chanel, openrequested, openupdate, openmuted, openaddmember, openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
     return (
-        memebers?.map((user: any, index: number) => (
-            <Param chanel={chanel} openrequested={openrequested} openupdate={openupdate} openmuted={openmuted} openaddmember={openaddmember} openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
+        memebers && memebers?.map((user: any, index: number) => (
+            <Param setpublic_channel={setpublic_channel} setshowchanel={setshowchanel} setmychanel={setmychanel} key={index} chanel={chanel} openrequested={openrequested} openupdate={openupdate} openmuted={openmuted} openaddmember={openaddmember} openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
         ))
      );
 }

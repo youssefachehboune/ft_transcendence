@@ -15,7 +15,7 @@ async function Updatechanel(data : any, chanel: any, onCloseFn: () => void, setE
 			}
 			else
 			{
-				setchanel({avatar: data.avatar, name: data.name, descrption: data.description, password: data.password, type: data.type})
+				setchanel({avatar: data.avatar, name: data.name, description: data.description, password: data.password, type: data.type})
 				onCloseFn()
 			}
 
