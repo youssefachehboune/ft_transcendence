@@ -145,7 +145,7 @@ export default function FriendsGame() {
             {
               friends.map((friend) => (
                 <div key={friend.user_id} className="w-[100%] h-[70px] phone:h-[43px] rounded-l-full rounded-r-full border-[1.4px] border-[#00DAEA] flex items-center justify-start overflow-hidden mb-2">
-                  <div className="w-[10%] h-[100%] flex items-center justify-center
+                  <div className="w-[12%] h-[100%] flex items-center justify-center
                                 xl:w-[11%]
                                 laptop:w-[12%]
                                 Large-phone:w-[13%]
@@ -180,13 +180,13 @@ export default function FriendsGame() {
                           phone:text-[8px]
                           ">@{friend.username}</h1>
                   </div>
-                  <button onClick={() => play(friend.user_id)} className="w-[45%] h-[100%]  flex items-center justify-end
+                  <div className="w-[43%] h-[100%]  flex items-center justify-end
                         xl:w-[44%]
                         laptop:w-[44%]
                         Large-phone:w-[43%]
                         phone:w-[42%]
                         ">
-                    <div className="h-[43px] w-[100px] rounded-l-full rounded-r-full bg-[#00DAEA] mr-4 flex items-center justify-center cursor-pointer
+                    <button onClick={() => play(friend.user_id)} className="h-[43px] w-[100px] rounded-l-full rounded-r-full bg-[#00DAEA] mr-4 flex items-center justify-center cursor-pointer
                           xl:w-[90px] xl:h-[39px]
                           laptop:w-[85px] laptop:h-[35px]
                           Large-phone:w-[80px] Large-phone:h-[32px]
@@ -198,8 +198,8 @@ export default function FriendsGame() {
                             Large-phone:text-[11px]
                             phone:text-[10px]
                             ">Invite</h1>
-                    </div>
-                  </button>
+                    </button>
+                  </div>
                 </div>
               ))
             }
