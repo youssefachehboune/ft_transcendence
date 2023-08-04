@@ -108,10 +108,8 @@ return (
                 </button>
             </div>
             {
-                showRequest && <div ref={requestRef} className="w-[320px] h-[600px] absolute bg-[#261F30] top-[5%] right-[0.5%] z-[99] rounded-[6px] overflow-hidden
-                phone:top-[7%] phone:w-[280px] phone:h-[570px]
-                laptop:top-[7%]
-                Large-phone:top-[7%]
+                showRequest && <div ref={requestRef} className="w-[320px] h-[600px] absolute bg-[#261F30]  overflow-hidden right-[100px] xl:right-0 z-50 rounded-b-[6px]
+                phone:w-[280px] phone:h-[570px]
                  flex items-end flex-col">
                     <div className="w-[100%] h-[13%] flex items-center justify-around">
                         <div className="w-[32%] h-[50%] bg-white rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-[#fff] hover:border-[1.3px] hover:bg-[#ffffff00]"
@@ -168,10 +166,8 @@ return (
                 </div>
             }
             {
-                showSettings && <div ref={SettingRef} className="w-[320px] h-[300px] absolute bg-[#261F30] top-[5%] right-[0.5%] z-[99] rounded-[6px] overflow-y-auto
-                phone:top-[7%] phone:w-[280px] phone:h-[270px]
-                laptop:top-[7%]
-                Large-phone:top-[7%]
+                showSettings && <div ref={SettingRef} className="w-[350px] h-[300px] absolute bg-[#261F30]  overflow-y-auto right-0 z-50 rounded-b-[6px]
+                 phone:w-[280px] phone:h-[270px]
                  flex items-end flex-col">
                     <div className="w-[100%] h-[9%] bg-[#FFFFFF0F] flex items-center justify-center flex-row">
                         <h1 className="font-sora font-semibold leading-normal text-[11px] text-[#fff]">Settings</h1>
