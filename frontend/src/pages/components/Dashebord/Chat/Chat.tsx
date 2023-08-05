@@ -1,10 +1,9 @@
-import { IoArrowBackCircle, IoCheckmarkDoneOutline } from "react-icons/io5";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import {IoMdSend} from 'react-icons/io'
-import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect} from "react";
-import { io } from "socket.io-client";
+import { ChangeEvent, useState, useRef, useEffect} from "react";
 import { RxCross2 } from "react-icons/rx";
+import socket from '../../../chatSocket'
 
-var socket : any;
 function Chat({setFriendClicked, setonlyChat, friendchat, data} : any) {
     var check = true;
     var test12 = true;
@@ -35,10 +34,6 @@ function Chat({setFriendClicked, setonlyChat, friendchat, data} : any) {
         }
         if (check) 
         {
-            socket = io('http://localhost:3000', {
-                transports: ['websocket'],
-                withCredentials: true,
-              });
             fetchchat();
             socket.emit('read_message', friendchat.username)
             socket.on('receive_message', (data: string) => {
@@ -62,7 +57,7 @@ function Chat({setFriendClicked, setonlyChat, friendchat, data} : any) {
             })
         }
         if (!test12)
-            return () => {socket.close()}
+            return () => {socket.off('receive_message');}
         else
             test12 = false
     }, [])

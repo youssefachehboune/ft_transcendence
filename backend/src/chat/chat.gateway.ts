@@ -9,7 +9,8 @@ const prisma = new PrismaClient();
 @WebSocketGateway({
 	 cors: {
 		origin: '*'
-	}
+	},
+	namespace: 'chat'
 })
 export class ChatGateway {
   @WebSocketServer()
