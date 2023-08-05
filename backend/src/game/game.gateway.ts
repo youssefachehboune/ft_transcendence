@@ -1,7 +1,7 @@
 import { WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from "@nestjs/websockets";
 import { Socket, Server } from "socket.io";
 import { GameService } from "./game.service";
-import { GameDto } from "../game/game.dto";
+import { GameDto, Paddles, Ball } from "../game/game.dto";
 import { AuthService } from "../auth/auth.service";
 @WebSocketGateway({ cors: { origin: '*' }, namespace: "game" })
 export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -10,9 +10,9 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         private authService: AuthService,
 
     ) { }
-    
+
     @WebSocketServer() server: Server;
-    
+
     async handleConnection(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
@@ -24,8 +24,21 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         }
     }
 
-    handleDisconnect(socket: Socket) {
-        console.log("Player disconnected");
+    
+
+    async handleDisconnect(socket: Socket) {
+        const userId = await this.getUserId(socket);
+        if (userId) {
+            console.log("Player disconnected:", userId);
+            const game = this.gameService.getGameByUserId(userId, socket.id);
+            if (game) {
+                if(game.player2.socketId === socket.id)
+                    this.server.to(game.player1.socketId).emit("opponentDisconnected");
+                else if(game.player1.socketId === socket.id)
+                    this.server.to(game.player2.socketId).emit("opponentDisconnected");
+                this.gameService.deleteGame(game.gameId);
+            }
+        }
     }
 
     private async getUserId(socket: Socket) {
@@ -54,7 +67,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         }
     }
 
-    
+
     private restBallPosition(gameData: GameDto) {
         const ball = gameData.ball;
         const width = gameData.tableWidth;
@@ -134,24 +147,58 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     }
 
+    private resizeGame(gameData: GameDto, ball: Ball, ratio: number): GameDto {
+        const resizedGameData: GameDto = {
+            ...gameData,
+            tableWidth: gameData.tableWidth * ratio,
+            tableHeight: gameData.tableHeight * ratio,
+            ball: {
+                ...ball,
+                x: ball.x * ratio,
+                y: ball.y * ratio,
+                radius: ball.radius * ratio,
+            },
+            paddles: {
+                ...gameData.paddles,
+                width: gameData.paddles.width * ratio,
+                height: gameData.paddles.height * ratio,
+                paddle1: {
+                    ...gameData.paddles.paddle1,
+                    x: gameData.paddles.paddle1.x * ratio,
+                    y: gameData.paddles.paddle1.y * ratio,
+                },
+                paddle2: {
+                    ...gameData.paddles.paddle2,
+                    x: gameData.paddles.paddle2.x * ratio,
+                    y: gameData.paddles.paddle2.y * ratio,
+                },
+            },
+        };
+
+        return resizedGameData;
+    }
+
+
     private startGame(gameId: string) {
         const gameData = this.gameService.getGame(gameId);
         let gamePlayed = true;
         if (gameData.player1 && gameData.player2) {
             const interval = setInterval(() => {
                 this.updatePaddlesPosition(gameData);
-                gamePlayed = this.handleBall(gameData);
+                // gamePlayed = this.handleBall(gameData);
                 if (!gamePlayed) {
                     clearInterval(interval);
                 }
                 const client1Ball = { ...gameData.ball };
                 const client2Ball = { ...gameData.ball };
-                this.server.to(gameData.player2.socketId).emit("move", gameData.player2.userId, client1Ball, gameData.paddles, gameData.player1.score, gameData.player2.score, gameData);
+                this.server.to(gameData.player2.socketId).emit("move", this.resizeGame(gameData, client1Ball, gameData.player2.ratio));
                 client2Ball.y = gameData.tableHeight - client2Ball.y;
-                this.server.to(gameData.player1.socketId).emit("move", gameData.player2.userId, client2Ball, gameData.paddles, gameData.player1.score, gameData.player2.score, gameData);
+                this.server.to(gameData.player1.socketId).emit("move",  this.resizeGame(gameData, client2Ball , gameData.player1.ratio));
             }, 1000 / 60);
         }
     }
+
+
 
     @SubscribeMessage("move")
     async handleMove(socket: Socket, data: any) {
@@ -184,4 +231,59 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             }
         }
     }
+
+
+
+    @SubscribeMessage("resize")
+    async handleResize(socket: Socket, data: any) {
+        const { newWidth, gameId } = data;
+        console.log("resize", newWidth, gameId);
+        console.log("resize", newWidth, gameId);
+        const gameData = this.gameService.getGame(gameId);
+        const user = await this.getUserId(socket);
+        if (gameData && newWidth < 400) {
+            const ratio = newWidth / gameData.tableWidth;
+            if(user === gameData.player1.userId)
+                gameData.player1.ratio = ratio;
+            else if(user === gameData.player2.userId)
+                gameData.player2.ratio = ratio;
+        }
+    }
+
+    // private resizeGame(gameData: GameDto, newWidth: number): GameDto {
+    //     const ratio = newWidth / gameData.tableWidth;
+
+    //     const resizedGameData: GameDto = {
+    //         ...gameData,
+    //         tableWidth: newWidth,
+    //         tableHeight: gameData.tableHeight * ratio,
+    //         ball: {
+    //             ...gameData.ball,
+    //             x: gameData.ball.x * ratio,
+    //             y: gameData.ball.y * ratio,
+    //             radius: gameData.ball.radius * ratio,
+    //             // Update other ball properties if necessary
+    //         },
+    //         paddles: {
+    //             ...gameData.paddles,
+    //             width: gameData.paddles.width * ratio,
+    //             height: gameData.paddles.height * ratio,
+    //             paddle1: {
+    //                 ...gameData.paddles.paddle1,
+    //                 x: gameData.paddles.paddle1.x * ratio,
+    //                 y: gameData.paddles.paddle1.y * ratio,
+                    
+    //                 // Update other paddle properties if necessary
+    //             },
+    //             paddle2: {
+    //                 ...gameData.paddles.paddle2,
+    //                 x: gameData.paddles.paddle2.x * ratio,
+    //                 y: gameData.paddles.paddle2.y * ratio,
+    //                 // Update other paddle properties if necessary
+    //             },
+    //         },
+    //     };
+
+    //     return resizedGameData;
+    // }
 }
