@@ -3,6 +3,7 @@ export interface Player {
     socketId: string;
     score: number;
     ready: boolean;
+    ratio: number;
 }
 
 interface Ball {

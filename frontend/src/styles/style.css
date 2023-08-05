@@ -196,16 +196,6 @@
 }
 
 
-#game {
-    top: 80px;
-    position: absolute;
-    width: inherit;
-    height: inherit;
-
-    justify-content: center;
-    align-items: center;
-}
-
 #game #scoor-section {
     width: 716px;
     height: 62px;
@@ -351,12 +341,4 @@
     font-size: 39px;
     text-align: center;
     color: #000000;
-}
-
-#game #game-canvas {
-    left: 424px;
-    top: 80px;
-    position: absolute;
-    border-radius: 11px;
-    background: #000000;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import { GameData } from "./gameData";
-import { GameDto } from '../../../../../../backend/dist/src/game/game.dto';
+import { GameDto, Paddles } from '../../../../../../backend/dist/src/game/game.dto';
 
 interface PlayerInfo {
   avatar: string;
@@ -62,7 +62,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   const [gameId, setGameId] = useState<string>("");
   const [scorePlayer1, setScorePlayer1] = useState<number>(0);
   const [scorePlayer2, setScorePlayer2] = useState<number>(0);
-
+  const [newWidth, setNewWidth] = useState<number>(0);
   const fetchUserData = useCallback(async (user_id: number) => {
     const response = await fetch(`http://localhost:3000/user/data/${user_id}`, {
       credentials: "include",
@@ -104,6 +104,38 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
     };
   }, []);
 
+  const handleResize = () => {
+    console.log("resize");
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+    const game = document.getElementById("game");
+    socketRef.current?.emit("resize", {
+      newWidth: game?.clientWidth,
+      gameId
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [gameId]);
+
+  useEffect(() => {
+    socketRef.current?.on("resized", (newGameData: ExtendedGameData) => {
+      console.log("new width and hight : ", newGameData.tableWidth, newGameData.tableHeight);
+      setGameData(newGameData);
+    });
+
+    return () => {
+      // ... (remove socket event listeners)
+      socketRef.current?.off("resized");
+    };
+  }, []);
+
+
   useEffect(() => {
     const canvas = canvasGame.current;
     const ctx = canvas?.getContext("2d");
@@ -111,11 +143,9 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
     const paddles = gameData?.paddles;
     const tableWidth = gameData?.tableWidth;
     const tableHeight = gameData?.tableHeight;
-
     if (ctx && ball && paddles) {
       setGameWidth(tableWidth!);
       setGameHeight(tableHeight!);
-
       const draw = () => {
         ctx.clearRect(0, 0, canvas!.width, canvas!.height);
 
@@ -176,19 +206,30 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       }
     };
 
-    socketRef.current?.on("move", (id: number, ballPos: any, paddles: any, player1Scoor: any, Player2Scoor: any) => {
+    socketRef.current?.on("move", (newgameData: GameData) => {
+      const id = newgameData.player2.userId;
+      const paddles = newgameData.paddles;
+      const player1Scoor = newgameData.player1.score;
+      const Player2Scoor = newgameData.player2.score;
       if (gameData) {
-        gameData.ball.x = ballPos.x;
-        gameData.ball.y = ballPos.y;
-
+        gameData.ball.x = newgameData.ball.x;
+        gameData.ball.y = newgameData.ball.y;
+        gameData.ball.radius = newgameData.ball.radius;
+        gameData.tableWidth = newgameData.tableWidth;
+        gameData.tableHeight = newgameData.tableHeight;
+        gameData.paddles.width = paddles.width;
+        gameData.paddles.height = paddles.height;
         if (id === userId) {
           gameData.paddles.paddle1.x = paddles.paddle1.x;
+          gameData.paddles.paddle1.y = paddles.paddle1.y;
           gameData.paddles.paddle2.x = paddles.paddle2.x;
+          gameData.paddles.paddle2.y = paddles.paddle2.y;
         } else {
           gameData.paddles.paddle1.x = paddles.paddle2.x;
+          gameData.paddles.paddle1.y = paddles.paddle2.y;
           gameData.paddles.paddle2.x = paddles.paddle1.x;
+          gameData.paddles.paddle2.y = paddles.paddle1.y;
         }
-
         setScorePlayer1(player1Scoor);
         setScorePlayer2(Player2Scoor);
         setGameData({ ...gameData });
@@ -201,12 +242,18 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       endGame();
     });
 
+    socketRef.current?.on("opponentDisconnected", () => {
+      console.log("opponent disconnected");
+      endGame();
+    });
+
     return () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
       socketRef.current?.off("move");
       socketRef.current?.off("gameOver");
+      socketRef.current?.off("opponentDisconnected");
     };
 
   }, [gameData, userId]);
@@ -243,8 +290,8 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [userId, gameId]);
 
   return (
-    <div id="game" style={{}}>
-      <div id="scoor-section">
+    <div id="game" className="w-full" style={{ position: "absolute", top: "70px" }}>
+      {/* <div id="scoor-section">
         <div id="player1">
           <img src={player1info?.avatar} alt="Player 1" />
           <h1 id="name">{player1info?.name}</h1>
@@ -260,13 +307,14 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
           <h1 id="name">{player2info?.name}</h1>
           <h4 id="username">{player2info?.username}</h4>
         </div>
-      </div>
+      </div> */}
 
       <canvas
         id="game-canvas"
         ref={canvasGame}
         width={gameWidth}
         height={gameHeight}
+        style={{ backgroundColor: "red" }}
       />
     </div>
   );
