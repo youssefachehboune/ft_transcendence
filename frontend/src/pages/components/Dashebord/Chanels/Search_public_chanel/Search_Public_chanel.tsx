@@ -1,11 +1,10 @@
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import Join_channels from "./join_channels";
 import { useEffect, useRef, useState } from "react";
-function Search_Public_chanel({setmychanel, setpublic_channel, public_channel, onClose, isOpen}: any) {
+import Fined_chanel from "./fined_chanel";
+function Search_Public_chanel({data, setsearchchanels, searchchanels, setchaneldata, chaneldata,  setmychanel, setpublic_channel, public_channel, onClose, isOpen}: any) {
     const inputeRef = useRef<HTMLInputElement | null>(null);
-    const [searchchanels, setsearchchanels] = useState<string | undefined>("");
-    const [chaneldata, setchaneldata] = useState<any>();
-
+    const [typememeber, settypememeber] = useState<string>('')
 
     const handelsearchChanges = () =>
     {
@@ -13,7 +12,13 @@ function Search_Public_chanel({setmychanel, setpublic_channel, public_channel, o
     }
     useEffect(() => {
       if (searchchanels)
-          fetch(`http://localhost:3000/channel/${searchchanels}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setchaneldata(data);})
+      {
+          fetch(`http://localhost:3000/channel/${searchchanels}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((response) => {
+            setchaneldata(response);
+            if (response && !response.error)
+              fetch(`http://localhost:3000/channel/type/${response.name}/${data.username}`, { credentials: "include" }).then((resp) => {return resp.text();}).then((data) => {settypememeber(data)})
+          })
+      }
   }, [searchchanels])
     return ( 
         <Modal size={'xl'} onClose={onClose} isOpen={isOpen} isCentered>
@@ -31,10 +36,14 @@ function Search_Public_chanel({setmychanel, setpublic_channel, public_channel, o
                   {
                     searchchanels === "" ? (
                       public_channel?.map((user: any, index: number) => (
-                        <Join_channels setmychanel={setmychanel} setpublic_channel={setpublic_channel} user={user}/>
+                        <Join_channels data={data} key={index} setmychanel={setmychanel} setpublic_channel={setpublic_channel} user={user}/>
                       ))
+                    ) : searchchanels && chaneldata  && typememeber && !chaneldata.error &&  (typememeber === "NOTMEMBER" || typememeber === "REQUESTED") ? (
+                        <Fined_chanel typememeber={typememeber} settypememeber={settypememeber} setsearchchanels={setsearchchanels} setchaneldata={setchaneldata} setmychanel={setmychanel} user={chaneldata} setpublic_channel={setpublic_channel}/>
+                    ) : chaneldata && typememeber && typememeber != "NOTMEMBER" ? (
+                        <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
                     ) : (
-                        public_channel?.length != 0 && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
+                      chaneldata && chaneldata.error && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
                     )
                     }
                 </div>

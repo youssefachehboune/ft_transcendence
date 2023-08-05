@@ -2,9 +2,9 @@ import {FaBolt, FaChartBar, FaChartPie, FaPen} from 'react-icons/fa'
 import { BsClock, BsPatchCheckFill, BsPeople } from "react-icons/bs";
 import { IoLocationOutline } from "react-icons/io5";
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from '@chakra-ui/react'
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Edite_profile from '../Edite_profile/Edite_profile';
-
+import { useClickAway } from 'react-use';
 interface Profile
 {
     data: any;
@@ -12,8 +12,9 @@ interface Profile
     showprofile: boolean;
     ListFriends: any;
     setdata: any;
+    setshowprofile: any;
 }
-function Profile({setdata, ListFriends, data, dataisloded, showprofile} : Profile) {
+function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowprofile} : Profile) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [username, setusername] = useState<string>("")
     const [Errorusername, setErrorusername] = useState<string>("")
@@ -22,6 +23,7 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile} : Profil
     const [location, setlocation] = useState<string>('')
     const [avatar, setavatar] = useState<string>('')
     const [Erroravatar, setErroravatar] = useState<string>("")
+    const profileRef = useRef<HTMLInputElement | null>(null)
     const onopen = () => 
     {
         setusername(data.username)
@@ -33,9 +35,15 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile} : Profil
         setErrorBio("")
         onOpen()
     }
+    useClickAway(profileRef, () => {
+        if (!showprofile) {
+          setshowprofile(true);
+        }
+    });
+    
     return (
-            <div className={`${showprofile ? "profile 2xl:hidden" : "absolute z-50 w-[350px] h-[72%] mt-[50px] mr-[15%] xl:mr-0 right-0"}`}>
-                    <div className="w-[100%] h-[85%] 2xl:h-[100%] xl:h-[100%] bg-[#070012] 2xl:rounded-[15px] mt-[20%] 2xl:mt-[0%] xl:mt-[0%] xl:rounded-[15px]  flex flex-col items-center overflow-y-auto overflow-x-hidden">
+            <div  className={`${showprofile ? "profile 2xl:hidden" : "absolute z-50 w-[350px] h-[72%] mt-[50px] mr-[15%] xl:mr-0 right-0"}`}>
+                    <div ref={showprofile ? null : profileRef} className="w-[100%] h-[85%] 2xl:h-[100%] xl:h-[100%] bg-[#070012] 2xl:rounded-[15px] mt-[20%] 2xl:mt-[0%] xl:mt-[0%] xl:rounded-[15px]  flex flex-col items-center overflow-y-auto overflow-x-hidden">
                         <div className="w-[143px] h-[143px]">
                             <SkeletonCircle size='143' isLoaded={dataisloded}>
                                 <img src={data?.avatar} alt="" className="w-[143px] h-[143px] rounded-full border-indigo-400 border-[2px] select-none"/>

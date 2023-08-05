@@ -153,8 +153,8 @@ function List_memebres(props: any) {
                                             <div className="w-[100%] h-[100%] gap-[10px] flex flex-col overflow-hidden">
                                                 {
                                                     !props.mumeberschannelloding &&
-                                                            Array.from(Array(8)).map((i) => (
-                                                            <div key={i} className="w-[100%] h-[70px] ml-[15%] flex items-center overflow-hidden">
+                                                            Array.from(Array(8)).map((i, index: number) => (
+                                                            <div key={index} className="w-[100%] h-[70px] ml-[15%] flex items-center overflow-hidden">
                                                                             <SkeletonCircle size={'54px'} ></SkeletonCircle>
                                                                             <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                             </div>))

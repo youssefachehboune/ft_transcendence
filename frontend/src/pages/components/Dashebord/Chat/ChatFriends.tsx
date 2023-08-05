@@ -1,10 +1,12 @@
-import { Menu, Skeleton, SkeletonCircle, SkeletonText,MenuList, MenuItem, MenuButton, Button} from "@chakra-ui/react";
+import { Menu, Skeleton, SkeletonCircle, SkeletonText,MenuList, MenuItem, MenuButton, Button, useDisclosure} from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
 import { VscSearch } from "react-icons/vsc";
 import Chat from "./Chat";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import Friend_chat from "./Friend_chat";
 import { FaBan, FaGamepad } from "react-icons/fa";
+import { BsWechat } from "react-icons/bs";
+import Show_list_of_Channels from "./show_list_of_Channels";
 
 function ChatFriends(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -14,7 +16,7 @@ function ChatFriends(props: any) {
     const [chatloding, setchatloding] = useState(false)
     const [friendClicked, setFriendClicked] = useState<number | null>(null);
     const [clickFriend, setclickFriend] = useState<boolean>(false)
-
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const handelsearchChanges = () =>
     {
         setclickFriend(false)
@@ -41,7 +43,11 @@ function ChatFriends(props: any) {
                                         <button className="bg-[#070012] w-[100%] flex cursor-auto">
                                             <h1 onClick={() => props.setshowchatsection(false)} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
                                         </button>
-                                        <div className="w-[100%] h-auto flex flex-col items-center">
+                                        <div className="w-[100%] h-auto flex flex-col items-center relative">
+                                            <button onClick={onOpen} className={`self-end absolute mr-[30px] xl:mr-[50px] mt-[25px] hidden xl:block 2xl:block `}>
+                                                    <BsWechat className="hovring w-[18px] h-[18px]"/>
+                                            </button>
+                                            <Show_list_of_Channels setshowchanel={props.setshowchanel} setshowchatsection={props.setshowchatsection} setchanel={props.setchanel} setrequestList={props.setrequestList} setmutedList={props.setmutedList} setinvitationList={props.setinvitationList} setbanList={props.setbanList} settypememeber={props.settypememeber} setmemebers={props.setmemebers} setmumeberschannelloding={props.setmumeberschannelloding} setchannelloding={props.setchannelloding} data={props.data} mychanel={props.mychanel} isOpen={isOpen} onClose={onClose}/>
                                             <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
                                                 <div className="mr-[-5px]">
                                                     <VscSearch className="w-[12px] h-[12px]" color="white" />
@@ -63,8 +69,8 @@ function ChatFriends(props: any) {
                                             <div className="w-[100%] h-[100%] gap-[10px] flex flex-col overflow-hidden">
                                                 {
                                                     !props.friendsloding &&
-                                                            Array.from(Array(8)).map((i) => (
-                                                            <div key={i} className="w-[100%] h-[70px] ml-[15%] flex items-center overflow-hidden">
+                                                            Array.from(Array(8)).map((i, index: number) => (
+                                                            <div key={index} className="w-[100%] h-[70px] ml-[15%] flex items-center overflow-hidden">
                                                                             <SkeletonCircle size={'54px'} ></SkeletonCircle>
                                                                             <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                             </div>))
@@ -74,8 +80,8 @@ function ChatFriends(props: any) {
                                                 }
                                                 {
                                                     searchfriend === "" && props.friendsloding ? (
-                                                        props.ListFriends?.map((user: any, index: number) => (
-                                                            <Friend_chat setListFriends={props.setListFriends} index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={props.setonlyChat} setfriendchat={setfriendchat}/>
+                                                        props.ListFriends &&  props.ListFriends?.map((user: any, index: number) => (
+                                                            <Friend_chat key={user.user_id} setListFriends={props.setListFriends} index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={props.setonlyChat} setfriendchat={setfriendchat}/>
 
                                                     ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                         <div  className="min-h-[61px] flex items-center">

@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { useState, KeyboardEvent, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { VscSearch } from "react-icons/vsc";
 import Profile_Frined from "../Profile_Frined";
 import Friend from "./Friend";
@@ -61,8 +60,8 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                         <div className="w-[100%] h-[100%] gap-[10px] flex flex-col">
                                             {
                                                 !friendsloding &&
-                                                        Array.from(Array(8)).map((i) => (
-                                                        <div key={i} className="w-[100%] h-[70px] ml-[15%] flex items-center overflow-hidden">
+                                                        Array.from(Array(8)).map((i, index: number) => (
+                                                        <div key={index} className="w-[100%] h-[70px] ml-[15%] flex items-center overflow-hidden">
                                                                         <SkeletonCircle size={'54px'} ></SkeletonCircle>
                                                                         <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                         </div>))
@@ -72,8 +71,8 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                             }
                                             {
                                                 searchfriend === "" && friendsloding ? (
-                                                    ListFriends?.map((user: any, index: any) => (
-                                                        <Friend setListFriends={setListFriends}  index={index} changecolor={friendClicked === index} setchangecolor={setFriendClicked} user={user} setblock={setblock} setvisible={setvisible} setprofileloding={setprofileloding} setProfile={setProfile}/>
+                                                    ListFriends && ListFriends?.map((user: any, index: any) => (
+                                                        <Friend key={user.user_id} setListFriends={setListFriends}  index={index} changecolor={friendClicked === index} setchangecolor={setFriendClicked} user={user} setblock={setblock} setvisible={setvisible} setprofileloding={setprofileloding} setProfile={setProfile}/>
                                                 ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                     <div  className="min-h-[61px] flex items-center">
                                                             <button onClick={ () => {

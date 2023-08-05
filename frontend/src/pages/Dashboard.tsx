@@ -41,6 +41,9 @@ function Dashebord() {
     const [menu, setmenu] = useState<boolean>(true);
 
 
+    const [searchchanels, setsearchchanels] = useState<string | undefined>("");
+    const [chaneldata, setchaneldata] = useState<any>();
+
     const [mychanel, setmychanel] = useState<any>()
     const [showchanel, setshowchanel] = useState<boolean>(false)
     const [memebers, setmemebers] = useState<any>()
@@ -55,6 +58,13 @@ function Dashebord() {
     const [public_channel, setpublic_channel] = useState<any>();
 
     const { isOpen: ispublic, onOpen: openpublic, onClose: closepublic } = useDisclosure()
+
+    const open_search_chanel = () => 
+    {
+      setsearchchanels("")
+      setchaneldata(null);
+      openpublic()
+    }
     useEffect(() => {
       if (!showchatsection)
       {
@@ -130,7 +140,7 @@ function Dashebord() {
 
             {main && !showchatsection && !showchanel && <Main/>}
             <div className="chanel">
-              <NavBar setrequestList={setrequestList} openpublic={openpublic} setmutedList={setmutedList} data={data} settypememeber={settypememeber} setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
+              <NavBar setrequestList={setrequestList} openpublic={open_search_chanel} setmutedList={setmutedList} data={data} settypememeber={settypememeber} setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
               mychanel={mychanel} socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
             </div>
             {!showchatsection && !showchanel &&
@@ -148,16 +158,16 @@ function Dashebord() {
 
             }
             <Search  menu={menu}/>
-            <Section setmenu={setmenu} menu={menu} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} setonlyChat={setonlyChat} showchatsection={showchatsection} massagenotif={massagenotif}/>
-            <Profile setdata={setdata} ListFriends={ListFriends} showprofile={showprofile} data={data} dataisloded={dataisloded}/>
+            <Section setshowchanel={setshowchanel} setmenu={setmenu} menu={menu} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} setonlyChat={setonlyChat} showchatsection={showchatsection} massagenotif={massagenotif}/>
+            <Profile setshowprofile={setshowprofile} setdata={setdata} ListFriends={ListFriends} showprofile={showprofile} data={data} dataisloded={dataisloded}/>
             {!setshowHistorie  && !showchatsection && !showchanel && <History historieloding={dataisloded} all={allhistorie}/>}
             {!showAchievements && !showchatsection && !showchanel && <Achievements/>}
             {!showLeaderboard && !showchatsection && !showchanel  && <Leaderboard username={data.username}/>}
             {!Friend && !showchatsection && !showchanel && <Friends setListFriends={setListFriends} setonlyChat={setonlyChat} friendsloding={dataisloded} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
-            {showchatsection && <ChatFriends setListFriends={setListFriends} setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
+            {showchatsection && <ChatFriends setshowchanel={setshowchanel} setchanel={setchanel} setinvitationList={setinvitationList} setrequestList={setrequestList} setmutedList={setmutedList} setbanList={setbanList} settypememeber={settypememeber} setmemebers={setmemebers} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} mychanel={mychanel} setListFriends={setListFriends} setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
             {showchanel && <List_memebres setpublic_channel={setpublic_channel} setmychanel={setmychanel} setchanel={setchanel} setrequestList={setrequestList} setbanList={setbanList} setmutedList={setmutedList} setinvitationList={setinvitationList}  setmemebers={setmemebers} requestList={requestList} ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
             {dataisloded && <Createchanel setmychanel={setmychanel} isOpen={isOpen} onClose={onClose}/>}
-           {dataisloded && <Search_Public_chanel setmychanel={setmychanel} setpublic_channel={setpublic_channel} public_channel={public_channel} onClose={closepublic} isOpen={ispublic}/>}
+           {dataisloded && <Search_Public_chanel data={data} searchchanels={searchchanels} setsearchchanels={setsearchchanels} setchaneldata={setchaneldata} chaneldata={chaneldata} setmychanel={setmychanel} setpublic_channel={setpublic_channel} public_channel={public_channel} onClose={closepublic} isOpen={ispublic}/>}
         </div>
      );
 }

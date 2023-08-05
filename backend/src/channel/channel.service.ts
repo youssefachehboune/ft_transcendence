@@ -113,17 +113,20 @@ export class ChannelService {
         const publicChannels = await prisma.channel.findMany({
             where: {
                 NOT: {
-                    ChannelMembers: {
-                        some: {
-                            user_id: req.user['id'],
-                            OR: [
-                                { MemberType: 'MEMBER' },
-                                { MemberType: 'ADMIN' },
-                                { MemberType: 'OWNER' },
-                                { MemberType: 'REQUESTED' },
-                            ]
-                        },
-                    },
+                    OR: [
+                        {ChannelMembers: {
+                            some: {
+                                user_id: req.user['id'],
+                                OR: [
+                                    { MemberType: 'MEMBER' },
+                                    { MemberType: 'ADMIN' },
+                                    { MemberType: 'OWNER' },
+                                    { MemberType: 'REQUESTED' },
+                                ]
+                            },
+                        }},
+                        {type: 'NOTACTIVE'}
+                    ]
                 },
             },
         });

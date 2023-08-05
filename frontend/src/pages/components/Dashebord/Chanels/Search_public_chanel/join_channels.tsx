@@ -1,13 +1,28 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
 
-function Join_channels({user, setpublic_channel, setmychanel}: any) {
+function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
       
-    const [requestd, setrequestd] = useState<boolean>(true)
+    const [type, settype] = useState<string>('')
     const [enterpassword, setenterpassword] = useState<boolean>(true)
     const [checkpassword, setcheckpassword] = useState<boolean>(false)
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
+    const truncateDescription = (description: string) => {
+        return description.length > 20 ? description.substring(0, 20) + "..." : description;
+    };
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const typeResponse = await fetch(`http://localhost:3000/channel/type/${user.name}/${data.username}`, { credentials: "include" });
+            const typeData = await typeResponse.text();
+            settype(typeData);
+          } catch (error) {
+            console.log("error: " + error)
+          }
+        };
+        fetchData();
+      }, []);
 
     const handlePublicClick = () => {
         const newChannel = {
@@ -28,7 +43,7 @@ function Join_channels({user, setpublic_channel, setmychanel}: any) {
           })
       };
       const handle_send_request_Private_chanel = () => {
-        setrequestd(!requestd)
+        settype("REQUESTED")
         const data : {name: string, password: string | undefined | null} = {name: user.name, password: user.password};
         fetch(`http://localhost:3000/channel/user/join`, {
             credentials: "include",
@@ -38,7 +53,7 @@ function Join_channels({user, setpublic_channel, setmychanel}: any) {
           })
       };
       const handle_cancel_request_Private_chanel = () => {
-        setrequestd(!requestd)
+        settype("NOTMEMBER")
         const data : {name: string, password: string | undefined | null} = {name: user.name, password: user.password};
         fetch(`http://localhost:3000/channel/user/cancel`, {
             credentials: "include",
@@ -85,7 +100,7 @@ function Join_channels({user, setpublic_channel, setmychanel}: any) {
             </div>
             <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                 <h1 className={`text-[13px] font-sora font-[600] text-[#ffffff]`}>{user.name}</h1>
-                <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff]`}>{user.description}</h1>
+                <h1 className={`text-[10px] font-sora font-[400] text-[#ffffff]`}>{truncateDescription(user.description)}</h1>
             </div>
             </div>
             {
@@ -93,13 +108,13 @@ function Join_channels({user, setpublic_channel, setmychanel}: any) {
                 (
                     <>
                         {
-                        requestd && 
+                            type == "NOTMEMBER" && 
                             <button onClick={handle_send_request_Private_chanel} className={`w-[130px] bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                                 <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>send request</h1>
                             </button>
                         }
                         {
-                            !requestd && 
+                            type == "REQUESTED" && 
                             <button onClick={handle_cancel_request_Private_chanel}  className={`w-[130px] bg-[#7f7e80] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                                 <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>requested</h1>
                             </button>

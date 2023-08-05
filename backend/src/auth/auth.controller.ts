@@ -22,10 +22,10 @@ export class AuthController {
 		const { accessToken, refreshToken, firstTime, twoFactorEnabled } = await this.AuthService.login(req.user);
 		res.cookie('jwt', accessToken, {
 			httpOnly: true,
-			sameSite: 'lax',
+			sameSite: 'none',
 		}).cookie('refresh', refreshToken, {
 			httpOnly: true,
-			sameSite: 'lax',
+			sameSite: 'none',
 		})
 		if (firstTime)
 			res.redirect("http://localhost:3001/User-Info")
@@ -45,10 +45,10 @@ export class AuthController {
     const { accessToken, refreshToken, firstTime, twoFactorEnabled } = await this.AuthService.login(req.user);
 		res.cookie('jwt', accessToken, {
 			httpOnly: true,
-			sameSite: 'lax',
+			sameSite: 'none',
 		}).cookie('refresh', refreshToken, {
 			httpOnly: true,
-			sameSite: 'lax',
+			sameSite: 'none',
 		})
 		if (firstTime)
 			res.redirect("http://localhost:3001/User-Info")
@@ -64,7 +64,7 @@ export class AuthController {
 		const { newaccessToken : accessToken } = await this.AuthService.refreshToken(req.user['email'], req.cookies['refresh']);
 		res.cookie('jwt', accessToken, {
 			httpOnly: true,
-			sameSite: 'lax',
+			sameSite: 'none',
 		});
 		req.cookies['jwt'] = accessToken;
 		return res.send({

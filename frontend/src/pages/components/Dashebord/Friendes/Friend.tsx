@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FaBan, FaGamepad } from "react-icons/fa";
 
@@ -11,7 +10,7 @@ function Friend({setListFriends, index, changecolor, setchangecolor, user, setbl
         fetch(`http://localhost:3000/friends/${action}/` + user.username, { credentials: "include", method: "POST"});
     }
     return ( 
-        <div key={user.user_id} className="min-h-[61px] flex items-center">
+        <div className="min-h-[61px] flex items-center">
             <button onClick={ () => {
                 setblock(true)
                 setvisible(true);
@@ -40,7 +39,7 @@ function Friend({setListFriends, index, changecolor, setchangecolor, user, setbl
                     <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
                 </MenuList>
             </Menu>
-</div>
+        </div>
      );
 }
 
