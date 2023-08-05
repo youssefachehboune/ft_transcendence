@@ -1,6 +1,7 @@
 import { FaCheck } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { useState } from "react";
+import Image from "next/image";
 interface Props {
     username: string;
     name: string;
@@ -26,7 +27,7 @@ export default function FriendRequest(props : Props) {
         >
             <div className="w-[27%] h-[100%] flex items-center justify-center">
                 <div className="w-[52px] h-[52px] border border-cyan-400 rounded-full overflow-hidden">
-                    <img src={props.image} alt="" className="w-[51px] h-[51px] rounded-full" />
+                    <Image src={props.image} alt="" className="w-[51px] h-[51px] rounded-full" width={51} height={51}/>
                 </div>
             </div>
             <div className="w-[73%] h-[100%]">
