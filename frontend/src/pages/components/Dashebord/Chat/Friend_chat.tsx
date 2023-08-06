@@ -1,5 +1,6 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FaBan, FaGamepad } from "react-icons/fa";
+import Image from "next/image";
 
 function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, setchatloding, setonlyChat, setfriendchat}: any) {
     const handelclick = (action: string) =>
@@ -20,7 +21,7 @@ function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, 
             }
             } className={`w-[80%]  flex items-center justify-center rounded-l-[6px] ${changecolor ? "bg-[#00DAEA]": ""}`}>
                 <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                        <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                        <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                 </div>
                 <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">

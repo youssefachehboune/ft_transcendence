@@ -1,4 +1,4 @@
-async function Creat_channel(data : any, onCloseFn: () => void, setErrornamechanel: (value: any) => void, setmychanel: (value: any) => void) {
+async function Creat_channel(data : any, onCloseFn: () => void, setErrornamechanel: (value: any) => void, setmychanel: (value: any) => void, socket: any) {
 
     const fetchuser = async () => {
       try {
@@ -22,10 +22,10 @@ async function Creat_channel(data : any, onCloseFn: () => void, setErrornamechan
 					password: data.password,
 					type: data.typechanel,
 				};
+				socket.emit('add_channel', data.name);
 				setmychanel((prevChannels: any) => [...prevChannels, newChannel]);
 				onCloseFn()
 			}
-
 		} catch (error) {
 			console.log('Error fetching user:', error);
 		}

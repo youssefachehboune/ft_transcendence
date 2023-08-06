@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
+import Image from "next/image";
+import socket from '../../../../chatSocket'
+
 function Fined_chanel({settypememeber, typememeber, setsearchchanels, setchaneldata, user, setpublic_channel, setmychanel}: any) {
     const [enterpassword, setenterpassword] = useState<boolean>(true)
     const [checkpassword, setcheckpassword] = useState<boolean>(false)
@@ -15,6 +18,7 @@ function Fined_chanel({settypememeber, typememeber, setsearchchanels, setchaneld
             password: user.password,
             type: user.typechanel,
         };
+        socket.emit('add_channel', user.name);
         setsearchchanels("")
         setchaneldata(null);
         setmychanel((prevChannels: any) => [...prevChannels, newChannel]);
@@ -60,6 +64,7 @@ function Fined_chanel({settypememeber, typememeber, setsearchchanels, setchaneld
               {
                   if (data.success)
                   {
+                    socket.emit('add_channel', user.name);
                       setenterpassword(true)
                       const newChannel = {
                           avatar: user.avatar,
@@ -84,7 +89,7 @@ function Fined_chanel({settypememeber, typememeber, setsearchchanels, setchaneld
         <div className="w-[100%] min-h-[61px] flex  gap-2">
             <div className={`w-[100%] flex items-center  rounded-l-[6px]`}>
             <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                    <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                    <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
             </div>
             <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                 <h1 className={`text-[13px] font-sora font-[600] text-[#ffffff]`}>{user.name}</h1>

@@ -36,7 +36,7 @@ model User {
 
 model UserProfile {
     id        Int    @id @default(autoincrement())
-    user_id   Int
+    user_id   Int	@unique
     username  String @unique
     firstName String
     lastName  String

@@ -5,6 +5,8 @@ import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButt
 import React, { useEffect, useRef, useState } from 'react';
 import Edite_profile from '../Edite_profile/Edite_profile';
 import { useClickAway } from 'react-use';
+import Image from "next/image";
+
 interface Profile
 {
     data: any;
@@ -46,7 +48,7 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                     <div ref={showprofile ? null : profileRef} className="w-[100%] h-[85%] 2xl:h-[100%] xl:h-[100%] bg-[#070012] 2xl:rounded-[15px] mt-[20%] 2xl:mt-[0%] xl:mt-[0%] xl:rounded-[15px]  flex flex-col items-center overflow-y-auto overflow-x-hidden">
                         <div className="w-[143px] h-[143px]">
                             <SkeletonCircle size='143' isLoaded={dataisloded}>
-                                <img src={data?.avatar} alt="" className="w-[143px] h-[143px] rounded-full border-indigo-400 border-[2px] select-none"/>
+                                <Image width={'143'} height={'143'} src={data?.avatar} alt="" className="w-[143px] h-[143px] rounded-full border-indigo-400 border-[2px] select-none"/>
                             </SkeletonCircle>
                         </div>
                             <SkeletonText skeletonHeight='2' isLoaded={dataisloded} width={'90%'}  className='flex flex-col items-center h-[70px] mt-[10px]'>
@@ -65,7 +67,7 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><IoLocationOutline/></span>{data?.info?.location}</h1>
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsPeople/></span>{ListFriends?.length} Friends</h1>
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsClock/></span>{data?.info?.member_since}</h1>
-                                        <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><img src="g3.svg" className="w-[10px] h-[10px]"/></span>{data?.info?.email}</h1>
+                                        <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><Image width={'10'} height={'10'} src="/g3.svg" className="w-[10px] h-[10px]" alt={''}/></span>{data?.info?.email}</h1>
                                 </SkeletonText>
                             </div>
                         <div className="w-[85%] h-[113px] mt-[30px]  flex flex-col items-start break-words">
@@ -85,7 +87,7 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                                     <div className="w-[100%] h-[100%] flex flex-col items-center justify-evenly ml-[20px]">
                                             <div className="w-[100%] h-[56px] flex items-center gap-4 ">
                                                 <SkeletonCircle isLoaded={dataisloded} className='flex flex-col justify-center items-center test11'>
-                                                    <img src="hhhhhhhh.svg" alt="" />
+                                                    <Image width={'20'} height={'20'} src="/hhhhhhhh.svg" alt="" />
                                                 </SkeletonCircle>
                                                 <SkeletonText isLoaded={dataisloded}>
                                                     <h1 className="text-[white] text-[13px] font-sora font-[400]">Global Rank<p className="text-[8px] font-sora font-[700]">Among the top {data?.statistics?.Global_rank}</p></h1>

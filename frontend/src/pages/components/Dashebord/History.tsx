@@ -1,5 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import Image from "next/image";
+
 function History({historieloding, all} : any) {
 
     const [status, setstatus] = useState<string>("ALL")
@@ -39,7 +41,7 @@ function History({historieloding, all} : any) {
                                         return (
                                         <div key={index} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                                 <div className="w-[33.5%] flex items-center justify-end">
-                                                    <img src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>
+                                                    <Image width={'54'} height={'54'} src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>
                                                     <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                         <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.User.firstName + " " + user.User.lastName}</h1>
                                                         <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.User.username}</h1>
@@ -50,7 +52,7 @@ function History({historieloding, all} : any) {
                                                     <h1 className="text-[9px] font-sora font-[400] text-[#B3B3B3]">{user.occuredAt}</h1>
                                                 </div>
                                                 <div className="w-[33.5%] flex items-center justify-start">
-                                                    <img src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full"/>
+                                                    <Image width={'54'} height={'54'} src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full"/>
                                                     <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                         <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.Opponent.firstName + " " + user.Opponent.lastName}</h1>
                                                         <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.Opponent.username}</h1>
@@ -67,7 +69,7 @@ function History({historieloding, all} : any) {
                                     return (
                                         <div key={index} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                                 <div className="w-[33.5%] flex items-center justify-end">
-                                                    <img src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>
+                                                    <Image width={'54'} height={'54'} src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>
                                                     <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                         <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.User.firstName + " " + user.User.lastName}</h1>
                                                         <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.User.username}</h1>
@@ -78,7 +80,7 @@ function History({historieloding, all} : any) {
                                                     <h1 className="text-[9px] font-sora font-[400] text-[#B3B3B3]">{user.occuredAt}</h1>
                                                 </div>
                                                 <div className="w-[33.5%] flex items-center justify-start">
-                                                    <img src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full"/>
+                                                    <Image width={'54'} height={'54'} src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full"/>
                                                     <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                         <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.Opponent.firstName + " " + user.Opponent.lastName}</h1>
                                                         <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.Opponent.username}</h1>
@@ -91,7 +93,7 @@ function History({historieloding, all} : any) {
                             all && all?.map((user: any, index: number) => (
                                 <div key={index} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                         <div className="w-[33.5%] flex items-center justify-end">
-                                            <img src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>
+                                            <Image width={'54'} height={'54'} src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>
                                             <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                 <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.User.firstName + " " + user.User.lastName}</h1>
                                                 <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.User.username}</h1>
@@ -102,7 +104,7 @@ function History({historieloding, all} : any) {
                                             <h1 className="text-[9px] font-sora font-[400] text-[#B3B3B3]">{user.occuredAt}</h1>
                                         </div>
                                         <div className="w-[33.5%] flex items-center justify-start">
-                                            <img src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full"/>
+                                            <Image width={'54'} height={'54'} src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full"/>
                                             <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                 <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.Opponent.firstName + " " + user.Opponent.lastName}</h1>
                                                 <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.Opponent.username}</h1>

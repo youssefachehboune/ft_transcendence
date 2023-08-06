@@ -6,6 +6,7 @@ import {BiGitPullRequest} from 'react-icons/bi'
 import { Alert, AlertIcon } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react'
 import {RxCross2} from 'react-icons/rx'
+import Image from "next/image";
 
 interface block {
     block: boolean,
@@ -80,7 +81,7 @@ function Search({menu}: any) {
                                         !datasearch?.message ? (
                                             <div  className="w-[100%] min-h-[65px] text-white flex justify-between overflow-hidden">
                                             <div className="w-[100%] flex items-center ml-[15%]">
-                                                <img src={datasearch?.avatar} alt="" className="w-[54px] xl:w-[40px] rounded-full"/>
+                                                <Image width={'54'} height={'54'} src={datasearch?.avatar} alt="" className="w-[54px] xl:w-[40px] rounded-full"/>
                                                 <div className="w-[120px] xl:w-[140px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                     <h1 className="text-[7px] xl:text-[5px] font-sora font-[600] text-[white] ">{datasearch?.firstName + " " +  datasearch?.lastName}</h1>
                                                     <h1 className="text-[7px] xl:text-[5px] font-sora font-[600] text-[white] ">{"@" + datasearch?.username}</h1>

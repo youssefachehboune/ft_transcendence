@@ -1,4 +1,4 @@
-import { BsClockFill, BsFillPeopleFill, BsGlobe } from "react-icons/bs";
+import { BsClockFill, BsFillPeopleFill} from "react-icons/bs";
 import {FaCompass, FaGamepad, FaMedal} from 'react-icons/fa'
 import Expolore from "./components/Dashebord/Expolore";
 import {useEffect, useState } from "react";
@@ -11,18 +11,16 @@ import History from "./components/Dashebord/History";
 import Friends from "./components/Dashebord/Friendes/Friends";
 import Main from "./components/Dashebord/Main_Cont";
 import ChatFriends from "./components/Dashebord/Chat/ChatFriends";
-import Chat from "./components/Dashebord/Chat/Chat";
 import React from "react";
 import {useDisclosure } from "@chakra-ui/react";
 import Createchanel from "./components/Dashebord/Chanels/createchanel/createchanel";
-import { io } from "socket.io-client";
 import List_memebres from "./components/Dashebord/Chanels/List_memebres";
 import { MdLeaderboard } from "react-icons/md";
 import Search_Public_chanel from "./components/Dashebord/Chanels/Search_public_chanel/Search_Public_chanel";
 import Leaderboard from "./components/Dashebord/Leaderboard";
+import socket from "./chatSocket"
 
 function Dashebord() {
-  var socket: any;
   const [data, setdata] = useState<any>('');
   
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
@@ -68,16 +66,12 @@ function Dashebord() {
     useEffect(() => {
       if (!showchatsection)
       {
-        socket = io('http://localhost:3000', {
-          transports: ['websocket'],
-          withCredentials: true,
-        });
         socket.on('receive_message', (data: string) => {
           setmassagenotif(true)
         })
 
       }
-      return () => socket?.close();
+      return () => {socket.off('receive_message')};
 
     }, [showchatsection])
     useEffect(() => {
@@ -137,7 +131,6 @@ function Dashebord() {
 
     return ( 
         <div className={`${!showchatsection && !showchanel ? "container_page" : "chatsection"}`}>
-
             {main && !showchatsection && !showchanel && <Main/>}
             <div className="chanel">
               <NavBar setrequestList={setrequestList} openpublic={open_search_chanel} setmutedList={setmutedList} data={data} settypememeber={settypememeber} setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 

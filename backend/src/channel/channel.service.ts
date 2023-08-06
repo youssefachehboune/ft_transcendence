@@ -356,6 +356,17 @@ export class ChannelService {
         };
     }
 
+    async getChannelname(name: string): Promise<string> {
+        const channel = await prisma.channel.findUnique({
+            where: { name }
+        })
+        if (channel) {
+            name += Math.floor(Math.random() * 9);
+            return this.getChannelname(name);
+        }
+        return name;
+    }
+
     async deleteChannel(@Req() req: Request, name: string) {
         const channel = await prisma.channel.findUnique({
             where: {
@@ -386,12 +397,14 @@ export class ChannelService {
         if (channelMember.MemberType !== 'OWNER') {
             return { error: 'User is not the owner of the channel' }
         }
+        const channelname = await this.getChannelname('deleted_channel');
         await prisma.channel.update({
             where: {
                 name: name
             },
             data: {
-                type: 'NOTACTIVE'
+                type: 'NOTACTIVE',
+                name: channelname
             }
         });
         return { success: 'Channel deleted' }

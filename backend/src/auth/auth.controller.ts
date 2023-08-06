@@ -19,14 +19,14 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(GoogleGuard)
   async googleAuthRedirect(@Req() req: Request, @Res() res: Response) {
-		const { accessToken, refreshToken, firstTime, twoFactorEnabled } = await this.AuthService.login(req.user);
-		res.cookie('jwt', accessToken, {
-			httpOnly: true,
-			sameSite: 'none',
-		}).cookie('refresh', refreshToken, {
-			httpOnly: true,
-			sameSite: 'none',
-		})
+	const { accessToken, refreshToken, firstTime, twoFactorEnabled } = await this.AuthService.login(req.user);
+	res.cookie('jwt', accessToken, {
+		httpOnly: true,
+		sameSite: 'lax',
+	}).cookie('refresh', refreshToken, {
+		httpOnly: true,
+		sameSite: 'lax',
+	})
 		if (firstTime)
 			res.redirect("http://localhost:3001/User-Info")
 		else if (twoFactorEnabled)
@@ -45,10 +45,10 @@ export class AuthController {
     const { accessToken, refreshToken, firstTime, twoFactorEnabled } = await this.AuthService.login(req.user);
 		res.cookie('jwt', accessToken, {
 			httpOnly: true,
-			sameSite: 'none',
+			sameSite: 'lax',
 		}).cookie('refresh', refreshToken, {
 			httpOnly: true,
-			sameSite: 'none',
+			sameSite: 'lax',
 		})
 		if (firstTime)
 			res.redirect("http://localhost:3001/User-Info")
@@ -64,7 +64,7 @@ export class AuthController {
 		const { newaccessToken : accessToken } = await this.AuthService.refreshToken(req.user['email'], req.cookies['refresh']);
 		res.cookie('jwt', accessToken, {
 			httpOnly: true,
-			sameSite: 'none',
+			sameSite: 'lax',
 		});
 		req.cookies['jwt'] = accessToken;
 		return res.send({
@@ -78,6 +78,6 @@ export class AuthController {
 		res.clearCookie('jwt');
 		res.clearCookie('refresh');
 		await this.AuthService.logout(req.user['email']);
-		res.send({ msg: 'Logged out!' });
+		res.redirect('http://localhost:3001/')
   }
 }

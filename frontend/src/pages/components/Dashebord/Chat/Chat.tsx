@@ -1,10 +1,10 @@
-import { IoArrowBackCircle, IoCheckmarkDoneOutline } from "react-icons/io5";
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import {IoMdSend} from 'react-icons/io'
-import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect} from "react";
-import { io } from "socket.io-client";
+import { ChangeEvent, useState, useRef, useEffect} from "react";
 import { RxCross2 } from "react-icons/rx";
+import socket from '../../../chatSocket'
+import Image from "next/image";
 
-var socket : any;
 function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} : any) {
     var check = true;
     var test12 = true;
@@ -35,10 +35,6 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
         }
         if (check) 
         {
-            socket = io('http://localhost:3000', {
-                transports: ['websocket'],
-                withCredentials: true,
-              });
             fetchchat();
             socket.emit('read_message', friendchat.username)
             socket.on('receive_message', (data: string) => {
@@ -62,7 +58,7 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
             })
         }
         if (!test12)
-            return () => {socket.close()}
+            return () => {socket.off('receive_message');}
         else
             test12 = false
     }, [])
@@ -103,7 +99,7 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
                             </button>
                             <div className="w-[65%] 2xl:w-[70%] xl:w-[75%] min-h-[84px] flex justify-center">
                                 <div className="w-[20%] h-[84px] flex items-center justify-end">
-                                        <img src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                        <Image width={'54'} height={'54'} src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                                 </div>
                                 <div className="w-[70%] h-[84px] flex flex-col justify-center ml-[5px]">
@@ -118,7 +114,7 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
                                 if (message.username == data?.username)
                                 {
                                     return  <div key={key} className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center`}>
-                                            <img src={data?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
+                                            <Image width={'54'} height={'54'} src={data?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
                                             <div className="max-w-[400px] 2xl:max-w-[300px] xl:max-w-[200px] bg-black p-2 mr-[20px] rounded-t-[28px] rounded-l-[28px] flex">
                                                 <p className={"text-white text-[10px] font-sora mr-[5px]"}>{message.message}</p>
                                                 {message.read && <IoCheckmarkDoneOutline className="mt-[3px] mr-[5px] text-[#14FF00] text-[10px] flex items-center font-sora self-center"/>}
@@ -128,7 +124,7 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
                                 else if (message.username == friendchat?.username)
                                 {
                                     return  <div key={key} className={`w-[100%] pl-7 pt-5 h-fit  mb-[15px] flex  items-center relative`}>
-                                            <img src={friendchat?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
+                                            <Image width={'54'} height={'54'} src={friendchat?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
                                             <div className="max-w-[400px] 2xl:max-w-[300px] xl:max-w-[200px] bg-black p-2 ml-[20px]  rounded-t-[28px] rounded-r-[28px]">
                                                 <p className={`text-white text-[10px] font-sora`}>{message.message}</p>
                                             </div>

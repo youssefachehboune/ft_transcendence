@@ -1,8 +1,6 @@
-import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay } from "@chakra-ui/react";
-import { BsCheckLg, BsPersonFillSlash } from "react-icons/bs";
-import { RxCross2 } from "react-icons/rx";
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
-
+import { BsPersonFillSlash } from "react-icons/bs";
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import Image from "next/image";
 function List_of_invitation({setListfriends, setinvitationList, chanel, invitationList, onClose, isOpen}: any) {
   const handleBanClick = (user: any) => {
     setListfriends((prevBanList : any) => [...prevBanList, user])
@@ -25,7 +23,7 @@ function List_of_invitation({setListfriends, setinvitationList, chanel, invitati
                           <div key={index} className="w-[100%] min-h-[61px] flex gap-2">
                               <div className={`w-[80%] flex items-center justify-center rounded-l-[6px]`}>
                                 <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                                        <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                        <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                 </div>
                                 <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                                     <h1 className={`text-[13px] font-sora font-[600] text-[#ffffff]`}>{user.firstName + " " + user.lastName}</h1>

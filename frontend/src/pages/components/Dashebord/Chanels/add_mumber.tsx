@@ -3,6 +3,7 @@ import { type } from "os";
 import { useState } from "react";
 import { BsPersonFillSlash } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
+import Image from "next/image";
 
 function Add_mumber({invitationList, mutedList, banList, setListfriends, setinvitationList, memebers, ListFriends, isOpen, onClose, chanel}: any) {
     const isUserAlreadyMember = (user: any) => {
@@ -39,7 +40,7 @@ function Add_mumber({invitationList, mutedList, banList, setListfriends, setinvi
                                     !isUserAlreadyMember(user) && !isUserAlreadybaned(user) && !isUserAlreadymuted(user) && !isUserAlreadyinvited(user) && (
                                         <button key={index} className={`w-[100%] flex items-center justify-center`}>
                                             <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                                                    <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                    <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                             </div>
                                             <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                                                 <h1 className={`text-[13px] font-sora font-[600] text-[white]`}>{user.firstName + " " + user.lastName}</h1>

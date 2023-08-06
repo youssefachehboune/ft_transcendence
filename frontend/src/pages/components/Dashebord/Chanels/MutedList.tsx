@@ -1,7 +1,6 @@
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import { BsPersonFillSlash } from "react-icons/bs";
-import { HiUserAdd } from "react-icons/hi";
-
+import Image from "next/image";
 function MutedList({setdatamumber, setmemebers, setmutedList, chanel, mutedList, isOpen, onClose}: any) {
     const handleBanClick = (user: any) => {
         setdatamumber(user)
@@ -26,7 +25,7 @@ function MutedList({setdatamumber, setmemebers, setmutedList, chanel, mutedList,
                                 <div key={index} className="w-[100%] min-h-[61px] flex  gap-2">
                                     <div className={`w-[100%] flex items-center justify-center rounded-l-[6px]`}>
                                         <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                                                <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                         </div>
                                         <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                                             <h1 className={`text-[13px] font-sora font-[600] text-[#ffffff]`}>{user.firstName + " " + user.lastName}</h1>

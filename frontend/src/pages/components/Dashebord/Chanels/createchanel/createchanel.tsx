@@ -7,6 +7,7 @@ import Typechanel from "./typechanel";
 import Channel_Description from "./Channel_Description";
 import Chanel_password from "./chanel_password";
 import Creat_channel from "@/pages/api/Createchannel";
+import socket from '../../../../chatSocket'
 
 function Createchanel({setmychanel, isOpen, onClose}: any) {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -57,7 +58,9 @@ function Createchanel({setmychanel, isOpen, onClose}: any) {
       if (!Errornamechanel && !ErrorDescriptionchanel && !Errorpassword && chanelname && ChannelDescription && typechanel &&  !large_img)
       {
         if (typechanel === "PROTECTED" && password || typechanel != "PROTECTED" && !password)
-          await Creat_channel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, () => onclose(), setErrornamechanel, setmychanel);
+        {
+          await Creat_channel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, () => onclose(), setErrornamechanel, setmychanel, socket);
+        }
       }
 
   }

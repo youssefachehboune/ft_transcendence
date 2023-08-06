@@ -7,6 +7,7 @@ import Friend_chat from "./Friend_chat";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import { BsWechat } from "react-icons/bs";
 import Show_list_of_Channels from "./show_list_of_Channels";
+import Image from "next/image";
 
 function ChatFriends(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -39,7 +40,7 @@ function ChatFriends(props: any) {
     return ( 
             <div className="Chat flex items-end">
                 <div className={`w-[40%] ${props.onlyChat || chatloding ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} h-[100%] test5 ml-2`}>
-                    <div className={`w-[100%] h-[100%] flex flex-col items-center overflow-y-auto rounded-[10px]`}>
+                    <div className={`w-[100%] h-[100%] flex flex-col items-center overflow-y-auto overflow-x-hidden rounded-[10px]`}>
                                         <button className="bg-[#070012] w-[100%] flex cursor-auto">
                                             <h1 onClick={() => props.setshowchatsection(false)} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
                                         </button>
@@ -75,7 +76,7 @@ function ChatFriends(props: any) {
                                                                             <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                             </div>))
                                                 }
-                                                {props.ListFriends?.length == 0 && 
+                                                {props.ListFriends?.length == 0 && props.friendsloding &&
                                                             <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have friends</div>
                                                 }
                                                 {
@@ -94,7 +95,7 @@ function ChatFriends(props: any) {
                                                             }
                                                             } className={`w-[80%] flex items-center justify-center rounded-l-[6px] ${clickFriend ? "bg-[#00DAEA]" : ""}`}>
                                                                     <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                                                                        <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                                        <Image width={'54'} height={'54'} src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute 2xl:hidden xl:hidden}`}></div>
                                                                     </div>
                                                                     <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">

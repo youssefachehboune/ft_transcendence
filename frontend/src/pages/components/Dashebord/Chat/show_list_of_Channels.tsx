@@ -1,5 +1,6 @@
 import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import React from "react";
+import Image from "next/image";
 
 function Show_list_of_Channels(props: any) {
 
@@ -37,7 +38,7 @@ function Show_list_of_Channels(props: any) {
                               <button onClick={() => { props.setchannelloding(true); props.setmumeberschannelloding(false); fetchdata(channel)}} key={index} className="w-[100%] min-h-[61px] flex gap-2 hover:bg-[#5b5b5b] rounded-[6px]">
                                   <div className={`w-[80%] flex items-center justify-center rounded-l-[6px]`}>
                                     <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                                            <img src={channel.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                            <Image width={'54'} height={'54'} src={channel.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                     </div>
                                     <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                                         <h1 className={`text-[13px] font-sora font-[600] text-[#ffffff]`}>{channel.name}</h1>

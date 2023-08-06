@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
+import Image from "next/image";
+import socket from '../../../../chatSocket'
 
 function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
       
@@ -32,6 +34,7 @@ function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
             password: user.password,
             type: user.typechanel,
         };
+        socket.emit('add_channel', user.name);
         setmychanel((prevChannels: any) => [...prevChannels, newChannel]);
         setpublic_channel((prevpublic_channel: any) => prevpublic_channel.filter((public_channel: any) => public_channel.name !== user.name));
         const data : {name: string, password: string | undefined | null} = {name: user.name, password: user.password};
@@ -74,6 +77,7 @@ function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
               {
                   if (data.success)
                   {
+                      socket.emit('add_channel', user.name);
                       setenterpassword(true)
                       const newChannel = {
                           avatar: user.avatar,
@@ -96,7 +100,7 @@ function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
         <div className="w-[100%] min-h-[61px] flex  gap-2">
             <div className={`w-[100%] flex items-center  rounded-l-[6px]`}>
             <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                    <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                    <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
             </div>
             <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                 <h1 className={`text-[13px] font-sora font-[600] text-[#ffffff]`}>{user.name}</h1>

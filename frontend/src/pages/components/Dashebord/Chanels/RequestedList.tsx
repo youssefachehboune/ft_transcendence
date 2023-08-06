@@ -1,7 +1,7 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { BsCheckLg } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
-
+import Image from "next/image";
 function RequestedList({setmemebers, setrequestList, chanel, requestList, onClose, isOpen}: any) {
   const handleBanClick = (action: string, user: any) => {
     if (action == 'accept')
@@ -25,7 +25,7 @@ function RequestedList({setmemebers, setrequestList, chanel, requestList, onClos
                               <div key={index} className="w-[100%] min-h-[61px] flex gap-2">
                                   <div className={`w-[80%] flex items-center justify-center rounded-l-[6px]`}>
                                     <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                                            <img src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                            <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                     </div>
                                     <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                                         <h1 className={`text-[13px] font-sora font-[600] text-[#ffffff]`}>{user.firstName + " " + user.lastName}</h1>

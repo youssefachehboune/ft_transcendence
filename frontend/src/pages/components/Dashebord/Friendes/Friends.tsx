@@ -4,6 +4,7 @@ import Profile_Frined from "../Profile_Frined";
 import Friend from "./Friend";
 import { Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 import { FaBan, FaGamepad } from "react-icons/fa";
+import Image from "next/image";
 
 
 function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection, setonlyChat} : any) { 
@@ -37,7 +38,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
     }
     return (
         <div className="cont overflow-hidden flex gap-[10px] h-[100%]" >
-            <div className={`w-[40%] ${visible ? "xl:w-[0%] 2xl:w-[55%]" : "xl:w-[95%] xl:ml-2 2xl:w-[55%] 2xl:ml-2"} h-[100%] test5 flex flex-col items-center overflow-y-auto rounded-[10px]`}>
+            <div className={`w-[40%] ${visible ? "xl:w-[0%] 2xl:w-[55%]" : "xl:w-[95%] xl:ml-2 2xl:w-[55%] 2xl:ml-2"} h-[100%] test5 flex flex-col items-center overflow-y-auto overflow-x-hidden rounded-[10px]`}>
                                     <div className="w-[100%] h-auto flex flex-col items-center">
                                         <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
                                             <div className="mr-[-5px]">
@@ -66,7 +67,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                                                         <SkeletonText width={'40'} ml={'10px'}></SkeletonText>
                                                         </div>))
                                             }
-                                            {ListFriends?.length == 0 && 
+                                            {ListFriends?.length == 0 && friendsloding && 
                                                         <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have friends</div>
                                             }
                                             {
@@ -82,7 +83,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                                                 fetch('http://localhost:3000/profile/' + datafriend.username , { credentials: "include" }).then((resp) => { return resp.json(); }).then((data) => {setProfile(data);setprofileloding(true);})
                                                                 }} className={`w-[80%] flex items-center justify-center rounded-l-[6px] ${clickFriend ? "bg-[#00DAEA]" : ""}`}>
                                                                 <div className="w-[75px] h-[70px] flex justify-center items-center relative">
-                                                                    <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                                    <Image width={'54'} height={'54'} src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                                     <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                                                                 </div>
                                                                 <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
