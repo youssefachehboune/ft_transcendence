@@ -8,5 +8,6 @@ import { JwtService } from '@nestjs/jwt';
     imports: [],
     controllers: [],
     providers: [GameService, GameGateway, AuthService, JwtService],
+    exports: [GameService]
 })
 export class GameModule { }

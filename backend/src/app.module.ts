@@ -17,25 +17,26 @@ import { topPlayerModule } from './top-player/topPlayer.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { ChannelModule } from './channel/channel.module';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { RandomGateway } from './game/random.gateway';
 
 
 @Module({
-  imports: [ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule],
+  imports: [ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule, GameModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RandomGateway],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
       .exclude(
-				{ path: 'intra', method: RequestMethod.GET },
-				{ path: 'google', method: RequestMethod.GET },
-				{ path: 'intra/redirect', method: RequestMethod.GET },
-				{ path: 'google/redirect', method: RequestMethod.GET },
-				{ path: 'lang/:key', method: RequestMethod.GET },
-				{ path: 'refresh', method: RequestMethod.GET },
-			)
+        { path: 'intra', method: RequestMethod.GET },
+        { path: 'google', method: RequestMethod.GET },
+        { path: 'intra/redirect', method: RequestMethod.GET },
+        { path: 'google/redirect', method: RequestMethod.GET },
+        { path: 'lang/:key', method: RequestMethod.GET },
+        { path: 'refresh', method: RequestMethod.GET },
+      )
       .forRoutes('*');
   }
 }

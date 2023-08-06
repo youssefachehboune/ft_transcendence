@@ -93,14 +93,11 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [data, fetchUserData, fetchUserId]);
 
   useEffect(() => {
+    if(socketRef.current) return;
     socketRef.current = io("http://localhost:3000/game", {
       transports: ["websocket"],
       withCredentials: true,
     });
-
-    return () => {
-      socketRef.current?.disconnect();
-    };
   }, []);
 
   const handleResize = () => {

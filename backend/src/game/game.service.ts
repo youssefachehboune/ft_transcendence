@@ -12,6 +12,7 @@ export class GameService {
   }
 
   create(gameId: string, player1: Player, player2: Player): GameDto {
+    console.log("create A game", gameId, player1, player2);
     const TableWidth = 400;
     const TableHeight = TableWidth * 16 / 9;
     const paddleWidth = 100;
