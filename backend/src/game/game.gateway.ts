@@ -78,7 +78,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         ball.dx *= -1;
     }
 
-    private handleBall(gameData: GameDto): boolean {
+    private async handleBall(gameData: GameDto): Promise<boolean> {
         const ball = gameData.ball;
         const paddles = gameData.paddles;
         const width = gameData.tableWidth;
@@ -129,11 +129,13 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         }
         if (gameData.player2.score === 10 || gameData.player1.score === 10) {
             if (gameData.player2.score === 10) {
+                this.gameService.saveToCareer(gameData.player2, gameData.player1);
                 this.server.to(gameData.player2.socketId).emit("gameOver", gameData.player2.userId, gameData.player1.score, gameData.player2.score);
                 this.server.to(gameData.player1.socketId).emit("gameOver", gameData.player2.userId, gameData.player1.score, gameData.player2.score);
 
             }
             else if (gameData.player1.score === 10) {
+                 this.gameService.saveToCareer(gameData.player1, gameData.player2);
                 this.server.to(gameData.player1.socketId).emit("gameOver", gameData.player1.userId, gameData.player1.score, gameData.player2.score);
                 this.server.to(gameData.player2.socketId).emit("gameOver", gameData.player1.userId, gameData.player1.score, gameData.player2.score);
             }
@@ -183,9 +185,9 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const gameData = this.gameService.getGame(gameId);
         let gamePlayed = true;
         if (gameData.player1 && gameData.player2) {
-            const interval = setInterval(() => {
+            const interval = setInterval(async () => {
                 this.updatePaddlesPosition(gameData);
-                gamePlayed = this.handleBall(gameData);
+                gamePlayed = await this.handleBall(gameData);
                 if (!gamePlayed) {
                     clearInterval(interval);
                 }

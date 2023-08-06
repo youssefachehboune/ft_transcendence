@@ -288,7 +288,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
 
   return (
     <div id="game" className="w-full" style={{ position: "absolute", top: "70px" }}>
-      {/* <div id="scoor-section">
+      <div id="scoor-section">
         <div id="player1">
           <img src={player1info?.avatar} alt="Player 1" />
           <h1 id="name">{player1info?.name}</h1>
@@ -304,14 +304,14 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
           <h1 id="name">{player2info?.name}</h1>
           <h4 id="username">{player2info?.username}</h4>
         </div>
-      </div> */}
+      </div>
 
       <canvas
         id="game-canvas"
         ref={canvasGame}
         width={gameWidth}
         height={gameHeight}
-        style={{ backgroundColor: "black" }}
+        style={{ backgroundColor: "black", top: "73px", position: "absolute"}}
       />
     </div>
   );

@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { GameDto, Player } from './game.dto';
+import { PrismaClient } from '@prisma/client';
 
 const games = new Map<string, GameDto>();
 @Injectable()
 export class GameService {
+  private prisma: PrismaClient;
+
+  constructor() {
+    this.prisma = new PrismaClient();
+  }
 
   create(gameId: string, player1: Player, player2: Player): GameDto {
     const TableWidth = 400;
@@ -76,4 +82,17 @@ export class GameService {
     games.delete(gameId);
   }
 
+
+  async saveToCareer(player1: Player, player2: Player){
+    // THE PLAYER 1 WON THE GAME
+     await this.prisma.careerLog.create({
+      data: {
+        user_id: player1.userId,
+        opponent_id: player2.userId,
+        userPoints: player1.score,
+        opponentPoints: player2.score,
+        result: "WON"
+      },
+    });
+  }
 }
