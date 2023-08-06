@@ -1,5 +1,6 @@
 import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from "@chakra-ui/react";
 import React from "react";
+import socket from '../../../chatSocket'
 
 function Delete_chanel({setmychanel, setshowchanel, onClose, isOpen, chanel} : any) {
     const cancelRef = React.useRef(null)
@@ -24,6 +25,7 @@ function Delete_chanel({setmychanel, setshowchanel, onClose, isOpen, chanel} : a
                     </Button>
                     <Button colorScheme='red' ml={3} onClick={() =>
                     {
+                        socket.emit('update_channel', {name: chanel.name, action: "delete"});
                         setshowchanel(false)
                         onClose()
                         setmychanel((prevMembers: any) => prevMembers.filter((channel: any) => channel.name !== chanel.name));

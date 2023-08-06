@@ -103,6 +103,22 @@ function Dashebord() {
           }
         };
         fetchData();
+        socket.on('refresh', (data) => {
+            if (data.action == "delete")
+            {
+              setshowchanel(false)
+              setmychanel((prevMembers: any) => prevMembers.filter((member: any) => member.name !== data.name));
+            }
+            if (data.action == "update")
+            {
+              setmychanel((prevMembers: any) => {
+                return prevMembers.map((member: any) => {
+                  return member.name === data.name ? { ...member, name: data.new } : member;
+                });
+              });
+            }
+          })
+        return () => { socket.off('refresh') }
       }, []);
       useEffect(() => {
           const handleResize = () => {

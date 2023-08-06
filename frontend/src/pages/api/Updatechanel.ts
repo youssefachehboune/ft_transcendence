@@ -1,4 +1,4 @@
-async function Updatechanel(data : any, chanel: any, onCloseFn: () => void, setErrornamechanel: (value: any) => void,  setchanel: (value: any) => void) {
+async function Updatechanel(data : any, chanel: any, onCloseFn: () => void, setErrornamechanel: (value: any) => void,  setchanel: (value: any) => void, socket: any) {
 
     const fetchuser = async () => {
       try {
@@ -16,6 +16,7 @@ async function Updatechanel(data : any, chanel: any, onCloseFn: () => void, setE
 			else
 			{
 				setchanel({avatar: data.avatar, name: data.name, description: data.description, password: data.password, type: data.type})
+				socket.emit('update_channel', {name: chanel.name, action: "update", new: data.name});
 				onCloseFn()
 			}
 

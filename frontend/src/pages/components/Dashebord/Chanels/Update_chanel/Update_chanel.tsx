@@ -6,6 +6,7 @@ import Channel_Description from "../createchanel/Channel_Description";
 import Typechanel from "../createchanel/typechanel";
 import Chanel_password from "../createchanel/chanel_password";
 import Updatechanel from "@/pages/api/Updatechanel";
+import socket from '../../../../chatSocket'
 
 function Update_chanel({
 setchanel,
@@ -74,7 +75,7 @@ onClose
             {
               if (typechanel === "PROTECTED" && password || typechanel != "PROTECTED" && !password)
               {
-                await Updatechanel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, chanel, () => onclose(), setErrornamechanel, setchanel);
+                await Updatechanel({ avatar: avatarchanel, name: chanelname,  description: ChannelDescription, password: password, type: typechanel}, chanel, () => onclose(), setErrornamechanel, setchanel, socket);
               }
             }
       
