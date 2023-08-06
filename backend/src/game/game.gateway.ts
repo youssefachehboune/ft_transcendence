@@ -19,12 +19,11 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             console.log("New player connected:", userId);
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game && game.player1.ready && game.player2.ready) {
-                this.startGame(game.gameId);
+                console.log("Game started:", game.gameId);
+                    this.startGame(game.gameId);
             }
         }
     }
-
-    
 
     async handleDisconnect(socket: Socket) {
         const userId = await this.getUserId(socket);
@@ -180,6 +179,22 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         return resizedGameData;
     }
 
+    private updateBotPaddlePosition(gameData: GameDto) {
+        const paddles = gameData.paddles;
+        const ball = gameData.ball;
+
+        const paddle2Middle = paddles.paddle2.x + paddles.width / 2;
+        let randomPos = Math.random() * 20;
+
+        if (ball.x > paddle2Middle + randomPos) {
+            paddles.paddle2.dx = paddles.speed;
+        }
+        else if (ball.x < paddle2Middle - randomPos) {
+            paddles.paddle2.dx = -paddles.speed;
+        } else {
+            paddles.paddle2.dx = 0;
+        }
+    }
 
     private startGame(gameId: string) {
         const gameData = this.gameService.getGame(gameId);
@@ -187,27 +202,29 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         if (gameData.player1 && gameData.player2) {
             const interval = setInterval(async () => {
                 this.updatePaddlesPosition(gameData);
+                if(gameData.gametype === "bot")
+                    this.updateBotPaddlePosition(gameData);
                 gamePlayed = await this.handleBall(gameData);
                 if (!gamePlayed) {
                     clearInterval(interval);
                 }
                 const client1Ball = { ...gameData.ball };
                 const client2Ball = { ...gameData.ball };
-                this.server.to(gameData.player2.socketId).emit("move", this.resizeGame(gameData, client1Ball, gameData.player2.ratio), gameData.player2.userId);
+                if (gameData.gametype !== "bot") {
+                    this.server.to(gameData.player2.socketId).emit("move", this.resizeGame(gameData, client1Ball, gameData.player2.ratio), gameData.player2.userId);
+                }
                 client2Ball.y = gameData.tableHeight - client2Ball.y;
                 this.server.to(gameData.player1.socketId).emit("move",  this.resizeGame(gameData, client2Ball , gameData.player1.ratio), gameData.player2.userId);
             }, 1000 / 60);
         }
     }
 
-
-
     @SubscribeMessage("move")
     async handleMove(socket: Socket, data: any) {
         const gameId = data[1];
         const gameData = this.gameService.getGame(gameId);
         const user = await this.getUserId(socket);
-
+        console.log("move", user, gameData.player1.userId, gameData.player2.userId);
         if (gameData && user) {
             const paddles = gameData.paddles;
             if (user === gameData.player1.userId) {
@@ -233,8 +250,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             }
         }
     }
-
-
 
     @SubscribeMessage("resize")
     async handleResize(socket: Socket, data: any) {

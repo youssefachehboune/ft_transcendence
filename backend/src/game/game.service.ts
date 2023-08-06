@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { GameDto, Player } from './game.dto';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
+import { Request } from 'express';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const games = new Map<string, GameDto>();
 @Injectable()
@@ -11,7 +14,7 @@ export class GameService {
     this.prisma = new PrismaClient();
   }
 
-  create(gameId: string, player1: Player, player2: Player): GameDto {
+  create(gameId: string, player1: Player, player2: Player, type: "multiplayer" | "bot"): GameDto {
     console.log("create A game", gameId, player1, player2);
     const TableWidth = 400;
     const TableHeight = TableWidth * 16 / 9;
@@ -55,6 +58,7 @@ export class GameService {
       tableWidth: TableWidth,
       tableHeight: TableHeight,
       gameState: "waiting",
+      gametype: type,
     };
     games.set(gameId, gameData);
     console.log("create A game", gameId);
@@ -82,7 +86,6 @@ export class GameService {
   deleteGame(gameId: string) {
     games.delete(gameId);
   }
-
 
   async saveToCareer(player1: Player, player2: Player){
     // THE PLAYER 1 WON THE GAME

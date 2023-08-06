@@ -21,7 +21,7 @@ export default function RandomGame() {
 
     useEffect(() => {
         socketRef.current?.on("startRandom", (data: GameData) => {
-            console.log("Start teh gamewith :", data);
+            console.log("Start the gamewith :", data);
             if (data) {
                 socketRef.current?.disconnect();
 

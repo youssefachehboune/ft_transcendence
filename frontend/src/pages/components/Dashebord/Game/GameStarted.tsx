@@ -101,7 +101,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, []);
 
   const handleResize = () => {
-    console.log("resize");
+    // console.log("resize");
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
@@ -121,7 +121,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
 
   useEffect(() => {
     socketRef.current?.on("resized", (newGameData: ExtendedGameData) => {
-      console.log("new width and hight : ", newGameData.tableWidth, newGameData.tableHeight);
+      // console.log("new width and hight : ", newGameData.tableWidth, newGameData.tableHeight);
       setGameData(newGameData);
     });
 
@@ -203,7 +203,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
     };
 
     socketRef.current?.on("move", (newgameData: GameData, id: number) => {
-      console.log("move", id, " and my id is : ", userId);
+      // console.log("move", id, " and my id is : ", userId, " and game is : ", gameData);
       const paddles = newgameData.paddles;
       const player1Scoor = newgameData.player1.score;
       const Player2Scoor = newgameData.player2.score;
@@ -257,6 +257,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   };
 
   const startMoving = (direction: string) => {
+    // console.log("start moving");
     socketRef.current?.emit("move", direction, gameId);
   };
 

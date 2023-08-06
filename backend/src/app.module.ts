@@ -1,3 +1,4 @@
+import { BotGateway } from './game/bot.gateway';
 import { GameModule } from './game/game.module';
 import { ProfileModule } from './profile/profile.module';
 import { FriendsModule } from './friend/friends.module';
@@ -23,7 +24,8 @@ import { RandomGateway } from './game/random.gateway';
 @Module({
   imports: [ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule, GameModule],
   controllers: [AppController],
-  providers: [AppService, RandomGateway],
+  providers: [
+    BotGateway, AppService, RandomGateway],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -42,4 +42,5 @@ export interface GameData {
     tableWidth: number;
     tableHeight: number;
     gameState: "waiting" | "playing" | "ended";
+    gametype: "bot" | "multiplayer";
 }

@@ -61,7 +61,7 @@ export class RandomGateway implements OnGatewayConnection, OnGatewayDisconnect {
                 const user2: User = { ...this.waitingList.shift() };
                 const player1: Player = { ...user1 ,score: 0, ready: false, ratio: 1};
                 const player2: Player = { ...user2 ,score: 0, ready: false, ratio: 1};
-                const gameData: GameDto = this.gameService.create(gameId, player1, player2);
+                const gameData: GameDto = this.gameService.create(gameId, player1, player2, "multiplayer");
                 this.server.to(user1.socketId).emit("startRandom", gameData);
                 this.server.to(user2.socketId).emit("startRandom", gameData);
             }

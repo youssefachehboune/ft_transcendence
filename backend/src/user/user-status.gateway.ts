@@ -95,7 +95,7 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         if (receiver && sender) {
             const player1: Player = { ...sender, score: 0, ready: false , ratio: 1};
             const player2: Player = { ...receiver, score: 0, ready: false, ratio: 1 };
-            const gameData: GameDto = this.gameService.create(gameId, player1, player2);
+            const gameData: GameDto = this.gameService.create(gameId, player1, player2, "multiplayer");
             // this.games.set(gameId, gameData);
             this.server.to(sender.socketId).emit("start", gameData);
             this.server.to(receiver.socketId).emit("start", gameData);
