@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import { GameData } from "./gameData";
-import { GameDto, Paddles } from '../../../../../../backend/dist/src/game/game.dto';
 
 interface PlayerInfo {
   avatar: string;
@@ -206,8 +205,8 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       }
     };
 
-    socketRef.current?.on("move", (newgameData: GameData) => {
-      const id = newgameData.player2.userId;
+    socketRef.current?.on("move", (newgameData: GameData, id: number) => {
+      console.log("move", id, " and my id is : ", userId);
       const paddles = newgameData.paddles;
       const player1Scoor = newgameData.player1.score;
       const Player2Scoor = newgameData.player2.score;
@@ -219,16 +218,14 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
         gameData.tableHeight = newgameData.tableHeight;
         gameData.paddles.width = paddles.width;
         gameData.paddles.height = paddles.height;
+        gameData.paddles.paddle1.y = paddles.paddle1.y;
+        gameData.paddles.paddle2.y = paddles.paddle2.y;
         if (id === userId) {
           gameData.paddles.paddle1.x = paddles.paddle1.x;
-          gameData.paddles.paddle1.y = paddles.paddle1.y;
           gameData.paddles.paddle2.x = paddles.paddle2.x;
-          gameData.paddles.paddle2.y = paddles.paddle2.y;
         } else {
           gameData.paddles.paddle1.x = paddles.paddle2.x;
-          gameData.paddles.paddle1.y = paddles.paddle2.y;
           gameData.paddles.paddle2.x = paddles.paddle1.x;
-          gameData.paddles.paddle2.y = paddles.paddle1.y;
         }
         setScorePlayer1(player1Scoor);
         setScorePlayer2(Player2Scoor);
@@ -314,7 +311,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
         ref={canvasGame}
         width={gameWidth}
         height={gameHeight}
-        style={{ backgroundColor: "red" }}
+        style={{ backgroundColor: "black" }}
       />
     </div>
   );

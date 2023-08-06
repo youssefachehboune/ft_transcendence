@@ -185,15 +185,15 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         if (gameData.player1 && gameData.player2) {
             const interval = setInterval(() => {
                 this.updatePaddlesPosition(gameData);
-                // gamePlayed = this.handleBall(gameData);
+                gamePlayed = this.handleBall(gameData);
                 if (!gamePlayed) {
                     clearInterval(interval);
                 }
                 const client1Ball = { ...gameData.ball };
                 const client2Ball = { ...gameData.ball };
-                this.server.to(gameData.player2.socketId).emit("move", this.resizeGame(gameData, client1Ball, gameData.player2.ratio));
+                this.server.to(gameData.player2.socketId).emit("move", this.resizeGame(gameData, client1Ball, gameData.player2.ratio), gameData.player2.userId);
                 client2Ball.y = gameData.tableHeight - client2Ball.y;
-                this.server.to(gameData.player1.socketId).emit("move",  this.resizeGame(gameData, client2Ball , gameData.player1.ratio));
+                this.server.to(gameData.player1.socketId).emit("move",  this.resizeGame(gameData, client2Ball , gameData.player1.ratio), gameData.player2.userId);
             }, 1000 / 60);
         }
     }
@@ -237,8 +237,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @SubscribeMessage("resize")
     async handleResize(socket: Socket, data: any) {
         const { newWidth, gameId } = data;
-        console.log("resize", newWidth, gameId);
-        console.log("resize", newWidth, gameId);
         const gameData = this.gameService.getGame(gameId);
         const user = await this.getUserId(socket);
         if (gameData && newWidth < 400) {
@@ -249,41 +247,4 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
                 gameData.player2.ratio = ratio;
         }
     }
-
-    // private resizeGame(gameData: GameDto, newWidth: number): GameDto {
-    //     const ratio = newWidth / gameData.tableWidth;
-
-    //     const resizedGameData: GameDto = {
-    //         ...gameData,
-    //         tableWidth: newWidth,
-    //         tableHeight: gameData.tableHeight * ratio,
-    //         ball: {
-    //             ...gameData.ball,
-    //             x: gameData.ball.x * ratio,
-    //             y: gameData.ball.y * ratio,
-    //             radius: gameData.ball.radius * ratio,
-    //             // Update other ball properties if necessary
-    //         },
-    //         paddles: {
-    //             ...gameData.paddles,
-    //             width: gameData.paddles.width * ratio,
-    //             height: gameData.paddles.height * ratio,
-    //             paddle1: {
-    //                 ...gameData.paddles.paddle1,
-    //                 x: gameData.paddles.paddle1.x * ratio,
-    //                 y: gameData.paddles.paddle1.y * ratio,
-                    
-    //                 // Update other paddle properties if necessary
-    //             },
-    //             paddle2: {
-    //                 ...gameData.paddles.paddle2,
-    //                 x: gameData.paddles.paddle2.x * ratio,
-    //                 y: gameData.paddles.paddle2.y * ratio,
-    //                 // Update other paddle properties if necessary
-    //             },
-    //         },
-    //     };
-
-    //     return resizedGameData;
-    // }
 }
