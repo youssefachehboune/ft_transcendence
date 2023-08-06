@@ -32,8 +32,8 @@ export default function Blocked(props : Props) {
                     <h1 className="text-[7px] text-[#969696]">@{props.username}</h1>
                 </div>
                 <div className="w-[100%] h-[50%]  flex items-center justify-end">
-                    <div className="w-[78%] h-[100%] flex items-center justify-center">
-                        <div onClick={handleUnblock} className="w-[45%] h-[80%] bg-[#6F6F6F78] transition-all duration-500 ease-out rounded-[4px] flex items-center justify-center cursor-pointer hover:bg-[#6F6F6F]">
+                    <div className="w-[73%] h-[100%] flex items-center justify-end">
+                        <div onClick={handleUnblock} className="w-[45%] h-[79%] bg-[#6F6F6F78] mr-2 phone:mr-8 transition-all duration-500 ease-out rounded-[4px] flex items-center justify-center cursor-pointer hover:bg-[#6F6F6F]">
                             <CgUnblock className="w-[15px] h-[15px] text-white" />
                             <h1 className="ml-1 text-[10px] text-white font-sora font-bold leading-normal
                             phone:text-[8px]

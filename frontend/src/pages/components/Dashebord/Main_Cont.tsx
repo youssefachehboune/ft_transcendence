@@ -83,7 +83,7 @@ export default function Main() {
                                         {
                                             datatop.map((item: any, key: number) => {
                                                 return (
-                                                    <TopPlayer key={key} avatar="/zebb.png" name={(item.firstName + ' ' + item.lastName)} username={item.username} rank={key + 1} />
+                                                    <TopPlayer key={key} avatar={item.avatar} name={(item.firstName + ' ' + item.lastName)} username={item.username} rank={key + 1} />
                                                 )
                                             })
                                         }
