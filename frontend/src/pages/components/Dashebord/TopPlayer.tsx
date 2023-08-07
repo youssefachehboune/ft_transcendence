@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface TopPlayerProps {
     avatar: string;
     name: string;
@@ -25,7 +27,7 @@ export default function TopPlayer(props : TopPlayerProps) {
                                             laptop:w-[13%] laptop:h-[100%]
                                             phone:w-[15%] phone:h-[100%]
                                             ">
-                                                <img src={props.avatar} alt=""  className="w-[25px] h-[25px] rounded-full
+                                                <Image src={props.avatar} alt=""  width={25} height={25} className="w-[25px] h-[25px] rounded-full 
                                                 2xl:w-[23px] 2xl:h-[23px]
                                                 xl:w-[24px] xl:h-[24px]
                                                 laptop:w-[22px] laptop:h-[22px]

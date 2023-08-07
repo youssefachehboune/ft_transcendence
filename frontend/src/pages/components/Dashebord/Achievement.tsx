@@ -7,7 +7,7 @@ interface AchievementProps {
     milstone: number;
 }
 
-
+import Image from "next/image";
 
 export default function Achievement(props : AchievementProps) {
     
@@ -19,7 +19,7 @@ export default function Achievement(props : AchievementProps) {
                 laptop:w-[70px]
                 phone:w-[60px]
             ">
-                <img src={props.image} alt="" className="w-[84px] h-[84px] rounded-full
+                <Image src={props.image} alt="" width={84} height={84} className="w-[84px] h-[84px] rounded-full 
                     xl:w-[73px] xl:h-[73px]
                     2xl:w-[75px] 2xl:h-[75px]
                     laptop:w-[62px] laptop:h-[62px]

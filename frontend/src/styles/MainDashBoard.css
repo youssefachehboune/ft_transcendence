@@ -84,7 +84,7 @@
 }
 
 .backc1 {
-    background: url(../../public/bg1.png);
+    background: url(../../public/newbg1.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -96,7 +96,7 @@
 }
 
 .backc2 {
-    background: url(../../public/bg2.png);
+    background: url(../../public/newbg2.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -109,7 +109,7 @@
 }
 
 .backc3 {
-    background: url(../../public/bg3.png);
+    background: url(../../public/newbg3.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -122,7 +122,7 @@
 }
 
 .backc4 {
-    background: url(../../public/bg4.png);
+    background: url(../../public/newbg4.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

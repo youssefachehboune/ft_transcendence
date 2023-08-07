@@ -4,9 +4,9 @@ import { FaCompass } from 'react-icons/fa'
 import Link from "next/link";
 import IconNavBar from "./IconNavBar";
 import { BiSearch } from "react-icons/bi";
+import Image from "next/image";
 
 export default function NavBar(props : any) {
-
     const lastkey = props.mychanel?.length + 1;
     const LastKeyPlus = lastkey + 1;
     const [isShow, setIsShow] = useState<boolean>(false);
@@ -53,7 +53,7 @@ export default function NavBar(props : any) {
                                             <div key={key} className="relative w-[100px] h-[71px] flex items-center ">
                                                 <div onClick={() => {handleClick(key + 1); props.setchannelloding(true); props.setmumeberschannelloding(false); fetchdata(item)}}
                                                     className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
-                                                        <img src={item.avatar} className="" alt="" />
+                                                        <Image src={item.avatar} className="" alt="" width={45} height={45}/>
                                                 </div>
                                                 <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${(key + 1) === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>
                                                 </div>

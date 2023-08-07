@@ -101,13 +101,13 @@ function Fined_chanel({settypememeber, typememeber, setsearchchanels, setchaneld
                 (
                     <>
                         {
-                            typememeber == "NOTMEMBER" &&
+                            typememeber && typememeber == "NOTMEMBER" &&
                             <button onClick={handle_send_request_Private_chanel} className={`w-[130px] bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                                 <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>send request</h1>
                             </button>
                         }
                         {
-                            typememeber == "REQUESTED" &&
+                            typememeber && typememeber == "REQUESTED" &&
                             <button onClick={handle_cancel_request_Private_chanel}  className={`w-[130px] bg-[#7f7e80] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                                 <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>requested</h1>
                             </button>

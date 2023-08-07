@@ -1,13 +1,15 @@
-import { Menu, Skeleton, SkeletonCircle, SkeletonText,MenuList, MenuItem, MenuButton, Button, useDisclosure} from "@chakra-ui/react";
+import { Menu, Skeleton, SkeletonCircle, SkeletonText,MenuList, MenuItem, MenuButton, Button, useDisclosure, useMediaQuery} from "@chakra-ui/react";
 import { useEffect, useRef, useState } from "react";
-import { VscSearch } from "react-icons/vsc";
+import { VscSearch, VscSettingsGear } from "react-icons/vsc";
 import Chat from "./Chat";
-import { AiOutlineArrowLeft } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineMenu } from "react-icons/ai";
 import Friend_chat from "./Friend_chat";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import { BsWechat } from "react-icons/bs";
 import Show_list_of_Channels from "./show_list_of_Channels";
 import Image from "next/image";
+import { IoMdAddCircle } from "react-icons/io";
+import { ImSearch } from "react-icons/im";
 
 function ChatFriends(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -18,6 +20,7 @@ function ChatFriends(props: any) {
     const [friendClicked, setFriendClicked] = useState<number | null>(null);
     const [clickFriend, setclickFriend] = useState<boolean>(false)
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [isLargerThan2XL] = useMediaQuery("(min-width: 1300px)");
     const handelsearchChanges = () =>
     {
         setclickFriend(false)
@@ -45,9 +48,18 @@ function ChatFriends(props: any) {
                                             <h1 onClick={() => props.setshowchatsection(false)} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center relative">
-                                            <button onClick={onOpen} className={`self-end absolute mr-[30px] xl:mr-[50px] mt-[25px] hidden xl:block 2xl:block `}>
-                                                    <BsWechat className="hovring w-[18px] h-[18px]"/>
-                                            </button>
+                                            <Menu>
+                                            {isLargerThan2XL ? null : (
+                                                <MenuButton className={`self-end absolute mr-[30px] xl:mr-[15px] mt-[25px] hidden xl:block 2xl:block `}>
+                                                    <AiOutlineMenu color="white" className="w-[18px] h-[18px]"/>
+                                                </MenuButton>
+                                            )}
+                                            <MenuList>
+                                                <MenuItem onClick={props.opencreatechanel} icon={<IoMdAddCircle/>}>creact chanel</MenuItem>
+                                                <MenuItem icon={<BsWechat/>} onClick={onOpen}>show my channel</MenuItem>
+                                                <MenuItem onClick={props.openpublic} icon={<ImSearch/>}>search for channel</MenuItem>
+                                            </MenuList>
+                                            </Menu>
                                             <Show_list_of_Channels setshowchanel={props.setshowchanel} setshowchatsection={props.setshowchatsection} setchanel={props.setchanel} setrequestList={props.setrequestList} setmutedList={props.setmutedList} setinvitationList={props.setinvitationList} setbanList={props.setbanList} settypememeber={props.settypememeber} setmemebers={props.setmemebers} setmumeberschannelloding={props.setmumeberschannelloding} setchannelloding={props.setchannelloding} data={props.data} mychanel={props.mychanel} isOpen={isOpen} onClose={onClose}/>
                                             <div className={`test5 w-[50%] h-[28px] flex justify-center items-center rounded-[15px] mt-[20px]`}>
                                                 <div className="mr-[-5px]">
