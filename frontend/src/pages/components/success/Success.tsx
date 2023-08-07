@@ -13,7 +13,7 @@ function Success_div()
 		}, 2000); 
 	
 		return () => clearTimeout(timeout);
-	}, []);
+	}, [router]);
 
 	return (
 		<div className="success flex items-center">

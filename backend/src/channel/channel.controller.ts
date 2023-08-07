@@ -18,9 +18,9 @@ export class ChannelController {
     }
 
     @UseGuards(JwtGuard)
-    @Get('public_channels')
-    async getPublicChannels(@Req() req: Request) {
-        return await this.channelService.getPublicChannels(req);
+    @Get('channels')
+    async getChannels(@Req() req: Request) {
+        return await this.channelService.getChannels(req);
     }
 
 		@UseGuards(JwtGuard)
@@ -41,6 +41,22 @@ export class ChannelController {
     @ApiParam({ name: 'channel_name', type: String })
     async getChannelMembers(@Req() req: Request, @Param('channel_name') channel_name: string) {
         return await this.channelService.getChannelMembers(req, channel_name);
+    }
+
+    @UseGuards(JwtGuard)
+    @Get('type/:channel_name/:username')
+    @ApiParam({ name: 'channel_name', type: String })
+    @ApiParam({ name: 'username', type: String })
+    async getMemberType(@Param('channel_name') channel_name: string, @Param('username') username: string) {
+        return await this.channelService.getMemberType(channel_name, username);
+    }
+
+    @UseGuards(JwtGuard)
+    @Get(':channel_name/:type')
+    @ApiParam({ name: 'channel_name', type: String })
+    @ApiParam({ name: 'type', enum: ['INVITED', 'BANNED', 'MUTED', 'REQUESTED'], type: String })
+    async getSpecificUsers(@Req() req: Request, @Param('channel_name') channel_name: string, @Param('type') type: 'INVITED' | 'BANNED' | 'MUTED' | 'REQUESTED') {
+        return await this.channelService.getSpecificUsers(req, channel_name, type);
     }
 
     @UseGuards(JwtGuard)

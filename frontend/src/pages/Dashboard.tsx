@@ -1,4 +1,4 @@
-import { BsClockFill, BsFillPeopleFill, BsGlobe } from "react-icons/bs";
+import { BsClockFill, BsFillPeopleFill} from "react-icons/bs";
 import {FaCompass, FaGamepad, FaMedal} from 'react-icons/fa'
 import Expolore from "./components/Dashebord/Expolore";
 import {useEffect, useState } from "react";
@@ -12,11 +12,14 @@ import Friends from "./components/Dashebord/Friendes/Friends";
 import Main from "./components/Dashebord/Main_Cont";
 import ChatFriends from "./components/Dashebord/Chat/ChatFriends";
 import React from "react";
-import { useDisclosure } from "@chakra-ui/react";
-import Createchanel from "./components/Dashebord/createchanel/createchanel";
+import {useDisclosure } from "@chakra-ui/react";
+import Createchanel from "./components/Dashebord/Chanels/createchanel/createchanel";
+import List_memebres from "./components/Dashebord/Chanels/List_memebres";
 import { MdLeaderboard } from "react-icons/md";
+import Search_Public_chanel from "./components/Dashebord/Chanels/Search_public_chanel/Search_Public_chanel";
 import Leaderboard from "./components/Dashebord/Leaderboard";
 import socket from "./chatSocket"
+
 function Dashebord() {
   const [data, setdata] = useState<any>('');
   
@@ -31,10 +34,35 @@ function Dashebord() {
     const [allhistorie, setallhistorie] = useState<boolean>(false);
     const [showprofile, setshowprofile] = useState<boolean>(true);
     const [showLeaderboard, setshowLeaderboard] = useState<boolean>(true);
-    const { isOpen, onOpen, onClose } = useDisclosure()
-
     const [massagenotif, setmassagenotif] = useState<boolean>(false)
+    const [menu, setmenu] = useState<boolean>(true);
+    
+    
+    const [searchchanels, setsearchchanels] = useState<string | undefined>("");
+    const [chaneldata, setchaneldata] = useState<any>();
+    
+    const [mychanel, setmychanel] = useState<any>()
+    const [showchanel, setshowchanel] = useState<boolean>(false)
+    const [memebers, setmemebers] = useState<any>()
+    const [chanel, setchanel] = useState<any>()
+    const [channelloding, setchannelloding] = useState<boolean>(false)
+    const [mumeberschannelloding, setmumeberschannelloding] = useState<boolean>(false)
+    const [invitationList, setinvitationList] = useState<any>()
+    const [banList, setbanList] = useState<any>()
+    const [mutedList, setmutedList] = useState<any>()
+    const [requestList, setrequestList] = useState<any>()
+    const [typememeber, settypememeber] = useState<any>()
+    const [public_channel, setpublic_channel] = useState<any>();
+    
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen: ispublic, onOpen: openpublic, onClose: closepublic } = useDisclosure()
 
+    const open_search_chanel = () => 
+    {
+      setsearchchanels("")
+      setchaneldata(null);
+      openpublic()
+    }
     useEffect(() => {
       if (!showchatsection)
       {
@@ -61,15 +89,39 @@ function Dashebord() {
             const historiedata = await HistorieResponse.json();
             setallhistorie(historiedata)
             
+            const mychanels = await fetch('http://localhost:3000/channel/my_channels', { credentials: "include" });
+            const chanelsdata = await mychanels.json();
+            setmychanel(chanelsdata)
+
+            const publicmychanels = await fetch('http://localhost:3000/channel/channels', { credentials: "include" });
+            const publicchanelsdata = await publicmychanels.json();
+            setpublic_channel(publicchanelsdata)
+
             setdataisloded(true)
           } catch (error) {
             console.log("error: " + error)
           }
         };
         fetchData();
-        const interval = setInterval(fetchData, 5000);
-        return () => clearInterval(interval);
-
+        socket.on('request_accepted', (channel) => {
+          setmychanel((prev : any) => [...prev, channel])
+        })
+        socket.on('refresh', (data) => {
+            if (data.action == "delete")
+            {
+              setshowchanel(false)
+              setmychanel((prevMembers: any) => prevMembers.filter((member: any) => member.name !== data.name));
+            }
+            if (data.action == "update")
+            {
+              setmychanel((prevMembers: any) => {
+                return prevMembers.map((member: any) => {
+                  return member.name === data.name ? { ...member, name: data.new } : member;
+                });
+              });
+            }
+          })
+        return () => { socket.off('refresh'), socket.off('request_accepted') }
       }, []);
       useEffect(() => {
           const handleResize = () => {
@@ -83,12 +135,27 @@ function Dashebord() {
           };
       }, [showprofile]);
 
-    return ( 
-        <div className={`${!showchatsection ? "container_page" : "chatsection"}`}>
+      useEffect(() => {
+        const handleResize = () => {
+            if (menu)
+              setmenu(window.innerWidth < 767);
+        };
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => {
+        window.removeEventListener('resize', handleResize);
+        };
+    }, [menu]);
 
-            {main && !showchatsection && <Main/>}
-            <div className="chanel"><NavBar onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
-            {!showchatsection &&
+
+    return ( 
+        <div className={`${!showchatsection && !showchanel ? "container_page" : "chatsection"}`}>
+            {main && !showchatsection && !showchanel && <Main/>}
+            <div className="chanel">
+              <NavBar setrequestList={setrequestList} openpublic={open_search_chanel} setmutedList={setmutedList} data={data} settypememeber={settypememeber} setinvitationList={setinvitationList} setbanList={setbanList} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} setchanel={setchanel} setshowchanel={setshowchanel} setmemebers={setmemebers} 
+              mychanel={mychanel} socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
+            </div>
+            {!showchatsection && !showchanel &&
                     <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">
                         <h1 className="text-[32px] font-sora font-[600] text-[white] mb-[20px] ml-[10px] xl:hidden 2xl:hidden">Explore</h1>
@@ -102,15 +169,17 @@ function Dashebord() {
                     </div>
 
             }
-            <Search />
-            <Section massagenotif={massagenotif} setonlyChat={setonlyChat} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/>
-            <Profile showprofile={showprofile} data={data} dataisloded={dataisloded} setdataisloded={setdataisloded}/>
-            {!setshowHistorie  && !showchatsection && <History historieloding={dataisloded} all={allhistorie}/>}
-            {!showAchievements && !showchatsection && <Achievements/>}
-            {!showLeaderboard && !showchatsection && <Leaderboard username={data.username}/>}
-            {!Friend && !showchatsection && <Friends setonlyChat={setonlyChat} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
-            {showchatsection && <ChatFriends setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} count_frinds={data} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
-            <Createchanel isOpen={isOpen} onClose={onClose}/>
+            <Search  menu={menu}/>
+            <Section setshowchanel={setshowchanel} setmenu={setmenu} menu={menu} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={setshowchatsection} setonlyChat={setonlyChat} showchatsection={showchatsection} massagenotif={massagenotif}/>
+            <Profile setshowprofile={setshowprofile} setdata={setdata} ListFriends={ListFriends} showprofile={showprofile} data={data} dataisloded={dataisloded}/>
+            {!setshowHistorie  && !showchatsection && !showchanel && <History historieloding={dataisloded} all={allhistorie}/>}
+            {!showAchievements && !showchatsection && !showchanel && <Achievements/>}
+            {!showLeaderboard && !showchatsection && !showchanel  && <Leaderboard username={data.username}/>}
+            {!Friend && !showchatsection && !showchanel && <Friends setListFriends={setListFriends} setonlyChat={setonlyChat} friendsloding={dataisloded} ListFriends={ListFriends} setshowchatsection={setshowchatsection}/>}
+            {showchatsection && <ChatFriends opencreatechanel={onOpen} openpublic={openpublic} setshowchanel={setshowchanel} setchanel={setchanel} setinvitationList={setinvitationList} setrequestList={setrequestList} setmutedList={setmutedList} setbanList={setbanList} settypememeber={settypememeber} setmemebers={setmemebers} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} mychanel={mychanel} setListFriends={setListFriends} setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection}/>}
+            {showchanel && <List_memebres setpublic_channel={setpublic_channel} setmychanel={setmychanel} setchanel={setchanel} setrequestList={setrequestList} setbanList={setbanList} setmutedList={setmutedList} setinvitationList={setinvitationList}  setmemebers={setmemebers} requestList={requestList} ListFriends={ListFriends} mutedList={mutedList} typememeber={typememeber} invitationList={invitationList} banList={banList} mumeberschannelloding={mumeberschannelloding} channelloding={channelloding} data={data} chanel={chanel} setshowchanel={setshowchanel} memebers={memebers}/>}
+            {dataisloded && <Createchanel setmychanel={setmychanel} isOpen={isOpen} onClose={onClose}/>}
+           {dataisloded && <Search_Public_chanel data={data} searchchanels={searchchanels} setsearchchanels={setsearchchanels} setchaneldata={setchaneldata} chaneldata={chaneldata} setmychanel={setmychanel} setpublic_channel={setpublic_channel} public_channel={public_channel} onClose={closepublic} isOpen={ispublic}/>}
         </div>
      );
 }

@@ -1,4 +1,4 @@
-async function Update_user_tow(data : any, dep: any, onCloseFn: () => void, setdataisloded: (value: boolean) => void) {
+async function Update_user_tow(data : any, dep: any, onCloseFn: () => void, setdata: (value: any) => void) {
 
     const fetchuser = async () => {
       try {
@@ -11,7 +11,16 @@ async function Update_user_tow(data : any, dep: any, onCloseFn: () => void, setd
 			if(response.status == 200) {
 			{
 				onCloseFn()
-				setdataisloded(false)
+				setdata((prevData: any) => ({
+					...prevData,
+					info: {
+					  ...prevData.info,
+					  bio: data.bio,
+					  location: data.location,
+					},
+					avatar: data.avatar,
+					username: data.username,
+				  }));
 			}
 			} else {
 				const result = await response.json();

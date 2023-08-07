@@ -105,13 +105,17 @@ export class ChatService {
 			const channelLog = await prisma.channelLog.findMany({
 				where: { channel_id: channel_id }
 			})
-			const logs: ChannelLog[] = [];
+			const logs: any[] = [];
 			for (let i = 0; i < channelLog.length; i++) {
 				const blockingUser = await prisma.friendship.findFirst({
 					where: { user_id: channelLog[i].user_id, friend_id: req.user['id'], status: 'BLOCKED'}
 				});
-				if (!blockingUser)
-					logs.push(channelLog[i])
+				if (!blockingUser) {
+					const avatar = (await prisma.userProfile.findFirst({
+						where: { user_id: channelLog[i].user_id }
+					})).avatar;
+					logs.push({ avatar: avatar, message: channelLog[i].message })
+				}
 			}
 			return logs;
 		} catch (err) {

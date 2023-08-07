@@ -13,7 +13,7 @@ export default function Success() {
 		}, 2000); 
 	
 		return () => clearTimeout(timeout);
-	}, []);
+	}, [router]);
     return (
         <div className="success_auth">
             <AiOutlineSafetyCertificate className="icon_success" color="#5ACDA4"/>

@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -8,10 +8,10 @@ const nextConfig = {
         hostname: "**",
       },
     ],
-    domains: ['robohash.org', 'cdn.intra.42.fr', 'lh3.googleusercontent.com', 'localhost', 'ui-avatarsx70.com','api.dicebear.com'],
+    domains: ['robohash.org', 'cdn.intra.42.fr', 'lh3.googleusercontent.com', 'localhost', 'ui-avatarsx70.com','api.dicebear.com', 'res.cloudinary.com'],
     formats: ['image/webp', 'image/avif'],
   },
 }
 
 
-module.exports = nextConfig
+module.exports = nextConfig;

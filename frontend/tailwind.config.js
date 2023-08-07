@@ -35,7 +35,7 @@ module.exports = {
           'Large-phone': {'raw': '(min-width: 541px) and (max-width: 700px)'},
           'laptop': {'raw': '(min-width: 700px) and (max-width: 1024px)'},
 		  'desktop': {'raw': '(min-width: 1025px) and (max-width: 1450px)'},
-		  'xl': {'max': '768px'},
+		  'xl': {'max': '767px'},
 		  '2xl': {'raw': '(min-width: 768px) and (max-width: 1300px)'},
       },
       fontFamily: 

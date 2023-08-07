@@ -1,12 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Logo()
 {
     return(
             <div>
                 <Link href="/">
-                    <img src="pipo.png" className="logo select-none">
-                    </img>
+                    <Image width={'110'} height={'29'} src="/pipo.png" className="logo select-none" alt={""}>
+                    </Image>
                 </Link>
             </div>
     )

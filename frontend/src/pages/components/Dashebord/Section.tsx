@@ -5,10 +5,10 @@ import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
+import {FaSearch} from 'react-icons/fa'
 import FriendRequest from "./FriendRequest";
 import Blocked from "./Blocked";
-
-function Section({massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
+function Section({setshowchanel, setmenu, menu, massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
     const SettingRef = useRef<HTMLDivElement>(null);
     const requestRef = useRef<HTMLDivElement>(null);
     const [showSettings, setshowSettings] = useState<boolean>(false);
@@ -78,35 +78,46 @@ function Section({massagenotif, setshowchatsection, showchatsection, setshowprof
         }
       };
 return ( 
-    <div className="section ">
-            <div className="w-[100%] h-[100%] flex items-center justify-around">
-                <button onClick={handleClickRequest}
-                                style={
-                                    showRequest ? {color: "#fff"} : {}
-                                }
-                >
-                    <LiaUserFriendsSolid className="hovring w-[18px] h-[18px]"/>
-                </button>
-                <button onClick={() => {setshowprofile(!showprofile); setshowSettings(false);}} className="hidden 2xl:block xl:block">
-                    <CgProfile className="hovring w-[18px] h-[18px]"/>
-                </button>
-                <button onClick={() => {setshowchatsection(!showchatsection); setonlyChat(false); setshowprofile(true); setshowSettings(false);}}>
-                <AiOutlineMessage color={massagenotif ? "red" : ""} className="hovring w-[18px] h-[18px]"/>
-                </button>
-                <button>
-                <VscBell className="hovring w-[18px] h-[18px]"/>
-                </button>
-                <button>
-                <BsGlobe className="hovring w-[18px] h-[18px] "/>
-                </button>
-                <button>
-                <VscSettingsGear className="hovring w-[18px] h-[20px]" onClick={handleClickSettings}
-                style={
-                    showSettings ? {color: "#fff"} : {}
-                }
-                />
-                </button>
-            </div>
+    <div className={"section"}>
+        {
+            !menu ? (
+                <div className="w-[100%] h-[100%] flex items-center justify-around">
+                   <button onClick={handleClickRequest} style={showRequest ? {color: "#fff"} : {}}>
+                        <LiaUserFriendsSolid className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button onClick={() => {setshowprofile(!showprofile); setshowSettings(false);}} className="hidden 2xl:block xl:block">
+                        <CgProfile className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button className="hidden xl:block 2xl:block" onClick={() => {setshowchanel(false); setshowchatsection(!showchatsection); setonlyChat(false); setshowprofile(true); setshowSettings(false);}}>
+                    <AiOutlineMessage color={massagenotif ? "red" : ""} className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button>
+                    <VscBell className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button>
+                    <BsGlobe className="hovring w-[18px] h-[18px] "/>
+                    </button>
+                    <button>
+                    <VscSettingsGear className="hovring w-[18px] h-[20px]" onClick={handleClickSettings}
+                    style={
+                        showSettings ? {color: "#fff"} : {}
+                    }
+                    />
+                    </button>
+                    <button onClick={() => setmenu(!menu)} className="hidden xl:block">
+                        <FaSearch  className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                </div>
+
+            ): (
+                <div className="w-[100%] h-[100%] flex items-center justify-end ml-[-20px]">
+
+                    <button onClick={() => setmenu(!menu)} className="hidden xl:block">
+                        <FaSearch  className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                </div>
+            )
+        }
             {
                 showRequest && <div ref={requestRef} className="w-[320px] h-[600px] absolute bg-[#261F30]  overflow-hidden right-[100px] xl:right-0 z-50 rounded-b-[6px]
                 phone:w-[280px] phone:h-[570px]
