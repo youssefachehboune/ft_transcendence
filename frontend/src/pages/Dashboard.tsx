@@ -11,17 +11,14 @@ import History from "./components/Dashebord/History";
 import Friends from "./components/Dashebord/Friendes/Friends";
 import Main from "./components/Dashebord/Main_Cont";
 import ChatFriends from "./components/Dashebord/Chat/ChatFriends";
-import Chat from "./components/Dashebord/Chat/Chat";
 import React from "react";
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import Createchanel from "./components/Dashebord/createchanel/createchanel";
-import { io } from "socket.io-client";
 import { MdLeaderboard } from "react-icons/md";
 import Leaderboard from "./components/Dashebord/Leaderboard";
 import GameSection from "./components/Dashebord/Game";
+import socket from "./chatSocket"
 function Dashebord() {
-  var check = true;
-  var socket: any;
   const [data, setdata] = useState<any>('');
   
     const [setshowHistorie, setsetshowHistorie] = useState<boolean>(true)
@@ -43,16 +40,12 @@ function Dashebord() {
     useEffect(() => {
       if (!showchatsection)
       {
-        socket = io('http://localhost:3000', {
-          transports: ['websocket'],
-          withCredentials: true,
-        });
         socket.on('receive_message', (data: string) => {
           setmassagenotif(true)
         })
 
       }
-      return () => socket?.close();
+      return () => {socket.off('receive_message')};
 
     }, [showchatsection])
     useEffect(() => {
@@ -96,7 +89,7 @@ function Dashebord() {
         <div className={`${!showchatsection ? "container_page" : "chatsection"}`}>
 
             {main && !showchatsection && <Main/>}
-            <div className="chanel"><NavBar socket={socket} onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
+            <div className="chanel"><NavBar onOpen={onOpen} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} showchatsection={showchatsection}/></div>
             {!showchatsection &&
                     <div className="Expolore">
                         <div className="w-[100%] h-[100%]  xl:mt-0 2xl:mt-0 xl:flex xl:justify-around 2xl:flex 2xl:justify-around">

@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Put, Req, Res, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtGuard } from '../auth/guards/jwt.guard';
 import { UserService } from './user.service';
 import { UserDto } from './user.dto'
 import { ApiTags } from '@nestjs/swagger';
-
+import { Response } from 'express'
 @ApiTags('user')
 @Controller('user')
 export class UserController {
@@ -36,7 +36,8 @@ export class UserController {
 
 	@Delete()
 	@UseGuards(JwtGuard)
-	async deleteAccount(@Req() req: Request) {
-		return await this.userService.deleteAccount(req);
+	async deleteAccount(@Req() req: Request, @Res() res: Response) {
+		await this.userService.deleteAccount(req);
+		res.redirect('http://localhost:3001/')
 	}
 }

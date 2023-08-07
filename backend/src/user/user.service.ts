@@ -17,15 +17,40 @@ const prisma = new PrismaClient();
 
 @Injectable()
 export class UserService {
+
+	async getUsername(username: string) {
+		const user = await prisma.userProfile.findUnique({
+			where: { username }
+		})
+		if (user) {
+			username += Math.floor(Math.random() * 9);
+			return this.getUsername(username);
+		}
+		return username;
+	}
+
 	async deleteAccount(@Req() req: Request) {
-		await prisma.user.update({
+		const username = await this.getUsername('disabled_account');
+		const user = await prisma.user.update({
 			where: {
 				email: req.user['email']
 			},
 			data: {
-				role: 'BANNED'
+				role: 'BANNED',
+				email: `${username}@example.com`
 			}
 		});
+		await prisma.userProfile.update({
+			where: {
+				user_id: user.id
+			},
+			data: {
+				avatar: 'http://res.cloudinary.com/dlubm2sog/image/upload/v1691246180/avatar.webp',
+				firstName: 'disabled',
+				lastName: 'account',
+				username: username
+			}
+		})
 		return 'Account deleted successfully';
 	}
 

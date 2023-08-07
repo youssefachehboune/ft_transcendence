@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface RankProps {
     rank: number;
     image: string;
@@ -32,7 +34,7 @@ export default function Rank(props : RankProps) {
         laptop:w-[10%]
         phone:w-[14%]
         ">
-                <img src={props.image} alt="" className="w-[54px] h-[54px]  rounded-full
+                <Image src={props.image} alt="" width={54} height={54}  className="w-[54px] h-[54px]  rounded-full
                 2xl:w-[50px] 2xl:h-[50px]
                 xl:w-[45px] xl:h-[45px]
                 laptop:w-[42px] laptop:h-[42px]

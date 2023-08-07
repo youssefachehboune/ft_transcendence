@@ -1,0 +1,15 @@
+FROM node:18
+
+WORKDIR /frontend
+
+RUN apt-get update -y
+
+COPY ./frontend/*.json ./
+
+RUN npm i
+
+COPY ./frontend/ ./
+
+RUN npm run build
+
+CMD ["npm", "start"]

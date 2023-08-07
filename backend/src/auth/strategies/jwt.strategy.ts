@@ -27,7 +27,7 @@ export class JwtAuthStrategy extends PassportStrategy(Strategy, 'jwt') {
   async validate(payload: JwtPayload) {
 		const user = await prisma.user.findUnique({
 			where: {
-				email: payload.email
+				id: payload.sub
 			}
 		});
 		if (user.role == 'BANNED')

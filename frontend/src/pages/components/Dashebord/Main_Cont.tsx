@@ -5,7 +5,7 @@ import AchievComp from "./AchievComp";
 import { BsFillPeopleFill } from "react-icons/bs";
 import { GiPerspectiveDiceSixFacesSix } from "react-icons/gi";
 import { FaRobot } from "react-icons/fa";
-
+import Image from "next/image";
 export default function Main() {
     const [datatop, setDatatop] = useState<any>([]);
     const [dataMatch, setDataMatch] = useState<any>([]);
@@ -57,7 +57,7 @@ export default function Main() {
                     </div>
                     }
 
-                    <img src="TT.png" 
+                    <Image src="/TT.png"  width={100} height={100}
                     style={
                         {top: isShow ? '25%' : '60%',}
                     }
@@ -68,7 +68,7 @@ export default function Main() {
             <div className="w-[100%] h-[65%]  phone:h-[50%]">
                 <div className="w-[100%] h-1/2 flex items-center justify-around ">
                     <div className="backc1 w-[40%] h-[90%] rounded-[20px]">
-                        <img src="TT.png" 
+                        <Image src="/TT.png" width={100} height={100}
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4 ">Top players</h1>
                         <div className="par_hover">
@@ -92,7 +92,7 @@ export default function Main() {
                         </div>
                     </div>
                     <div className="backc2 w-[40%] h-[90%]  rounded-[20px]">
-                        <img src="TT.png" 
+                        <Image src="/TT.png" width={100} height={100}
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Last achievements</h1>
                         <div className="par_hover">
@@ -104,13 +104,16 @@ export default function Main() {
                                         )
                                     })
                                 }
+                                {
+                                    dataAchiev.length === 0 && <h1 className="text-[10px] font-sora font-bold text-[#ffffff7a]">No Achievement yet</h1>
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="w-[100%] h-1/2 flex items-center justify-around ">
                     <div className="backc3 w-[40%] h-[90%] rounded-[20px]">
-                        <img src="TT.png" 
+                        <Image src="/TT.png" width={100} height={100}
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Last matches</h1>
                         <div className="par_hover">
@@ -123,12 +126,15 @@ export default function Main() {
                                                 )
                                             })
                                         }
+                                        {
+                                            dataMatch.length === 0 && <h1 className="text-[10px] font-sora font-bold text-[#ffffff7a]">No Match yet</h1>
+                                        }
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="backc4">
-                        <img src="TT.png" 
+                        <Image src="/TT.png" width={100} height={100}
                         alt="" className="ShapeHover2" />
                         <h1 className="header_play4">Available modes</h1>
                         <div className="par_hover">

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { FaCompass } from 'react-icons/fa'
 import Link from "next/link";
 import { BiSearch } from "react-icons/bi";
+import Image from "next/image";
 
 interface IconNavBarProps{
     'image' : string,
@@ -12,31 +13,31 @@ interface IconNavBarProps{
 export default function NavBar(props : any) {
     const data : IconNavBarProps[] = [
         {
-            'image' : '1337.jpeg',
+            'image' : '/1337.jpeg',
             'color' : 'black',
         },
         {
-            'image' : 'mbjaghou.jpeg',
+            'image' : '/mbjaghou.jpeg',
             'color' : '#f5bc39',
         },
         {
-            'image' : 'mbjaghou.jpeg',
+            'image' : '/mbjaghou.jpeg',
             'color' : '#f5bc39',
         },
         {
-            'image' : 'mbjaghou.jpeg',
+            'image' : '/mbjaghou.jpeg',
             'color' : '#f5bc39',
         },
         {
-            'image' : 'mbjaghou.jpeg',
+            'image' : '/mbjaghou.jpeg',
             'color' : '#f5bc39',
         },
         {
-            'image' : 'mbjaghou.jpeg',
+            'image' : '/mbjaghou.jpeg',
             'color' : '#f5bc39',
         },
         {
-            'image' : 'mbjaghou.jpeg',
+            'image' : '/mbjaghou.jpeg',
             'color' : '#f5bc39',
         },
         
@@ -72,7 +73,7 @@ export default function NavBar(props : any) {
                                         return (
                                             <div key={key} className="relative w-[100px] h-[71px] flex items-center ">
                                                 <div onClick={() => handleClick(key + 1)} className={`${(key + 1) === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[${item.color}] ml-8 rounded-full flex items-center justify-center overflow-hidden`}>
-                                                        <img src={item.image} className="" alt="" />
+                                                        <Image src={item.image} className="" alt="" width={45} height={45}/>
                                                 </div>
                                                 <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${(key + 1) === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>
                                                 </div>

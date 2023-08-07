@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface LastMatchesProps {
     name1 : string;
     username1 : string;
@@ -15,7 +17,7 @@ export default function LasMatches(props : LastMatchesProps) {
         <div className="w-[100%] h-[34%] flex items-center justify-center">
                                             <div className="w-[42%] h-[100%] flex items-center justify-center">
                                                 <div className="w-[27%] h-[100%]  flex items-center justify-center">
-                                                    <img src={props.avatar1} alt=""  className="w-[25px] h-[25px] rounded-full
+                                                    <Image src={props.avatar1} loader={() => props.avatar1} alt=""  width={25} height={25} className="w-[25px] h-[25px] rounded-full
                                                     2xl:w-[24px] 2xl:h-[24px] xl:w-[24px] xl:h-[24px] laptop:w-[22px] laptop:h-[22px] phone:w-[14px] phone:h-[14px]
                                                     "/>
                                                 </div>
@@ -71,7 +73,7 @@ export default function LasMatches(props : LastMatchesProps) {
                                                     </h1>
                                                 </div>
                                                 <div className="w-[27%] h-[100%]  flex items-center justify-center">
-                                                    <img src={props.avatar2} alt=""  className="w-[25px] h-[25px] rounded-full
+                                                    <Image src={props.avatar2} alt=""  width={25} height={25} className="w-[25px] h-[25px] rounded-full
                                                     2xl:w-[24px] 2xl:h-[24px] xl:w-[24px] xl:h-[24px] laptop:w-[22px] laptop:h-[22px] phone:w-[14px] phone:h-[14px]
                                                     "/>
                                                 </div>

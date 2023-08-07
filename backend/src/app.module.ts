@@ -32,13 +32,14 @@ export class AppModule implements NestModule {
     consumer
       .apply(AuthMiddleware)
       .exclude(
-        { path: 'intra', method: RequestMethod.GET },
-        { path: 'google', method: RequestMethod.GET },
-        { path: 'intra/redirect', method: RequestMethod.GET },
-        { path: 'google/redirect', method: RequestMethod.GET },
-        { path: 'lang/:key', method: RequestMethod.GET },
-        { path: 'refresh', method: RequestMethod.GET },
-      )
+				{ path: '/', method: RequestMethod.GET },
+				{ path: 'intra', method: RequestMethod.GET },
+				{ path: 'google', method: RequestMethod.GET },
+				{ path: 'intra/redirect', method: RequestMethod.GET },
+				{ path: 'google/redirect', method: RequestMethod.GET },
+				{ path: 'lang/:key', method: RequestMethod.GET },
+				{ path: 'refresh', method: RequestMethod.GET },
+			)
       .forRoutes('*');
   }
 }

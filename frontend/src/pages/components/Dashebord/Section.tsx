@@ -1,20 +1,90 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { AiOutlineMessage } from "react-icons/ai";
 import { BsGlobe, BsXLg } from "react-icons/bs";
 import { VscBell, VscSettingsGear } from 'react-icons/vsc'
 import {CgProfile} from 'react-icons/cg'
 import { useState } from "react";
 import { LiaUserFriendsSolid } from "react-icons/lia";
+import FriendRequest from "./FriendRequest";
+import Blocked from "./Blocked";
+
 function Section({massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile, setonlyChat}: any) {
+    const SettingRef = useRef<HTMLDivElement>(null);
+    const requestRef = useRef<HTMLDivElement>(null);
     const [showSettings, setshowSettings] = useState<boolean>(false);
+    const [showRequest, setshowRequest] = useState<boolean>(false);
+    const [isHovered, setIsHovered] = useState<boolean>(false);
+    const [requestdata, setrequestdata] = useState<any>([]);
+    const [blockeddata, setblockeddata] = useState<any>([]);
+    const [isHovered2, setIsHovered2] = useState<boolean>(false);
+    const [showdataRequest, setshowdataRequest] = useState<boolean>(true);
+    useEffect(() => {
+        const fetchData = async () => {
+            const resb = await fetch("http://localhost:3000/friends/status/BLOCKED", {credentials: "include"});
+            const datab = await resb.json();
+            setblockeddata(datab);
+            const res = await fetch("http://localhost:3000/friends/status/REQUESTED", {credentials: "include"});
+            const data = await res.json();
+            setrequestdata(data);
+        }
+        if (showRequest) {
+            fetchData();
+        }
+    }, [showRequest])
+    function handleMouseEnter1() {
+        setIsHovered(true);
+    }
+    function handleMouseLeave1() {
+        setIsHovered(false);
+    }
+    function handleMouseEnter2() {
+        setIsHovered2(true);
+    }
+    function handleMouseLeave2() {
+        setIsHovered2(false);
+    }
+
+    function handleClickRequest() {
+        setshowprofile(true)
+        setshowRequest(!showRequest);
+    }
     function handleClickSettings() {
         setshowprofile(true)
         setshowSettings(!showSettings);
     }
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClickRequest);
+        return () => {
+          document.removeEventListener('mousedown', handleOutsideClickRequest);
+        };
+      }
+        , []);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleOutsideClickSetting);
+        return () => {
+          document.removeEventListener('mousedown', handleOutsideClickSetting);
+        };
+      }, []);
+    const handleOutsideClickSetting = (event: MouseEvent) => {
+        if (SettingRef.current && !SettingRef.current.contains(event.target as Node)) {
+          setshowSettings(false);
+        }
+      };
+    const handleOutsideClickRequest = (event: MouseEvent) => {
+        if (requestRef.current && !requestRef.current.contains(event.target as Node)) {
+          setshowRequest(false);
+          setshowdataRequest(true);
+        }
+      };
 return ( 
     <div className="section ">
             <div className="w-[100%] h-[100%] flex items-center justify-around">
-                <button>
+                <button onClick={handleClickRequest}
+                                style={
+                                    showRequest ? {color: "#fff"} : {}
+                                }
+                >
                     <LiaUserFriendsSolid className="hovring w-[18px] h-[18px]"/>
                 </button>
                 <button onClick={() => {setshowprofile(!showprofile); setshowSettings(false);}} className="hidden 2xl:block xl:block">
@@ -38,10 +108,66 @@ return (
                 </button>
             </div>
             {
-                showSettings && <div className="w-[320px] h-[300px] absolute bg-[#261F30] top-[5%] right-[0.5%] z-[99] rounded-[6px] overflow-y-auto
-                phone:top-[7%] phone:w-[280px] phone:h-[270px]
-                laptop:top-[7%]
-                Large-phone:top-[7%]
+                showRequest && <div ref={requestRef} className="w-[320px] h-[600px] absolute bg-[#261F30]  overflow-hidden right-[100px] xl:right-0 z-50 rounded-b-[6px]
+                phone:w-[280px] phone:h-[570px]
+                 flex items-end flex-col">
+                    <div className="w-[100%] h-[13%] flex items-center justify-around">
+                        <div className="w-[32%] h-[50%] bg-white rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-[#fff] hover:border-[1.3px] hover:bg-[#ffffff00]"
+                        onMouseEnter={handleMouseEnter1}
+                        onMouseLeave={handleMouseLeave1}
+                        onClick={() => {setshowdataRequest(true);}}
+                        >
+                                <h1 className="text-[8px] font-sora font-semibold transition-all duration-500"
+                                style={
+                                    {
+                                        color: isHovered ? "#fff" : "#000"
+                                    }
+                                }
+                                >REQUESTS</h1>
+                        </div>
+                        <div className="w-[32%] h-[50%] bg-[#ED5253] hover:border-[1.3px] flex items-center justify-center rounded-[2px] transition-all duration-500 cursor-pointer hover:border-[#ED5253]  hover:bg-[#ffffff00]"
+                        onMouseEnter={handleMouseEnter2}
+                        onMouseLeave={handleMouseLeave2}
+                        onClick={() => {setshowdataRequest(false);}}
+                        >
+                                <h1 className="text-[8px] font-sora font-semibold transition-all duration-500   "
+                                style={
+                                    {
+                                        color: !isHovered2 ? "#fff" : "#ED5253"
+                                    }
+                                }
+                                >BLOCK-LIST</h1>
+                        </div>
+                    </div>
+                    <div className="w-[100%] relative h-[87%]  flex flex-col justify-start items-center overflow-y-auto">
+                        {
+
+                            showdataRequest ?
+                            requestdata.map((item: any, key : number) => {
+                                return (
+                                    <FriendRequest key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
+                                )
+                            })
+                            :
+                            blockeddata.map((item: any, key : number) => {
+                                return (
+                                    <Blocked key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
+                                )
+                            })
+
+                        }
+                        {
+                            requestdata.length === 0 && showdataRequest && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Request</h1>
+                        }
+                        {
+                            blockeddata.length === 0 && !showdataRequest && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Blocked</h1>
+                        }
+                    </div>
+                </div>
+            }
+            {
+                showSettings && <div ref={SettingRef} className="w-[350px] h-[300px] absolute bg-[#261F30]  overflow-y-auto right-0 z-50 rounded-b-[6px]
+                 phone:w-[280px] phone:h-[270px]
                  flex items-end flex-col">
                     <div className="w-[100%] h-[9%] bg-[#FFFFFF0F] flex items-center justify-center flex-row">
                         <h1 className="font-sora font-semibold leading-normal text-[11px] text-[#fff]">Settings</h1>

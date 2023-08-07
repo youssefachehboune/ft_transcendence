@@ -78,6 +78,6 @@ export class AuthController {
 		res.clearCookie('jwt');
 		res.clearCookie('refresh');
 		await this.AuthService.logout(req.user['email']);
-		res.send({ msg: 'Logged out!' });
+		res.redirect('http://localhost:3001/')
   }
 }
