@@ -1,17 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { io, Socket } from "socket.io-client";
-import GameStarted from "./GameStarted";
-import { GameData } from "./gameData";
-
-const socket = io("http://localhost:3000/status", {
-  transports: ["websocket"],
-  withCredentials: true,
-});
-
-interface User {
-  userId: number;
-  status: boolean;
-}
+import user_socket from "@/pages/userSocket";
 
 interface Friend {
   user_id: number;
@@ -28,10 +16,7 @@ interface Data {
 
 export default function FriendsGame() {
   const [friends, setFriends] = useState<Friend[]>([]);
-  const [online, setOnline] = useState<number[]>([]);
   const [userId, setUserId] = useState<number | undefined>(undefined);
-  const [gameStarted, setGameStarted] = useState<boolean>(false);
-  const [gameData, setGameData] = useState<GameData | undefined>(undefined);
 
   const fetchFriends = async () => {
     const response = await fetch("http://localhost:3000/friends", {
@@ -57,72 +42,15 @@ export default function FriendsGame() {
     fetchData();
   }, []);
 
-  const isOnline = (id: number) => {
-    return online.includes(id) ? "#61FF00" : "red";
-  };
-
-  const createInvitation = (data: Data) => {
-    const invitation = document.getElementById("invitation");
-    if (invitation) {
-      const invitationLi = document.createElement("li");
-      const h1 = document.createElement("h1");
-      h1.innerHTML = `${data.sender} wants to play with you`;
-      invitationLi.appendChild(h1);
-      invitation.appendChild(invitationLi);
-      const accept = document.createElement("button");
-      accept.innerHTML = "Accept";
-      accept.addEventListener("click", () => {
-        socket.emit("accept", data);
-      });
-      invitationLi.appendChild(accept);
-    }
-  };
-
-  useEffect(() => {
-    socket.on("onlineOne", (data: User) => {
-      if (data.status === true) {
-        setOnline((prevOnline) => [...prevOnline, data.userId]);
-      } else {
-        setOnline((prevOnline) =>
-          prevOnline.filter((id) => id !== data.userId)
-        );
-      }
-    });
-
-    socket.on("onlineFriends", (data: any) => {
-      setOnline((prevOnline) => [...prevOnline, ...data]);
-    });
-
-    socket.on("invitation", (data: Data) => {
-      if (data) createInvitation(data);
-    });
-
-    socket.on("start", (data: GameData) => {
-      if (data) {
-        socket.disconnect();
-
-        setGameStarted(true);
-        setGameData(data);
-      }
-    });
-
-    return () => {
-      socket.off("onlineOne");
-      socket.off("onlineFriends");
-      socket.off("invitation");
-    };
-  }, [gameData]);
 
   const play = async (id: number) => {
     const data: Data = {
       sender: userId!,
       receiver: id,
     };
-    console.log("I am:", userId, "I want to play with:", id);
-    socket.emit("play", data);
+    user_socket.emit("play", data);
   };
 
-  if (!gameStarted) {
     return (
       <div className="w-[100%] h-[100%] flex flex-col items-center justify-start overflow-y-auto
 
@@ -161,7 +89,7 @@ export default function FriendsGame() {
                       <div className="w-[10px] h-[10px]  z-99 absolute bottom-0 right-1 rounded-full
                                     phone:w-[8px] phone:h-[8px]
                                     "
-                        style={{ backgroundColor: isOnline(friend.user_id) }}
+                        // style={{ backgroundColor: isOnline(friend.user_id) }}
                       ></div>
                     </div>
                   </div>
@@ -208,18 +136,4 @@ export default function FriendsGame() {
         <div id="invitation"></div>
       </div>
     );
-  }
-  else if (gameData && gameStarted) {
-    return (
-      <GameStarted data={gameData}/>
-    )
-  }
-  else {
-    return (
-      <div>
-        <h1>Error</h1>
-      </div>
-    )
-  }
-
 }

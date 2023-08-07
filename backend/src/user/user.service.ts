@@ -5,6 +5,7 @@ import { UserDto } from './user.dto'
 import {v2 as cloudinary} from 'cloudinary';
 import { config } from 'dotenv';
 
+
 config();
 
 cloudinary.config({ 
@@ -15,8 +16,10 @@ cloudinary.config({
 
 const prisma = new PrismaClient();
 
+
 @Injectable()
 export class UserService {
+	
 
 	async getUsername(username: string) {
 		const user = await prisma.userProfile.findUnique({

@@ -181,9 +181,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
 
-      socketRef.current?.off("move");
-      socketRef.current?.off("gameOver");
-
+      socketRef.current?.disconnect();
       canvas?.remove();
 
       setGameData(undefined);
@@ -257,7 +255,6 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   };
 
   const startMoving = (direction: string) => {
-    // console.log("start moving");
     socketRef.current?.emit("move", direction, gameId);
   };
 
@@ -285,7 +282,8 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [userId, gameId]);
 
   return (
-    <div id="game" className="w-full" style={{ position: "absolute", top: "70px" }}>
+    <>
+    <div id="game" className="w-full" style={{ position: "absolute", top: "150px" }}>
       <div id="scoor-section">
         <div id="player1">
           <img src={player1info?.avatar} alt="Player 1" />
@@ -312,6 +310,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
         style={{ backgroundColor: "black", top: "73px", position: "absolute"}}
       />
     </div>
+    </>
   );
 };
 

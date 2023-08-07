@@ -1,13 +1,17 @@
 import { WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage } from "@nestjs/websockets";
 import { Socket, Server } from "socket.io";
 import { GameService } from "./game.service";
-import { GameDto, Paddles, Ball } from "../game/game.dto";
+import { GameDto, Ball } from "../game/game.dto";
 import { AuthService } from "../auth/auth.service";
+import { UserStatusGateway } from "src/user/user-status.gateway";
+
+
 @WebSocketGateway({ cors: { origin: '*' }, namespace: "game" })
 export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     constructor(
         private gameService: GameService,
         private authService: AuthService,
+        private userStatusGateway: UserStatusGateway
 
     ) { }
 
@@ -16,11 +20,12 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleConnection(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
-            console.log("New player connected:", userId);
+            console.log("connected one to game", userId);
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game && game.player1.ready && game.player2.ready) {
-                console.log("Game started:", game.gameId);
-                    this.startGame(game.gameId);
+                await this.userStatusGateway.changeSocketsType(game.player1.userId, "ingame");
+                await this.userStatusGateway.changeSocketsType(game.player2.userId, "ingame");
+                this.startGame(game.gameId);
             }
         }
     }
@@ -28,12 +33,12 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleDisconnect(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
-            console.log("Player disconnected:", userId);
+            // this.userStatusGateway.changeSocketsType(userId, "online")
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game) {
-                if(game.player2.socketId === socket.id)
+                if (game.player2.socketId === socket.id)
                     this.server.to(game.player1.socketId).emit("opponentDisconnected");
-                else if(game.player1.socketId === socket.id)
+                else if (game.player1.socketId === socket.id)
                     this.server.to(game.player2.socketId).emit("opponentDisconnected");
                 this.gameService.deleteGame(game.gameId);
             }
@@ -94,7 +99,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             && newBallX + ball.radius >= paddles.paddle2.x
             && newBallX - ball.radius <= paddles.paddle2.x + paddles.width
         ) {
-            console.log("paddle 2 hit");
+            // console.log("paddle 2 hit");
             let middlePaddle2 = paddles.paddle2.x + paddles.width / 2;
             let distanceBallXPaddleMiddle = ball.x - middlePaddle2;
             let newAngel = (((paddles.width / 2) - (distanceBallXPaddleMiddle)) / (paddles.width / 2)) * (Math.PI / 2);
@@ -107,7 +112,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         if (newBallY - ball.radius <= paddles.paddle1.y + paddles.height
             && newBallX + ball.radius >= paddles.paddle1.x
             && newBallX - ball.radius <= paddles.paddle1.x + paddles.width) {
-            console.log("paddle 1 hit");
+            // console.log("paddle 1 hit");
             let middlePaddle1 = newBallX + paddles.width / 2;
             let distanceBallXPaddleMiddle = paddles.paddle1.x - middlePaddle1;
             let newAngel = (((paddles.width / 2) - (distanceBallXPaddleMiddle)) / (paddles.width / 2)) * (Math.PI / 2);
@@ -134,7 +139,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
             }
             else if (gameData.player1.score === 10) {
-                 this.gameService.saveToCareer(gameData.player1, gameData.player2);
+                this.gameService.saveToCareer(gameData.player1, gameData.player2);
                 this.server.to(gameData.player1.socketId).emit("gameOver", gameData.player1.userId, gameData.player1.score, gameData.player2.score);
                 this.server.to(gameData.player2.socketId).emit("gameOver", gameData.player1.userId, gameData.player1.score, gameData.player2.score);
             }
@@ -202,7 +207,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         if (gameData.player1 && gameData.player2) {
             const interval = setInterval(async () => {
                 this.updatePaddlesPosition(gameData);
-                if(gameData.gametype === "bot")
+                if (gameData.gametype === "bot")
                     this.updateBotPaddlePosition(gameData);
                 gamePlayed = await this.handleBall(gameData);
                 if (!gamePlayed) {
@@ -214,7 +219,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
                     this.server.to(gameData.player2.socketId).emit("move", this.resizeGame(gameData, client1Ball, gameData.player2.ratio), gameData.player2.userId);
                 }
                 client2Ball.y = gameData.tableHeight - client2Ball.y;
-                this.server.to(gameData.player1.socketId).emit("move",  this.resizeGame(gameData, client2Ball , gameData.player1.ratio), gameData.player2.userId);
+                this.server.to(gameData.player1.socketId).emit("move", this.resizeGame(gameData, client2Ball, gameData.player1.ratio), gameData.player2.userId);
             }, 1000 / 60);
         }
     }
@@ -224,7 +229,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const gameId = data[1];
         const gameData = this.gameService.getGame(gameId);
         const user = await this.getUserId(socket);
-        console.log("move", user, gameData.player1.userId, gameData.player2.userId);
+        // console.log("move", user, gameData.player1.userId, gameData.player2.userId);
         if (gameData && user) {
             const paddles = gameData.paddles;
             if (user === gameData.player1.userId) {
@@ -258,9 +263,9 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const user = await this.getUserId(socket);
         if (gameData && newWidth < 400) {
             const ratio = newWidth / gameData.tableWidth;
-            if(user === gameData.player1.userId)
+            if (user === gameData.player1.userId)
                 gameData.player1.ratio = ratio;
-            else if(user === gameData.player2.userId)
+            else if (user === gameData.player2.userId)
                 gameData.player2.ratio = ratio;
         }
     }

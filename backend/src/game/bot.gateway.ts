@@ -1,4 +1,4 @@
-import {SubscribeMessage, WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
+import {WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
 import { Socket } from 'socket.io';
 import { AuthService } from 'src/auth/auth.service';
 import { GameDto, Player } from './game.dto';
@@ -9,7 +9,6 @@ interface User
     userId: number;
     socketId: string;
 }
-
 
 @WebSocketGateway({ cors: { origin: '*' }, namespace: "bot" })
 export class BotGateway implements OnGatewayConnection, OnGatewayDisconnect {
@@ -34,21 +33,17 @@ export class BotGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleConnection(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
-            console.log("New User connected to Play in bot mode:", userId);
             const gameId = uuidv4();
             const user: User = { userId, socketId: socket.id };
             const player1: Player = { userId, socketId: socket.id ,score: 0, ready: false, ratio: 1};
-            const player2: Player = { userId : 1337, socketId: "" ,score: 0, ready: true, ratio: 1};
+            const player2: Player = { userId : 1337, socketId: "" ,score: 0, ready: true, ratio: 1}; // bot
             const gameData: GameDto = this.gameService.create(gameId, player1, player2, "bot");
             this.server.to(user.socketId).emit("startBot", gameData);
         }
     }
 
     async handleDisconnect(socket: Socket) {
-        const userId = await this.getUserId(socket);
-        if (userId) {
-            console.log("The user leave the bot mode :", userId);
-        }
+        console.log("disconnect");
     }
 }
 

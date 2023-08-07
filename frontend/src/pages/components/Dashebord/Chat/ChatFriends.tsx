@@ -12,6 +12,14 @@ function ChatFriends(props: any) {
     const [friendchat, setfriendchat] = useState<any>();
     const [chatloding, setchatloding] = useState(false)
     const [friendClicked, setFriendClicked] = useState<number | null>(null);
+
+    const isOnline = (id: number) => {console.log(id);
+        const online = props.Onlines.find((online: any) => online.userId === id);
+        if (!online) return "gray";
+        if(online.type === "ingame")
+            return "blue";
+        return online.type === "online" ? "#7CFC00" : "gray";
+      };
     const handelsearchChanges = () =>
     {
         setsearchfriend(inputRef.current?.value);
@@ -63,7 +71,7 @@ function ChatFriends(props: any) {
                                                 {
                                                     searchfriend === "" && props.friendsloding ? (
                                                         props.ListFriends?.map((user: any, index: number) => (
-                                                            <Friend_chat index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={props.setonlyChat} setfriendchat={setfriendchat}/>
+                                                            <Friend_chat isOnline={isOnline} index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={props.setonlyChat} setfriendchat={setfriendchat}/>
 
                                                     ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                         <div  className="min-h-[61px] flex items-center">
@@ -76,7 +84,7 @@ function ChatFriends(props: any) {
                                                             } className="w-[75%] flex items-center justify-center">
                                                                     <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                                                                         <img src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                                                        <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute 2xl:hidden xl:hidden}`}></div>
+                                                                        <div style={{ backgroundColor: isOnline(datafriend.user_id) }}  className={`w-[12px] h-[12px]  mt-[45px] ml-[30px] rounded-full absolute 2xl:hidden xl:hidden}`}></div>
                                                                     </div>
                                                                     <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                                                                         <h1 className="text-[13px] font-sora font-[600] text-[white]">{datafriend.firstName + " " + datafriend.lastName}</h1>
