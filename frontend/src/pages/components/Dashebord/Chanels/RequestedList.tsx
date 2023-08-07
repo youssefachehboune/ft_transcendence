@@ -2,6 +2,7 @@ import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, 
 import { BsCheckLg } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import Image from "next/image";
+
 function RequestedList({setmemebers, setrequestList, chanel, requestList, onClose, isOpen}: any) {
   const handleBanClick = (action: string, user: any) => {
     if (action == 'accept')

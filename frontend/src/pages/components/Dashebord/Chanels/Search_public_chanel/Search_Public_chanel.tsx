@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Fined_chanel from "./fined_chanel";
 function Search_Public_chanel({data, setsearchchanels, searchchanels, setchaneldata, chaneldata,  setmychanel, setpublic_channel, public_channel, onClose, isOpen}: any) {
     const inputeRef = useRef<HTMLInputElement | null>(null);
-    const [typememeber, settypememeber] = useState<string>('')
+    const [typememeber, settypememeber] = useState<any>()
 
     const handelsearchChanges = () =>
     {
@@ -38,7 +38,7 @@ function Search_Public_chanel({data, setsearchchanels, searchchanels, setchaneld
                       public_channel?.map((user: any, index: number) => (
                         <Join_channels data={data} key={index} setmychanel={setmychanel} setpublic_channel={setpublic_channel} user={user}/>
                       ))
-                    ) : searchchanels && chaneldata  && typememeber && !chaneldata.error &&  (typememeber === "NOTMEMBER" || typememeber === "REQUESTED") ? (
+                    ) : searchchanels && chaneldata && !chaneldata.error &&  ((typememeber === "NOTMEMBER" || !typememeber) || typememeber === "REQUESTED") ? (
                         <Fined_chanel typememeber={typememeber} settypememeber={settypememeber} setsearchchanels={setsearchchanels} setchaneldata={setchaneldata} setmychanel={setmychanel} user={chaneldata} setpublic_channel={setpublic_channel}/>
                     ) : chaneldata && typememeber && typememeber != "NOTMEMBER" ? (
                         <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>
