@@ -103,6 +103,9 @@ function Dashebord() {
           }
         };
         fetchData();
+        socket.on('request_accepted', (channel) => {
+          setmychanel((prev : any) => [...prev, channel])
+        })
         socket.on('refresh', (data) => {
             if (data.action == "delete")
             {
@@ -118,7 +121,7 @@ function Dashebord() {
               });
             }
           })
-        return () => { socket.off('refresh') }
+        return () => { socket.off('refresh'), socket.off('request_accepted') }
       }, []);
       useEffect(() => {
           const handleResize = () => {

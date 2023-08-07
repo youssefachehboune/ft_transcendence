@@ -135,6 +135,20 @@ export class ChatGateway {
 		socket.join(`${channel.id}`);
 	}
 
+
+	@SubscribeMessage('add_user_to_channel')
+	async addUserToChannel(@MessageBody() content: { channelName: string, username:string }) {
+		const channel = await prisma.channel.findUnique({
+			where: { name: content.channelName }
+		});
+		const sockets = this.connectedUsers.get(content.username);
+		if (sockets)
+			sockets.forEach(socket => {
+				socket.join(`${channel.id}`);
+				socket.emit('request_accepted', channel);
+			});
+	}
+
 	@SubscribeMessage('update_channel')
 	async leave_channel(@MessageBody() content :{new?: string, name: string, action: 'update' | 'delete'}, @ConnectedSocket() socket: Socket) {
 		if (content.action === 'update') {

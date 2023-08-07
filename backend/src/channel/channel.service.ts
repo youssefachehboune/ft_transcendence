@@ -268,14 +268,17 @@ export class ChannelService {
         if (channel) {
             return { error: 'Channel already exists' }
         }
+        let avatar = data.avatar;
         if (data.avatar.length > 500)
-            data.avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: "avatar" } )).url;
-        const hashedPassword = await bcrypt.hash(data.password, 10);
+            avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: data.name } )).url;
+        let hashedPassword = '';
+        if (data.password)
+            hashedPassword = await bcrypt.hash(data.password, 10);
         const newChannel = await prisma.channel.create({
             data: {
                 name: data.name,
                 type: data.type,
-                avatar: data.avatar,
+                avatar: avatar,
                 password: hashedPassword,
                 description: data.description,
                 ChannelMembers: {
@@ -331,9 +334,12 @@ export class ChannelService {
         if (!channelMember || channelMember.MemberType !== 'OWNER') {
             return { error: 'Only the owner can modify the channel' }
         }
+        let avatar = data.avatar;
         if (data.avatar.length > 500)
-            data.avatar = (await cloudinary.uploader.upload(data.avatar, { public_id: "avatar" })).url;
-        const hashedPassword = await bcrypt.hash(data.password, 10);
+            avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: data.name } )).url;
+        let hashedPassword = '';
+        if (data.password)
+            hashedPassword = await bcrypt.hash(data.password, 10);
         const updatedChannel = await prisma.channel.update({
             where: {
                 name: name
@@ -343,7 +349,7 @@ export class ChannelService {
                 type: data.type,
                 password: hashedPassword,
                 description: data.description,
-                avatar: data.avatar
+                avatar: avatar
             },
         });
         return {

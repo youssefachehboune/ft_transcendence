@@ -2,11 +2,14 @@ import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, 
 import { BsCheckLg } from "react-icons/bs";
 import { RxCross2 } from "react-icons/rx";
 import Image from "next/image";
+import socket from '../../../chatSocket'
 
 function RequestedList({setmemebers, setrequestList, chanel, requestList, onClose, isOpen}: any) {
   const handleBanClick = (action: string, user: any) => {
-    if (action == 'accept')
+    if (action == 'accept') {
+      socket.emit('add_user_to_channel', {channelName: chanel.name, username: user.username})
       setmemebers((prevBanList : any) => [...prevBanList, user]);
+    }
     setrequestList((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
     fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/${action}`, {
       credentials: "include",
