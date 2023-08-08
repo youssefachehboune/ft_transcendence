@@ -1,5 +1,6 @@
 import { FormControl, FormHelperText } from "@chakra-ui/react";
 import { BsCameraFill } from "react-icons/bs";
+import Image from "next/image";
 
 function Uplode_chanel_img({handleClick, handleImageUpload, large_img, avatarchanel, fileInputRef}: any) {
     return ( 
@@ -14,18 +15,14 @@ function Uplode_chanel_img({handleClick, handleImageUpload, large_img, avatarcha
                   accept="image/*"
                   style={{ display: "none" }}
                 />
-                {avatarchanel && <img src={avatarchanel} alt="" className="w-[full] h-full rounded-full"/>}
+                {avatarchanel && <Image width={'120'} height={'120'} src={avatarchanel} alt="" className="w-[full] h-full rounded-full"/>}
                 {!avatarchanel && <BsCameraFill className="w-[40px] h-[40px]"/>}
               </div>
         </div>
         {large_img ? 
               (
                 <h1 className="text-[12px] text-[red] text-center">{large_img}</h1>
-              ) : (
-              <FormHelperText textAlign={'center'}>
-                      you must Uplode Img
-              </FormHelperText>
-              )
+              ) : null
         }
       </FormControl>
      );

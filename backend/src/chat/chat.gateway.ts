@@ -44,7 +44,8 @@ export class ChatGateway {
 			include: { Channel: true }
 		});
 		for (let i = 0; i < channels.length; i++)
-			socket.join(channels[i].Channel.name);
+			if (channels[i].Channel.type !== 'NOTACTIVE')
+				socket.join(`${channels[i].Channel.id}`);
   }
 	
 	handleDisconnect(socket: Socket | any) {
@@ -123,6 +124,45 @@ export class ChatGateway {
 			const sockets = this.connectedUsers.get(username);
 			sockets.forEach(socket => blockedSocketIds.push(socket.id));
 		});
-		this.server.to(content.channel).except(blockedSocketIds).emit('receive_channel_message', content.message)
+		this.server.to(`${channel.id}`).except(blockedSocketIds).emit('receive_channel_message', {avatar: user.userProfile[0].avatar , message: content.message})
+	}
+
+	@SubscribeMessage('add_channel')
+	async add_channel(@MessageBody() name: string, @ConnectedSocket() socket: Socket) {
+		const channel = await prisma.channel.findUnique({
+			where: { name: name }
+		});
+		socket.join(`${channel.id}`);
+	}
+
+
+	@SubscribeMessage('add_user_to_channel')
+	async addUserToChannel(@MessageBody() content: { channelName: string, username:string }) {
+		const channel = await prisma.channel.findUnique({
+			where: { name: content.channelName }
+		});
+		const sockets = this.connectedUsers.get(content.username);
+		if (sockets)
+			sockets.forEach(socket => {
+				socket.join(`${channel.id}`);
+				socket.emit('request_accepted', channel);
+			});
+	}
+
+	@SubscribeMessage('update_channel')
+	async leave_channel(@MessageBody() content :{new?: string, name: string, action: 'update' | 'delete'}, @ConnectedSocket() socket: Socket) {
+		if (content.action === 'update') {
+			const channel = await prisma.channel.findUnique({
+				where: { name: content.new }
+			});
+			this.server.to(`${channel.id}`).except(socket.id).emit('refresh', content);
+		}
+		else if (content.action == 'delete') {
+			const channel = await prisma.channel.findUnique({
+				where: { name: content.name }
+			});
+			socket.leave(`${channel.id}`);
+			this.server.to(`${channel.id}`).except(socket.id).emit('refresh', content);
+		}
 	}
 }

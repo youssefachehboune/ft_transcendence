@@ -8,9 +8,9 @@ import Update_user_tow from "@/pages/api/Update_user_tow";
 function Edite_profile(props: any) {
     const onsave = async () =>
     {
-        if (!props.ErrorBio && !props.Errorusername)
+        if (!props.ErrorBio && !props.Errorusername && !props.Erroravatar)
         {
-            await Update_user_tow({ bio: props.Bio,  avatar: props.avatar, username: props.username, location: props.location}, {error: props.setErrorusername}, () => props.onClose(), props.setdataisloded);
+            await Update_user_tow({ bio: props.Bio,  avatar: props.avatar, username: props.username, location: props.location}, {error: props.setErrorusername}, () => props.onClose(), props.setdata);
         }
     }
     return ( 
@@ -24,7 +24,7 @@ function Edite_profile(props: any) {
                     <ModalHeader>Edite your profile</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
-                        <Update_avatar data={props.data} avatar={props.avatar} setavatar={props.setavatar}/>
+                        <Update_avatar largeimg={props.Erroravatar} setlargeimg={props.setErroravatar} data={props.data} avatar={props.avatar} setavatar={props.setavatar}/>
                         <Update_Username data={props.data} username={props.username} setusername={props.setusername} Errorusername={props.Errorusername} setErrorusername={props.setErrorusername}/>
                         <Update_Bio data={props.data} Bio={props.Bio} setBio={props.setBio} ErrorBio={props.ErrorBio} setErrorBio={props.setErrorBio}/>
                         <Select_contry data={props.data} location={props.location} setlocation={props.setlocation}/>

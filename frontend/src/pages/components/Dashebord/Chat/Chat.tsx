@@ -3,8 +3,9 @@ import {IoMdSend} from 'react-icons/io'
 import { ChangeEvent, useState, useRef, useEffect} from "react";
 import { RxCross2 } from "react-icons/rx";
 import socket from '../../../chatSocket'
+import Image from "next/image";
 
-function Chat({setFriendClicked, setonlyChat, friendchat, data} : any) {
+function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} : any) {
     var check = true;
     var test12 = true;
     const [inputValue, setInputValue] = useState<any>('');
@@ -93,12 +94,12 @@ function Chat({setFriendClicked, setonlyChat, friendchat, data} : any) {
             <div className={`w-[60%] 2xl:w-[57%] float-right xl:w-[95%] h-[100%] test5  ml-[10px] xl:ml-0 rounded-t-[10px] overflow-hidden relative`} >
                 <div className="h-[50px] bg-[#070012]"></div>
                     <div className="w-[100%] h-auto test5 relative">
-                            <button onClick={() => {setonlyChat(false); setFriendClicked((prev: any) => prev == null)}} className="absolute right-0">
+                            <button onClick={() => {setonlyChat(false); setclickFriend(false); setFriendClicked((prev: any) => prev == null)}} className="absolute right-0">
                                 <RxCross2 color="white"  className="w-[23px] h-[23px]"/>
                             </button>
                             <div className="w-[65%] 2xl:w-[70%] xl:w-[75%] min-h-[84px] flex justify-center">
                                 <div className="w-[20%] h-[84px] flex items-center justify-end">
-                                        <img src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                        <Image width={'54'} height={'54'} src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                         <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                                 </div>
                                 <div className="w-[70%] h-[84px] flex flex-col justify-center ml-[5px]">
@@ -113,7 +114,7 @@ function Chat({setFriendClicked, setonlyChat, friendchat, data} : any) {
                                 if (message.username == data?.username)
                                 {
                                     return  <div key={key} className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center`}>
-                                            <img src={data?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
+                                            <Image width={'54'} height={'54'} src={data?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
                                             <div className="max-w-[400px] 2xl:max-w-[300px] xl:max-w-[200px] bg-black p-2 mr-[20px] rounded-t-[28px] rounded-l-[28px] flex">
                                                 <p className={"text-white text-[10px] font-sora mr-[5px]"}>{message.message}</p>
                                                 {message.read && <IoCheckmarkDoneOutline className="mt-[3px] mr-[5px] text-[#14FF00] text-[10px] flex items-center font-sora self-center"/>}
@@ -123,7 +124,7 @@ function Chat({setFriendClicked, setonlyChat, friendchat, data} : any) {
                                 else if (message.username == friendchat?.username)
                                 {
                                     return  <div key={key} className={`w-[100%] pl-7 pt-5 h-fit  mb-[15px] flex  items-center relative`}>
-                                            <img src={friendchat?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
+                                            <Image width={'54'} height={'54'} src={friendchat?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
                                             <div className="max-w-[400px] 2xl:max-w-[300px] xl:max-w-[200px] bg-black p-2 ml-[20px]  rounded-t-[28px] rounded-r-[28px]">
                                                 <p className={`text-white text-[10px] font-sora`}>{message.message}</p>
                                             </div>

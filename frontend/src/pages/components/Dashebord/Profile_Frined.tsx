@@ -6,6 +6,7 @@ import { IoArrowBackCircle, IoLocationOutline } from "react-icons/io5";
 import {ImBlocked} from 'react-icons/im'
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import { RxCross2 } from "react-icons/rx";
+import Image from "next/image";
 
 function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, profileloding, setblock, block, setshowchatsection, setonlyChat}: any) {
 
@@ -19,7 +20,7 @@ function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, 
                                     </div>
                                     <div className="w-[100%] h-[50%] mt-[-30px] flex items-center mr-[-20px] self-end">
                                             <SkeletonCircle size={'144px'} mr={'30px'} mt={'-60px'} isLoaded={profileloding}>
-                                                <img src={Profile?.avatar} alt="" className="w-[144px] rounded-full select-none "/>
+                                                <Image width={'144'} height={'144'} src={Profile?.avatar} alt="" className="w-[144px] rounded-full select-none "/>
                                             </SkeletonCircle>
                                         <div>
                                             <SkeletonText isLoaded={profileloding}>
@@ -74,7 +75,7 @@ function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, 
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><IoLocationOutline  className="w-[17px] h-[17px]"/></span>{Profile?.info.location}</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsPeople className="w-[17px] h-[17px]"/></span>{Profile?.info.count_friends} Friends</h1>
                                                 <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsClock className="w-[17px] h-[17px]"/></span>{Profile?.info.member_since}</h1>
-                                                <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><img src="g3.svg" className="w-[17px] h-[17px]"/></span>{Profile?.info.email}</h1>
+                                                <h1 className="text-[12px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><Image width={'17'} height={'17'} src="/g3.svg" className="w-[17px] h-[17px]" alt={""}/></span>{Profile?.info.email}</h1>
 
                                             </div>
                                             }
@@ -86,7 +87,7 @@ function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, 
                                                         </Skeleton>
                                                             <div className="w-[100%] h-[56px] flex items-center gap-4">
                                                                 <SkeletonCircle isLoaded={profileloding} className="test11 w-[32px] h-[32px] rounded-full flex flex-col justify-center items-center">
-                                                                    <img src="hhhhhhhh.svg" alt="" />
+                                                                    <Image width={'20'} height={'20'} src="hhhhhhhh.svg" alt="" />
                                                                 </SkeletonCircle>
                                                                 <SkeletonText isLoaded={profileloding}>
                                                                     <h1 className="text-[white] text-[13px] font-sora font-[400]">Global Rank<p className="text-[8px] font-sora font-[700]">Among the top {Profile?.statistics.Global_rank}</p></h1>
@@ -129,7 +130,7 @@ function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, 
                                         profileloding && Profile?.Last_matches?.map((user: any, key: any) => (
                                         <div key={key} className="w-[100%] min-h-[65px] text-white flex overflow-hidden">
                                             <div className="w-[33.5%] flex items-center justify-end ">
-                                                <img src={user.User.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                <Image width={'54'} height={'54'} src={user.User.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                 <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                     <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.User.firstName + " " + user.User.lastName}</h1>
                                                     <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.User.username}</h1>
@@ -140,7 +141,7 @@ function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, 
                                                 <h1 className="text-[9px] font-sora font-[400] text-[#B3B3B3]">{user.occuredAt}</h1>
                                             </div>
                                             <div className="w-[33.5%] flex items-center justify-start">
-                                                <img src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full select-none"/>
+                                                <Image width={'54'} height={'54'} src={user.Opponent.avatar} alt="" className="w-[54px] rounded-full select-none"/>
                                                 <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
                                                     <h1 className="text-[7px] font-sora font-[600] text-[white] ">{user.Opponent.firstName + " " + user.Opponent.lastName}</h1>
                                                     <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + user.Opponent.username}</h1>
