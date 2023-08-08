@@ -114,4 +114,22 @@ export class UserService {
 		});
 		return user.id;
 	}
+
+
+	async getUserDataByUserId(id: number) {
+		if (id == null)
+			return null;
+		const user = await prisma.user.findUnique({
+			where: { id: id }
+		});
+		const userProfile = await prisma.userProfile.findFirst({
+			where:{ User: user}
+		});
+		return {
+			id : user.id,
+			avatar: userProfile.avatar,
+			fullname: userProfile.firstName + " " + userProfile.lastName,
+			username: userProfile.username,
+		}
+	}
 }

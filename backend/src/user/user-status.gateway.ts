@@ -5,6 +5,19 @@ import { GameDto, Player } from "../game/game.dto";
 import { GameService } from "../game/game.service";
 import { AuthService } from "src/auth/auth.service";
 import { FriendsService } from 'src/friend/friends.service';
+import { UserService } from "./user.service";
+
+interface User{
+  id : number;
+  username : string;
+  fullname : string;
+  avatar: string;
+}
+interface Data {
+  sender: User;
+  receiver: User;
+}
+
 interface Sock {
     socket: Socket;
     type: string;
@@ -17,7 +30,8 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
     constructor(
         private gameService: GameService,
         private authService: AuthService,
-        private friendsService: FriendsService
+        private friendsService: FriendsService,
+        private userService: UserService
     ) { }
 
 
@@ -49,6 +63,13 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
     @SubscribeMessage("play")
     async handlePlay(socket: Socket, data: any) {
         console.log("play", data);
+        // create Data object to send to the receiver
+        if(!data.sender || !data.receiver){
+            return;
+        }
+        const senderData : User = await this.userService.getUserDataByUserId(data.sender);
+        const receiverData : User = await this.userService.getUserDataByUserId(data.receiver);
+        const DataInvite: Data = { sender: senderData, receiver: receiverData };
         const sender = Array.from(usersMap.values())
             .find(sockets => sockets.some(s => s.socket.id === socket.id))?.[0];
 
@@ -56,19 +77,19 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
 
         if (receiver && sender) {
             console.log("emit invitation", receiver.socket.id);
-            this.server.to(receiver.socket.id).emit("invitation", data);
+            this.server.to(receiver.socket.id).emit("invitation", DataInvite);
         }
     }
 
     @SubscribeMessage("accept")
     async handleAccept(socket: Socket, data: any) {
         const gameId = uuidv4();
-        const sender = usersMap.get(data.sender)?.[0];
-        const receiver = usersMap.get(data.receiver)?.[0];
+        const sender = usersMap.get(data.sender.id)?.[0];
+        const receiver = usersMap.get(data.receiver.id)?.[0];
 
         if (receiver && sender) {
-            const player1: Player = { userId: data.sender, socketId: sender.socket.id, score: 0, ready: false, ratio: 1 };
-            const player2: Player = { userId: data.receiver, socketId: receiver.socket.id, score: 0, ready: false, ratio: 1 };
+            const player1: Player = { userId: data.sender.id, socketId: sender.socket.id, score: 0, ready: false, ratio: 1 };
+            const player2: Player = { userId: data.receiver.id, socketId: receiver.socket.id, score: 0, ready: false, ratio: 1 };
             const gameData: GameDto = this.gameService.create(gameId, player1, player2, "multiplayer");
             this.server.to(sender.socket.id).emit("start", gameData);
             this.server.to(receiver.socket.id).emit("start", gameData);
