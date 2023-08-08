@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import { GameData } from "./gameData";
-
+import user_socket from "@/pages/userSocket";
 interface PlayerInfo {
   avatar: string;
   name: string;
@@ -94,6 +94,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
 
   useEffect(() => {
     if(socketRef.current) return;
+    user_socket.emit("ingame");
     socketRef.current = io("http://localhost:3000/game", {
       transports: ["websocket"],
       withCredentials: true,
@@ -173,6 +174,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
     }
 
     const endGame = () => {
+      user_socket.emit("endgame");
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }

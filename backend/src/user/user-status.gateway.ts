@@ -75,6 +75,23 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         }
     }
 
+    @SubscribeMessage("ingame")
+    async handleIngame(socket: Socket) {
+        const userId = await this.getUserIdFromSocket(socket);
+        if (userId) {
+            this.changeSocketsType(userId, "ingame");
+        }
+    }
+
+    @SubscribeMessage("endgame")
+    async handleEndgame(socket: Socket) {
+        const userId = await this.getUserIdFromSocket(socket);
+        if (userId) {
+            this.changeSocketsType(userId, "online");
+        }
+    }
+
+
 
     async changeSocketsType(userId: number, type: string) {
         if (userId === 1337) // 1337 is the id of the bot
@@ -104,14 +121,14 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         const sockets = usersMap.get(userId) || [];
         const mysocket: Sock = { socket, type: "online" };
         // check if socket already exists
-        const index = sockets.findIndex((s) => s.socket.id === socket.id);
-        if (index !== -1) {
-            sockets[index] = mysocket;
-        } else {
+        // const index = sockets.findIndex((s) => s.socket.id === socket.id);
+        // if (index !== -1) {
+        //     sockets[index] = mysocket;
+        // } else {
             sockets.push(mysocket);
             usersMap.set(userId, sockets);
             console.log(usersMap);
-        }
+        // }
     }
 
     removeUser(userId: number, socket: Socket) {

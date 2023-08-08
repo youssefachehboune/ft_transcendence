@@ -3,7 +3,6 @@ import { Socket, Server } from "socket.io";
 import { GameService } from "./game.service";
 import { GameDto, Ball } from "../game/game.dto";
 import { AuthService } from "../auth/auth.service";
-import { UserStatusGateway } from "src/user/user-status.gateway";
 
 
 @WebSocketGateway({ cors: { origin: '*' }, namespace: "game" })
@@ -11,7 +10,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     constructor(
         private gameService: GameService,
         private authService: AuthService,
-        private userStatusGateway: UserStatusGateway
 
     ) { }
 
@@ -23,8 +21,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             console.log("connected one to game", userId);
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game && game.player1.ready && game.player2.ready) {
-                await this.userStatusGateway.changeSocketsType(game.player1.userId, "ingame");
-                await this.userStatusGateway.changeSocketsType(game.player2.userId, "ingame");
                 this.startGame(game.gameId);
             }
         }
