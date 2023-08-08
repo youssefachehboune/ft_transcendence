@@ -44,14 +44,14 @@ export default function Leaderboard(props : Props) {
         }
     }
     return (
-        <div className="cont flex  flex-col justify-start items-center "
+        <div className="cont flex  flex-col justify-start items-center overflow-y-auto"
         style={
             {
                 backgroundColor: '#191421',
             }
         }
         >
-            <div className="w-[75%] h-[90%]  mt-4 laptop:mt-2 phone:mt-2 Large-phone:mt-2
+            <div className="w-[75%] h-[90%]  overflow-y-auto mt-4 laptop:mt-2 phone:mt-2 Large-phone:mt-2
             laptop:w-[90%]
             phone:w-[90%]
             Large-phone:w-[90%]

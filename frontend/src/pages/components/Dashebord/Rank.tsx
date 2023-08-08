@@ -14,7 +14,7 @@ interface RankProps {
 
 export default function Rank(props : RankProps) {
     return (
-        <div className={`w-[100%] h-[8%] ${props.me ? "bg-[#2C2875]" : "bg-[#ffffff14]"}  mb-3 rounded-[8px] flex justify-start items-center`}>
+        <div className={`w-[100%] h-[90px] phone:h-[70px] Large-phone:h-[70px] laptop:h-[80px] xl:h-[80px] 2xl:h-[90px] ${props.me ? "bg-[#2C2875]" : "bg-[#ffffff14]"}  mb-3 rounded-[8px] flex justify-start items-center`}>
         <div className="w-[9%] h-[100%] flex items-center justify-center
         2xl:w-[8%]
         xl:w-[8%]
