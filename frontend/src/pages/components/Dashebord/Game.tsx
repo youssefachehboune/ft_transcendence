@@ -19,9 +19,7 @@ export default function Game({ data }: any) {
     if (!data) {
         return (
             <div className="cont Nest:h-[820px] tabletNest:h-[700px]">
-                <div className="w-[100%] h-full test5 relative 
-    
-                ">
+                <div className="w-[100%] h-full test5 relative ">
                     {
                         ((!showFriends && !showRandom && !showRobot) && showMain) && <div className="w-[100%] h-[50%]  flex items-center justify-center"
                             style={
@@ -172,20 +170,16 @@ export default function Game({ data }: any) {
                     {
                         showRobot && <RobotGame />
                     }
-                    <h1 className="font-sora font-semibold absolute text-white cursor-pointer text-[32px] top-4 z-99 left-4 2xl:text-[31px]
-                    xl:text-[31px] 2xl:top-4 xl:top-4 xl:left-4 2xl:left-4
-                    laptop:text-[30px] laptop:top-4 laptop:left-4
-                    Large-phone:text-[25px]
-                    phone:text-[25px]
-                    "
-                    >Game</h1>
+
                 </div>
             </div>
         );
     }
     else if (data) {
         return (
-            <GameStarted data={data} />
+            <div className="cont">
+                <GameStarted data={data} />
+            </div>
         );
     }
     else {

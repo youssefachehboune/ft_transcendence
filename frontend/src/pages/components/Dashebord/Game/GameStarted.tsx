@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import { GameData } from "./gameData";
 import user_socket from "@/pages/userSocket";
+import Image from "next/image";
+import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 interface PlayerInfo {
   avatar: string;
   name: string;
@@ -61,7 +63,6 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   const [gameId, setGameId] = useState<string>("");
   const [scorePlayer1, setScorePlayer1] = useState<number>(0);
   const [scorePlayer2, setScorePlayer2] = useState<number>(0);
-  const [newWidth, setNewWidth] = useState<number>(0);
   const fetchUserData = useCallback(async (user_id: number) => {
     const response = await fetch(`http://localhost:3000/user/data/${user_id}`, {
       credentials: "include",
@@ -122,12 +123,10 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
 
   useEffect(() => {
     socketRef.current?.on("resized", (newGameData: ExtendedGameData) => {
-      // console.log("new width and hight : ", newGameData.tableWidth, newGameData.tableHeight);
       setGameData(newGameData);
     });
 
     return () => {
-      // ... (remove socket event listeners)
       socketRef.current?.off("resized");
     };
   }, []);
@@ -253,10 +252,12 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [gameData, userId]);
 
   const stopMoving = () => {
+    console.log("stop moving");
     socketRef.current?.emit("stop", userId, gameId);
   };
 
   const startMoving = (direction: string) => {
+    console.log("start moving", direction);
     socketRef.current?.emit("move", direction, gameId);
   };
 
@@ -275,44 +276,60 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   };
 
   useEffect(() => {
+    const leftButton = document.getElementById("move-left");
+    const rightButton = document.getElementById("move-right");
+    if (leftButton && rightButton) {
+      leftButton.addEventListener("pointerdown", () => {startMoving("left");});
+      leftButton.addEventListener("pointerup", () => {stopMoving();});
+      rightButton.addEventListener("pointerdown", () => {startMoving("right");});
+      rightButton.addEventListener("pointerup", () => { stopMoving();});
+    }
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("keyup", handleKeyUp);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
+      leftButton?.removeEventListener("pointerdown", () => {startMoving("left");});
+      leftButton?.removeEventListener("pointerup", () => {stopMoving();});
+      rightButton?.removeEventListener("pointerdown", () => {startMoving("right");});
+      rightButton?.removeEventListener("pointerup", () => { stopMoving();});
     };
   }, [userId, gameId]);
 
   return (
-    <>
-    <div id="game" className="w-full" style={{ position: "absolute", top: "150px" }}>
-      <div id="scoor-section">
-        <div id="player1">
-          <img src={player1info?.avatar} alt="Player 1" />
-          <h1 id="name">{player1info?.name}</h1>
-          <h4 id="username">{player1info?.username}</h4>
-        </div>
-        <div id="score">
-          <h1 id="player1-score">{scorePlayer1}</h1>
-          <h1 id="spe"> : </h1>
-          <h1 id="player2-score">{scorePlayer2}</h1>
-        </div>
-        <div id="player2">
-          <img src={player2info?.avatar} alt="Player 2" />
-          <h1 id="name">{player2info?.name}</h1>
-          <h4 id="username">{player2info?.username}</h4>
-        </div>
-      </div>
+    <div id="game" className="w-full h-full relative overflow-y-auto overflow-x-hidden">
+      <div id="move-left" className="w-[50%] absolute float-left h-full hidden xl:block 2xl:block z-40"></div>
+      <div id="move-right" className="w-[50%] absolute float-right right-0 h-full hidden xl:block 2xl:block z-40"></div>
+      <div className="w-[60%] xl:w-[90%] min-h-[70px] flex rounded-[10px] bg-black absolute top-[50px] border-[white] border-[solid] border-[1px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="w-[33.5%] xl:w-[38.5%] flex items-center justify-end">
+                <Image width={'54'} height={'54'} src={player1info?.avatar ? player1info?.avatar : ''} alt="" className="w-[54px] rounded-full"/>
+                <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
+                    <h1 className="text-[7px] font-sora font-[600] text-[white] ">{player1info?.name}</h1>
+                    <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + player1info?.username}</h1>
+                </div>
+         </div>
+         <div className="w-[33.5%] xl:w-[23.5%] flex flex-col items-center justify-center">
+              <h1 className="text-[22px] font-sora font-[400] text-[white]">{scorePlayer1 + " : " + scorePlayer2}</h1>
+          </div>
+          <div className="w-[33.5%] xl:w-[38.5%] flex items-center justify-start">
+              <Image width={'54'} height={'54'} src={player2info?.avatar ? player2info?.avatar : ''} alt="" className="w-[54px] rounded-full"/>
+              <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
+                  <h1 className="text-[7px] font-sora font-[600] text-[white] ">{player2info?.name}</h1>
+                  <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + player2info?.username}</h1>
+              </div>
+          </div>
 
+      </div>
       <canvas
+        className="absolute top-[100px] left-1/2 transform -translate-x-1/2"
         id="game-canvas"
         ref={canvasGame}
         width={gameWidth}
         height={gameHeight}
-        style={{ backgroundColor: "black", top: "73px", position: "absolute"}}
+        style={{ backgroundColor: "black", border: "2px solid white" }}
       />
     </div>
-    </>
+
   );
 };
 

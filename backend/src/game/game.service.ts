@@ -16,7 +16,7 @@ export class GameService {
 
   create(gameId: string, player1: Player, player2: Player, type: "multiplayer" | "bot"): GameDto {
     console.log("create A game", gameId, player1, player2);
-    const TableWidth = 400;
+    const TableWidth = 350;
     const TableHeight = TableWidth * 16 / 9;
     const paddleWidth = 100;
     const paddleHeight = 20;
@@ -88,7 +88,6 @@ export class GameService {
   }
 
   async saveToCareer(player1: Player, player2: Player){
-    // THE PLAYER 1 WON THE GAME
      await this.prisma.careerLog.create({
       data: {
         user_id: player1.userId,

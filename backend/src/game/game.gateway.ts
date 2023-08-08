@@ -29,7 +29,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleDisconnect(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
-            // this.userStatusGateway.changeSocketsType(userId, "online")
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game) {
                 if (game.player2.socketId === socket.id)
@@ -225,7 +224,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const gameId = data[1];
         const gameData = this.gameService.getGame(gameId);
         const user = await this.getUserId(socket);
-        // console.log("move", user, gameData.player1.userId, gameData.player2.userId);
         if (gameData && user) {
             const paddles = gameData.paddles;
             if (user === gameData.player1.userId) {
