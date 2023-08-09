@@ -159,7 +159,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data, setmain }) => {
       setTimeout(() => {
         oncloseresult();
         setmain(true);
-      }, 5000);
+      }, 500000);
     };
 
     socketRef.current?.on("move", (newgameData: GameData, id: number) => {
