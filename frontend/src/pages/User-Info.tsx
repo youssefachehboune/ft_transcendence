@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Logo from './components/landing-page/logo'
-import Lang from './components/landing-page/button-lang'
-import Rectangle from "./components/sign_in/Header/Rectangle";
-import Svg_image from "./components/sign_in/svg/Svg_image";
-import Text_sign_up from "./components/text_svg/text_sign_up";
-import Sign_up_page from "./components/User-Info/User_Info";
-import Success_div from "./components/success/Success";
-import Text_success from "./components/text_svg/text_success";
-import Cursor from "./components/landing-page/Cursor";
+import Logo from '../components/landing-page/logo'
+import Lang from '../components/landing-page/button-lang'
+import Rectangle from "../components/sign_in/Header/Rectangle";
+import Svg_image from "../components/sign_in/svg/Svg_image";
+import Text_sign_up from "../components/text_svg/text_sign_up";
+import Sign_up_page from "../components/User-Info/User_Info";
+import Success_div from "../components/success/Success";
+import Text_success from "../components/text_svg/text_success";
+import Cursor from "../components/landing-page/Cursor";
 import Head from "next/head";
 
 function Sign_up()

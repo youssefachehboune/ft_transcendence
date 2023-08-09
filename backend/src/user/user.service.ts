@@ -74,7 +74,7 @@ export class UserService {
 		});
 		const updatedField: any = await prisma.userProfile.findFirst({where: { User: user}});
 		if (data.avatar.length > 500)
-			data.avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: "avatar" } )).url;
+			data.avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: data.username } )).url;
 		const parsedJson = JSON.parse(JSON.stringify(data));
 		const keys = Object.keys(parsedJson);
 	  keys.forEach((key) => {

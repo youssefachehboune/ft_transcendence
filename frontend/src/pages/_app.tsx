@@ -8,11 +8,13 @@ import '../styles/MainDashBoard.css';
 import '../styles/Dashboard.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
-
+import { AppWrapper } from './context'
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
+        <AppWrapper>
+        <Component {...pageProps} />
+      </AppWrapper>
+      </ChakraProvider>
   )
 }
