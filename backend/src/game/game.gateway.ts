@@ -21,7 +21,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             console.log("connected one to game", userId);
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game && game.player1.ready && game.player2.ready) {
-                this.startGame(game.gameId);
+                await this.startGame(game.gameId);
             }
         }
     }
@@ -126,22 +126,22 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             gameData.player2.score++;
             this.restBallPosition(gameData);
         }
-        if (gameData.player2.score === 10 || gameData.player1.score === 10) {
-            if (gameData.player2.score === 10) {
+        if (gameData.player2.score === 3 || gameData.player1.score === 3) {
+            if (gameData.player2.score === 3) {
                 this.gameService.saveToCareer(gameData.player2, gameData.player1);
-                this.server.to(gameData.player2.socketId).emit("gameOver", gameData.player2.userId, gameData.player1.score, gameData.player2.score);
-                this.server.to(gameData.player1.socketId).emit("gameOver", gameData.player2.userId, gameData.player1.score, gameData.player2.score);
-
+                const result = { winner:{ userId: gameData.player2.userId, username: gameData.player2.username , avatar : gameData.player2.avatar, scoor : gameData.player2.score }, loser: { userId: gameData.player1.userId, username: gameData.player1.username , avatar : gameData.player1.avatar, scoor : gameData.player1.score } };
+                this.server.to(gameData.player2.socketId).emit("gameOver", result);
+                this.server.to(gameData.player1.socketId).emit("gameOver", result);
             }
-            else if (gameData.player1.score === 10) {
+            else if (gameData.player1.score === 3) {
                 this.gameService.saveToCareer(gameData.player1, gameData.player2);
-                this.server.to(gameData.player1.socketId).emit("gameOver", gameData.player1.userId, gameData.player1.score, gameData.player2.score);
-                this.server.to(gameData.player2.socketId).emit("gameOver", gameData.player1.userId, gameData.player1.score, gameData.player2.score);
+                const result = { winner:{ userId: gameData.player1.userId, username: gameData.player1.username , avatar : gameData.player1.avatar, scoor : gameData.player1.score }, loser: { userId: gameData.player2.userId, username: gameData.player2.username , avatar : gameData.player2.avatar, scoor : gameData.player2.score } };
+                this.server.to(gameData.player1.socketId).emit("gameOver", result);
+                this.server.to(gameData.player2.socketId).emit("gameOver", result);
             }
             this.gameService.deleteGame(gameData.gameId);
             return false;
         }
-
         ball.x += ball.dx;
         ball.y += ball.dy;
         return true;
@@ -199,14 +199,16 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     private startGame(gameId: string) {
         const gameData = this.gameService.getGame(gameId);
         let gamePlayed = true;
-        if (gameData.player1 && gameData.player2) {
+        if (gameData && gameData.player1 && gameData.player2) {
             const interval = setInterval(async () => {
                 this.updatePaddlesPosition(gameData);
                 if (gameData.gametype === "bot")
                     this.updateBotPaddlePosition(gameData);
                 gamePlayed = await this.handleBall(gameData);
                 if (!gamePlayed) {
+                    console.log("game over");
                     clearInterval(interval);
+                    return;
                 }
                 const client1Ball = { ...gameData.ball };
                 const client2Ball = { ...gameData.ball };

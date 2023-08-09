@@ -4,7 +4,7 @@ import { GameData } from "./gameData";
 import GameStarted from "./GameStarted";
 
 
-export default function RandomGame() {
+export default function RandomGame({ setmain } : any) {
     const socketRef = useRef<Socket | null>(null);
     const [gameStarted, setGameStarted] = useState<boolean>(false);
     const [gameData, setGameData] = useState<GameData | undefined>(undefined);
@@ -43,7 +43,7 @@ export default function RandomGame() {
     }
     else if (gameStarted && gameData) {
         return (
-            <GameStarted data={gameData} />
+            <GameStarted setmain={setmain} data={gameData} />
         );
     }
     else {

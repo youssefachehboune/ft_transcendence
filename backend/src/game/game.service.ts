@@ -83,14 +83,49 @@ export class GameService {
     games.delete(gameId);
   }
 
-  async saveToCareer(player1: Player, player2: Player){
+
+
+  async saveToCareer(winner: Player, loser: Player){
+    console.log("save to db")
      await this.prisma.careerLog.create({
       data: {
-        user_id: player1.userId,
-        opponent_id: player2.userId,
-        userPoints: player1.score,
-        opponentPoints: player2.score,
+        user_id: winner.userId,
+        opponent_id: loser.userId,
+        userPoints: winner.score,
+        opponentPoints: loser.score,
         result: "WON"
+      },
+    });
+
+    await this.prisma.userProfile.update({
+      where: {
+        user_id: winner.userId,
+      },
+      data: {
+        points: {
+          increment: 50,
+        },
+        won: {
+          increment: 1,
+        },
+        winStreak: {
+          increment: 1,
+        },
+        level: {
+          increment: 50 / 200,
+        }
+      },
+    });
+
+    await this.prisma.userProfile.update({
+      where: {
+        user_id: loser.userId,
+      },
+      data: {
+        lost: {
+          increment: 1,
+        },
+        winStreak: 0,
       },
     });
   }

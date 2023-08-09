@@ -3,12 +3,14 @@ import { io, Socket } from "socket.io-client";
 import { GameData , Player} from "./gameData";
 import user_socket from "@/pages/userSocket";
 import Image from "next/image";
-
+import { useDisclosure } from "@chakra-ui/react";
+import GameResult from "./gameResult";
 interface GameStartedProps {
   data: GameData;
+  setmain: any;
 }
 
-const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
+const GameStarted: React.FC<GameStartedProps> = ({ data, setmain }) => {
   const canvasGame = useRef<HTMLCanvasElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const socketRef = useRef<Socket | null>(null);
@@ -22,8 +24,9 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   const [gameId, setGameId] = useState<string>("");
   const [scorePlayer1, setScorePlayer1] = useState<number>(0);
   const [scorePlayer2, setScorePlayer2] = useState<number>(0);
+  const [result, setResult] = useState<any>();
 
-
+  const { isOpen: ispopresult, onOpen: onopenresult, onClose: oncloseresult } = useDisclosure()
   const fetchUserId = useCallback(async () => {
     const response = await fetch("http://localhost:3000/user/id", {
       credentials: "include",
@@ -123,8 +126,11 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       draw();
     }
 
-    const endGame = () => {
+
+    const endGame = (result: any) => {
       user_socket.emit("endgame");
+      console.log("end game");
+      setResult(result);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
@@ -137,11 +143,8 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       canvas?.remove();
 
       setGameData(undefined);
-      setPlayer1info(undefined);
-      setPlayer2info(undefined);
       setGameWidth(0);
       setGameHeight(0);
-      setUserId(0);
       setGameId("");
       setScorePlayer1(0);
       setScorePlayer2(0);
@@ -150,6 +153,13 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       if (scoorSection) {
         scoorSection.style.display = "none";
       }
+      // pop up to gave hem the result of the game
+        onopenresult();
+      // sleep for 5 sec
+      setTimeout(() => {
+        oncloseresult();
+        setmain(true);
+      }, 5000);
     };
 
     socketRef.current?.on("move", (newgameData: GameData, id: number) => {
@@ -180,15 +190,14 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       }
     });
 
-    socketRef.current?.on("gameOver", (winner: number, player1Scoor: number, player2Scoor: number) => {
-      const outcome = winner === userId ? "win" : "lose";
-      console.log(`You ${outcome} ${player1Scoor} : ${player2Scoor}`);
-      endGame();
+    socketRef.current?.on("gameOver", (result: any) => {
+      console.log(result);
+      endGame(result);
     });
 
-    socketRef.current?.on("opponentDisconnected", () => {
+    socketRef.current?.on("opponentDisconnected", (result: any) => {
       console.log("opponent disconnected");
-      endGame();
+      endGame(result);
     });
 
     return () => {
@@ -203,12 +212,12 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [gameData, userId]);
 
   const stopMoving = () => {
-    console.log("stop moving");
+    // console.log("stop moving");
     socketRef.current?.emit("stop", userId, gameId);
   };
 
   const startMoving = (direction: string) => {
-    console.log("start moving", direction);
+    // console.log("start moving", direction);
     socketRef.current?.emit("move", direction, gameId);
   };
 
@@ -279,6 +288,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
         height={gameHeight}
         style={{ backgroundColor: "black", border: "2px solid white" }}
       />
+      {result && <GameResult onClose={oncloseresult} isOpen={ispopresult} data={result} id={userId} />}
     </div>
 
   );

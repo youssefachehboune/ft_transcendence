@@ -7,7 +7,7 @@ import RandomGame from "./Game/RandomGame";
 import RobotGame from "./Game/RobotGame";
 import GameStarted from "./Game/GameStarted";
 
-export default function Game({ data }: any) {
+export default function Game({ data , setmain}: any) {
 
     const [isHovered, setIsHovered] = useState<boolean>(false);
     const [isHovered1, setIsHovered1] = useState<boolean>(false);
@@ -165,10 +165,10 @@ export default function Game({ data }: any) {
                         showFriends && <FriendsGame />
                     }
                     {
-                        showRandom && <RandomGame />
+                        showRandom && <RandomGame setmain={setmain}/>
                     }
                     {
-                        showRobot && <RobotGame />
+                        showRobot && <RobotGame setmain={setmain}/>
                     }
 
                 </div>
@@ -178,7 +178,7 @@ export default function Game({ data }: any) {
     else if (data) {
         return (
             <div className="cont">
-                <GameStarted data={data} />
+                <GameStarted  setmain={setmain} data={data} />
             </div>
         );
     }

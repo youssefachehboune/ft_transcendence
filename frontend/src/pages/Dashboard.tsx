@@ -242,7 +242,7 @@ function Dashebord() {
       {!setshowHistorie && !showchatsection && !showchanel && <History historieloding={dataisloded} all={allhistorie} />}
       {!showAchievements && !showchatsection && !showchanel && <Achievements />}
       {!showLeaderboard && !showchatsection && !showchanel && <Leaderboard username={data.username} />}
-      {!Gameview && <GameSection data={gameData} />}
+      {!Gameview && <GameSection setmain={setmain} data={gameData} />}
       <Invite_game onClose={onclosepopgame} isOpen={ispopgame} data={invitegame} />
       {!Friend && !showchatsection && !showchanel && <Friends Onlines={Onlines} setListFriends={setListFriends} setonlyChat={setonlyChat} friendsloding={dataisloded} ListFriends={ListFriends} setshowchatsection={setshowchatsection} />}
       {showchatsection && <ChatFriends Onlines={Onlines} opencreatechanel={onOpen} openpublic={openpublic} setshowchanel={setshowchanel} setchanel={setchanel} setinvitationList={setinvitationList} setrequestList={setrequestList} setmutedList={setmutedList} setbanList={setbanList} settypememeber={settypememeber} setmemebers={setmemebers} setmumeberschannelloding={setmumeberschannelloding} setchannelloding={setchannelloding} mychanel={mychanel} setListFriends={setListFriends} setmassagenotif={setmassagenotif} data={data} friendsloding={dataisloded} ListFriends={ListFriends} setonlyChat={setonlyChat} onlyChat={onlyChat} showchatsection={showchatsection} setshowchatsection={setshowchatsection} />}

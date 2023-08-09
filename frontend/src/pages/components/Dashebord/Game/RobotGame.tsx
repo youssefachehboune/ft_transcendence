@@ -3,7 +3,7 @@ import { GameData } from "./gameData";
 import GameStarted from "./GameStarted";
 import { Socket, io } from "socket.io-client";
 
-export default function RobotGame() {
+export default function RobotGame({setmain} : any) {
     const socketRef = useRef<Socket | null>(null);
     const [gameStarted, setGameStarted] = useState<boolean>(false);
     const [gameData, setGameData] = useState<GameData | undefined>(undefined);
@@ -43,7 +43,7 @@ export default function RobotGame() {
     }
     else if (gameStarted && gameData) {
         return (
-            <GameStarted data={gameData} />
+            <GameStarted setmain={setmain} data={gameData} />
         );
     }
     else {
