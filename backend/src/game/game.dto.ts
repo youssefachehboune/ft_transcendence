@@ -1,5 +1,8 @@
 export interface Player {
   userId: number;
+  username: string;
+  fullname: string;
+  avatar: string;
   socketId: string;
   score: number;
   ready: boolean;
@@ -47,4 +50,10 @@ export interface GameDto {
   tableHeight: number;
   gameState: "waiting" | "playing" | "ended";
   gametype: "bot" | "multiplayer";
+}
+
+
+export interface Players {
+  sender: Player;
+  receiver: Player;
 }

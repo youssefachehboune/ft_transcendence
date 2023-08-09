@@ -126,7 +126,7 @@ export class UserService {
 			where:{ User: user}
 		});
 		return {
-			id : user.id,
+			userId : user.id,
 			avatar: userProfile.avatar,
 			fullname: userProfile.firstName + " " + userProfile.lastName,
 			username: userProfile.username,

@@ -1,9 +1,9 @@
-import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure } from "@chakra-ui/react";
+import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay} from "@chakra-ui/react";
 import user_socket from "@/pages/userSocket";
-import { Data } from "@/pages/Dashboard";
-import { BsPersonFillSlash } from "react-icons/bs";
+import { Players } from "./Game/gameData";
+
 import Image from "next/image";
-export default function Invite_game({onClose, isOpen, data}: {onClose: any, isOpen: any, data: Data | undefined})
+export default function Invite_game({onClose, isOpen, data}: {onClose: any, isOpen: any, data: Players | undefined})
 {
     return (
         <>

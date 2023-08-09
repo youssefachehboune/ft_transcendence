@@ -4,25 +4,23 @@ import { AuthService } from 'src/auth/auth.service';
 import { Player , GameDto } from 'src/game/game.dto';
 import { GameService } from './game.service';
 import { v4 as uuidv4 } from 'uuid';
+import { UserService } from '../user/user.service';
 
-interface User
-{
-    userId: number;
-    socketId: string;
-}
 
 @WebSocketGateway({ cors: { origin: '*' }, namespace: "random" })
 export class RandomGateway implements OnGatewayConnection, OnGatewayDisconnect {
     constructor(
         private authService: AuthService,
         private gameService: GameService,
+        private userService : UserService
 
     ) { }
-    private waitingList: User[] = [];
+    private waitingList: Player[] = [];
 
-    private addUserToWaitingList(userId: number, socketId: string) {
+    private async addUserToWaitingList(userId: number, socketId: string) {
         if (!this.waitingList.some((user) => user.userId === userId)) {
-            this.waitingList.push({ userId, socketId });
+            const user: any = await this.userService.getUserDataByUserId(userId);
+            this.waitingList.push({ ...user, socketId: socketId, score: 0, ready: false, ratio: 1 });
             console.log(this.waitingList);
         }
     }
@@ -54,16 +52,14 @@ export class RandomGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const userId = await this.getUserId(socket);
         if (userId) {
             console.log("New User connected to Play in random mode:", userId);
-            this.addUserToWaitingList(userId, socket.id);
+            await this.addUserToWaitingList(userId, socket.id);
             if (this.waitingList.length >= 2) {
                 const gameId = uuidv4();
-                const user1: User = { ...this.waitingList.shift() };
-                const user2: User = { ...this.waitingList.shift() };
-                const player1: Player = { ...user1 ,score: 0, ready: false, ratio: 1};
-                const player2: Player = { ...user2 ,score: 0, ready: false, ratio: 1};
+                const player1: Player = { ...this.waitingList.shift() };
+                const player2: Player = { ...this.waitingList.shift() };
                 const gameData: GameDto = this.gameService.create(gameId, player1, player2, "multiplayer");
-                this.server.to(user1.socketId).emit("startRandom", gameData);
-                this.server.to(user2.socketId).emit("startRandom", gameData);
+                this.server.to(player1.socketId).emit("startRandom", gameData);
+                this.server.to(player2.socketId).emit("startRandom", gameData);
             }
         }
     }

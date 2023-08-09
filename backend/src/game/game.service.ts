@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { GameDto, Player } from './game.dto';
-import { PrismaClient, User } from '@prisma/client';
-import { Request } from 'express';
-import { v4 as uuidv4 } from 'uuid';
-
+import { PrismaClient } from '@prisma/client';
 
 const games = new Map<string, GameDto>();
 @Injectable()
@@ -15,7 +12,6 @@ export class GameService {
   }
 
   create(gameId: string, player1: Player, player2: Player, type: "multiplayer" | "bot"): GameDto {
-    console.log("create A game", gameId, player1, player2);
     const TableWidth = 350;
     const TableHeight = TableWidth * 16 / 9;
     const paddleWidth = 100;
@@ -23,7 +19,7 @@ export class GameService {
     let ballSpeed = 10;
     let ballLunchAngle = (Math.PI / 2) * 0.5;
     let ballLunchSpeed = 5;
-
+    
     const gameData: GameDto = {
       gameId: gameId,
       player1: player1,
@@ -61,7 +57,7 @@ export class GameService {
       gametype: type,
     };
     games.set(gameId, gameData);
-    console.log("create A game", gameId);
+    console.log("create A " + type + " game", gameData);
     return gameData;
   }
 

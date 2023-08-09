@@ -22,19 +22,7 @@ import socket from "./chatSocket"
 import GameSection from "./components/Dashebord/Game";
 import user_socket from "./userSocket";
 import Invite_game from "./components/Dashebord/invite_game";
-import { GameData } from './components/Dashebord/Game/gameData';
-
-interface User{
-  id : number;
-  username : string;
-  fullname : string;
-  avatar: string;
-}
-export interface Data {
-  sender: User;
-  receiver: User;
-}
-
+import { GameData , Players} from './components/Dashebord/Game/gameData';
 
 enum types {
   online = "online",
@@ -83,14 +71,14 @@ function Dashebord() {
   const { isOpen: ispublic, onOpen: openpublic, onClose: closepublic } = useDisclosure()
 
   const { isOpen: ispopgame, onOpen: onopenpopgame, onClose: onclosepopgame } = useDisclosure()
-  const [invitegame, setinvitegame] = useState<Data>()
+  const [invitegame, setinvitegame] = useState<Players>()
   const [Gameview, setGame] = useState<boolean>(true);
   const [gameData, setGameData] = useState<GameData | undefined>(undefined);
   const [Onlines, setOnlines] = useState<status[]>([]);
 
 
   useEffect(() => {
-    user_socket.on("invitation", (data: Data) => {
+    user_socket.on("invitation", (data: Players) => {
       if (data) {
         setinvitegame(data)
         onopenpopgame()

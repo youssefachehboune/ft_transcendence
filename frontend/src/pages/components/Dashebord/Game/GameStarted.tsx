@@ -1,49 +1,8 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
-import { GameData } from "./gameData";
+import { GameData , Player} from "./gameData";
 import user_socket from "@/pages/userSocket";
 import Image from "next/image";
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
-interface PlayerInfo {
-  avatar: string;
-  name: string;
-  username: string;
-}
-
-interface Paddle {
-  x: number;
-  y: number;
-  dx: number;
-}
-
-interface Paddles {
-  paddle1: Paddle;
-  paddle2: Paddle;
-  width: number;
-  height: number;
-  color: string;
-  speed: number;
-}
-
-interface Ball {
-  x: number;
-  y: number;
-  radius: number;
-  startAngle: number;
-  endAngle: number;
-  speed: number;
-  firstTimeBallHit: boolean;
-  dx: number;
-  dy: number;
-  color: string;
-}
-
-interface ExtendedGameData extends GameData {
-  ball: Ball;
-  paddles: Paddles;
-  tableWidth: number;
-  tableHeight: number;
-}
 
 interface GameStartedProps {
   data: GameData;
@@ -54,22 +13,16 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   const animationFrameRef = useRef<number | null>(null);
   const socketRef = useRef<Socket | null>(null);
 
-  const [player1info, setPlayer1info] = useState<PlayerInfo | undefined>();
-  const [player2info, setPlayer2info] = useState<PlayerInfo | undefined>();
-  const [gameData, setGameData] = useState<ExtendedGameData | undefined>();
+  const [player1info, setPlayer1info] = useState<Player | undefined>();
+  const [player2info, setPlayer2info] = useState<Player | undefined>();
+  const [gameData, setGameData] = useState<GameData | undefined>();
   const [gameWidth, setGameWidth] = useState<number>(0);
   const [gameHeight, setGameHeight] = useState<number>(0);
   const [userId, setUserId] = useState<number>(0);
   const [gameId, setGameId] = useState<string>("");
   const [scorePlayer1, setScorePlayer1] = useState<number>(0);
   const [scorePlayer2, setScorePlayer2] = useState<number>(0);
-  const fetchUserData = useCallback(async (user_id: number) => {
-    const response = await fetch(`http://localhost:3000/user/data/${user_id}`, {
-      credentials: "include",
-    });
-    const userData = await response.json();
-    return userData;
-  }, []);
+
 
   const fetchUserId = useCallback(async () => {
     const response = await fetch("http://localhost:3000/user/id", {
@@ -82,16 +35,14 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (!data) return;
-      const player1Data = await fetchUserData(data.player1.userId);
-      const player2Data = await fetchUserData(data.player2.userId);
       await fetchUserId();
-      setPlayer1info(player1Data);
-      setPlayer2info(player2Data);
     };
     fetchData();
+    setPlayer1info(data.player1);
+    setPlayer2info(data.player2);
     setGameData(data);
     setGameId(data.gameId);
-  }, [data, fetchUserData, fetchUserId]);
+  }, [data, fetchUserId]);
 
   useEffect(() => {
     if(socketRef.current) return;
@@ -122,7 +73,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [gameId]);
 
   useEffect(() => {
-    socketRef.current?.on("resized", (newGameData: ExtendedGameData) => {
+    socketRef.current?.on("resized", (newGameData: GameData) => {
       setGameData(newGameData);
     });
 
@@ -300,11 +251,11 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
     <div id="game" className="w-full h-full relative overflow-y-auto overflow-x-hidden">
       <div id="move-left" className="w-[50%] absolute float-left h-full hidden xl:block 2xl:block z-40"></div>
       <div id="move-right" className="w-[50%] absolute float-right right-0 h-full hidden xl:block 2xl:block z-40"></div>
-      <div className="w-[60%] xl:w-[90%] min-h-[70px] flex rounded-[10px] bg-black absolute top-[50px] border-[white] border-[solid] border-[1px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+      <div id="scoor-section" className="w-[60%] xl:w-[90%] min-h-[70px] flex rounded-[10px] bg-black absolute top-[50px] border-[white] border-[solid] border-[1px] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
         <div className="w-[33.5%] xl:w-[38.5%] flex items-center justify-end">
                 <Image width={'54'} height={'54'} src={player1info?.avatar ? player1info?.avatar : ''} alt="" className="w-[54px] rounded-full"/>
                 <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
-                    <h1 className="text-[7px] font-sora font-[600] text-[white] ">{player1info?.name}</h1>
+                    <h1 className="text-[7px] font-sora font-[600] text-[white] ">{player1info?.fullname}</h1>
                     <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + player1info?.username}</h1>
                 </div>
          </div>
@@ -314,7 +265,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
           <div className="w-[33.5%] xl:w-[38.5%] flex items-center justify-start">
               <Image width={'54'} height={'54'} src={player2info?.avatar ? player2info?.avatar : ''} alt="" className="w-[54px] rounded-full"/>
               <div className="w-[100px] h-[100%] flex flex-col justify-center ml-[3%] mb-[5%]">
-                  <h1 className="text-[7px] font-sora font-[600] text-[white] ">{player2info?.name}</h1>
+                  <h1 className="text-[7px] font-sora font-[600] text-[white] ">{player2info?.fullname}</h1>
                   <h1 className="text-[7px] font-sora font-[400] text-[#969696] ">{"@" + player2info?.username}</h1>
               </div>
           </div>

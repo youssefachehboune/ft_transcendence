@@ -1,20 +1,17 @@
 import {WebSocketGateway, WebSocketServer, OnGatewayConnection, OnGatewayDisconnect } from '@nestjs/websockets';
-import { Socket } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { AuthService } from 'src/auth/auth.service';
 import { GameDto, Player } from './game.dto';
 import { GameService } from './game.service';
 import { v4 as uuidv4 } from 'uuid';
-interface User
-{
-    userId: number;
-    socketId: string;
-}
+import { UserService } from '../user/user.service';
+
 
 @WebSocketGateway({ cors: { origin: '*' }, namespace: "bot" })
 export class BotGateway implements OnGatewayConnection, OnGatewayDisconnect {
-    constructor( private authService: AuthService,private gameService: GameService) { }
+    constructor( private authService: AuthService,private gameService: GameService, private userService: UserService) { }
     @WebSocketServer()
-    server: any;
+    server: Server;
 
     private extractJwtFromSocket(socket: Socket): string | null {
         const cookieHeaderValue = socket.request.headers.cookie?.split(";");
@@ -34,11 +31,12 @@ export class BotGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const userId = await this.getUserId(socket);
         if (userId) {
             const gameId = uuidv4();
-            const user: User = { userId, socketId: socket.id };
-            const player1: Player = { userId, socketId: socket.id ,score: 0, ready: false, ratio: 1};
-            const player2: Player = { userId : 1337, socketId: "" ,score: 0, ready: true, ratio: 1}; // bot
+            const user: any  = await this.userService.getUserDataByUserId(userId);
+            const bot : any = await this.userService.getUserDataByUserId(1337);
+            const player1: Player = { ...user, socketId: socket.id, score: 0, ready: true, ratio: 1 };
+            const player2: Player = { ...bot, socketId: "bot", score: 0, ready: true, ratio: 1 };
             const gameData: GameDto = this.gameService.create(gameId, player1, player2, "bot");
-            this.server.to(user.socketId).emit("startBot", gameData);
+            this.server.to(player1.socketId).emit("startBot", gameData);
         }
     }
 

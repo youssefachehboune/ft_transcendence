@@ -12,5 +12,6 @@ import { GameService } from 'src/game/game.service';
 @Module({
   controllers: [UserController],
   providers: [UserService, UserStatusGateway, AuthService, FriendsService, JwtService, NotificationService, GameService],
+  exports: [UserService]
 })
 export class UserModule {}
