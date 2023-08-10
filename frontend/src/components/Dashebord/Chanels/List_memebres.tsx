@@ -174,9 +174,9 @@ function List_memebres(props: any) {
                                                 {
                                                     searchformembers === "" && props.mumeberschannelloding ? (
                                                         props.memebers?.map((user: any, index: number) => (
-                                                            <Memeber play={play} updateUserType={updateUserType} key={index} setmutedList={props.setmutedList} setbanList={props.setbanList} setmemebers={props.setmemebers} chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
+                                                            <Memeber data={props.data} play={play} updateUserType={updateUserType} key={index} setmutedList={props.setmutedList} setbanList={props.setbanList} setmemebers={props.setmemebers} chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
                                                     ))) : searchformembers && props.mumeberschannelloding && !datamumber?.message && datamumber && searchtypeofmember && (searchtypeofmember === "MEMBER" || searchtypeofmember === "ADMIN" || searchtypeofmember === "OWNER") ? (
-                                                            <Search_for_mumbers play={play} setdatamumber={setdatamumber} setmemebers={props.setmemebers} setmutedList={props.setmutedList} setbanList={props.setbanList} user={datamumber} typeofmumber={searchtypeofmember}  updateUserType={updateUserType} typememeber={props.typememeber} chanel={props.chanel}/>
+                                                            <Search_for_mumbers data={props.data} play={play} setdatamumber={setdatamumber} setmemebers={props.setmemebers} setmutedList={props.setmutedList} setbanList={props.setbanList} user={datamumber} typeofmumber={searchtypeofmember}  updateUserType={updateUserType} typememeber={props.typememeber} chanel={props.chanel}/>
                                                     )  : (
                                                         props.mumeberschannelloding && props.memebers?.length != 0 && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>     
                                                     )
