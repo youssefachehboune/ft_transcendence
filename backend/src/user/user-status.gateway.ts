@@ -57,23 +57,30 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         }
         const senderData = await this.userService.getUserDataByUserId(data.sender);
         const receiverData = await this.userService.getUserDataByUserId(data.receiver);
-        const DataInvite: Players = { sender: {...senderData, socketId: '', score: 0, ready: false, ratio: 1 }, receiver: {...receiverData, socketId: '', score: 0, ready: false, ratio: 1 } };
         const sender = Array.from(usersMap.values()).find(sockets => sockets.some(s => s.socket.id === socket.id))?.[0];
-        const receiver = usersMap.get(data.receiver)?.[0];
-        if (receiver && sender && sender.type === "online" && receiver.type === "online") {
-            this.server.to(receiver.socket.id).emit("invitation", DataInvite);
+        const receiver = usersMap.get(data.receiver);
+        if (receiver && sender && sender.type === "online") {
+            receiver.forEach((s) => {
+                if(s.type === "online"){
+                    const DataInvite: Players = { sender: {...senderData, socketId: socket.id, score: 0, ready: false, ratio: 1 }, receiver: {...receiverData, socketId: s.socket.id, score: 0, ready: false, ratio: 1 } };
+                    this.server.to(s.socket.id).emit("invitation", DataInvite);
+                }
+            // this.server.to(receiver.socket.id).emit("invitation", DataInvite);
+            });
         }
+
     }
 
     @SubscribeMessage("accept")
     async handleAccept(socket: Socket, data: Players) {
         const gameId = uuidv4();
-        const sender = usersMap.get(data.sender.userId)?.[0];
-        const receiver = usersMap.get(data.receiver.userId)?.[0];
+        const senders = usersMap.get(data.sender.userId);
+        const receivers = usersMap.get(data.receiver.userId);
+
+        const sender = senders.find((s) => s.socket.id === data.sender.socketId && s.type === "online");
+        const receiver = receivers.find((r) => r.socket.id === data.receiver.socketId);
 
         if (receiver && sender) {
-            data.sender.socketId = sender.socket.id;
-            data.receiver.socketId = receiver.socket.id;
             const gameData: GameDto = this.gameService.create(gameId, data.sender, data.receiver, "multiplayer");
             this.server.to(sender.socket.id).emit("start", gameData);
             this.server.to(receiver.socket.id).emit("start", gameData);
