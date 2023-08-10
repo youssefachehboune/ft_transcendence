@@ -60,7 +60,7 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         const DataInvite: Players = { sender: {...senderData, socketId: '', score: 0, ready: false, ratio: 1 }, receiver: {...receiverData, socketId: '', score: 0, ready: false, ratio: 1 } };
         const sender = Array.from(usersMap.values()).find(sockets => sockets.some(s => s.socket.id === socket.id))?.[0];
         const receiver = usersMap.get(data.receiver)?.[0];
-        if (receiver && sender) {
+        if (receiver && sender && sender.type === "online" && receiver.type === "online") {
             this.server.to(receiver.socket.id).emit("invitation", DataInvite);
         }
     }
