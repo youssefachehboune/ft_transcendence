@@ -18,6 +18,8 @@ function Section({setshowchanel, setmenu, menu, massagenotif, setshowchatsection
     const [requestdata, setrequestdata] = useState<any>([]);
     const [blockeddata, setblockeddata] = useState<any>([]);
     const [isHovered2, setIsHovered2] = useState<boolean>(false);
+    const [isHovered3, setIsHovered3] = useState<boolean>(false);
+    const [showChannelInvite, setshowChannelInvite] = useState<boolean>(false);
     const [showdataRequest, setshowdataRequest] = useState<boolean>(true);
     const router = useRouter()
     useEffect(() => {
@@ -45,7 +47,12 @@ function Section({setshowchanel, setmenu, menu, massagenotif, setshowchatsection
     function handleMouseLeave2() {
         setIsHovered2(false);
     }
-
+    function handleMouseEnter3() {
+        setIsHovered3(true);
+    }
+    function handleMouseLeave3() {
+        setIsHovered3(false);
+    }
     function handleClickRequest() {
         setshowprofile(true)
         setshowRequest(!showRequest);
@@ -122,10 +129,10 @@ return (
                 phone:w-[280px] phone:h-[570px]
                  flex items-end flex-col">
                     <div className="w-[100%] h-[13%] flex items-center justify-around">
-                        <div className="w-[32%] h-[50%] bg-white rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-[#fff] hover:border-[1.3px] hover:bg-[#ffffff00]"
+                        <div className="w-[27%] h-[45%] bg-white rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-[#fff] hover:border-[1.3px] hover:bg-[#ffffff00]"
                         onMouseEnter={handleMouseEnter1}
                         onMouseLeave={handleMouseLeave1}
-                        onClick={() => {setshowdataRequest(true);}}
+                        onClick={() => {setshowdataRequest(true); setshowChannelInvite(false)}}
                         >
                                 <h1 className="text-[8px] font-sora font-semibold transition-all duration-500"
                                 style={
@@ -135,15 +142,28 @@ return (
                                 }
                                 >REQUESTS</h1>
                         </div>
-                        <div className="w-[32%] h-[50%] bg-[#ED5253] hover:border-[1.3px] flex items-center justify-center rounded-[2px] transition-all duration-500 cursor-pointer hover:border-[#ED5253]  hover:bg-[#ffffff00]"
-                        onMouseEnter={handleMouseEnter2}
-                        onMouseLeave={handleMouseLeave2}
-                        onClick={() => {setshowdataRequest(false);}}
+                        <div className="w-[27%] h-[45%] bg-white rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-[#fff] hover:border-[1.3px] hover:bg-[#ffffff00]"
+                        onMouseEnter={handleMouseEnter3}
+                        onMouseLeave={handleMouseLeave3}
+                        onClick={() => {setshowdataRequest(false); setshowChannelInvite(true)}}
                         >
-                                <h1 className="text-[8px] font-sora font-semibold transition-all duration-500   "
+                                <h1 className="text-[8px] font-sora font-semibold transition-all duration-500"
                                 style={
                                     {
-                                        color: !isHovered2 ? "#fff" : "#ED5253"
+                                        color: isHovered3 ? "#fff" : "#000"
+                                    }
+                                }
+                                >CHANNEL INVITE</h1>
+                        </div>
+                        <div className="w-[27%] h-[45%] bg-white rounded-[2px] flex items-center justify-center cursor-pointer transition-all duration-500 hover:border-[#fff] hover:border-[1.3px] hover:bg-[#ffffff00]"
+                        onMouseEnter={handleMouseEnter2}
+                        onMouseLeave={handleMouseLeave2}
+                        onClick={() => {setshowdataRequest(false); setshowChannelInvite(false)}}
+                        >
+                                <h1 className="text-[8px] font-sora font-semibold transition-all duration-500"
+                                style={
+                                    {
+                                        color: isHovered2 ? "#fff" : "#000"
                                     }
                                 }
                                 >BLOCK-LIST</h1>
@@ -152,7 +172,7 @@ return (
                     <div className="w-[100%] relative h-[87%]  flex flex-col justify-start items-center overflow-y-auto">
                         {
 
-                            showdataRequest ?
+                            (showdataRequest  && !showChannelInvite) ?
                             requestdata.map((item: any, key : number) => {
                                 return (
                                     <FriendRequest key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
@@ -167,10 +187,13 @@ return (
 
                         }
                         {
-                            requestdata.length === 0 && showdataRequest && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Request</h1>
+                            requestdata.length === 0 && showdataRequest && !showChannelInvite && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Request</h1>
                         }
                         {
-                            blockeddata.length === 0 && !showdataRequest && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Blocked</h1>
+                            blockeddata.length === 0 && !showdataRequest && !showChannelInvite && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Blocked</h1>
+                        }
+                        {
+                            showChannelInvite && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Channel Invite</h1>
                         }
                     </div>
                 </div>

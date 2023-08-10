@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
 import History from "../../components/Dashebord/History";
-import { getContext } from "../context";
+import  GetContext  from "../context";
 function History_Leyout() {
-    let dataisloded = getContext()
+    let dataisloded = GetContext()
     useEffect(() => {
         dataisloded.setshowchatsection(false)
         dataisloded.setshowchanel(false)

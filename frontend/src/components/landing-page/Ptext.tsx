@@ -1,8 +1,8 @@
-import { getText } from '../../pages/api/lang'
+import { GetText } from '../../pages/api/lang'
 export default function PText() {
     return (
         <div className='textBody'>
-            <p><span>{getText('WELCOME')} </span>{getText('INTRO')}</p>
+            <p><span>{GetText('WELCOME')} </span>{GetText('INTRO')}</p>
         </div>
     );
 }

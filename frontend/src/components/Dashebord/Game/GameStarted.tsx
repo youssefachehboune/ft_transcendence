@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useDisclosure } from "@chakra-ui/react";
 import GameResult from "./gameResult";
 import { useRouter } from "next/router";
-import { getContext } from "@/pages/context";
+import GetContext from "@/pages/context";
 interface GameStartedProps {
   data: GameData;
 }
@@ -25,7 +25,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   const [scorePlayer1, setScorePlayer1] = useState<number>(0);
   const [scorePlayer2, setScorePlayer2] = useState<number>(0);
   const [result, setResult] = useState<any>();
-  let golobal = getContext()
+  let golobal = GetContext()
   const { isOpen: ispopresult, onOpen: onopenresult, onClose: oncloseresult } = useDisclosure()
   const fetchUserId = useCallback(async () => {
     const response = await fetch("http://localhost:3000/user/id", {

@@ -37,7 +37,7 @@ export default function Main() {
         <div className="cont">
             <div className="w-[100%] h-[35%] #070012 flex items-center justify-center phone:h-[50%]">
                 <div className="Play_div flex items-center justify-center" onMouseLeave={handlePlayLeave} onClick={handlePlayClick}>
-                    <img  className="w-[370px] h-[100%]" src="Liquide.svg" alt="" />
+                <Image  width={370} height={100} className="w-[370px] h-[100%]" src="Liquide.svg" alt="" />
                     <div className="circle1">
                     </div>
                     <div className="circle2">

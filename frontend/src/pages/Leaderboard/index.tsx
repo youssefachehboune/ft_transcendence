@@ -1,19 +1,18 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import { getContext } from "../context";
+import  GetContext from "../context";
 import Leaderboard from "../../components/Dashebord/Leaderboard";
-function leader_Leyout() {
-    let golobal = getContext()
+function Leader_Leyout() {
+    let global = GetContext()
     useEffect(() => {
-        golobal.setshowchatsection(false)
-        golobal.setshowchanel(false)
-        golobal.socketRef.current?.disconnect();
-      }, []);
+        global.setshowchatsection(false)
+        global.setshowchanel(false)
+      }, [global]);
     return ( 
         <Dashebord>
-            <Leaderboard username={golobal.data.username}/>
+            <Leaderboard username={global.data.username}/>
         </Dashebord>
      );
 }
 
-export default leader_Leyout;
+export default Leader_Leyout;

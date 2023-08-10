@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from '../components/landing-page/logo'
 import Lang from '../components/landing-page/button-lang'
 import Rectangle from "../components/sign_in/Header/Rectangle";
@@ -9,14 +9,33 @@ import Success_div from "../components/success/Success";
 import Text_success from "../components/text_svg/text_success";
 import Cursor from "../components/landing-page/Cursor";
 import Head from "next/head";
-
+import { Triangle } from "react-loader-spinner";
 function Sign_up()
 {
+	const [loading, setLoading] = useState<boolean>(true);
+	useEffect(() => {
+	  setTimeout(() => {
+		setLoading(false)
+	  }, 1000);
+	}
+	, [])
 	const [showFirstComponent, setShowFirstComponent] = useState(true);
 	const [showSecondComponent, setShowSecondComponent] = useState(false);
 	const [changeColor, setChangeColor] = useState(false);
 	return (
-		<div>
+		<>
+		{
+				loading ? <Triangle
+				height="150"
+				width="180"
+				color="#fff"
+				ariaLabel="line-wave"
+				wrapperStyle={{}}
+				wrapperClass="loader"
+				visible={true}
+			  />
+			  :
+			  <div>
 			<Head>
 				<title>Pong Game ,sign-up Page</title>
 			</Head>
@@ -31,7 +50,9 @@ function Sign_up()
 						{showFirstComponent && <Sign_up_page setShowFirstComponent={setShowFirstComponent} setShowSecondComponent={setShowSecondComponent}/>}
 						{showSecondComponent && <Success_div/>}
 			 </div>
-		</div>
+			</div>
+		}
+		</>
 		)
 }
 

@@ -46,7 +46,7 @@ function Chat_chanel({back, chanel, data}: any) {
             return () => {socket.off('receive_channel_message')}
         else
             test12 = false
-    }, [])
+    }, [check, test12])
 
     useEffect(() => {
         const container = containerRef.current;

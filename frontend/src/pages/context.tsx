@@ -53,6 +53,6 @@ export function AppWrapper({ children }: any) {
     </AppContext.Provider>
   );
 }
-export function getContext() {
+export default  function GetContext() {
   return useContext(AppContext);
 }

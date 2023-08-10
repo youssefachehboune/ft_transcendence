@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import { getContext } from "../context";
+import  GetContext  from "../context";
 import Game from "@/components/Dashebord/Game";
 
 function GameSection() {
-    let golobal = getContext()
+    let golobal = GetContext()
     useEffect(() => {
         golobal.setshowchatsection(false)
         golobal.setshowchanel(false)

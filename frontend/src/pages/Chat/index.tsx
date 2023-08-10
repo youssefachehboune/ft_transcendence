@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import { getContext } from "../context";
+import GetContext from "../context";
 import ChatFriends from "../../components/Dashebord/Chat/ChatFriends";
 function Chat_Leyout() {
-    let golobal = getContext()
+    let golobal = GetContext()
     useEffect(() => {
         golobal.setshowchatsection(true)
         golobal.setshowchanel(false)

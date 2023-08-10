@@ -2,11 +2,12 @@
 	import CountryDropdown from "./Country";
 	import { useState, useRef, ChangeEvent, FormEvent, useEffect, useReducer } from "react";
 	import { useRouter } from "next/router";
-	import { getText } from "../../pages/api/lang";
+	import { GetText } from "../../pages/api/lang";
 	import updateUser from "@/pages/api/updateuser";
 	import UsernameInput from "./username";
 	import Bioinpute from "./Bio";
-	import { DATA, postReduser } from "@/pages/Hooks/user_info_data";
+	import { DATA} from "@/pages/Hooks/user_info_data";
+	import postReduser from "@/pages/Hooks/user_info_data";
 	import Img_profile from "./Img_profile";
 	import Chose_img from "./chose_img";
 	import Uplode_img from "./Uplode_img";
@@ -98,7 +99,7 @@
 				<UsernameInput handleFormChange={handleFormChange} data={data} errormssage={state.errormssage} dispatch={dispatch}/>
 				<Bioinpute handleFormChange={handleFormChange}  dispatch={dispatch}/>
 				<div className="ml-[30px]">
-					<label htmlFor="tree" className="text-[12px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]">{getText("LOCATION")}<span className='text-orange'> *</span></label>
+					<label htmlFor="tree" className="text-[12px] font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]">{GetText("LOCATION")}<span className='text-orange'> *</span></label>
 					<CountryDropdown dispatch={dispatch} />
 				</div>
 
@@ -117,7 +118,7 @@
 					<h1 className={`text-black  text-[14px] font-sora font-[700] tracking-[0.02em]
 										phone:text-[10px] phone:p-[5px] Large-phone:text-[10px] Large-phone:p-[5px]`}>
 
-							{getText("GO")}
+							{GetText("GO")}
 							</h1>
 					</button>
 				</div>

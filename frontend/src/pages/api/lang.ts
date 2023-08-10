@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export function getText(key: string) {
+export function GetText(key: string) {
 	  const [Text, setText] = useState('');
     useEffect(() => {
         const fetchData = async () => {
@@ -14,6 +14,6 @@ export function getText(key: string) {
           setText(data);
         };
         fetchData();
-    }, []);
+    }, [key]);
 	return Text;
 }

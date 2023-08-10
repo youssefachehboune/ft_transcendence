@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import { getContext } from "../context";
+import  GetContext  from "../context";
 import Friends from "../../components/Dashebord/Friendes/Friends";
 function Friends_Leyout() {
-    let global = getContext()
+    let global = GetContext()
     useEffect(() => {
         global.setshowchatsection(false);
         global.setshowchanel(false)

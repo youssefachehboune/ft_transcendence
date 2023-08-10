@@ -1,10 +1,10 @@
-import { getText } from "../../pages/api/lang";
+import { GetText } from "../../pages/api/lang";
 
 export default function Text()
 {
 	return (
 		<div>
-				<h1 className="svg_text">{getText('CONGRATS')}<span className="text-blue"> {getText('SET')}</span></h1>
+				<h1 className="svg_text">{GetText('CONGRATS')}<span className="text-blue"> {GetText('SET')}</span></h1>
 		</div>
 	)
 }

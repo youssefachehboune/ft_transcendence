@@ -20,7 +20,7 @@ export const DATA: DataState = {
 	errormssage: "",
 }
 
-export const postReduser = (state: DataState, action: any): DataState =>
+const postReduser = (state: DataState, action: any): DataState =>
 {
 	switch (action.type)
 	{
@@ -63,3 +63,5 @@ export const postReduser = (state: DataState, action: any): DataState =>
       		return state;
 	}
 }
+
+export default postReduser;

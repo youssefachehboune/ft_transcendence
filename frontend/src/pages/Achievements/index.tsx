@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
 import Achievements from "../../components/Dashebord/Achievements";
-import { getContext } from "../context";
-function achive_Leyout() {
-    let golobal = getContext()
+import GetContext from "../context";
+function Achive_Leyout() {
+    let global = GetContext()
     useEffect(() => {
-        golobal.setshowchatsection(false)
-        golobal.setshowchanel(false)
-        golobal.socketRef.current?.disconnect();
+        global.setshowchatsection(false)
+        global.setshowchanel(false)
+        global.socketRef.current?.disconnect();
       }, []);
     return ( 
         <Dashebord>
@@ -16,4 +16,4 @@ function achive_Leyout() {
      );
 }
 
-export default achive_Leyout;
+export default Achive_Leyout;

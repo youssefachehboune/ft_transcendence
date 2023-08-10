@@ -2,10 +2,10 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
 import Main from "../../components/Dashebord/Main_Cont";
-import { getContext } from "../context";
+import  GetContext  from "../context";
 
 function Maindash() {
-    let golobal = getContext()
+    let golobal = GetContext()
     useEffect(() => {
         golobal.setshowchatsection(false)
         golobal.setshowchanel(false)
