@@ -55,6 +55,13 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         if(!data.sender || !data.receiver){
             return;
         }
+        // check if receiver is not in block list of sender
+        const isBlocked = await this.friendsService.isBlocked(data.sender, data.receiver);
+        if(isBlocked){
+            return;
+        }
+        
+        
         const senderData = await this.userService.getUserDataByUserId(data.sender);
         const receiverData = await this.userService.getUserDataByUserId(data.receiver);
         const sender = Array.from(usersMap.values()).find(sockets => sockets.some(s => s.socket.id === socket.id))?.[0];
