@@ -115,8 +115,8 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
                                     return  <div key={key} className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center`}>
                                             <Image width={'54'} height={'54'} src={data?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
                                             <div className="max-w-[400px] 2xl:max-w-[300px] xl:max-w-[200px] bg-black p-2 mr-[20px] rounded-t-[28px] rounded-l-[28px] flex">
-                                                <p className={"text-white text-[10px] font-sora mr-[5px]"}>{message.message}</p>
-                                                {message.read && <IoCheckmarkDoneOutline className="mt-[3px] mr-[5px] text-[#14FF00] text-[10px] flex items-center font-sora self-center"/>}
+                                                <p className={"text-white text-[10px] font-sora mr-[5px] whitespace-wrap"}>{message.message}</p>
+                                                {message.read && <IoCheckmarkDoneOutline className="mt-[3px] w-[20px] mr-[5px] text-[#14FF00] text-[10px] flex items-center font-sora self-center"/>}
                                             </div>
                                             </div>
                                 }
@@ -125,7 +125,7 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
                                     return  <div key={key} className={`w-[100%] pl-7 pt-5 h-fit  mb-[15px] flex  items-center relative`}>
                                             <Image width={'54'} height={'54'} src={friendchat?.avatar} alt="" className="w-[54px] h-[54px] rounded-full select-none"/>
                                             <div className="max-w-[400px] 2xl:max-w-[300px] xl:max-w-[200px] bg-black p-2 ml-[20px]  rounded-t-[28px] rounded-r-[28px]">
-                                                <p className={`text-white text-[10px] font-sora`}>{message.message}</p>
+                                                <p className={`text-white text-[10px] font-sora whitespace-wrap `}>{message.message}</p>
                                             </div>
                                             </div>
                                 }
