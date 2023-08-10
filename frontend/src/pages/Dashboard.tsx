@@ -63,6 +63,11 @@ function Dashebord({ children }: any) {
         onopenpopgame()
       }
     });
+    user_socket.on("achievement", (data: any) => {
+      if (data) {
+        console.log(data)
+      }
+    });
     user_socket.on("start", (data: GameData) => {
       if (data) {
         golobal.setGameData(data);

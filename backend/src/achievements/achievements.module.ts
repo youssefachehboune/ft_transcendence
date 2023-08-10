@@ -5,6 +5,6 @@ import { NotificationService } from 'src/notification/notification.service';
 
 @Module({
   controllers: [AchievementsController],
-  providers: [NotificationService, AchievementsService]
+  providers: [NotificationService, AchievementsService],
 })
 export class AchievementsModule {}

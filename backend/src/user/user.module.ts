@@ -7,11 +7,12 @@ import { FriendsService } from '../friend/friends.service';
 import { JwtService } from '@nestjs/jwt';
 import { NotificationService } from 'src/notification/notification.service';
 import { GameService } from 'src/game/game.service';
+import { AchievementsService } from 'src/achievements/achievements.service';
 
 
 @Module({
   controllers: [UserController],
-  providers: [UserService, UserStatusGateway, AuthService, FriendsService, JwtService, NotificationService, GameService],
+  providers: [UserService, UserStatusGateway, AuthService, FriendsService, JwtService, NotificationService, GameService, AchievementsService],
   exports: [UserService]
 })
 export class UserModule {}

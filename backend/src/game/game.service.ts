@@ -19,7 +19,7 @@ export class GameService {
     let ballSpeed = 10;
     let ballLunchAngle = (Math.PI / 2) * 0.5;
     let ballLunchSpeed = 5;
-    
+
     const gameData: GameDto = {
       gameId: gameId,
       player1: player1,
@@ -86,27 +86,29 @@ export class GameService {
   calculeteLevel(level: number, points: number) {
     console.log("level", level, "points", points)
     console.log("points / Math.ceil(level) * 100", points / Math.ceil(level) * 100)
-    return points / ((Math.floor(level) + 1) * 100); 
+    return points / ((Math.floor(level) + 1) * 100);
   }
 
-  async saveToCareer(winner: Player, loser: Player){
-    console.log("save to db")
-     await this.prisma.careerLog.create({
-      data: {
-        user_id: winner.userId,
-        opponent_id: loser.userId,
-        userPoints: winner.score,
-        opponentPoints: loser.score,
-        result: "WON"
-      },
-    });
+
+
+  async saveToCareer(winner: Player, loser: Player) {
+    console.log("save to db")   
+    await this.prisma.careerLog.create({
+        data: {
+          user_id: winner.userId,
+          opponent_id: loser.userId,
+          userPoints: winner.score,
+          opponentPoints: loser.score,
+          result: "WON"
+        },
+      });
     const winnerProfile = await this.prisma.userProfile.findUnique({
       where: {
         user_id: winner.userId,
       },
     });
 
-    const newLevel = winnerProfile.level +  this.calculeteLevel(winnerProfile.level, 50);
+    const newLevel = winnerProfile.level + this.calculeteLevel(winnerProfile.level, 50);
     await this.prisma.userProfile.update({
       where: {
         user_id: winner.userId,

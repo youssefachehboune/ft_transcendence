@@ -3,7 +3,6 @@ import { AchievementsService } from './achievements.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { Request } from 'express';
 import { ApiBadRequestResponse, ApiParam, ApiTags } from '@nestjs/swagger';
-import { achievementDto } from './achievements.dto';
 
 @ApiTags('achievements')
 @Controller('achievements')
@@ -24,11 +23,5 @@ export class AchievementsController {
 		if (type !== 'ALL' && type !== 'COMPLETE' && type !== 'UNCOMPLETE')
 			throw new BadRequestException('You have to choose between COMPLETE, UNCOMPLETE and ALL as the achievements type')
 		return await this.achievementsService.getAchievements(req, type);
-	}
-
-	@UseGuards(JwtGuard)
-	@Post()
-	async updateAchievements(@Req() req: Request, @Body() achiev: achievementDto) {
-		return await this.achievementsService.updateAchievements(req, achiev);
 	}
 }

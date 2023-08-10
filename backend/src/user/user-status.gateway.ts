@@ -6,6 +6,7 @@ import { GameService } from "../game/game.service";
 import { AuthService } from "src/auth/auth.service";
 import { FriendsService } from 'src/friend/friends.service';
 import { UserService } from "./user.service";
+import { AchievementsService } from "src/achievements/achievements.service";
 
 interface Sock {
     socket: Socket;
@@ -20,7 +21,8 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         private gameService: GameService,
         private authService: AuthService,
         private friendsService: FriendsService,
-        private userService: UserService
+        private userService: UserService,
+        private achievementsService: AchievementsService
     ) { }
 
 
@@ -52,27 +54,27 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
     @SubscribeMessage("play")
     async handlePlay(socket: Socket, data: any) {
         console.log("play", data);
-        if(!data.sender || !data.receiver){
+        if (!data.sender || !data.receiver) {
             return;
         }
         // check if receiver is not in block list of sender
         const isBlocked = await this.friendsService.isBlocked(data.sender, data.receiver);
-        if(isBlocked){
+        if (isBlocked) {
             return;
         }
-        
-        
+
+
         const senderData = await this.userService.getUserDataByUserId(data.sender);
         const receiverData = await this.userService.getUserDataByUserId(data.receiver);
         const sender = Array.from(usersMap.values()).find(sockets => sockets.some(s => s.socket.id === socket.id))?.[0];
         const receiver = usersMap.get(data.receiver);
         if (receiver && sender && sender.type === "online") {
             receiver.forEach((s) => {
-                if(s.type === "online"){
-                    const DataInvite: Players = { sender: {...senderData, socketId: socket.id, score: 0, ready: false, ratio: 1 }, receiver: {...receiverData, socketId: s.socket.id, score: 0, ready: false, ratio: 1 } };
+                if (s.type === "online") {
+                    const DataInvite: Players = { sender: { ...senderData, socketId: socket.id, score: 0, ready: false, ratio: 1 }, receiver: { ...receiverData, socketId: s.socket.id, score: 0, ready: false, ratio: 1 } };
                     this.server.to(s.socket.id).emit("invitation", DataInvite);
                 }
-            // this.server.to(receiver.socket.id).emit("invitation", DataInvite);
+                // this.server.to(receiver.socket.id).emit("invitation", DataInvite);
             });
         }
 
@@ -102,11 +104,77 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         }
     }
 
+
+    emitAchievement(userId: number, achievementId: number) {
+        const sockets = usersMap.get(userId);
+        if (sockets) {
+            sockets.forEach((s) => {
+                if (s.type === "online") {
+                    this.server.to(s.socket.id).emit("achievement", achievementId);
+                }
+            });
+        }
+    }
+
+    async updateAchievWin(userId: number, loserScoore: number) {
+        if (await this.achievementsService.updateAchievements(userId, 7, false))
+            this.emitAchievement(userId, 7);
+        if (await this.achievementsService.updateAchievements(userId, 10, false))
+            this.emitAchievement(userId, 10);
+        if (await this.achievementsService.updateAchievements(userId, 15, false))
+            this.emitAchievement(userId, 15);
+        if (await this.achievementsService.updateAchievements(userId, 1, false))
+            this.emitAchievement(userId, 7);
+        if (await this.achievementsService.updateAchievements(userId, 5, false))
+            this.emitAchievement(userId, 10);
+        if (await this.achievementsService.updateAchievements(userId, 13, false))
+            this.emitAchievement(userId, 15);
+        if (loserScoore === 0) {
+            if (await this.achievementsService.updateAchievements(userId, 1, false))
+                this.emitAchievement(userId, 4);
+            if (await this.achievementsService.updateAchievements(userId, 5, false))
+                this.emitAchievement(userId, 9);
+            if (await this.achievementsService.updateAchievements(userId, 13, false))
+                this.emitAchievement(userId, 12);
+        }
+    }
+
+    async updateAchievLose(userId: number) {
+        if (await this.achievementsService.updateAchievements(userId, 7, true))
+            this.emitAchievement(userId, 7);
+        if (await this.achievementsService.updateAchievements(userId, 10, true))
+            this.emitAchievement(userId, 10);
+        if (await this.achievementsService.updateAchievements(userId, 15, true))
+            this.emitAchievement(userId, 15);
+    }
+
+    async updateAchievBot(userId: number) {
+
+        if (await this.achievementsService.updateAchievements(userId, 2, false))
+            this.emitAchievement(userId, 2);
+        if (await this.achievementsService.updateAchievements(userId, 6, false))
+            this.emitAchievement(userId, 6);
+        if (await this.achievementsService.updateAchievements(userId, 11, false))
+            this.emitAchievement(userId, 11);
+        return;
+    }
+
     @SubscribeMessage("endgame")
-    async handleEndgame(socket: Socket) {
+    async handleEndgame(socket: Socket, data: any) {
+        console.log("endgame", data);
         const userId = await this.getUserIdFromSocket(socket);
         if (userId) {
             this.changeSocketsType(userId, "online");
+            if (data.loser.userId === 1337) {
+                await this.updateAchievBot(userId);
+                return;
+            }
+            if (data.winner.userId === userId) {
+                await this.updateAchievWin(userId, data.loser.score);
+            }
+            else if (data.loser.userId === userId) {
+                await this.updateAchievLose(userId);
+            }
         }
     }
 
@@ -144,9 +212,9 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         // if (index !== -1) {
         //     sockets[index] = mysocket;
         // } else {
-            sockets.push(mysocket);
-            usersMap.set(userId, sockets);
-            console.log(usersMap);
+        sockets.push(mysocket);
+        usersMap.set(userId, sockets);
+        console.log(usersMap);
         // }
     }
 

@@ -1,14 +1,12 @@
-import { BadRequestException, Body, Injectable, Req } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import { Request } from 'express';
-import { achievementDto } from './achievements.dto';
-import { NotificationService, NotificationType } from 'src/notification/notification.service';
 import { formatDistanceToNow } from 'date-fns';
 
 const prisma = new PrismaClient();
 @Injectable()
 export class AchievementsService {
-	constructor(private readonly notificationService: NotificationService) {}
+	constructor() {}
 
 	async getAchievements(@Req() req: Request, type: 'ALL' | 'COMPLETE' | 'UNCOMPLETE', take?: number) {
 		const achievements = await prisma.achievement.findMany({
@@ -47,47 +45,45 @@ export class AchievementsService {
 			return updatedAchievements;
 	}
 	
-	async updateAchievements(@Req() req: Request, @Body() achiev: achievementDto) {
+	async updateAchievements(userId: number, ashiveId: number, reset? : boolean) {
 		const achievement = await prisma.achievement.findUnique({
-			where: {name: achiev.name},
+			where: { id: ashiveId },
 			include: {AchievementLog: true}
 		});
 		if (!achievement)
-		throw new BadRequestException('The achievement name is invalid');
+			return null;
 		const achievementLog = await prisma.achievementLog.findFirst({
-			where: { User: req.user, achievement_id: achievement.id }
+			where: { user_id: userId, achievement_id: achievement.id },
 		});
 		const newscore: number = achievementLog?.score + 1;
 		if (!newscore) {
 			await prisma.achievementLog.create({
 				data: {
-					user_id: req.user['id'],
+					user_id: userId,
 					achievement_id: achievement.id,
 					score: 1,
 					occuredAt: new Date(),
 				}
 			});
 			if (+achievement.milestone == 1) {
-				this.notificationService.setNotification(NotificationType.ACHIEVEMENT, 0, req.user['id']);
 				return true;
 			}
 			return false;
 		}
 		if (newscore && newscore > +achievement.milestone)
-			throw new BadRequestException('This achievement has already been accomplished');
-		if (achiev.reset == true) {
+			return null;
+		if (reset == true) {
 			await prisma.achievementLog.updateMany({
-				where: { user_id: req.user['id'], achievement_id: achievement.id },
+				where: { user_id: userId, achievement_id: achievement.id },
 				data: { score: 0, occuredAt: new Date() }
 			});
 			return false;
 		}
 		await prisma.achievementLog.updateMany({
-			where: { user_id: req.user['id'], achievement_id: achievement.id },
+			where: { user_id: userId, achievement_id: achievement.id },
 			data: { score: newscore, occuredAt: new Date() }
 		});
 		if (newscore == +achievement.milestone) {
-			this.notificationService.setNotification(NotificationType.ACHIEVEMENT, 0, req.user['id']);
 			return true;
 		}
 		return false;
