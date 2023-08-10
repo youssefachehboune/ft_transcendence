@@ -62,7 +62,6 @@ export class SearchService {
             });
 
             return {
-                user_id : suserProfile.id,
                 avatar: suserProfile.avatar,
                 firstName: suserProfile.firstName,
                 lastName: suserProfile.lastName,

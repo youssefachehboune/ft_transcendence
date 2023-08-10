@@ -30,6 +30,7 @@ export class BotGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleConnection(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
+            console.log("connected one to game mode bot", userId);
             const gameId = uuidv4();
             const user: any  = await this.userService.getUserDataByUserId(userId);
             const bot : any = await this.userService.getUserDataByUserId(1337);

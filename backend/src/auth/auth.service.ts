@@ -96,7 +96,7 @@ export class AuthService {
         return payload;
 
     }
-	
+
 	async logout(email: string) {
 		await prisma.user.update({
 			where: { email: email },

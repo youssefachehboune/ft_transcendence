@@ -29,6 +29,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleDisconnect(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
+            console.log("disconnected one from game", userId);
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game) {
                 if (game.player2.socketId === socket.id)
@@ -198,6 +199,7 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     private startGame(gameId: string) {
         const gameData = this.gameService.getGame(gameId);
+        console.log("game started", gameData);
         let gamePlayed = true;
         if (gameData && gameData.player1 && gameData.player2) {
             const interval = setInterval(async () => {

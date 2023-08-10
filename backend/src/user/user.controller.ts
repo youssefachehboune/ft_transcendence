@@ -15,7 +15,7 @@ export class UserController {
 	async getUserData(@Req() req: Request) {
 		return await this.userService.getUserData(req);
 	}
-
+	
 	@Get('data/:uid')
 	@UseGuards(JwtGuard)
 	async getUserDataById(@Req() req: Request, @Param('uid') uid: number) {

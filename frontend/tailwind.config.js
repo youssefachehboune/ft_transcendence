@@ -20,7 +20,6 @@ module.exports = {
 
       },
       textColor: {
-		
         'my-text' : '#F5F5F5',
       },
       backgroundImage: {
@@ -35,8 +34,6 @@ module.exports = {
           'phone': {'raw': '(min-width: 100px) and (max-width: 540px)'},
           'Large-phone': {'raw': '(min-width: 541px) and (max-width: 700px)'},
           'laptop': {'raw': '(min-width: 700px) and (max-width: 1024px)'},
-		  'tabletNest': {'raw': '(width: 1024px)'},
-		  'Nest': {'raw': '(width: 1280px)'},
 		  'desktop': {'raw': '(min-width: 1025px) and (max-width: 1450px)'},
 		  'xl': {'max': '767px'},
 		  '2xl': {'raw': '(min-width: 768px) and (max-width: 1300px)'},

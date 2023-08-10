@@ -5,7 +5,6 @@ import { UserDto } from './user.dto'
 import {v2 as cloudinary} from 'cloudinary';
 import { config } from 'dotenv';
 
-
 config();
 
 cloudinary.config({ 
@@ -16,10 +15,8 @@ cloudinary.config({
 
 const prisma = new PrismaClient();
 
-
 @Injectable()
 export class UserService {
-	
 
 	async getUsername(username: string) {
 		const user = await prisma.userProfile.findUnique({
@@ -70,6 +67,7 @@ export class UserService {
 			username: userProfile.username,
 		}
 	}
+
 	async getUserDataById(@Req() req: Request, id : number) {
 		id = parseInt(id.toString());
 		const user = await prisma.user.findUnique({
@@ -91,7 +89,7 @@ export class UserService {
 		});
 		const updatedField: any = await prisma.userProfile.findFirst({where: { User: user}});
 		if (data.avatar.length > 500)
-			data.avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: "avatar" } )).url;
+			data.avatar = (await cloudinary.uploader.upload( data.avatar, { public_id: data.username } )).url;
 		const parsedJson = JSON.parse(JSON.stringify(data));
 		const keys = Object.keys(parsedJson);
 	  keys.forEach((key) => {
@@ -107,7 +105,7 @@ export class UserService {
 			throw new BadRequestException;
 		}
 	}
-	
+
 	async getUserId(@Req() req: Request) {
 		const user = await prisma.user.findUnique({
 			where: { email: req.user["email"] }
