@@ -96,7 +96,7 @@ export class ChatService {
 		try {
 			const channel_id = (await prisma.channel.findUnique({
 				where: { name: channel }
-			})).id;
+			}))?.id;
 			const member = await prisma.channelMembers.findFirst({
 				where: { user_id: req.user['id'] , channel_id: channel_id }
 			});

@@ -14,7 +14,6 @@ interface GameStartedProps {
 const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   const canvasGame = useRef<HTMLCanvasElement | null>(null);
   const animationFrameRef = useRef<number | null>(null);
-  const socketRef = useRef<Socket | null>(null);
   const router = useRouter();
   const [player1info, setPlayer1info] = useState<Player | undefined>();
   const [player2info, setPlayer2info] = useState<Player | undefined>();
@@ -49,9 +48,9 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [data, fetchUserId]);
 
   useEffect(() => {
-    if(socketRef.current) return;
+    if(golobal.socketRef.current) return;
     user_socket.emit("ingame");
-    socketRef.current = io("http://localhost:3000/game", {
+    golobal.socketRef.current = io("http://localhost:3000/game", {
       transports: ["websocket"],
       withCredentials: true,
     });
@@ -63,7 +62,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       cancelAnimationFrame(animationFrameRef.current);
     }
     const game = document.getElementById("game");
-    socketRef.current?.emit("resize", {
+    golobal.socketRef.current?.emit("resize", {
       newWidth: game?.clientWidth,
       gameId
     });
@@ -77,12 +76,12 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [gameId]);
 
   useEffect(() => {
-    socketRef.current?.on("resized", (newGameData: GameData) => {
+    golobal.socketRef.current?.on("resized", (newGameData: GameData) => {
       setGameData(newGameData);
     });
 
     return () => {
-      socketRef.current?.off("resized");
+      golobal.socketRef.current?.off("resized");
     };
   }, []);
 
@@ -130,6 +129,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
 
     const endGame = (result: any) => {
       user_socket.emit("endgame");
+      golobal.socketRef.current?.disconnect();
       console.log("end game");
       setResult(result);
       if (animationFrameRef.current) {
@@ -140,7 +140,6 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
 
-      socketRef.current?.disconnect();
       canvas?.remove();
 
       setGameData(undefined);
@@ -165,7 +164,7 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       }, 5000);
     };
 
-    socketRef.current?.on("move", (newgameData: GameData, id: number) => {
+    golobal.socketRef.current?.on("move", (newgameData: GameData, id: number) => {
       // console.log("move", id, " and my id is : ", userId, " and game is : ", gameData);
       const paddles = newgameData.paddles;
       const player1Scoor = newgameData.player1.score;
@@ -193,12 +192,12 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       }
     });
 
-    socketRef.current?.on("gameOver", (result: any) => {
+    golobal.socketRef.current?.on("gameOver", (result: any) => {
       console.log(result);
       endGame(result);
     });
 
-    socketRef.current?.on("opponentDisconnected", (result: any) => {
+    golobal.socketRef.current?.on("opponentDisconnected", (result: any) => {
       console.log("opponent disconnected");
       endGame(result);
     });
@@ -207,21 +206,21 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
-      socketRef.current?.off("move");
-      socketRef.current?.off("gameOver");
-      socketRef.current?.off("opponentDisconnected");
+      golobal.socketRef.current?.off("move");
+      golobal.socketRef.current?.off("gameOver");
+      golobal.socketRef.current?.off("opponentDisconnected");
     };
 
   }, [gameData, userId]);
 
   const stopMoving = () => {
     // console.log("stop moving");
-    socketRef.current?.emit("stop", userId, gameId);
+    golobal.socketRef.current?.emit("stop", userId, gameId);
   };
 
   const startMoving = (direction: string) => {
     // console.log("start moving", direction);
-    socketRef.current?.emit("move", direction, gameId);
+    golobal.socketRef.current?.emit("move", direction, gameId);
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {

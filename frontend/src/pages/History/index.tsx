@@ -7,6 +7,7 @@ function History_Leyout() {
     useEffect(() => {
         dataisloded.setshowchatsection(false)
         dataisloded.setshowchanel(false)
+        dataisloded.socketRef.current?.disconnect();
       }, []);
 
     return ( 

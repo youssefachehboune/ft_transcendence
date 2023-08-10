@@ -2,7 +2,8 @@ import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import Image from "next/image";
 
-function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, setchatloding, setonlyChat, setfriendchat, isOnline}: any) {
+
+function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, setchatloding, setonlyChat, setfriendchat, isOnline, play}: any) {
     const handelclick = (action: string) =>
     {
         setchangecolor(null)
@@ -10,6 +11,8 @@ function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, 
         setonlyChat(false)
         fetch(`http://localhost:3000/friends/${action}/` + user.username, { credentials: "include", method: "POST"});
     }
+
+
     return ( 
         <div key={user.user_id} className="min-h-[61px] flex items-center">
             <button onClick={() =>
@@ -36,7 +39,7 @@ function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, 
                 <MenuList>
                     <MenuItem onClick={() => handelclick("BLOCK")} icon={<FaBan/>}>block</MenuItem>
                     <MenuItem onClick={() => handelclick("UNFRIEND")} icon={<FaBan/>}>remove friend</MenuItem>
-                    <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
+                    <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                 </MenuList>
             </Menu>
         </div>

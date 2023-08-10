@@ -205,6 +205,7 @@ export class ChannelService {
                     select: {
                         userProfile: {
                             select: {
+                                user_id: true,
                                 username: true,
                                 firstName: true,
                                 lastName: true,
@@ -218,6 +219,7 @@ export class ChannelService {
 
         return channelMembers.map((channelMember) => {
             return {
+                user_id: channelMember.User.userProfile[0].user_id,
                 username: channelMember.User.userProfile[0].username,
                 firstName: channelMember.User.userProfile[0].firstName,
                 lastName: channelMember.User.userProfile[0].lastName,

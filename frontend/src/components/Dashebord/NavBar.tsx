@@ -25,7 +25,7 @@ export default function NavBar(props : any) {
                     <Link  href={'/'}><img src="pipo.png" alt="" className="w-[100px] p-4 select-none absolute left-0 top-0"/></Link>
                         <div   className="div_navbar ">
                             <div className={`relative w-[100px] h-[71px] flex items-center overflow-y-auto`}>
-                                <div onClick={() => {handleClick(0); props.setshowchanel(false); props.setshowchatsection(true);router.push('/Chat')}} className={`${0 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center`}>
+                                <div onClick={() => {handleClick(0);router.push('/Chat')}} className={`${0 === activeIndex ? 'active' : 'nav_hover'} w-[45px] h-[45px] bg-[#6e6e6e] ml-8 rounded-full flex items-center justify-center`}>
                                     <FaCompass color="white" className="Compass_icon"/>
                                 </div>
                                 <div className={`w-[7px]  bg-white absolute z-99 right-[75%] rounded-l-[2px] rounded-r-[5px] transition-all  ${0 === activeIndex ? 'h-[50%]' : 'h-[0%]'} `}>

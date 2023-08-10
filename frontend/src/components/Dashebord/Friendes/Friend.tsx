@@ -2,7 +2,7 @@ import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import Image from "next/image";
 
-function Friend({setListFriends, index, changecolor, setchangecolor, user, setblock, setvisible, setprofileloding, setProfile, isOnline}: any) {
+function Friend({setListFriends, index, changecolor, setchangecolor, user, setblock, setvisible, setprofileloding, setProfile, isOnline, play}: any) {
     
     const handelclick = (action: string) =>
     {
@@ -38,7 +38,7 @@ function Friend({setListFriends, index, changecolor, setchangecolor, user, setbl
                 <MenuList>
                     <MenuItem onClick={() => handelclick("BLOCK")} icon={<FaBan/>}>block</MenuItem>
                     <MenuItem onClick={() => handelclick("UNFRIEND")} icon={<FaBan/>}>remove friend</MenuItem>
-                    <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
+                    <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                 </MenuList>
             </Menu>
         </div>

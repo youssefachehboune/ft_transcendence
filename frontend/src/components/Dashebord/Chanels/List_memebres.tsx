@@ -19,6 +19,8 @@ import RequestedList from "./RequestedList";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import Search_for_mumbers from "./search_for_mumbers";
 import { useRouter } from "next/router";
+import { Data } from "../Game/FriendsGame";
+import user_socket from "@/pages/userSocket";
 
 function List_memebres(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -94,6 +96,13 @@ function List_memebres(props: any) {
           )
         );
       };
+      const play = (id: number) => {
+        const invit: Data = {
+          sender: props.data.user_id,
+          receiver: id,
+        };
+        user_socket.emit("play", invit);
+    };
     return ( 
             <div className="Chat flex items-end">
                 <div className={`w-[40%] h-[100%] ${back ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} test5 ml-2`}>
@@ -163,9 +172,9 @@ function List_memebres(props: any) {
                                                 {
                                                     searchformembers === "" && props.mumeberschannelloding ? (
                                                         props.memebers?.map((user: any, index: number) => (
-                                                            <Memeber updateUserType={updateUserType} key={index} setmutedList={props.setmutedList} setbanList={props.setbanList} setmemebers={props.setmemebers} chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
+                                                            <Memeber play={play} updateUserType={updateUserType} key={index} setmutedList={props.setmutedList} setbanList={props.setbanList} setmemebers={props.setmemebers} chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
                                                     ))) : searchformembers && props.mumeberschannelloding && !datamumber?.message && datamumber && searchtypeofmember && (searchtypeofmember === "MEMBER" || searchtypeofmember === "ADMIN" || searchtypeofmember === "OWNER") ? (
-                                                            <Search_for_mumbers setdatamumber={setdatamumber} setmemebers={props.setmemebers} setmutedList={props.setmutedList} setbanList={props.setbanList} user={datamumber} typeofmumber={searchtypeofmember}  updateUserType={updateUserType} typememeber={props.typememeber} chanel={props.chanel}/>
+                                                            <Search_for_mumbers play={play} setdatamumber={setdatamumber} setmemebers={props.setmemebers} setmutedList={props.setmutedList} setbanList={props.setbanList} user={datamumber} typeofmumber={searchtypeofmember}  updateUserType={updateUserType} typememeber={props.typememeber} chanel={props.chanel}/>
                                                     )  : (
                                                         props.mumeberschannelloding && props.memebers?.length != 0 && <h1 className='text-white text-[15px] font-sora font-[700] text-center'>Not Found</h1>     
                                                     )

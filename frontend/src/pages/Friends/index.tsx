@@ -7,12 +7,13 @@ function Friends_Leyout() {
     useEffect(() => {
         global.setshowchatsection(false);
         global.setshowchanel(false)
+        global.socketRef.current?.disconnect();
       }, []);
 
 
     return ( 
         <Dashebord>
-            <Friends setListFriends={global.setListFriends} setonlyChat={global.setonlyChat} friendsloding={global.dataisloded} ListFriends={global.ListFriends} setshowchatsection={global.setshowchatsection} Onlines={global.Onlines}/>
+            <Friends setListFriends={global.setListFriends} setonlyChat={global.setonlyChat} friendsloding={global.dataisloded} ListFriends={global.ListFriends} setshowchatsection={global.setshowchatsection} Onlines={global.Onlines} data={global.data}/>
         </Dashebord>
      );
 }

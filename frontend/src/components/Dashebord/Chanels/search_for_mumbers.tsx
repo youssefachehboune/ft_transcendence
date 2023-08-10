@@ -4,7 +4,7 @@ import { FaBan, FaGamepad } from "react-icons/fa";
 import {TbUserCancel} from 'react-icons/tb'
 import Image from "next/image";
 
-function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemebers, chanel, typememeber, user, typeofmumber, updateUserType}: any) {
+function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemebers, chanel, typememeber, user, typeofmumber, updateUserType, play}: any) {
     const handleBanClick = (action: string) => {
         if (action == 'ban')
             setbanList((prevBanList : any) => [...prevBanList, user])
@@ -54,7 +54,7 @@ function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemeber
                                     <MenuItem onClick={() => handleBanClick("mute")} icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
                                     <MenuItem onClick={() => handleBanClick("kick")} icon={<TbUserCancel/>}>kick</MenuItem>
                                     <MenuItem onClick={() => handelmakeuser_admin("makeAdmin")} icon={<BsPersonFillAdd/>}>make admin</MenuItem>
-                                    <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
+                                    <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                                 </MenuList>
                             </Menu>
                         ): typeofmumber == "ADMIN" ?
@@ -68,7 +68,7 @@ function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemeber
                                 <MenuItem onClick={() => handleBanClick("mute")} icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
                                 <MenuItem onClick={() => handleBanClick("kick")} icon={<TbUserCancel/>}>kick</MenuItem>
                                 <MenuItem onClick={() => handelmakeuser_admin("makeUser")} icon={<BsPersonFillAdd/>}>make User</MenuItem>
-                                <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
+                                <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                             </MenuList>
                             </Menu>
                         ): null
@@ -79,7 +79,7 @@ function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemeber
                                     ...
                             </MenuButton>
                             <MenuList>
-                                <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
+                                <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                             </MenuList>
                             </Menu>
                     ): typememeber == 'ADMIN' ?
@@ -94,7 +94,7 @@ function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemeber
                                     <MenuItem onClick={() => handleBanClick("ban")} icon={<FaBan/>}>Ban</MenuItem>
                                     <MenuItem onClick={() => handleBanClick("mute")} icon={<BsFillVolumeMuteFill/>}>mute</MenuItem>
                                     <MenuItem onClick={() => handleBanClick("kick")} icon={<TbUserCancel/>}>kick</MenuItem>
-                                    <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
+                                    <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                                 </MenuList>
                             </Menu>
                         ): 
@@ -104,7 +104,7 @@ function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemeber
                                     ...
                             </MenuButton>
                             <MenuList>
-                                <MenuItem icon={<FaGamepad/>}>Invite game</MenuItem>
+                                <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                             </MenuList>
                             </Menu>
                         )

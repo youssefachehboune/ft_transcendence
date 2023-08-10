@@ -11,6 +11,8 @@ import Image from "next/image";
 import { IoMdAddCircle } from "react-icons/io";
 import { ImSearch } from "react-icons/im";
 import { useRouter } from "next/router";
+import { Data } from "../Game/FriendsGame";
+import user_socket from "@/pages/userSocket";
 
 function ChatFriends(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -35,6 +37,13 @@ function ChatFriends(props: any) {
             fetch('http://localhost:3000/search/' + searchfriend, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatafriend(data);})
     }, [searchfriend])
 
+    const play = (id: number) => {
+        const invit: Data = {
+          sender: props.data.user_id,
+          receiver: id,
+        };
+        user_socket.emit("play", invit);
+    };
     const isOnline = (id: number) => {console.log(id);
         const online = props.Onlines.find((online: any) => online.userId === id);
         if (!online) return "gray";
@@ -104,7 +113,7 @@ function ChatFriends(props: any) {
                                                 {
                                                     searchfriend === "" && props.friendsloding ? (
                                                         props.ListFriends &&  props.ListFriends?.map((user: any, index: number) => (
-                                                            <Friend_chat isOnline={isOnline} key={user.user_id} setListFriends={props.setListFriends} index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={setonlyChat} setfriendchat={setfriendchat}/>
+                                                            <Friend_chat play={play} isOnline={isOnline} key={user.user_id} setListFriends={props.setListFriends} index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={setonlyChat} setfriendchat={setfriendchat}/>
 
                                                     ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                         <div  className="min-h-[61px] flex items-center">
@@ -132,7 +141,7 @@ function ChatFriends(props: any) {
                                                                 <MenuList>
                                                                     <MenuItem onClick={() => handelclick(datafriend, "BLOCK")} icon={<FaBan/>}>block</MenuItem>
                                                                     <MenuItem onClick={() => handelclick(datafriend, "UNFRIEND")} icon={<FaBan/>}>remove friend</MenuItem>
-                                                                    <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
+                                                                    <MenuItem onClick={() => play(datafriend.user_id)}  icon={<FaGamepad/>}>Invite game</MenuItem>
                                                                 </MenuList>
                                                             </Menu>
                                                             </div>

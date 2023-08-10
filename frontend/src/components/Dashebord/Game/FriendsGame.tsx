@@ -9,7 +9,7 @@ interface Friend {
   username: string;
 }
 
-interface Data {
+export interface Data {
   sender: number;
   receiver: number;
 }
