@@ -8,9 +8,11 @@ import Channel_Description from "./Channel_Description";
 import Chanel_password from "./chanel_password";
 import Creat_channel from "@/pages/api/Createchannel";
 import socket from '../../../../pages/chatSocket'
+import GetContext from "@/pages/context";
 
 function Createchanel({setmychanel, isOpen, onClose}: any) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  let global = GetContext()
   const [large_img, setlarge_img] = useState<string>('')
   const [avatarchanel, setavatarchanel] = useState<any>('')
   const MAX_IMAGE_SIZE = 5242880;
@@ -41,6 +43,7 @@ function Createchanel({setmychanel, isOpen, onClose}: any) {
       setpassword('')
       setErrorpassword('')
       setErrortypechanel('')
+      global.handleClick(null);
       onClose()
   }
   const confirm = async () => 

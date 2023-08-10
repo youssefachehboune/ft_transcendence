@@ -21,12 +21,14 @@ import Search_for_mumbers from "./search_for_mumbers";
 import { useRouter } from "next/router";
 import { Data } from "../Game/FriendsGame";
 import user_socket from "@/pages/userSocket";
+import GetContext from "@/pages/context";
 
 function List_memebres(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [searchformembers, setsearchformembers] = useState<string | undefined>("");
     const [datamumber, setdatamumber] = useState<any>();
     const [searchtypeofmember, setsearchtypeofmember] = useState<any>();
+    let global = GetContext()
 
 
     const [back , setback] = useState<boolean>(true)
@@ -108,7 +110,7 @@ function List_memebres(props: any) {
                 <div className={`w-[40%] h-[100%] ${back ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} test5 ml-2`}>
                     <div className={`w-[100%] h-[100%] flex flex-col items-center overflow-y-auto rounded-[10px]`}>
                                         <button className="bg-[#070012] w-[100%] flex cursor-auto">
-                                            <h1 onClick={() => {props.setshowchanel(false); router.push('/Home')}} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
+                                            <h1 onClick={() => {global.handleClick(null); router.push('/Home')}} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center relative">
                                             <button onClick={() => setback(true)} className={`self-end absolute mt-[25px] mr-[20px] ${back ? "hidden" : ""} `}><AiOutlineMessage className="hovring w-[18px] h-[18px]"/></button>

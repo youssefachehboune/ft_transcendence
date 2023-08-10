@@ -97,7 +97,7 @@ return (
                     <button onClick={() => {setshowprofile(!showprofile); setshowSettings(false);}} className="hidden 2xl:block xl:block">
                         <CgProfile className="hovring w-[18px] h-[18px]"/>
                     </button>
-                    <button className="hidden xl:block 2xl:block" onClick={() => {router.push('/Chat');setshowchanel(false); setshowchatsection(true);}}>
+                    <button className="hidden xl:block 2xl:block" onClick={() => {router.push('/Chat');}}>
                     <AiOutlineMessage color={massagenotif ? "red" : ""} className="hovring w-[18px] h-[18px]"/>
                     </button>
                     <button>

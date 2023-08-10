@@ -13,8 +13,10 @@ import { ImSearch } from "react-icons/im";
 import { useRouter } from "next/router";
 import { Data } from "../Game/FriendsGame";
 import user_socket from "@/pages/userSocket";
+import GetContext from "@/pages/context";
 
 function ChatFriends(props: any) {
+    let global = GetContext()
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
     const [datafriend, setdatafriend] = useState<any>();
@@ -64,7 +66,7 @@ function ChatFriends(props: any) {
                 <div className={`w-[40%] ${onlyChat || chatloding ? "2xl:w-[40%] xl:w-0" : "2xl:w-[50%] xl:w-[95%]"} h-[100%] test5 ml-2`}>
                     <div className={`w-[100%] h-[100%] flex flex-col items-center overflow-y-auto overflow-x-hidden rounded-[10px]`}>
                                         <button className="bg-[#070012] w-[100%] flex cursor-auto">
-                                            <h1 onClick={() => {props.setshowchatsection(false); router.push("/Home")}} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
+                                            <h1 onClick={() => {router.push("/Home"); global.handleClick(0)}} className="text-white text-[32px] font-sora font-[600] flex items-center cursor-pointer"><AiOutlineArrowLeft/>HOME</h1>
                                         </button>
                                         <div className="w-[100%] h-auto flex flex-col items-center relative">
                                             <Menu>
