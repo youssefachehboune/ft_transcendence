@@ -8,6 +8,7 @@ function Chat_Leyout() {
         golobal.setshowchatsection(true)
         golobal.setshowchanel(false)
         golobal.socketRef.current?.disconnect();
+        golobal.socketRef.current = null;
       }, []);
     return ( 
         <Dashebord>
