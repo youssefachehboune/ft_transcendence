@@ -83,7 +83,11 @@ export class GameService {
     games.delete(gameId);
   }
 
-
+  calculeteLevel(level: number, points: number) {
+    console.log("level", level, "points", points)
+    console.log("points / Math.ceil(level) * 100", points / Math.ceil(level) * 100)
+    return points / ((Math.floor(level) + 1) * 100); 
+  }
 
   async saveToCareer(winner: Player, loser: Player){
     console.log("save to db")
@@ -96,7 +100,13 @@ export class GameService {
         result: "WON"
       },
     });
+    const winnerProfile = await this.prisma.userProfile.findUnique({
+      where: {
+        user_id: winner.userId,
+      },
+    });
 
+    const newLevel = winnerProfile.level +  this.calculeteLevel(winnerProfile.level, 50);
     await this.prisma.userProfile.update({
       where: {
         user_id: winner.userId,
@@ -111,9 +121,7 @@ export class GameService {
         winStreak: {
           increment: 1,
         },
-        level: {
-          increment: 50 / 200,
-        }
+        level: newLevel
       },
     });
 
