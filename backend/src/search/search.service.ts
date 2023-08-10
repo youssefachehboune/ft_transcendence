@@ -35,6 +35,7 @@ export class SearchService {
 
             if (user.id === suserProfile.user_id) {
                 return {
+                    user_id: suserProfile.user_id,
                     avatar: suserProfile.avatar,
                     firstName: suserProfile.firstName,
                     lastName: suserProfile.lastName,
@@ -62,6 +63,7 @@ export class SearchService {
             });
 
             return {
+                user_id: suserProfile.user_id,
                 avatar: suserProfile.avatar,
                 firstName: suserProfile.firstName,
                 lastName: suserProfile.lastName,

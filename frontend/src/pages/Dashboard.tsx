@@ -13,6 +13,21 @@ import Search_Public_chanel from "../components/Dashebord/Chanels/Search_public_
 import socket from "./chatSocket"
 import { getContext } from "./context";
 import Main from "../components/Dashebord/Main_Cont";
+import { useDisclosure } from "@chakra-ui/react";
+import { GameData, Players } from "@/components/Dashebord/Game/gameData";
+import user_socket from "./userSocket";
+import Invite_game from "@/components/Dashebord/invite_game";
+import { useRouter } from "next/router";
+
+enum types {
+  online = "online",
+  ingame = "ingame",
+  offline = "offline",
+}
+interface status {
+  userId: number;
+  type: types;
+}
 
 function Dashebord({children} : any) {
   let golobal = getContext()
@@ -20,7 +35,12 @@ function Dashebord({children} : any) {
   const [menu, setmenu] = useState<boolean>(true);
   const [searchchanels, setsearchchanels] = useState<string | undefined>("");
   const [chaneldata, setchaneldata] = useState<any>();
+  const router = useRouter();
     
+
+  const { isOpen: ispopgame, onOpen: onopenpopgame, onClose: onclosepopgame } = useDisclosure()
+  const [invitegame, setinvitegame] = useState<Players>()
+  
     const open_search_chanel = () => 
     {
       setsearchchanels("")
@@ -38,6 +58,53 @@ function Dashebord({children} : any) {
       return () => {socket.off('receive_message')};
 
     }, [golobal.showchatsection])
+    useEffect(() => {
+      user_socket.on("invitation", (data: Players) => {
+        if (data) {
+          setinvitegame(data)
+          onopenpopgame()
+        }
+      });
+      user_socket.on("start", (data: GameData) => {
+        if (data) {
+          golobal.setGameData(data);
+          router.push('/Game')
+        }
+      });
+  
+      user_socket.on("updateStatus", (data: status) => {
+        if (data) {
+          golobal.setOnlines((prev: any) => {
+            const index = prev.findIndex((item: any) => item.userId === data.userId);
+            if (index !== -1) {
+              prev[index].type = data.type;
+            }
+            else {
+              prev.push(data);
+            }
+            return [...prev];
+          });
+        }
+      });
+  
+      user_socket.on("onlineFriends", (data: number[]) => {
+        if (data) {
+          const newData = data.map((item) => {
+            return { userId: item, type: types.online };
+          });
+          golobal.setOnlines((prev: any) => {
+            return [...prev, ...newData];
+          });
+        }
+      });
+      return () => {
+        user_socket.off('start');
+        user_socket.off('updateStatus');
+        user_socket.off('invitation');
+        user_socket.off('onlineFriends');
+      };
+    }, []);
+
     useEffect(() => {
         const fetchData = async () => {
           try {
@@ -138,6 +205,7 @@ function Dashebord({children} : any) {
             <Profile setshowprofile={setshowprofile} setdata={golobal.setdata} ListFriends={golobal.ListFriends} showprofile={showprofile} data={golobal.data} dataisloded={golobal.dataisloded}/>
             {golobal.dataisloded && <Createchanel setmychanel={golobal.setmychanel} isOpen={golobal.isOpen} onClose={golobal.onClose}/>}
             {golobal.dataisloded && <Search_Public_chanel data={golobal.data} searchchanels={searchchanels} setsearchchanels={setsearchchanels} setchaneldata={setchaneldata} chaneldata={chaneldata} setmychanel={golobal.setmychanel} setpublic_channel={golobal.setpublic_channel} public_channel={golobal.public_channel} onClose={golobal.closepublic} isOpen={golobal.ispublic}/>}
+            <Invite_game onClose={onclosepopgame} isOpen={ispopgame} data={invitegame} />
             {children ? children : <Main />}
         </div>
      );

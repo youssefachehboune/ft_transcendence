@@ -16,12 +16,15 @@ import { topPlayerModule } from './top-player/topPlayer.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { ChannelModule } from './channel/channel.module';
 import { AuthMiddleware } from './auth/auth.middleware';
+import { GameModule } from './game/game.module';
+import { BotGateway } from './game/bot.gateway';
+import { RandomGateway } from './game/random.gateway';
 
 
 @Module({
-  imports: [ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule],
+  imports: [ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule, GameModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, BotGateway, RandomGateway],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

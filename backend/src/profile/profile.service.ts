@@ -35,6 +35,7 @@ export class ProfileService {
         });
         const member_since = user.createdAt.toLocaleString('default', { month: 'long', year: 'numeric' });
         return {
+            user_id: user.id,
             avatar: userProfile.avatar,
             full_name: userProfile.firstName + " " + userProfile.lastName,
             username: userProfile.username,

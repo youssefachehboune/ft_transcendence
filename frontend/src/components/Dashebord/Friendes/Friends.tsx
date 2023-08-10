@@ -5,9 +5,10 @@ import Friend from "./Friend";
 import { Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import Image from "next/image";
+import { Data } from "../Game/FriendsGame";
+import user_socket from "@/pages/userSocket";
 
-
-function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection, setonlyChat} : any) { 
+function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection, setonlyChat, Onlines, data} : any) { 
     const [visible, setvisible] = useState<boolean>(false);
     const [block, setblock] = useState<boolean>(true);
     const [searchfriend, setsearchfriend] = useState<string | undefined>("");
@@ -18,6 +19,21 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
     const [clickFriend, setclickFriend] = useState<boolean>(false)
     const [friendClicked, setFriendClicked] = useState<number | null>(null);
 
+    const isOnline = (id: number) => {console.log(id);
+        const online = Onlines.find((online: any) => online.userId === id);
+        if (!online) return "gray";
+        if(online.type === "ingame")
+            return "blue";
+        return online.type === "online" ? "#7CFC00" : "gray";
+    };
+
+    const play = (id: number) => {
+        const invit: Data = {
+          sender: data.user_id,
+          receiver: id,
+        };
+        user_socket.emit("play", invit);
+    };
     useEffect(() => {
         if (searchfriend)
             fetch('http://localhost:3000/search/' + searchfriend, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {setdatafriend(data);})
@@ -73,7 +89,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                             {
                                                 searchfriend === "" && friendsloding ? (
                                                     ListFriends && ListFriends?.map((user: any, index: any) => (
-                                                        <Friend key={user.user_id} setListFriends={setListFriends}  index={index} changecolor={friendClicked === index} setchangecolor={setFriendClicked} user={user} setblock={setblock} setvisible={setvisible} setprofileloding={setprofileloding} setProfile={setProfile}/>
+                                                        <Friend play={play} isOnline={isOnline} key={user.user_id} setListFriends={setListFriends}  index={index} changecolor={friendClicked === index} setchangecolor={setFriendClicked} user={user} setblock={setblock} setvisible={setvisible} setprofileloding={setprofileloding} setProfile={setProfile}/>
                                                 ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                     <div  className="min-h-[61px] flex items-center">
                                                             <button onClick={ () => {
@@ -84,7 +100,8 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                                                 }} className={`w-[80%] flex items-center justify-center rounded-l-[6px] ${clickFriend ? "bg-[#00DAEA]" : ""}`}>
                                                                 <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                                                                     <Image width={'54'} height={'54'} src={datafriend.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                                                    <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
+                                                                    <div style={{ backgroundColor: isOnline(datafriend.user_id) }} className={`w-[12px] h-[12px] mt-[45px] ml-[30px] rounded-full absolute`}></div>
+
                                                                 </div>
                                                                 <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                                                                     <h1 className={`text-[13px] font-sora font-[600] text-[white] ${clickFriend ? "text-black" : ""}`}>{datafriend.firstName + " " + datafriend.lastName}</h1>
@@ -98,7 +115,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                                             <MenuList>
                                                                 <MenuItem onClick={() => handelclick(datafriend, "BLOCK")} icon={<FaBan/>}>block</MenuItem>
                                                                 <MenuItem onClick={() => handelclick(datafriend, "UNFRIEND")} icon={<FaBan/>}>remove friend</MenuItem>
-                                                                <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
+                                                                <MenuItem onClick={() => play(datafriend.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                                                             </MenuList>
                                                          </Menu>
 

@@ -100,7 +100,6 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
                             <div className="w-[65%] 2xl:w-[70%] xl:w-[75%] min-h-[84px] flex justify-center">
                                 <div className="w-[20%] h-[84px] flex items-center justify-end">
                                         <Image width={'54'} height={'54'} src={friendchat?.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                                        <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                                 </div>
                                 <div className="w-[70%] h-[84px] flex flex-col justify-center ml-[5px]">
                                     <h1 className="text-[13px] font-sora font-[600] text-[white]">{friendchat?.full_name}</h1>

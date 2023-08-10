@@ -2,7 +2,8 @@ import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import Image from "next/image";
 
-function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, setchatloding, setonlyChat, setfriendchat}: any) {
+
+function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, setchatloding, setonlyChat, setfriendchat, isOnline, play}: any) {
     const handelclick = (action: string) =>
     {
         setchangecolor(null)
@@ -10,6 +11,8 @@ function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, 
         setonlyChat(false)
         fetch(`http://localhost:3000/friends/${action}/` + user.username, { credentials: "include", method: "POST"});
     }
+
+
     return ( 
         <div key={user.user_id} className="min-h-[61px] flex items-center">
             <button onClick={() =>
@@ -22,7 +25,7 @@ function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, 
             } className={`w-[80%]  flex items-center justify-center rounded-l-[6px] ${changecolor ? "bg-[#00DAEA]": ""}`}>
                 <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                         <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                        <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
+                        <div style={{ backgroundColor: isOnline(user.user_id) }} className={`w-[12px] h-[12px]  mt-[45px] ml-[30px] rounded-full absolute`}></div>
                 </div>
                 <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                     <h1 className={`text-[13px] font-sora font-[600] text-[white] ${changecolor ? "text-black" : ""}`}>{user.firstName + " " + user.lastName}</h1>
@@ -36,7 +39,7 @@ function Friend_chat({setListFriends, index, changecolor, setchangecolor, user, 
                 <MenuList>
                     <MenuItem onClick={() => handelclick("BLOCK")} icon={<FaBan/>}>block</MenuItem>
                     <MenuItem onClick={() => handelclick("UNFRIEND")} icon={<FaBan/>}>remove friend</MenuItem>
-                    <MenuItem  icon={<FaGamepad/>}>Invite game</MenuItem>
+                    <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
                 </MenuList>
             </Menu>
         </div>

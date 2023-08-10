@@ -351,4 +351,32 @@ export class FriendsService {
       }
     }
   }
+
+  async getFriendsFromUser(userId: number) {
+    try {
+      const [friends1, friends2] = await Promise.all([
+        this.prisma.friendship.findMany({
+          where: {
+            user_id: userId,
+            status: "FRIENDS"
+          }
+        }),
+        this.prisma.friendship.findMany({
+          where: {
+            friend_id: userId,
+            status: "FRIENDS"
+          }
+        })
+      ]);
+
+      const friendIds = [
+        ...friends1.map(element => element.friend_id),
+        ...friends2.map(element => element.user_id)
+      ];
+
+      return friendIds;
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  }
 }

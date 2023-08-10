@@ -88,6 +88,15 @@ export class AuthService {
 		return { newaccessToken: accesstoken };
 	}
 
+	async getUserFromToken(jwtToken : string)
+    {
+        const payload = await this.jwtService.verify(jwtToken, {
+            secret: process.env.JWT_SECRET,
+        });
+        return payload;
+
+    }
+
 	async logout(email: string) {
 		await prisma.user.update({
 			where: { email: email },

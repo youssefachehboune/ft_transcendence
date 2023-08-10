@@ -34,6 +34,8 @@ function Expolore({Icone, text}: exploring) {
                 router.push('/Achievements')
             else if (text === "Leaderboard")
                 router.push('/Leaderboard')
+            else if (text === "Game")
+                router.push('/Game')
         }
     }
     return (

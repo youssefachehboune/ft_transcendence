@@ -10,6 +10,7 @@ function channel_Leyout() {
     useEffect(() => {
         golobal.setshowchatsection(true)
         golobal.setshowchanel(true)
+        golobal.socketRef.current?.disconnect();
       }, []);
       useEffect(() => {
         
