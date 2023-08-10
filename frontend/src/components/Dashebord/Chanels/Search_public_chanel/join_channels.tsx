@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
 import Image from "next/image";
 import socket from '../../../../pages/chatSocket'
+import GetContext from "@/pages/context";
 
 function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
       
@@ -9,7 +10,6 @@ function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
     const [enterpassword, setenterpassword] = useState<boolean>(true)
     const [checkpassword, setcheckpassword] = useState<boolean>(false)
     const passwordRef = useRef<HTMLInputElement | null>(null);
-
     const truncateDescription = (description: string) => {
         return description.length > 20 ? description.substring(0, 20) + "..." : description;
     };

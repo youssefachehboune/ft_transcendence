@@ -6,6 +6,8 @@ interface Props {
     username: string;
     name: string;
     image: string;
+    setListFriends: any
+    user: any
 }
 
 export default function FriendRequest(props : Props) {
@@ -13,6 +15,7 @@ export default function FriendRequest(props : Props) {
     function handleAccept() {
         fetch("http://localhost:3000/friends/ACCEPT/" + props.username, {credentials: "include", method: "POST" })
         setshowRequestFriend(false);
+        props.setListFriends((prev: any) => [...prev, props.user])
     }
     function handleReject() {
         fetch("http://localhost:3000/friends/REJECT/" + props.username, {credentials: "include", method: "POST" })

@@ -9,7 +9,7 @@ import {FaSearch} from 'react-icons/fa'
 import FriendRequest from "./FriendRequest";
 import Blocked from "./Blocked";
 import { useRouter } from "next/router";
-function Section({setshowchanel, setmenu, menu, massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile}: any) {
+function Section({setListFriends, setmenu, menu, massagenotif, setshowprofile, showprofile}: any) {
     const SettingRef = useRef<HTMLDivElement>(null);
     const requestRef = useRef<HTMLDivElement>(null);
     const [showSettings, setshowSettings] = useState<boolean>(false);
@@ -175,7 +175,7 @@ return (
                             (showdataRequest  && !showChannelInvite) ?
                             requestdata.map((item: any, key : number) => {
                                 return (
-                                    <FriendRequest key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
+                                    <FriendRequest user={item} setListFriends={setListFriends} key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
                                 )
                             })
                             :
