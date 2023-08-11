@@ -8,9 +8,9 @@ import { LiaUserFriendsSolid } from "react-icons/lia";
 import { FaSearch } from 'react-icons/fa'
 import FriendRequest from "./FriendRequest";
 import Blocked from "./Blocked";
-import { useRouter } from "next/router";
 import Link from "next/link";
-function Section({ setshowchanel, setmenu, menu, massagenotif, setshowchatsection, showchatsection, setshowprofile, showprofile }: any) {
+import { useRouter } from "next/router";
+function Section({setListFriends, setmenu, menu, massagenotif, setshowprofile, showprofile}: any) {
     const SettingRef = useRef<HTMLDivElement>(null);
     const requestRef = useRef<HTMLDivElement>(null);
     const [showSettings, setshowSettings] = useState<boolean>(false);
@@ -49,7 +49,7 @@ function Section({ setshowchanel, setmenu, menu, massagenotif, setshowchatsectio
         if (showRequest) {
             fetchData();
         }
-    }, [showRequest])
+    }, [showRequest, showChannelInvite, showdataRequest])
     function handleMouseEnter1() {
         setIsHovered(true);
     }
@@ -116,32 +116,32 @@ function Section({ setshowchanel, setmenu, menu, massagenotif, setshowchatsectio
             setshowRequest(false);
             setshowdataRequest(true);
         }
-    };
-    return (
-        <div className={"section"}>
-            {
-                !menu ? (
-                    <div className="w-[100%] h-[100%] flex items-center justify-around">
-                        <button onClick={handleClickRequest} style={showRequest ? { color: "#fff" } : {}}>
-                            <LiaUserFriendsSolid className="hovring w-[18px] h-[18px]" />
-                        </button>
-                        <button onClick={() => { setshowprofile(!showprofile); setshowSettings(false); }} className="hidden 2xl:block xl:block">
-                            <CgProfile className="hovring w-[18px] h-[18px]" />
-                        </button>
-                        <button className="hidden xl:block 2xl:block" onClick={() => { router.push('/Chat'); setshowchanel(false); setshowchatsection(true); }}>
-                            <AiOutlineMessage color={massagenotif ? "red" : ""} className="hovring w-[18px] h-[18px]" />
-                        </button>
-                        <button>
-                            <VscSettingsGear className="hovring w-[18px] h-[20px]" onClick={handleClickSettings}
-                                style={
-                                    showSettings ? { color: "#fff" } : {}
-                                }
-                            />
-                        </button>
-                        <button onClick={() => setmenu(!menu)} className="hidden xl:block">
-                            <FaSearch className="hovring w-[18px] h-[18px]" />
-                        </button>
-                    </div>
+      };
+return ( 
+    <div className={"section"}>
+        {
+            !menu ? (
+                <div className="w-[100%] h-[100%] flex items-center justify-around">
+                   <button onClick={handleClickRequest} style={showRequest ? {color: "#fff"} : {}}>
+                        <LiaUserFriendsSolid className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button onClick={() => {setshowprofile(!showprofile); setshowSettings(false);}} className="hidden 2xl:block xl:block">
+                        <CgProfile className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button className="hidden xl:block 2xl:block" onClick={() => {router.push('/Chat');}}>
+                    <AiOutlineMessage color={massagenotif ? "red" : ""} className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                    <button>
+                    <VscSettingsGear className="hovring w-[18px] h-[20px]" onClick={handleClickSettings}
+                    style={
+                        showSettings ? {color: "#fff"} : {}
+                    }
+                    />
+                    </button>
+                    <button onClick={() => setmenu(!menu)} className="hidden xl:block">
+                        <FaSearch  className="hovring w-[18px] h-[18px]"/>
+                    </button>
+                </div>
 
                 ) : (
                     <div className="w-[100%] h-[100%] flex items-center justify-end ml-[-20px]">
@@ -200,18 +200,18 @@ function Section({ setshowchanel, setmenu, menu, massagenotif, setshowchatsectio
                     <div className="w-[100%] relative h-[87%]  flex flex-col justify-start items-center overflow-y-auto">
                         {
 
-                            (showdataRequest && !showChannelInvite) ?
-                                requestdata.map((item: any, key: number) => {
-                                    return (
-                                        <FriendRequest key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName} />
-                                    )
-                                })
-                                :
-                                blockeddata.map((item: any, key: number) => {
-                                    return (
-                                        <Blocked key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName} />
-                                    )
-                                })
+                            (showdataRequest  && !showChannelInvite) ?
+                            requestdata.map((item: any, key : number) => {
+                                return (
+                                    <FriendRequest user={item} setListFriends={setListFriends} key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
+                                )
+                            })
+                            :
+                            blockeddata.map((item: any, key : number) => {
+                                return (
+                                    <Blocked key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
+                                )
+                            })
 
                         }
                         {

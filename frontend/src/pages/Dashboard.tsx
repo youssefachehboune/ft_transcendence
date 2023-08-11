@@ -114,10 +114,6 @@ function Dashebord({ children }: any) {
         const profileData = await profileResponse.json();
         golobal.setdata(profileData)
 
-        const HistorieResponse = await fetch('http://localhost:3000/history/ALL/1', { credentials: "include" });
-        const historiedata = await HistorieResponse.json();
-        golobal.setallhistorie(historiedata)
-
         const mychanels = await fetch('http://localhost:3000/channel/my_channels', { credentials: "include" });
         const chanelsdata = await mychanels.json();
         golobal.setmychanel(chanelsdata)
@@ -196,8 +192,8 @@ function Dashebord({ children }: any) {
           </div>
         </div>
       }
-      <Search menu={menu} />
-      <Section setshowchanel={golobal.setshowchanel} setmenu={setmenu} menu={menu} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={golobal.setshowchatsection} setonlyChat={golobal.setonlyChat} showchatsection={golobal.showchatsection} massagenotif={golobal.massagenotif} />
+      <Search setListFriends={golobal.setListFriends} menu={menu} />
+      <Section setListFriends={golobal.setListFriends} setshowchanel={golobal.setshowchanel} setmenu={setmenu} menu={menu} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={golobal.setshowchatsection} setonlyChat={golobal.setonlyChat} showchatsection={golobal.showchatsection} massagenotif={golobal.massagenotif} />
       <Profile setshowprofile={setshowprofile} setdata={golobal.setdata} ListFriends={golobal.ListFriends} showprofile={showprofile} data={golobal.data} dataisloded={golobal.dataisloded} />
       {golobal.dataisloded && <Createchanel setmychanel={golobal.setmychanel} isOpen={golobal.isOpen} onClose={golobal.onClose} />}
       {golobal.dataisloded && <Search_Public_chanel data={golobal.data} searchchanels={searchchanels} setsearchchanels={setsearchchanels} setchaneldata={setchaneldata} chaneldata={chaneldata} setmychanel={golobal.setmychanel} setpublic_channel={golobal.setpublic_channel} public_channel={golobal.public_channel} onClose={golobal.closepublic} isOpen={golobal.ispublic} />}

@@ -37,7 +37,8 @@ export class ProfileService {
         return {
             user_id: user.id,
             avatar: userProfile.avatar,
-            full_name: userProfile.firstName + " " + userProfile.lastName,
+            firstName: userProfile.firstName,
+            lastName: userProfile.lastName,
             username: userProfile.username,
             Role: user.role,
             frindship_status: await this.friendsService.getFriendshipStatus(req, userProfile.username),
@@ -84,7 +85,8 @@ export class ProfileService {
         const member_since = profileUser.createdAt.toLocaleString('default', { month: 'long', year: 'numeric' });
         return {
             avatar: Profile.avatar,
-            full_name: Profile.firstName + " " + Profile.lastName,
+            firstName: Profile.firstName,
+            lastName: Profile.lastName,
             username: Profile.username,
             Role: profileUser.role,
             frindship_status: await this.friendsService.getFriendshipStatus(req, Profile.username),

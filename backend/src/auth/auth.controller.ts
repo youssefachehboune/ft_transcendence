@@ -32,7 +32,7 @@ export class AuthController {
 		else if (twoFactorEnabled)
 			res.redirect("http://localhost:3001/authSignin")
 		else
-			res.redirect("http://localhost:3001/Dashboard")
+			res.redirect("http://localhost:3001/Home")
   }
 
   @Get('intra')
@@ -55,7 +55,7 @@ export class AuthController {
 		else if (twoFactorEnabled)
 			res.redirect("http://localhost:3001/authSignin")
 		else
-			res.redirect("http://localhost:3001/Dashboard")
+			res.redirect("http://localhost:3001/Home")
   }
 
   @Get('refresh')

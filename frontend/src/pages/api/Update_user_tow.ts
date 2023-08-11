@@ -20,6 +20,8 @@ async function Update_user_tow(data : any, dep: any, onCloseFn: () => void, setd
 					},
 					avatar: data.avatar,
 					username: data.username,
+					firstName: data.firstName, 
+					lastName: data.lastName
 				  }));
 			}
 			} else {
