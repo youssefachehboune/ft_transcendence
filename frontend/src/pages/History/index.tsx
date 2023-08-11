@@ -13,7 +13,7 @@ function History_Leyout() {
 
     return ( 
         <Dashebord>
-            <History historieloding={dataisloded.dataisloded} all={dataisloded.allhistorie} />
+            <History />
         </Dashebord>
      );
 }

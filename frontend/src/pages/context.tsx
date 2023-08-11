@@ -16,7 +16,7 @@ enum types {
 }
 export function AppWrapper({ children }: any) {
     const [dataisloded, setdataisloded] =  useState<boolean>(false)
-    const [allhistorie, setallhistorie] = useState<boolean>(false);
+
     const [data, setdata] = useState<any>('');
     const [ListFriends, setListFriends] = useState<any>();
     const [showchatsection, setshowchatsection] = useState<boolean>(false);
@@ -41,13 +41,21 @@ export function AppWrapper({ children }: any) {
     const [gameData, setGameData] = useState<GameData | undefined>(undefined);
     const [Onlines, setOnlines] = useState<status[]>([]);
 
+    const [isShow, setIsShow] = useState<boolean>(false);
+    const [activeIndex, setActiveIndex] = useState<null | number>(null);
+
+    const handleClick = (index : number) => {
+        setIsShow(index === activeIndex ? false : true);
+        setActiveIndex(index === activeIndex ? null : index);
+    };
     
   return (
-    <AppContext.Provider value={{dataisloded, setdataisloded, allhistorie, setallhistorie, data, invitationList, banList, setbanList, 
+    <AppContext.Provider value={{dataisloded, setdataisloded, data, invitationList, banList, setbanList, 
     setdata, ListFriends, setListFriends, showchatsection, setshowchatsection, setinvitationList, mutedList, 
     isOpen, onOpen, onClose,ispublic, openpublic, closepublic, setmutedList, requestList, setrequestList, channelloding, setchannelloding,
     mumeberschannelloding, setmumeberschannelloding, mychanel, setmychanel, showchanel, setshowchanel, chanel, setchanel, memebers,  setmemebers, typememeber, settypememeber,
-    massagenotif, setmassagenotif, public_channel, setpublic_channel, gameData, setGameData, setOnlines, Onlines, socketRef
+    massagenotif, setmassagenotif, public_channel, setpublic_channel, gameData, setGameData, setOnlines, Onlines, socketRef,
+    handleClick, activeIndex, 
     }}>
       {children}
     </AppContext.Provider>

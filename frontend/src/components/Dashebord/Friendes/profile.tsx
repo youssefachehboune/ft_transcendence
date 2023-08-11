@@ -26,9 +26,15 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
     const [avatar, setavatar] = useState<string>('')
     const [Erroravatar, setErroravatar] = useState<string>("")
     const profileRef = useRef<HTMLInputElement | null>(null)
+    const [firsName, setfirsName] = useState<string>("")
+    const [LatName, setLatName] = useState<string>("")
+    const [ErrorfirsName, setErrorfirsName] = useState<string>("")
+    const [ErrorLatName, setErrorLatName] = useState<string>("")
     const onopen = () => 
     {
         setusername(data.username)
+        setfirsName(data.firstName)
+        setLatName(data.lastName)
         setBio(data.info?.bio)
         setlocation(data.info?.location)
         setavatar(data.avatar)
@@ -52,7 +58,7 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                             </SkeletonCircle>
                         </div>
                             <SkeletonText skeletonHeight='2' isLoaded={dataisloded} width={'90%'}  className='flex flex-col items-center h-[70px] mt-[10px]'>
-                                    <h1 className="mt-[10px] text-[white] font-sora font-[700] text-[16px] flex items-center">{data?.full_name}<span className="ml-[5px]"><BsPatchCheckFill color="#2CBDE6"/></span></h1>
+                                    <h1 className="mt-[10px] text-[white] font-sora font-[700] text-[16px] flex items-center">{data?.firstName + " " + data?.lastName}<span className="ml-[5px]"><BsPatchCheckFill color="#2CBDE6"/></span></h1>
                                     <h1 className="text-[white] font-sora font-[400] text-[12px] text-center">{"@" + data?.username}</h1>
                             </SkeletonText>
                             <div className="w-[70%] h-[30px] flex flex-row justify-end items-center mt-[10px]">
@@ -99,7 +105,11 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                                                     <FaChartBar color="#FFE500"/>
                                                 </SkeletonCircle>
                                                 <SkeletonText isLoaded={dataisloded}>
-                                                    <h1 className="text-[white] text-[13px] font-sora font-[400]">Level Progress<span className="text-[8px] font-sora font-[700] flex items-center">{data?.statistics?.level}<div className="w-[48px] h-[4px] ml-[5px] bg-[#FFE500] rounded-[2px]"></div></span></h1>
+                                                        <h1 className="text-[white] text-[13px] font-sora font-[400]">Level Progress</h1>
+                                                    <div className='w-[100%] flex items-center'>
+                                                        <span className="text-[8px] text-[white] font-sora font-[700]">{data?.statistics?.level}</span>
+                                                        {dataisloded && <div className="h-[4px] ml-[5px] bg-[#FFE500] rounded-[2px]" style={{ width: Math.round((data?.statistics?.level % 1) * 100) === 0 ? '0%' : (data?.statistics?.level % 1) * 100 + '%'}}></div>}
+                                                    </div>
                                                 </SkeletonText>
                                             </div>
                                             <div className="w-[100%] h-[56px] flex items-center gap-4 ">
@@ -121,7 +131,9 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                                     </div>
                         </div>
                     </div>
-                    <Edite_profile setdata={setdata} Erroravatar={Erroravatar} setErroravatar={setErroravatar} isOpen={isOpen} onOpen={onOpen} onClose={onClose} data={data} username={username} setusername={setusername} Errorusername={Errorusername} setErrorusername={setErrorusername} Bio={Bio}
+                    <Edite_profile setErrorLatName={setErrorLatName} ErrorLatName={ErrorLatName} setErrorfirsName={setErrorfirsName} ErrorfirsName={ErrorfirsName} setLatName={setLatName} LatName={LatName} setfirsName={setfirsName} firsName={firsName} 
+                    setdata={setdata} Erroravatar={Erroravatar} setErroravatar={setErroravatar} isOpen={isOpen} onOpen={onOpen} 
+                    onClose={onClose} data={data} username={username} setusername={setusername} Errorusername={Errorusername} setErrorusername={setErrorusername} Bio={Bio}
                      setBio={setBio} ErrorBio={ErrorBio} setErrorBio={setErrorBio} location={location} setlocation={setlocation} avatar={avatar} setavatar={setavatar}/>
         </div>
     );

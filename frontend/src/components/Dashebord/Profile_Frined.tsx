@@ -24,7 +24,7 @@ function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, 
                                             </SkeletonCircle>
                                         <div>
                                             <SkeletonText isLoaded={profileloding}>
-                                                <h1 className="text-white font-[700] font-sora text-[20px] flex items-center">{Profile?.full_name}<span className="ml-[5px]"><BsPatchCheckFill color="#2CBDE6"/></span></h1>
+                                                <h1 className="text-white font-[700] font-sora text-[20px] flex items-center">{Profile?.firstName + " " + Profile?.lastName}<span className="ml-[5px]"><BsPatchCheckFill color="#2CBDE6"/></span></h1>
                                                 <h1 className="text-white font-[400] font-sora text-[15px]">{"@" + Profile?.username}</h1>
                                             </SkeletonText>
                                         </div>

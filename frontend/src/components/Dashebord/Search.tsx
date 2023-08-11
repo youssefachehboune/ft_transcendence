@@ -13,7 +13,7 @@ interface block {
     notfriend: boolean,
     requsetd: boolean
 }
-function Search({menu}: any) {
+function Search({menu, setListFriends}: any) {
     
     const [search, setsearch] = useState<string | undefined>("");
     const [showSearchfriend, setshowSearchfriend] = useState<boolean>(true)
@@ -214,6 +214,7 @@ function Search({menu}: any) {
                                                             <div className='w-[100px] h-[50px] flex'>
                                                                 <button onClick={() => {
                                                                         setshowSearchfriend(true)
+                                                                        setListFriends((prev: any) => [...prev, datasearch])
                                                                         toast({
                                                                             title: `accept`,
                                                                             position: 'top-right',

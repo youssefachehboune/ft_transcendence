@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
 import Image from "next/image";
 import socket from '../../../../pages/chatSocket'
+import GetContext from "@/pages/context";
 
 function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
       
@@ -9,7 +10,6 @@ function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
     const [enterpassword, setenterpassword] = useState<boolean>(true)
     const [checkpassword, setcheckpassword] = useState<boolean>(false)
     const passwordRef = useRef<HTMLInputElement | null>(null);
-
     const truncateDescription = (description: string) => {
         return description.length > 20 ? description.substring(0, 20) + "..." : description;
     };
@@ -127,20 +127,26 @@ function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
                     </>
                 ) : user.type == "PUBLIC" ? 
                 (
+                    <>
+                    {
+                    (type == "NOTMEMBER" || !type) && 
                     <button onClick={handlePublicClick} className={`w-[130px] bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                         <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>join</h1>
                     </button>
+
+                    }
+                    </>
                 ) : user.type == "PROTECTED" ? 
                 (
                     <>
                     {
-                        enterpassword && 
+                        enterpassword && (type == "NOTMEMBER" || !type) && 
                         <button onClick={() => setenterpassword(!enterpassword)}  className={`w-[130px] bg-[#14FF00] h-[24px] self-center  rounded-[4px] flex justify-center items-center`}>
                             <h1 className='text-[10px] font-[400] font-sora flex items-center mr-[-5px]'><HiUserAdd className='mr-[5px]'/>Enter password</h1>
                         </button>
                     }
                     {
-                        !enterpassword &&
+                        !enterpassword && (type == "NOTMEMBER" || !type) && 
                             <input ref={passwordRef} onKeyDown={handel_password} type="password" placeholder={"Enter your password"} className={`w-[130px] p-1 bg-[#ebf0ea] outline-0 ${checkpassword ? "border-[red]" : "border-[#0a0a0a]"} border-solid  border-[2px] font-sora text-[10px] font-[400]  text-black  h-[30px] self-center  rounded-[5px]`}/>
                     }
                     </>

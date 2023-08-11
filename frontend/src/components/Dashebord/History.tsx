@@ -1,16 +1,54 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import Image from "next/image";
+import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
 
-function History({historieloding, all} : any) {
+function History() {
 
     const [status, setstatus] = useState<string>("ALL")
 
-    const handlehistorieSelect = (event: ChangeEvent<HTMLSelectElement>) => {setstatus(event.target.value);};
+    const handlehistorieSelect = (event: ChangeEvent<HTMLSelectElement>) => {setshowdataLoading(true);setstatus(event.target.value);};
+    const [indexlevel, setindexlevel] = useState<number>(1);
+    const [numberofpage, setnumberofpage] = useState<number>(1);
+    const [all, setallhistorie] = useState<any>();
+    const [fetchda, setfetchda] = useState<boolean>(false);
+    const [showdataLoading, setshowdataLoading] = useState<boolean>(true);
     
+    useEffect(() => {
+        setfetchda(false);
+        const fetchData = async () => {
+            try {
+                const numberofpages = await fetch('http://localhost:3000/history/pages', { credentials: "include" });
+                const numberofpagesjson = await numberofpages.json();
+                setnumberofpage(numberofpagesjson);
+                const Leaderdata = await fetch(`http://localhost:3000/history/${status}/` + indexlevel, { credentials: "include" });
+                const Leaderdatajson = await Leaderdata.json();
+                setallhistorie(Leaderdatajson)
+                setshowdataLoading(false);
+            } catch (error) {
+                console.log("error: " + error)
+            }
+        };
+        fetchData();
+
+    }, [fetchda, status])
+    function IncrementIndex() {
+        if (indexlevel < numberofpage) {
+            setindexlevel(indexlevel + 1);
+            setfetchda(true);
+            setshowdataLoading(true);
+        }
+    }
+    function DecrementIndex() {
+        if (indexlevel > 1) {
+            setindexlevel(indexlevel - 1);
+            setfetchda(true);
+            setshowdataLoading(true);
+        }
+    }
     return ( 
-        <div className="cont flex  justify-center overflow-hidden">
-            <div className="w-[100%] h-[100%] flex flex-col items-center gap-[30px] rounded-t-[10px] rounded-l-[10px] overflow-y-auto test5 ml-2">
+        <div className="cont flex flex-col  justify-center overflow-hidden">
+            <div className="w-[100%] h-[90%] flex flex-col items-center gap-[30px] rounded-t-[10px] rounded-l-[10px] rounded-b-[0px] overflow-y-auto test5 ml-2">
                     <div className="w-[100%] h-auto flex justify-center">
                         <select onChange={handlehistorieSelect} className="w-[85px] h-[19px] test5 mt-[10px] rounded-[4px] text-[white] text-[13px] pl-2 font-[400] font-sora">
                             <option value={'ALL'}>all</option>
@@ -19,7 +57,7 @@ function History({historieloding, all} : any) {
                         </select>
                     </div>
                     {
-                            !historieloding && 
+                            showdataLoading && 
                             Array.from(Array(8)).map((key: any, index: number) =>
                             <div key={index} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                   <div className="w-[33.5%] flex items-center justify-end">
@@ -35,7 +73,7 @@ function History({historieloding, all} : any) {
                             )
                     }
                     {
-                            status === "LOST" && historieloding  && all?.length > 0 ? (
+                            status === "LOST" && !showdataLoading  && all?.length > 0 ? (
                                 all && all?.map((user: any, index: number) => {
                                     if (user.userPoints < user.opponentPoints)
                                         return (
@@ -62,7 +100,7 @@ function History({historieloding, all} : any) {
 
                                     )
                                 })
-                        ) : status === "WON" && historieloding && all?.length > 0 ? (
+                        ) : status === "WON" && !showdataLoading && all?.length > 0 ? (
                             all && all?.map((user: any, index: number) => 
                             {
                                 if (user.userPoints > user.opponentPoints)
@@ -89,7 +127,7 @@ function History({historieloding, all} : any) {
                                         </div>
                                     )
                             })
-                        ) : status === "ALL" && historieloding && all?.length > 0 ? (
+                        ) : status === "ALL" && !showdataLoading && all?.length > 0 ? (
                             all && all?.map((user: any, index: number) => (
                                 <div key={index} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                         <div className="w-[33.5%] flex items-center justify-end">
@@ -112,10 +150,34 @@ function History({historieloding, all} : any) {
                                         </div>
                                  </div>
                             ))
-                        ) : all?.length == 0 && historieloding ? (
+                        ) : all?.length == 0 && !showdataLoading ? (
                             <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have historie to see</div>
                         ): null
                     }
+            </div>
+            <div className="w-[100%] min-h-[80px] flex items-center ml-2 justify-center test5 rounded-b-[10px] rounded-r-[10px] rounded-t-[0px]">
+                <div className={`w-[35px] h-[35px] rounded-[10px] mr-2 bg-[#ffffff14] flex items-center justify-center ${1 === indexlevel ? 'cursor-auto' : 'cursor-pointer'}
+                        phone:w-[30px] phone:h-[30px]
+                        `}
+                        onClick={DecrementIndex}
+                    >
+                        <AiFillCaretLeft className="w-[20px] h-[20px] transition-all duration-1000
+                            phone:w-[18px] phone:h-[18px]
+                            "
+                            style={{ color: 1 !== indexlevel ? '#fff' : '#ffffff1A' }}
+                        />
+                    </div>
+                    <div className={`w-[35px] h-[35px]  rounded-[10px] bg-[#ffffff14] flex items-center justify-center ${numberofpage === indexlevel ? 'cursor-auto' : 'cursor-pointer'}
+                        phone:w-[30px] phone:h-[30px]
+                        `}
+                        onClick={IncrementIndex}
+                        >
+                        <AiFillCaretRight className="w-[20px] h-[20px] transition-all duration-1000
+                            phone:w-[18px] phone:h-[18px]
+                            "
+                            style={{ color: numberofpage !== indexlevel ? '#fff' : '#ffffff1A' }}
+                        />
+                    </div>
             </div>
         </div>
      );
