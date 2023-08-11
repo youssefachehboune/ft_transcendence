@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Edite_profile from '../Edite_profile/Edite_profile';
 import { useClickAway } from 'react-use';
 import Image from "next/image";
+import { MdMarkEmailUnread } from 'react-icons/md';
 
 interface Profile
 {
@@ -73,7 +74,7 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><IoLocationOutline/></span>{data?.info?.location}</h1>
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsPeople/></span>{ListFriends?.length} Friends</h1>
                                         <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><BsClock/></span>{data?.info?.member_since}</h1>
-                                        <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><Image width={'10'} height={'10'} src="/g3.svg" className="w-[10px] h-[10px]" alt={''}/></span>{data?.info?.email}</h1>
+                                        <h1 className="text-[10px] text-[white] font-sora font-[400] flex items-center ml-[5px]"><span className="mr-[5px]"><MdMarkEmailUnread/></span>{data?.info?.email}</h1>
                                 </SkeletonText>
                             </div>
                         <div className="w-[85%] h-[113px] mt-[30px]  flex flex-col items-start break-words">
