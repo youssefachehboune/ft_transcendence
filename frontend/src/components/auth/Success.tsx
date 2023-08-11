@@ -9,7 +9,7 @@ export default function Success() {
 
 	useEffect(() => {
 		const timeout = setTimeout(() => {
-		  router.push('/Dashboard');
+		  router.push('/Home');
 		}, 2000); 
 	
 		return () => clearTimeout(timeout);
