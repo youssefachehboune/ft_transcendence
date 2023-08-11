@@ -1,16 +1,16 @@
 import { AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle, SkeletonText, useDisclosure } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { BsPersonFillAdd, BsPersonFillSlash } from "react-icons/bs";
 import { GrUpdate } from "react-icons/gr";
 import { HiOutlineBan } from "react-icons/hi";
 import { VscSettingsGear } from "react-icons/vsc";
 
-function Param({setpublic_channel, setshowchanel, setmychanel, chanel, openrequested, openupdate, openmuted, openaddmember, openbanlist, data, user, onOpen, back, openlistinvitation}: any)
+function Param({setpublic_channel, setmychanel, chanel, openrequested, openupdate, openmuted, openaddmember, openbanlist, data, user, onOpen, back, openlistinvitation}: any)
 {
+    const router = useRouter()
     const handleliveClick = () => {
-        setshowchanel(false)
         setpublic_channel((prevChannels: any) => [...prevChannels, chanel]);
-        setmychanel((prevMembers: any) => prevMembers.filter((channel: any) => channel.name !== chanel.name));
         const leave : {name: string, password: string | undefined | null} = {name: chanel.name, password: chanel.password};
         fetch(`http://localhost:3000/channel/user/leave`, {
             credentials: "include",
@@ -18,6 +18,8 @@ function Param({setpublic_channel, setshowchanel, setmychanel, chanel, openreque
             headers: {'Content-Type': 'application/json' },
             body: JSON.stringify(leave),
           })
+          router.push('/Home')
+        
       };
     return (
         data?.username == user.username && user.type == "MEMBER" ? (

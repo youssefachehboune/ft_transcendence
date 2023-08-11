@@ -4,7 +4,7 @@ import { FaBan, FaGamepad } from "react-icons/fa";
 import {TbUserCancel} from 'react-icons/tb'
 import Image from "next/image";
 
-function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemebers, chanel, typememeber, user, typeofmumber, updateUserType, play}: any) {
+function Search_for_mumbers({data, setdatamumber, setmutedList, setbanList, setmemebers, chanel, typememeber, user, typeofmumber, updateUserType, play}: any) {
     const handleBanClick = (action: string) => {
         if (action == 'ban')
             setbanList((prevBanList : any) => [...prevBanList, user])
@@ -33,7 +33,6 @@ function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemeber
                 <button className={`w-[80%] flex items-center justify-center rounded-l-[6px]`}>
                     <div className="w-[75px] h-[70px] flex justify-center items-center relative">
                             <Image width={'54'} height={'54'} src={user.avatar} alt="" className="w-[54px] rounded-full select-none"/>
-                            <div className={`w-[12px] h-[12px] bg-[#14FF00] mt-[45px] ml-[30px] rounded-full absolute`}></div>
                     </div>
                     <div className="w-[200px] h-[100%] flex flex-col justify-center items-start ml-[3%]">
                         <h1 className={`text-[13px] font-sora font-[600] text-[white]`}>{user.firstName + " " + user.lastName}</h1>
@@ -74,14 +73,18 @@ function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemeber
                         ): null
                     ): typememeber == 'MEMBER' ?
                     (
-                            <Menu>
-                            <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">
-                                    ...
-                            </MenuButton>
-                            <MenuList>
-                                <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
-                            </MenuList>
-                            </Menu>
+                            (data.username != user.username && typeofmumber == "MEMBER" || data.username != user.username && typeofmumber == "ADMIN" || data.username != user.username && typeofmumber == "OWNER") ?
+                            (
+                                <Menu>
+                                <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">
+                                        ...
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
+                                </MenuList>
+                                </Menu>
+    
+                            ): null
                     ): typememeber == 'ADMIN' ?
                     (
                         typeofmumber == "MEMBER" ?
@@ -99,14 +102,18 @@ function Search_for_mumbers({setdatamumber, setmutedList, setbanList, setmemeber
                             </Menu>
                         ): 
                         (
-                            <Menu>
-                            <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">
-                                    ...
-                            </MenuButton>
-                            <MenuList>
-                                <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
-                            </MenuList>
-                            </Menu>
+                            (data.username != user.username && typeofmumber == "MEMBER" || data.username != user.username && typeofmumber == "ADMIN" || data.username != user.username && typeofmumber == "OWNER") ?
+                            (
+                                <Menu>
+                                <MenuButton as={Button} colorScheme='none' className="w-[20%] h-full rounded-r-[6px] text-white">
+                                        ...
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem onClick={() => play(user.user_id)} icon={<FaGamepad/>}>Invite game</MenuItem>
+                                </MenuList>
+                                </Menu>
+    
+                            ): null
                         )
 
                     ): null
