@@ -84,9 +84,8 @@ export class GameService {
   }
 
   calculeteLevel(level: number, points: number) {
-    console.log("level", level, "points", points)
-    console.log("points / Math.ceil(level) * 100", points / Math.ceil(level) * 100)
-    return points / ((Math.floor(level) + 1) * 100);
+    const levelPoints = points / ((Math.floor(level) + 1) * 100);
+    return (Math.floor(levelPoints) + (Math.round((levelPoints - Math.floor(levelPoints)) * 100) / 100));
   }
 
 
