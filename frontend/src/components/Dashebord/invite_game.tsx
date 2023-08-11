@@ -1,5 +1,5 @@
 import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay} from "@chakra-ui/react";
-import user_socket from "@/pages/userSocket";
+import user_socket from "@/userSocket";
 import { Players } from "./Game/gameData";
 
 import Image from "next/image";

@@ -6,7 +6,7 @@ import IconNavBar from "./IconNavBar";
 import { BiSearch } from "react-icons/bi";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import GetContext from "@/pages/context";
+import GetContext from "@/context";
 
 export default function NavBar(props : any) {
     const lastkey = props.mychanel?.length + 1;

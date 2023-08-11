@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
 import Achievements from "../../components/Dashebord/Achievements";
-import GetContext from "../context";
+import GetContext from "../../context";
 function Achive_Leyout() {
     let global = GetContext()
     useEffect(() => {

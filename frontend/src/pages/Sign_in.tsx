@@ -20,35 +20,21 @@ function Sign_in()
 	, [])
 	const [changeColor, setChangeColor] = useState(false);
 	return (
-<>
-			{
-				loading ? <Triangle
-				height="150"
-				width="180"
-				color="#fff"
-				ariaLabel="line-wave"
-				wrapperStyle={{}}
-				wrapperClass="loader"
-				visible={true}
-			  />
-			  :
+
 			  <div>
 			  <Head>
 				  <title>Pong Game ,sign-in Page</title>
 			  </Head>
 			  <div className="h-[100vh] w-[100%] relative flex justify-center items-center overflow-hidden overscroll-none bg-[#070012]">
-						  <Cursor setColor={setChangeColor} color={changeColor}/>
+						  {/* <Cursor setColor={setChangeColor} color={changeColor}/> */}
 						  <Svg_image setColor={setChangeColor} color={changeColor}/>
 						  <Logo />
-						  <Lang />
 						  <Rectangle setColor={setChangeColor} color={changeColor}/>
 						  <Text/>
 						  <Login/>
 			  </div>
 			  
 		  </div>
-			}
-		</>
 	)
 }
 

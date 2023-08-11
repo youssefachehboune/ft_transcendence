@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import GetContext from "../context";
+import GetContext from "../../context";
 import ChatFriends from "../../components/Dashebord/Chat/ChatFriends";
 function Chat_Leyout() {
     let golobal = GetContext()

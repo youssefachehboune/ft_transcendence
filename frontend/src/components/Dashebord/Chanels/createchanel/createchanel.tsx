@@ -7,9 +7,8 @@ import Typechanel from "./typechanel";
 import Channel_Description from "./Channel_Description";
 import Chanel_password from "./chanel_password";
 import Creat_channel from "@/pages/api/Createchannel";
-import socket from '../../../../pages/chatSocket'
-import GetContext from "@/pages/context";
-
+import socket from '../../../../chatSocket'
+import GetContext from "@/context";
 function Createchanel({setmychanel, isOpen, onClose}: any) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   let global = GetContext()

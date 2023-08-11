@@ -1,10 +1,10 @@
-import { GetText } from "../../pages/api/lang";
+ 
 
 export default function Text()
 {
 	return (
 		<div>
-				<h1 className="svg_text">{GetText('EAGER')}<span className="text-blue"> {GetText('ROAD')}</span></h1>
+				<h1 className="svg_text">Yay, you&apos;re here! Let&apos;s get this show on the<span className="text-blue"> road</span></h1>
 		</div>
 	)
 }

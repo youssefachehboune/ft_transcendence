@@ -2,7 +2,7 @@ import { Button, FormControl, FormLabel, Input, Modal, ModalBody, ModalCloseButt
 import Join_channels from "./join_channels";
 import { useEffect, useRef, useState } from "react";
 import Fined_chanel from "./fined_chanel";
-import GetContext from "@/pages/context";
+import GetContext from "@/context";
 function Search_Public_chanel({ data, setsearchchanels, searchchanels, setchaneldata, chaneldata, setmychanel, setpublic_channel, public_channel, onClose, isOpen }: any) {
   const inputeRef = useRef<HTMLInputElement | null>(null);
   const [typememeber, settypememeber] = useState<any>()

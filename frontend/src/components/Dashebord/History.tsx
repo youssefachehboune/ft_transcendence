@@ -144,7 +144,7 @@ function History() {
                                  </div>
                             ))
                         ) : all?.length == 0 && !showdataLoading ? (
-                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have historie to see</div>
+                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don&apos;t have historie to see</div>
                         ): null
                     }
             </div>

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import  GetContext  from "../context";
+import  GetContext  from "../../context";
 import Game from "@/components/Dashebord/Game";
 
 function GameSection() {

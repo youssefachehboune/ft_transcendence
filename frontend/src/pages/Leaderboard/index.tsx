@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import  GetContext from "../context";
+import  GetContext from "../../context";
 import Leaderboard from "../../components/Dashebord/Leaderboard";
 function Leader_Leyout() {
     let global = GetContext()

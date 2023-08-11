@@ -10,12 +10,12 @@ import React from "react";
 import Createchanel from "../components/Dashebord/Chanels/createchanel/createchanel";
 import { MdLeaderboard } from "react-icons/md";
 import Search_Public_chanel from "../components/Dashebord/Chanels/Search_public_chanel/Search_Public_chanel";
-import socket from "./chatSocket"
-import GetContext from "./context";
+import socket from "../chatSocket"
+import GetContext from "../context";
 import Main from "../components/Dashebord/Main_Cont";
 import { useDisclosure } from "@chakra-ui/react";
 import { GameData, Players } from "@/components/Dashebord/Game/gameData";
-import user_socket from "./userSocket";
+import user_socket from "../userSocket";
 import Invite_game from "@/components/Dashebord/invite_game";
 import { useRouter } from "next/router";
 
@@ -198,7 +198,7 @@ function Dashebord({ children }: any) {
         </div>
       }
       <Search setListFriends={golobal.setListFriends} menu={menu} />
-      <Section setListFriends={golobal.setListFriends} setshowchanel={golobal.setshowchanel} setmenu={setmenu} menu={menu} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={golobal.setshowchatsection} setonlyChat={golobal.setonlyChat} showchatsection={golobal.showchatsection} massagenotif={golobal.massagenotif} />
+      <Section setmychanel={golobal.setmychanel} setListFriends={golobal.setListFriends} setshowchanel={golobal.setshowchanel} setmenu={setmenu} menu={menu} showprofile={showprofile} setshowprofile={setshowprofile} setshowchatsection={golobal.setshowchatsection} setonlyChat={golobal.setonlyChat} showchatsection={golobal.showchatsection} massagenotif={golobal.massagenotif} />
       <Profile setshowprofile={setshowprofile} setdata={golobal.setdata} ListFriends={golobal.ListFriends} showprofile={showprofile} data={golobal.data} dataisloded={golobal.dataisloded} />
       {golobal.dataisloded && <Createchanel setmychanel={golobal.setmychanel} isOpen={golobal.isOpen} onClose={golobal.onClose} />}
       {golobal.dataisloded && <Search_Public_chanel data={golobal.data} searchchanels={searchchanels} setsearchchanels={setsearchchanels} setchaneldata={setchaneldata} chaneldata={chaneldata} setmychanel={golobal.setmychanel} setpublic_channel={golobal.setpublic_channel} public_channel={golobal.public_channel} onClose={golobal.closepublic} isOpen={golobal.ispublic} />}

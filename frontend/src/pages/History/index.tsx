@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
 import History from "../../components/Dashebord/History";
-import  GetContext  from "../context";
+import  GetContext  from "../../context";
 function History_Leyout() {
     let dataisloded = GetContext()
     useEffect(() => {

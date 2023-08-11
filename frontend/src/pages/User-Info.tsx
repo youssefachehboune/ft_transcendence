@@ -23,27 +23,16 @@ function Sign_up()
 	const [showSecondComponent, setShowSecondComponent] = useState(false);
 	const [changeColor, setChangeColor] = useState(false);
 	return (
-		<>
-		{
-				loading ? <Triangle
-				height="150"
-				width="180"
-				color="#fff"
-				ariaLabel="line-wave"
-				wrapperStyle={{}}
-				wrapperClass="loader"
-				visible={true}
-			  />
-			  :
+
 			  <div>
 			<Head>
-				<title>Pong Game ,sign-up Page</title>
+				<title>Sign up</title>
 			</Head>
 			<div className="m-0 h-[100vh] w-[100%] flex justify-center items-center relative overflow-hidden overscroll-none bg-[#070012]">
-						<Cursor setColor={setChangeColor} color={changeColor}/>
+						{/* <Cursor setColor={setChangeColor} color={changeColor}/> */}
 						<Svg_image setColor={setChangeColor} color={changeColor}/>
 						<Logo />
-						<Lang />
+						{/* <Lang /> */}
 						<Rectangle setColor={setChangeColor} color={changeColor}/>
 						{showFirstComponent && <Text_sign_up/>}
 						{showSecondComponent && <Text_success/>}
@@ -51,8 +40,6 @@ function Sign_up()
 						{showSecondComponent && <Success_div/>}
 			 </div>
 			</div>
-		}
-		</>
 		)
 }
 

@@ -53,7 +53,7 @@ export default function Main() {
                     </div>
                     {
                         isShow &&                     <div className="w-[90%] h-[50%] absolute bottom-1 z-[99] flex items-center justify-center phone:h-[70%]" >
-                        <p className="parag_play ">In our version of Pong, the objective is to score points by hitting the ball past your opponent's paddle. The first player to reach 10 points wins. Move your paddle vertically using the designated controls and react quickly to hit the ball. Missing the ball results in your opponent scoring a point. Vary your shots, and anticipate your opponent's moves to gain an advantage. Stay focused, hone your skills, and have fun as you compete in this exciting game of Pong!</p>
+                        <p className="parag_play ">In our version of Pong, the objective is to score points by hitting the ball past your opponent&apos;s paddle. The first player to reach 10 points wins. Move your paddle vertically using the designated controls and react quickly to hit the ball. Missing the ball results in your opponent scoring a point. Vary your shots, and anticipate your opponent&apos;s moves to gain an advantage. Stay focused, hone your skills, and have fun as you compete in this exciting game of Pong!</p>
                     </div>
                     }
 
@@ -98,7 +98,7 @@ export default function Main() {
                         <div className="par_hover">
                             <div className="w-full h-full flex flex-col justify-between">
                                 {
-                                    dataAchiev.map((item: any, key: number) => {
+                                    dataAchiev && dataAchiev.map((item: any, key: number) => {
                                         return (
                                             <AchievComp key={key} title={item.name} description={item.description} reward={item.points} />
                                         )

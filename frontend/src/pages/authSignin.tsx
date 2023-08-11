@@ -13,10 +13,10 @@ export default function AuthSignin() {
     
     return (
         <div className="h-[100vh] w-[100%] relative overflow-hidden flex justify-center items-center overscroll-none bg-my-bg">
-            <Cursor setColor={setChangeColor} color={changeColor}/>
+            {/* <Cursor setColor={setChangeColor} color={changeColor}/> */}
             <Svg_image setColor={setChangeColor} color={changeColor}/>
             <Logo/>
-            <Lang />
+            {/* <Lang /> */}
             {
                 show ? <AuthLogin setVal={setShow} val={show}/> : <Success/>
             }

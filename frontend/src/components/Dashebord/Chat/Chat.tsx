@@ -2,7 +2,7 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import {IoMdSend} from 'react-icons/io'
 import { ChangeEvent, useState, useRef, useEffect} from "react";
 import { RxCross2 } from "react-icons/rx";
-import socket from '../../../pages/chatSocket'
+import socket from '../../../chatSocket'
 import Image from "next/image";
 
 function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} : any) {

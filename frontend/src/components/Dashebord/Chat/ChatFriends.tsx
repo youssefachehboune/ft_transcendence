@@ -12,9 +12,8 @@ import { IoMdAddCircle } from "react-icons/io";
 import { ImSearch } from "react-icons/im";
 import { useRouter } from "next/router";
 import { Data } from "../Game/FriendsGame";
-import user_socket from "@/pages/userSocket";
-import GetContext from "@/pages/context";
-
+import user_socket from "@/userSocket";
+import GetContext from "@/context";
 function ChatFriends(props: any) {
     let global = GetContext()
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -110,7 +109,7 @@ function ChatFriends(props: any) {
                                                             </div>))
                                                 }
                                                 {props.ListFriends?.length == 0 && props.friendsloding &&
-                                                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have friends</div>
+                                                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don&apos;t have friends</div>
                                                 }
                                                 {
                                                     searchfriend === "" && props.friendsloding ? (

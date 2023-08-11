@@ -6,7 +6,7 @@ import Channel_Description from "../createchanel/Channel_Description";
 import Typechanel from "../createchanel/typechanel";
 import Chanel_password from "../createchanel/chanel_password";
 import Updatechanel from "@/pages/api/Updatechanel";
-import socket from '../../../../pages/chatSocket'
+import socket from '../../../../chatSocket'
 
 function Update_chanel({
 setchanel,

@@ -6,7 +6,7 @@ import { Button, Menu, MenuButton, MenuItem, MenuList, Skeleton, SkeletonCircle,
 import { FaBan, FaGamepad } from "react-icons/fa";
 import Image from "next/image";
 import { Data } from "../Game/FriendsGame";
-import user_socket from "@/pages/userSocket";
+import user_socket from "@/userSocket";
 
 function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection, setonlyChat, Onlines, data} : any) { 
     const [visible, setvisible] = useState<boolean>(false);
@@ -84,7 +84,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                                         </div>))
                                             }
                                             {ListFriends?.length == 0 && friendsloding && 
-                                                        <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have friends</div>
+                                                        <div className="text-white text-[15px] font-sora font-[700] text-center">you don&apos;t have friends</div>
                                             }
                                             {
                                                 searchfriend === "" && friendsloding ? (
