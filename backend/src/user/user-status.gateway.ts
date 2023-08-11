@@ -165,7 +165,7 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         const userId = await this.getUserIdFromSocket(socket);
         if (userId) {
             this.changeSocketsType(userId, "online");
-            if (data.loser.userId === 1337) {
+            if (data.loser.userId === 1) {
                 await this.updateAchievBot(userId);
                 return;
             }
@@ -181,7 +181,7 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
 
 
     async changeSocketsType(userId: number, type: string) {
-        if (userId === 1337) // 1337 is the id of the bot
+        if (userId === 1) // 1 is the id of the bot
             return;
         const sockets = usersMap.get(userId);
         if (sockets) {

@@ -138,24 +138,24 @@ export class HistoryService {
 		return updatedHistory;
 	}
 
-	async addMatch(@Req() req: Request, @Body() body: historyDto) {
+	async addMatch(userId : number, OppeonentId : number, userPoints : number, opponentPoints: number) {
 		const userProfile: UserProfile = await prisma.userProfile.findUnique({
-			where: { username: body.username }
+			where: { user_id: OppeonentId }
 		});
-		if (!userProfile || userProfile.user_id == req.user['id']) {
+		if (!userProfile || userProfile.user_id == userId) {
 			throw new BadRequestException('invalid username');
 		}
 		let result : 'WON' | 'LOST';
-		if (+body.opponentPoints > +body.userPoints)
+		if (opponentPoints > userPoints)
 			result = 'LOST';
-		else if (+body.userPoints > +body.opponentPoints)
+		else if (userPoints > opponentPoints)
 			result = 'WON';
 		await prisma.careerLog.create({
 			data: {
-				user_id: req.user['id'],
-				opponent_id: userProfile.user_id,
-				userPoints: +body.userPoints,
-				opponentPoints: +body.opponentPoints,
+				user_id: userId,
+				opponent_id: OppeonentId,
+				userPoints: userPoints,
+				opponentPoints: opponentPoints,
 				result: result
 			}
 		});
