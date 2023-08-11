@@ -93,7 +93,7 @@ export class GameService {
 
   async saveToCareer(winner: Player, loser: Player) {
     console.log("save to db")
-    await this.historyService.addMatch(loser.userId, winner.userId, winner.score, loser.score);
+    await this.historyService.addMatch(winner.userId, loser.userId, winner.score, loser.score);
     const winnerProfile = await this.prisma.userProfile.findUnique({
       where: {
         user_id: winner.userId,
