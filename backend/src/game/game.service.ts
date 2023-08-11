@@ -92,43 +92,50 @@ export class GameService {
 
 
   async saveToCareer(winner: Player, loser: Player) {
-    console.log("save to db")   
-    await this.historyService.addMatch(loser.userId, winner.userId,  winner.score, loser.score);
+    console.log("save to db")
+    await this.historyService.addMatch(loser.userId, winner.userId, winner.score, loser.score);
     const winnerProfile = await this.prisma.userProfile.findUnique({
       where: {
         user_id: winner.userId,
       },
     });
 
-    const newLevel = winnerProfile.level + this.calculeteLevel(winnerProfile.level, 50);
-    await this.prisma.userProfile.update({
-      where: {
-        user_id: winner.userId,
-      },
-      data: {
-        points: {
-          increment: 50,
+    // update loser profile
+    if (loser.userId !== 1) {
+      await this.prisma.userProfile.update({
+        where: {
+          user_id: loser.userId,
         },
-        won: {
-          increment: 1,
+        data: {
+          lost: {
+            increment: 1,
+          },
+          winStreak: 0,
         },
-        winStreak: {
-          increment: 1,
-        },
-        level: newLevel
-      },
-    });
+      });
+    }
+    // update winner profile
+    if (winner.userId !== 1) {
 
-    await this.prisma.userProfile.update({
-      where: {
-        user_id: loser.userId,
-      },
-      data: {
-        lost: {
-          increment: 1,
+      const newLevel = winnerProfile.level + this.calculeteLevel(winnerProfile.level, 50);
+      await this.prisma.userProfile.update({
+        where: {
+          user_id: winner.userId,
         },
-        winStreak: 0,
-      },
-    });
+        data: {
+          points: {
+            increment: 50,
+          },
+          won: {
+            increment: 1,
+          },
+          winStreak: {
+            increment: 1,
+          },
+          level: newLevel
+        },
+      });
+    }
+
   }
 }
