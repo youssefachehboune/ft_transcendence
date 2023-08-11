@@ -5,10 +5,11 @@ import '@/styles/success.css'
 import '../styles/landing.css'
 import '../styles/auth.css'
 import '../styles/MainDashBoard.css';
+import '../styles/Loading.css';
 import '../styles/Dashboard.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
-import { AppWrapper } from './context'
+import { AppWrapper } from '../context'
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>

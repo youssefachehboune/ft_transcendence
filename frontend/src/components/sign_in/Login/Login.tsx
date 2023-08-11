@@ -1,4 +1,4 @@
-import { GetText } from "../../../pages/api/lang";
+
 import Button_intra from './Button_intra';
 import Button_google from './Button_google';
 import Emoji from './Emoji';
@@ -8,9 +8,9 @@ function Login()
 {
 	return (
 		<div className="Login flex flex-col items-center justify-around ">
-			<h1 className="Login_join_text">{GetText('JOIN')}</h1>
+			<h1 className="Login_join_text">join the mouvement!</h1>
 			<Emoji/>
-			<h1 className="Login_sign_text">{GetText('ACCESS')}</h1>
+			<h1 className="Login_sign_text">Sign-in or sign-up</h1>
 			<Button_intra/>
 			<Button_google/>
 			<Go_back_icone/>

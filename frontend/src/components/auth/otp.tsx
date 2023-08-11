@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 import { KeyboardEvent } from "react";
-import { GetText } from '@/pages/api/lang';
+
   interface ApiResponse {
     isValid: boolean;
   }
@@ -14,7 +14,7 @@ import { GetText } from '@/pages/api/lang';
 let currentOTPIndex:number = 0;
 const OTPField = (props : Prop) => {
   const router = useRouter();
-  const test = GetText('ERROR_VERIFY_CODE');
+  const test = "The code you entered is incorrect";
   const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
   const [activeOTPIndex, setactiveOTPIndex] = useState<number>(0);
   const [isValid, setIsValid] = useState<boolean>(true);
@@ -125,7 +125,7 @@ const OTPField = (props : Prop) => {
         className="Nextt"
         style={{backgroundColor: !b ? ' #393e60' : '#171926', cursor: !b ? 'none' : 'pointer' }}
         disabled={!b}
-        type="submit">{GetText('VERIFY_BUTTON')}</button>
+        type="submit">Next</button>
     </div>
 </form>
 

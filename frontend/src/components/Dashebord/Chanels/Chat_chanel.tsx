@@ -2,7 +2,7 @@ import { IoMdSend } from "react-icons/io";
 import { ChangeEvent, useState, useRef, useEffect} from "react";
 import { RxCross2 } from "react-icons/rx";
 import Image from "next/image";
-import socket from '../../../pages/chatSocket'
+import socket from '../../../chatSocket'
 
 function Chat_chanel({back, chanel, data}: any) {
     var check = true;

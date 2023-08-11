@@ -1,6 +1,6 @@
 import { BsArrowRightShort } from "react-icons/bs";
 import Link from 'next/link';
-import { GetText } from "../../pages/api/lang";
+ 
 import { useState } from "react";
 export default function PlayButton() {
     const [isHovered, setIsHovered] = useState(false);
@@ -14,7 +14,7 @@ export default function PlayButton() {
   };
     return (
         <div className='lastbutton' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <Link href='/Sign_in'><h1>{GetText('PLAY')}</h1><BsArrowRightShort className={`icon-play ${isHovered ? 'icon-play-hover' : '' }`}/></Link>
+            <Link href='/Sign_in'><h1>Play now!</h1><BsArrowRightShort className={`icon-play ${isHovered ? 'icon-play-hover' : '' }`}/></Link>
         </div>
     );
 }

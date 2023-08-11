@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import  GetContext  from "../context";
+import  GetContext  from "../../context";
 import Friends from "../../components/Dashebord/Friendes/Friends";
 function Friends_Leyout() {
     let global = GetContext()

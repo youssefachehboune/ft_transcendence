@@ -113,7 +113,7 @@ function History({historieloding, all} : any) {
                                  </div>
                             ))
                         ) : all?.length == 0 && historieloding ? (
-                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don't have historie to see</div>
+                            <div className="text-white text-[15px] font-sora font-[700] text-center">you don&apos;t have historie to see</div>
                         ): null
                     }
             </div>

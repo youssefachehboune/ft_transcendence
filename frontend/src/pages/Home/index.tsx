@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
 import Main from "../../components/Dashebord/Main_Cont";
-import  GetContext  from "../context";
+import  GetContext  from "../../context";
 
 function Maindash() {
     let golobal = GetContext()

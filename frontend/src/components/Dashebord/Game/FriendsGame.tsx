@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import user_socket from "@/pages/userSocket";
+import user_socket from "@/userSocket";
 
 interface Friend {
   user_id: number;

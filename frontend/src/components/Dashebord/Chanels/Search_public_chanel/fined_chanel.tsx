@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
 import Image from "next/image";
-import socket from '../../../../pages/chatSocket'
+import socket from '../../../../chatSocket'
 
 function Fined_chanel({settypememeber, typememeber, setsearchchanels, setchaneldata, user, setpublic_channel, setmychanel}: any) {
     const [enterpassword, setenterpassword] = useState<boolean>(true)

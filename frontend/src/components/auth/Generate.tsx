@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Verfie from './Verification';
 import OTPField from './otp';
-import { GetText } from '@/pages/api/lang';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import path from 'path';
@@ -18,7 +18,7 @@ const MyComponent = (props : Prop) => {
     <div className="generate">
         <div className="w-[100%] h-[28.9%] flex items-center justify-center phone:h-[25%]">
             <div className="w-[90.48%] h-[41.4%] ">
-                <p className="font-sora font-medium text-[16px] leading-[19px] text-[#414243] phone:text-[13px]">{GetText('GENERATE_P')}</p>
+                <p className="font-sora font-medium text-[16px] leading-[19px] text-[#414243] phone:text-[13px]">You need to scan this QR Code with your google Authentication App and enter the verification code bellow</p>
             </div>
         </div>
         <div className="w-[100%] h-[21.2%] flex items-end justify-center">
@@ -29,7 +29,7 @@ const MyComponent = (props : Prop) => {
         <Verfie/>
         <OTPField setVal={props.setVal} val={props.val}/>
         <div className="w-[100%] h-[7.4%] flex items-end justify-center ">
-            <Link href={'/Dashboard'} className="font-sora font-regular text-[12px] text-[#24BD86] leading-[15px] cursor-none">{GetText('VERIFY_SKIP')}</Link>
+            <Link href={'/Dashboard'} className="font-sora font-regular text-[12px] text-[#24BD86] leading-[15px] cursor-none">Skip for now</Link>
         </div>
     </div>
 );

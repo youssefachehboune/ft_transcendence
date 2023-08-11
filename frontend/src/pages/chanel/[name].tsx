@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
-import GetContext from "../context";
+import GetContext from "../../context";
 import List_memebres from "../../components/Dashebord/Chanels/List_memebres";
 import { useRouter } from "next/router";
 function Channel_Leyout() {

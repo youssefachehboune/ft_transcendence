@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { io, Socket } from "socket.io-client";
 import { GameData , Player} from "./gameData";
-import user_socket from "@/pages/userSocket";
+import user_socket from "@/userSocket";
 import Image from "next/image";
 import { useDisclosure } from "@chakra-ui/react";
 import GameResult from "./gameResult";
 import { useRouter } from "next/router";
-import GetContext from "@/pages/context";
+import GetContext from "@/context";
 interface GameStartedProps {
   data: GameData;
 }

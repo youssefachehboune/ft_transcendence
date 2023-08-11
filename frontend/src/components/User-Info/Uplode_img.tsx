@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useRef } from 'react'
-import { GetText } from "../../pages/api/lang";
+ 
 import { AiOutlineUpload } from 'react-icons/ai';
 
 interface uplode_img
@@ -15,7 +15,7 @@ export default function Uplode_img({handleImageUpload} : uplode_img) {
 			htmlFor="file-input"
 			className="text-[12px] mr-[7px] font-sora font-[500] cursor-pointer phone:text-[10px] laptop:text-[13px]  Large-phone:ml-[-10px] laptop:ml-[-15px]"
 		>
-			{GetText("AVATAR")}
+			Upload an Avatar
 		</label>
 		<input
 			id="file-input"

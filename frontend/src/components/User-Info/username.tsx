@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, useState } from 'react';
-import { GetText } from '@/pages/api/lang';
+
 
 interface usernameInput
 {
@@ -11,9 +11,9 @@ interface usernameInput
 const UsernameInput = ({ handleFormChange, data, errormssage, dispatch} : usernameInput) => {
   const [username, setUsername] = useState('');
   const [error, setError] = useState('');
-  const error_user_alredy_exist = GetText('USER_ALREADY_EXIST');
-  const error_user_alphanumeric = GetText('USER_ALPHANUMERIC')
-  const error_user_max_charcter  = GetText('USER_MAX_CHARACTER')
+  const error_user_alredy_exist = "this username is already in use";
+  const error_user_alphanumeric = "Username must only contain alphanumeric characters";
+  const error_user_max_charcter  = "Username can contain 15 characters maximum"
 
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +56,7 @@ const UsernameInput = ({ handleFormChange, data, errormssage, dispatch} : userna
         htmlFor="one"
         className="text-[12px] font-sora font-[400] phone:text-[9px] Large-phone:text-[10px] laptop:text-[10px]"
       >
-        {GetText('USERNAME')}
+        Let us know the username you prefer
 		<span className='text-orange'> *</span>
       </label>
       <input

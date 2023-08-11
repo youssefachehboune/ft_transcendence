@@ -35,7 +35,7 @@ key, en, fr
 "VERIFY_CODE", "Verification code", "Code de vérification"
 "ERROR_VERIFY_CODE", "The code you entered is incorrect", "Le code que vous avez saisi est incorrect"
 "VERIFY_BUTTON", "Next", "Suivant"
-"VERIFY_SKIP", "Skip fro now", "Passer pour le moment"
+"VERIFY_SKIP", "Skip for now", "Passer pour le moment"
 "VERIFY_P" , "You need to enter the verification code  bellow", "Vous devez saisir le code de vérification ci-dessous"
 "AUTH_SUCCESS_TEXT", "Authentication Verified", "à deux facteurs vérifiée"
 "AUTH_SUCCESS_HEADER", "Two-Factor", "Authentification"

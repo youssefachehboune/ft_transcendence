@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, useReducer, useState } from 'react';
-import { GetText } from '@/pages/api/lang';
+
 
 interface bio
 {
@@ -10,7 +10,7 @@ const Bioinpute = ({ handleFormChange, dispatch} : bio) => {
 
 	const [username, setUsername] = useState('');
 	const [error, setError] = useState('');
-	const error_Bio_max_charcterc  = GetText('BIO_MAX_CHARACTER')
+	const error_Bio_max_charcterc  = "Bio can contain 200 characters maximum"
 	const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (value.length > 200) {
@@ -32,7 +32,7 @@ const Bioinpute = ({ handleFormChange, dispatch} : bio) => {
 	htmlFor="tow"
 	className=" text-[12px] font-[400] font-sora  phone:text-[9px] phone:mr-[80px] Large-phone:text-[10px] laptop:text-[10px]"
 	>
-	{GetText("BIO")}
+	Tell us a little about yourself
 	<span className='text-orange'> *</span>
 	</label>
 	<input

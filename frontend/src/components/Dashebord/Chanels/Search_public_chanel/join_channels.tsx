@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { HiUserAdd } from "react-icons/hi";
 import Image from "next/image";
-import socket from '../../../../pages/chatSocket'
+import socket from '../../../../chatSocket'
 
 function Join_channels({data, user, setpublic_channel, setmychanel}: any) {
       

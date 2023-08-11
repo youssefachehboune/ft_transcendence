@@ -7,7 +7,7 @@ import Typechanel from "./typechanel";
 import Channel_Description from "./Channel_Description";
 import Chanel_password from "./chanel_password";
 import Creat_channel from "@/pages/api/Createchannel";
-import socket from '../../../../pages/chatSocket'
+import socket from '../../../../chatSocket'
 
 function Createchanel({setmychanel, isOpen, onClose}: any) {
   const fileInputRef = useRef<HTMLInputElement>(null);

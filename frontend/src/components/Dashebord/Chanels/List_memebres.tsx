@@ -20,7 +20,7 @@ import { FaBan, FaGamepad } from "react-icons/fa";
 import Search_for_mumbers from "./search_for_mumbers";
 import { useRouter } from "next/router";
 import { Data } from "../Game/FriendsGame";
-import user_socket from "@/pages/userSocket";
+import user_socket from "@/userSocket";
 
 function List_memebres(props: any) {
     const inputRef = useRef<HTMLInputElement | null>(null);

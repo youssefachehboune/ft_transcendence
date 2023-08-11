@@ -10,12 +10,12 @@ import React from "react";
 import Createchanel from "../components/Dashebord/Chanels/createchanel/createchanel";
 import { MdLeaderboard } from "react-icons/md";
 import Search_Public_chanel from "../components/Dashebord/Chanels/Search_public_chanel/Search_Public_chanel";
-import socket from "./chatSocket"
-import GetContext from "./context";
+import socket from "../chatSocket"
+import GetContext from "../context";
 import Main from "../components/Dashebord/Main_Cont";
 import { useDisclosure } from "@chakra-ui/react";
 import { GameData, Players } from "@/components/Dashebord/Game/gameData";
-import user_socket from "./userSocket";
+import user_socket from "../userSocket";
 import Invite_game from "@/components/Dashebord/invite_game";
 import { useRouter } from "next/router";
 

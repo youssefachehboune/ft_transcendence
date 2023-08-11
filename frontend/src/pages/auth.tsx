@@ -19,31 +19,18 @@ export default function AuthGenerate() {
     const [changeColor, setChangeColor] = useState(false);
     const [show, setShow] = useState(true);
     return (
-        <>
+
+        <div className="h-[100vh] w-[100%] relative overflow-hidden flex justify-center items-center overscroll-none bg-my-bg">
+            {/* <Cursor setColor={setChangeColor} color={changeColor} /> */}
+            <Svg_image setColor={setChangeColor} color={changeColor} />
+            <Logo />
+            {/* <Lang /> */}
             {
-                loading ? <Triangle
-                    height="150"
-                    width="180"
-                    color="#fff"
-                    ariaLabel="line-wave"
-                    wrapperStyle={{}}
-                    wrapperClass="loader"
-                    visible={true}
-                />
-                    :
-                    <div className="h-[100vh] w-[100%] relative overflow-hidden flex justify-center items-center overscroll-none bg-my-bg">
-                        <Cursor setColor={setChangeColor} color={changeColor} />
-                        <Svg_image setColor={setChangeColor} color={changeColor} />
-                        <Logo />
-                        <Lang />
-                        {
-                            show ? <Generate setVal={setShow} val={show} /> : <Success />
-                        }
-                        <Text />
-                        <Rectangle setColor={setChangeColor} color={changeColor} />
-                    </div>
+                show ? <Generate setVal={setShow} val={show} /> : <Success />
             }
-        </>
+            <Text />
+            <Rectangle setColor={setChangeColor} color={changeColor} />
+        </div>
 
     );
 }
