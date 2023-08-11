@@ -49,7 +49,6 @@ function Section({setmychanel, setListFriends, setmenu, menu, massagenotif, sets
             const resa = await fetch("http://localhost:3000/channel/invitations", { credentials: "include" });
             const dataa = await resa.json();
             setchanneldata(dataa);
-            console.log(channeldata);
         }
         if (showRequest) {
             fetchData();
