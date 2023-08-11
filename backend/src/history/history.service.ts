@@ -20,7 +20,6 @@ export class HistoryService {
 	}
 	
 	async getHistory(@Req() req: Request, page: number, filter: 'WON' | 'LOST' | 'ALL', take?: number) {
-		const filterRes : 'WON' | 'LOST' = (filter === 'ALL') ? undefined : filter;
 		const selectFields = {
 			select: {
 				firstName: true,
@@ -29,13 +28,26 @@ export class HistoryService {
 				avatar: true
 			}
 		};
-		const history = await prisma.careerLog.findMany({
-			where: {
+
+		let filtermtp;
+
+		if(filter === 'WON') {
+			filtermtp = { user_id: req.user['id'] }
+		}
+		else if(filter === 'LOST') {
+			filtermtp = { opponent_id: req.user['id'] }
+		}
+		else if(filter === 'ALL'){
+			filtermtp = {
 				OR: [
 					{ user_id: req.user['id'] },
 					{ opponent_id: req.user['id'] }
 				],
-				result: filterRes,
+			}
+		}
+		const history = await prisma.careerLog.findMany({
+			where: {
+				...filtermtp
 			},
 			select: {
 				userPoints: true,
@@ -138,25 +150,14 @@ export class HistoryService {
 		return updatedHistory;
 	}
 
-	async addMatch(@Req() req: Request, @Body() body: historyDto) {
-		const userProfile: UserProfile = await prisma.userProfile.findUnique({
-			where: { username: body.username }
-		});
-		if (!userProfile || userProfile.user_id == req.user['id']) {
-			throw new BadRequestException('invalid username');
-		}
-		let result : 'WON' | 'LOST';
-		if (+body.opponentPoints > +body.userPoints)
-			result = 'LOST';
-		else if (+body.userPoints > +body.opponentPoints)
-			result = 'WON';
+	async addMatch(userId : number, OppeonentId : number, userPoints : number, opponentPoints: number) {
 		await prisma.careerLog.create({
 			data: {
-				user_id: req.user['id'],
-				opponent_id: userProfile.user_id,
-				userPoints: +body.userPoints,
-				opponentPoints: +body.opponentPoints,
-				result: result
+				user_id: userId,
+				opponent_id: OppeonentId,
+				userPoints: userPoints,
+				opponentPoints: opponentPoints,
+				result: 'WON'
 			}
 		});
 	}

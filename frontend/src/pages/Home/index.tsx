@@ -10,6 +10,7 @@ function Maindash() {
         golobal.setshowchatsection(false)
         golobal.setshowchanel(false)
         golobal.socketRef.current?.disconnect();
+        golobal.socketRef.current = null;
       }, []);
     return ( 
         <Dashebord>

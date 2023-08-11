@@ -8,6 +8,7 @@ function Achive_Leyout() {
         global.setshowchatsection(false)
         global.setshowchanel(false)
         global.socketRef.current?.disconnect();
+        global.socketRef.current = null;
       }, []);
     return ( 
         <Dashebord>
