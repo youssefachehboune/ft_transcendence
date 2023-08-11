@@ -11,6 +11,7 @@ function Channel_Leyout() {
         global.setshowchatsection(true)
         global.setshowchanel(true)
         global.socketRef.current?.disconnect();
+        global.socketRef.current = null;
       }, []);
       useEffect(() => {
         

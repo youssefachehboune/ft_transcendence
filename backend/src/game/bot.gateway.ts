@@ -33,7 +33,10 @@ export class BotGateway implements OnGatewayConnection, OnGatewayDisconnect {
             console.log("connected one to game mode bot", userId);
             const gameId = uuidv4();
             const user: any  = await this.userService.getUserDataByUserId(userId);
-            const bot : any = await this.userService.getUserDataByUserId(1337);
+            const bot : any = await this.userService.getUserDataByUserId(1);
+            if (!user || !bot) {
+                return;
+            }
             const player1: Player = { ...user, socketId: socket.id, score: 0, ready: true, ratio: 1 };
             const player2: Player = { ...bot, socketId: "bot", score: 0, ready: true, ratio: 1 };
             const gameData: GameDto = this.gameService.create(gameId, player1, player2, "bot");

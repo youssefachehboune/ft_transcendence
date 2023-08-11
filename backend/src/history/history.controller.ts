@@ -33,10 +33,4 @@ export class HistoryController {
 			throw new BadRequestException("the filter must be either 'ALL' or 'WON' or 'LOST'");
 		return await this.historyService.getHistory(req, page, filter);
 	}
-
-	@UseGuards(JwtGuard)
-	@Post()
-	async addMatch(@Req() req: Request, @Body() body: historyDto) {
-		return await this.historyService.addMatch(req, body);
-	}
 }

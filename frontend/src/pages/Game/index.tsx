@@ -8,7 +8,6 @@ function GameSection() {
     useEffect(() => {
         golobal.setshowchatsection(false)
         golobal.setshowchanel(false)
-        golobal.socketRef.current?.disconnect();
       }, []);
       
     return ( 

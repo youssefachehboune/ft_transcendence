@@ -8,6 +8,7 @@ function History_Leyout() {
         dataisloded.setshowchatsection(false)
         dataisloded.setshowchanel(false)
         dataisloded.socketRef.current?.disconnect();
+        dataisloded.socketRef.current = null;
       }, []);
 
     return ( 

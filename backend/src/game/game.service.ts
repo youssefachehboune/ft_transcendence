@@ -1,13 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { GameDto, Player } from './game.dto';
 import { PrismaClient } from '@prisma/client';
+import { HistoryService } from '../history/history.service';
 
 const games = new Map<string, GameDto>();
 @Injectable()
 export class GameService {
   private prisma: PrismaClient;
 
-  constructor() {
+  constructor(private readonly historyService: HistoryService) {
     this.prisma = new PrismaClient();
   }
 
@@ -19,7 +20,7 @@ export class GameService {
     let ballSpeed = 10;
     let ballLunchAngle = (Math.PI / 2) * 0.5;
     let ballLunchSpeed = 5;
-    
+
     const gameData: GameDto = {
       gameId: gameId,
       player1: player1,
@@ -83,50 +84,58 @@ export class GameService {
     games.delete(gameId);
   }
 
+  calculeteLevel(level: number, points: number) {
+    const levelPoints = points / ((Math.floor(level) + 1) * 100);
+    return (Math.floor(levelPoints) + (Math.round((levelPoints - Math.floor(levelPoints)) * 100) / 100));
+  }
 
 
-  async saveToCareer(winner: Player, loser: Player){
+
+  async saveToCareer(winner: Player, loser: Player) {
     console.log("save to db")
-     await this.prisma.careerLog.create({
-      data: {
-        user_id: winner.userId,
-        opponent_id: loser.userId,
-        userPoints: winner.score,
-        opponentPoints: loser.score,
-        result: "WON"
-      },
-    });
-
-    await this.prisma.userProfile.update({
+    await this.historyService.addMatch(winner.userId, loser.userId, winner.score, loser.score);
+    const winnerProfile = await this.prisma.userProfile.findUnique({
       where: {
         user_id: winner.userId,
       },
-      data: {
-        points: {
-          increment: 50,
-        },
-        won: {
-          increment: 1,
-        },
-        winStreak: {
-          increment: 1,
-        },
-        level: {
-          increment: 50 / 200,
-        }
-      },
     });
 
-    await this.prisma.userProfile.update({
-      where: {
-        user_id: loser.userId,
-      },
-      data: {
-        lost: {
-          increment: 1,
+    // update loser profile
+    if (loser.userId !== 1) {
+      await this.prisma.userProfile.update({
+        where: {
+          user_id: loser.userId,
         },
-        winStreak: 0,
-      },
-    });
+        data: {
+          lost: {
+            increment: 1,
+          },
+          winStreak: 0,
+        },
+      });
+    }
+    // update winner profile
+    if (winner.userId !== 1) {
+
+      const newLevel = winnerProfile.level + this.calculeteLevel(winnerProfile.level, 50);
+      await this.prisma.userProfile.update({
+        where: {
+          user_id: winner.userId,
+        },
+        data: {
+          points: {
+            increment: 50,
+          },
+          won: {
+            increment: 1,
+          },
+          winStreak: {
+            increment: 1,
+          },
+          level: newLevel
+        },
+      });
+    }
+
   }
 }

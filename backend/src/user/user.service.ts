@@ -120,6 +120,8 @@ export class UserService {
 		const user = await prisma.user.findUnique({
 			where: { id: id }
 		});
+		if (user == null)
+			return null;
 		const userProfile = await prisma.userProfile.findFirst({
 			where:{ User: user}
 		});

@@ -128,7 +128,8 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
 
 
     const endGame = (result: any) => {
-      user_socket.emit("endgame");
+      const residandscore = {winner: {userId:  result.winner.userId , scoor: result.winner.scoor}, loser: {userId: result.loser.userId, scoor: result.loser.scoor}};
+      user_socket.emit("endgame", residandscore);
       golobal.socketRef.current?.disconnect();
       console.log("end game");
       setResult(result);

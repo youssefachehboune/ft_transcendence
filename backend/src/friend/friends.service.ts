@@ -379,4 +379,29 @@ export class FriendsService {
       console.error("An error occurred:", error);
     }
   }
+
+  async isBlocked(userId: number, friendId: number) {
+    try {
+      const [friendship1, friendship2] = await Promise.all([
+        this.prisma.friendship.findFirst({
+          where: {
+            user_id: userId,
+            friend_id: friendId,
+            status: "BLOCKED"
+          }
+        }),
+        this.prisma.friendship.findFirst({
+          where: {
+            user_id: friendId,
+            friend_id: userId,
+            status: "BLOCKED"
+          }
+        })
+      ]);
+
+      return friendship1 || friendship2;
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  }
 }
