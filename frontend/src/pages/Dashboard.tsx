@@ -114,10 +114,6 @@ function Dashebord({ children }: any) {
         const profileData = await profileResponse.json();
         golobal.setdata(profileData)
 
-        const HistorieResponse = await fetch('http://localhost:3000/history/ALL/1', { credentials: "include" });
-        const historiedata = await HistorieResponse.json();
-        golobal.setallhistorie(historiedata)
-
         const mychanels = await fetch('http://localhost:3000/channel/my_channels', { credentials: "include" });
         const chanelsdata = await mychanels.json();
         golobal.setmychanel(chanelsdata)
