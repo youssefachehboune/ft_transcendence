@@ -109,11 +109,11 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             && newBallX + ball.radius >= paddles.paddle1.x
             && newBallX - ball.radius <= paddles.paddle1.x + paddles.width) {
             // console.log("paddle 1 hit");
-            let middlePaddle1 = newBallX + paddles.width / 2;
-            let distanceBallXPaddleMiddle = paddles.paddle1.x - middlePaddle1;
+            let middlePaddle1 = paddles.paddle1.x + paddles.width / 2;
+            let distanceBallXPaddleMiddle = ball.x - middlePaddle1;
             let newAngel = (((paddles.width / 2) - (distanceBallXPaddleMiddle)) / (paddles.width / 2)) * (Math.PI / 2);
             ball.dx = ball.speed * (Math.cos(newAngel));
-            ball.dy = ball.speed * (Math.sin(newAngel));
+            ball.dy = -ball.speed * (Math.sin(newAngel));
             ball.dy *= -1;
         }
 
@@ -184,14 +184,15 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const paddles = gameData.paddles;
         const ball = gameData.ball;
 
+        if(ball.dy < 0) return;
         const paddle2Middle = paddles.paddle2.x + paddles.width / 2;
         let randomPos = Math.random() * 20;
 
         if (ball.x > paddle2Middle + randomPos) {
-            paddles.paddle2.dx = paddles.speed;
+            paddles.paddle2.dx = (paddles.speed - 3);
         }
         else if (ball.x < paddle2Middle - randomPos) {
-            paddles.paddle2.dx = -paddles.speed;
+            paddles.paddle2.dx = -(paddles.speed - 3);
         } else {
             paddles.paddle2.dx = 0;
         }
