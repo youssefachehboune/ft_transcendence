@@ -18,7 +18,7 @@ import { GameData, Players } from "@/components/Dashebord/Game/gameData";
 import user_socket from "../userSocket";
 import Invite_game from "@/components/Dashebord/invite_game";
 import { useRouter } from "next/router";
-
+import { useToast } from '@chakra-ui/react'
 enum types {
   online = "online",
   ingame = "ingame",
@@ -36,7 +36,7 @@ function Dashebord({ children }: any) {
   const [searchchanels, setsearchchanels] = useState<string | undefined>("");
   const [chaneldata, setchaneldata] = useState<any>();
   const router = useRouter();
-
+  const toast = useToast()
 
   const { isOpen: ispopgame, onOpen: onopenpopgame, onClose: onclosepopgame } = useDisclosure()
   const [invitegame, setinvitegame] = useState<Players>()
@@ -66,6 +66,12 @@ function Dashebord({ children }: any) {
     user_socket.on("achievement", (data: any) => {
       if (data) {
         console.log(data)
+        toast({
+          title: `${data}`,
+          position: "top-right",
+          status: 'success',
+          isClosable: true,
+        })
       }
     });
     user_socket.on("start", (data: GameData) => {
@@ -105,6 +111,7 @@ function Dashebord({ children }: any) {
       user_socket.off('updateStatus');
       user_socket.off('invitation');
       user_socket.off('onlineFriends');
+      user_socket.off('achievement');
     };
   }, []);
 

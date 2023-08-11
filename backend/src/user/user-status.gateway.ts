@@ -102,12 +102,15 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
     }
 
 
-    emitAchievement(userId: number, achievementId: number) {
+    async emitAchievement(userId: number, achievementId: number) {
         const sockets = usersMap.get(userId);
+        const ashevname = await this.achievementsService.getAchievementName(achievementId);
+        if(!ashevname)
+            return;
         if (sockets) {
             sockets.forEach((s) => {
                 if (s.type === "online") {
-                    this.server.to(s.socket.id).emit("achievement", achievementId);
+                    this.server.to(s.socket.id).emit("achievement", ashevname);
                 }
             });
         }

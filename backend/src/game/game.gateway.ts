@@ -31,9 +31,15 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game) {
                 if (game.player2.socketId === socket.id)
-                    this.server.to(game.player1.socketId).emit("opponentDisconnected");
+                {
+                    const result = { winner:{ userId: game.player1.userId, username: game.player1.username , avatar : game.player1.avatar, scoor : game.player1.score }, loser: { userId: game.player2.userId, username: game.player2.username , avatar : game.player2.avatar, scoor : game.player2.score } };
+                    this.server.to(game.player1.socketId).emit("opponentDisconnected", result);
+                }
                 else if (game.player1.socketId === socket.id)
-                    this.server.to(game.player2.socketId).emit("opponentDisconnected");
+                {
+                    const result = { winner:{ userId: game.player2.userId, username: game.player2.username , avatar : game.player2.avatar, scoor : game.player2.score }, loser: { userId: game.player1.userId, username: game.player1.username , avatar : game.player1.avatar, scoor : game.player1.score } };
+                    this.server.to(game.player2.socketId).emit("opponentDisconnected", result);
+                }
                 this.gameService.deleteGame(game.gameId);
             }
         }

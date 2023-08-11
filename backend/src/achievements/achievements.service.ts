@@ -88,4 +88,13 @@ export class AchievementsService {
 		}
 		return false;
 	}
+
+	async getAchievementName(achievementId: number) {
+		const achievement = await prisma.achievement.findUnique({
+			where: { id: achievementId }
+		});
+		if (!achievement)
+			return null;
+		return achievement.name;
+	}
 }
