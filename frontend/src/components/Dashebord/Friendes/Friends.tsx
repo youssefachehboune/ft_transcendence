@@ -19,7 +19,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
     const [clickFriend, setclickFriend] = useState<boolean>(false)
     const [friendClicked, setFriendClicked] = useState<number | null>(null);
 
-    const isOnline = (id: number) => {console.log(id);
+    const isOnline = (id: number) => {
         const online = Onlines.find((online: any) => online.userId === id);
         if (!online) return "gray";
         if(online.type === "ingame")

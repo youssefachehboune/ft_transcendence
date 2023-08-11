@@ -99,7 +99,11 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                                                     <FaChartBar color="#FFE500"/>
                                                 </SkeletonCircle>
                                                 <SkeletonText isLoaded={dataisloded}>
-                                                    <h1 className="text-[white] text-[13px] font-sora font-[400]">Level Progress<span className="text-[8px] font-sora font-[700] flex items-center">{data?.statistics?.level}<div className="w-[48px] h-[4px] ml-[5px] bg-[#FFE500] rounded-[2px]"></div></span></h1>
+                                                        <h1 className="text-[white] text-[13px] font-sora font-[400]">Level Progress</h1>
+                                                    <div className='w-[100%] flex items-center'>
+                                                        <span className="text-[8px] text-[white] font-sora font-[700]">{data?.statistics?.level}</span>
+                                                        {dataisloded && <div className="h-[4px] ml-[5px] bg-[#FFE500] rounded-[2px]" style={{ width: Math.round((data?.statistics?.level % 1) * 100) === 0 ? '0%' : (data?.statistics?.level % 1) * 100 + '%'}}></div>}
+                                                    </div>
                                                 </SkeletonText>
                                             </div>
                                             <div className="w-[100%] h-[56px] flex items-center gap-4 ">
