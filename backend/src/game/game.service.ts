@@ -54,11 +54,9 @@ export class GameService {
       },
       tableWidth: TableWidth,
       tableHeight: TableHeight,
-      gameState: "waiting",
       gametype: type,
     };
     games.set(gameId, gameData);
-    console.log("create A " + type + " game", gameData);
     return gameData;
   }
 
@@ -92,7 +90,6 @@ export class GameService {
 
 
   async saveToCareer(winner: Player, loser: Player) {
-    console.log("save to db")
     await this.historyService.addMatch(winner.userId, loser.userId, winner.score, loser.score);
     const winnerProfile = await this.prisma.userProfile.findUnique({
       where: {

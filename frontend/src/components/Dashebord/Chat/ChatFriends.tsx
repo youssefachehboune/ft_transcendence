@@ -45,7 +45,7 @@ function ChatFriends(props: any) {
         };
         user_socket.emit("play", invit);
     };
-    const isOnline = (id: number) => {console.log(id);
+    const isOnline = (id: number) => {
         const online = props.Onlines.find((online: any) => online.userId === id);
         if (!online) return "gray";
         if(online.type === "ingame")

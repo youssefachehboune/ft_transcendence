@@ -21,13 +21,11 @@ export class RandomGateway implements OnGatewayConnection, OnGatewayDisconnect {
         if (!this.waitingList.some((user) => user.userId === userId)) {
             const user: any = await this.userService.getUserDataByUserId(userId);
             this.waitingList.push({ ...user, socketId: socketId, score: 0, ready: false, ratio: 1 });
-            console.log(this.waitingList);
         }
     }
 
     private removeUserFromWaitingList(socketId: string) {
         this.waitingList = this.waitingList.filter((user) => user.socketId !== socketId);
-        console.log(this.waitingList);
     }
 
 
@@ -51,7 +49,6 @@ export class RandomGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleConnection(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
-            console.log("New User connected to Play in random mode:", userId);
             await this.addUserToWaitingList(userId, socket.id);
             if (this.waitingList.length >= 2) {
                 const gameId = uuidv4();
@@ -67,7 +64,6 @@ export class RandomGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleDisconnect(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
-            console.log("The user leave the random mode :", userId);
             this.removeUserFromWaitingList(socket.id);
         }
     }

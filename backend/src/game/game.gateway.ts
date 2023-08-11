@@ -18,7 +18,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleConnection(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
-            console.log("connected one to game", userId);
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game && game.player1.ready && game.player2.ready) {
                 await this.startGame(game.gameId);
@@ -29,7 +28,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
     async handleDisconnect(socket: Socket) {
         const userId = await this.getUserId(socket);
         if (userId) {
-            console.log("disconnected one from game", userId);
             const game = this.gameService.getGameByUserId(userId, socket.id);
             if (game) {
                 if (game.player2.socketId === socket.id)
@@ -95,7 +93,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             && newBallX + ball.radius >= paddles.paddle2.x
             && newBallX - ball.radius <= paddles.paddle2.x + paddles.width
         ) {
-            // console.log("paddle 2 hit");
             let middlePaddle2 = paddles.paddle2.x + paddles.width / 2;
             let distanceBallXPaddleMiddle = ball.x - middlePaddle2;
             let newAngel = (((paddles.width / 2) - (distanceBallXPaddleMiddle)) / (paddles.width / 2)) * (Math.PI / 2);
@@ -108,7 +105,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
         if (newBallY - ball.radius <= paddles.paddle1.y + paddles.height
             && newBallX + ball.radius >= paddles.paddle1.x
             && newBallX - ball.radius <= paddles.paddle1.x + paddles.width) {
-            // console.log("paddle 1 hit");
             let middlePaddle1 = paddles.paddle1.x + paddles.width / 2;
             let distanceBallXPaddleMiddle = ball.x - middlePaddle1;
             let newAngel = (((paddles.width / 2) - (distanceBallXPaddleMiddle)) / (paddles.width / 2)) * (Math.PI / 2);
@@ -200,7 +196,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
     private startGame(gameId: string) {
         const gameData = this.gameService.getGame(gameId);
-        console.log("game started", gameData);
         let gamePlayed = true;
         if (gameData && gameData.player1 && gameData.player2) {
             const interval = setInterval(async () => {
@@ -209,7 +204,6 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
                     this.updateBotPaddlePosition(gameData);
                 gamePlayed = await this.handleBall(gameData);
                 if (!gamePlayed) {
-                    console.log("game over");
                     clearInterval(interval);
                     return;
                 }

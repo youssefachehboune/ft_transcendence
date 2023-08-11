@@ -42,7 +42,6 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         const userId = Array.from(usersMap.entries()).find(([id, sockets]) => sockets.some(s => s.socket.id === socket.id))?.[0];
 
         if (userId !== undefined) {
-            console.log("One disconnected from Dashboard", userId, socket.id);
             this.removeUser(userId, socket);
             const onlineFriends = await this.getFriendsOnline(userId);
             onlineFriends.forEach((Friend) => {
@@ -53,7 +52,6 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
 
     @SubscribeMessage("play")
     async handlePlay(socket: Socket, data: any) {
-        console.log("play", data);
         if (!data.sender || !data.receiver) {
             return;
         }
@@ -74,7 +72,6 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
                     const DataInvite: Players = { sender: { ...senderData, socketId: socket.id, score: 0, ready: false, ratio: 1 }, receiver: { ...receiverData, socketId: s.socket.id, score: 0, ready: false, ratio: 1 } };
                     this.server.to(s.socket.id).emit("invitation", DataInvite);
                 }
-                // this.server.to(receiver.socket.id).emit("invitation", DataInvite);
             });
         }
 
@@ -161,7 +158,6 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
 
     @SubscribeMessage("endgame")
     async handleEndgame(socket: Socket, data: any) {
-        console.log("endgame", data);
         const userId = await this.getUserIdFromSocket(socket);
         if (userId) {
             this.changeSocketsType(userId, "online");
@@ -178,8 +174,6 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         }
     }
 
-
-
     async changeSocketsType(userId: number, type: string) {
         if (userId === 1) // 1 is the id of the bot
             return;
@@ -191,7 +185,6 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         onlineFriends.forEach((Friend) => {
             this.server.to(Friend.socketId).emit("updateStatus", { userId: userId, type: type });
         });
-        console.log(usersMap);
     }
 
     async getUserIdFromSocket(socket: Socket) {
@@ -207,15 +200,8 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
     addUser(userId: number, socket: Socket) {
         const sockets = usersMap.get(userId) || [];
         const mysocket: Sock = { socket, type: "online" };
-        // check if socket already exists
-        // const index = sockets.findIndex((s) => s.socket.id === socket.id);
-        // if (index !== -1) {
-        //     sockets[index] = mysocket;
-        // } else {
         sockets.push(mysocket);
         usersMap.set(userId, sockets);
-        console.log(usersMap);
-        // }
     }
 
     removeUser(userId: number, socket: Socket) {
@@ -229,7 +215,6 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
                 }
             }
         }
-        console.log(usersMap);
     }
 
     async getFriendsOnline(userId: number) {

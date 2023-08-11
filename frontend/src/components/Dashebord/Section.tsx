@@ -92,7 +92,6 @@ function Section({setmychanel, setListFriends, setmenu, menu, massagenotif, sets
             fetchData();
         }
         if (!check2fa) {
-            console.log("go to auth");
             router.push("/auth");
         }
     }

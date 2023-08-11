@@ -84,7 +84,6 @@ export class AuthController {
   @Get('singin')
   @UseGuards(JwtGuard)
   check_cookie(@Req() req: Request, @Res() res: Response) {
-	console.log("check cookie api called");
 	if (req.cookies['jwt'])
 		res.send({ logged: true });
 	else

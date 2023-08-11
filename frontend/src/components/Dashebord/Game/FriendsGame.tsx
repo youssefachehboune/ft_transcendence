@@ -32,7 +32,7 @@ export default function FriendsGame() {
     });
     const data = await response.json();
     if(data.error)
-      return console.log(data.error);
+      return;
     setUserId(data);
   };
 
@@ -91,7 +91,6 @@ export default function FriendsGame() {
                       <div className="w-[10px] h-[10px]  z-99 absolute bottom-0 right-1 rounded-full
                                     phone:w-[8px] phone:h-[8px]
                                     "
-                        // style={{ backgroundColor: isOnline(friend.user_id) }}
                       ></div>
                     </div>
                   </div>

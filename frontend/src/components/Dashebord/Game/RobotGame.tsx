@@ -23,9 +23,7 @@ export default function RobotGame() {
     useEffect(() => {
         socketRef.current?.on("startBot", (data: GameData) => {
             if (data) {
-                console.log("Start the game with :", data);
                 socketRef.current?.disconnect();
-
                 setGameStarted(true);
                 setGameData(data);
             }

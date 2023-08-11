@@ -57,7 +57,6 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, []);
 
   const handleResize = () => {
-    // console.log("resize");
     if (animationFrameRef.current) {
       cancelAnimationFrame(animationFrameRef.current);
     }
@@ -131,7 +130,6 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       const residandscore = {winner: {userId:  result.winner.userId , scoor: result.winner.scoor}, loser: {userId: result.loser.userId, scoor: result.loser.scoor}};
       user_socket.emit("endgame", residandscore);
       golobal.socketRef.current?.disconnect();
-      console.log("end game");
       setResult(result);
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
@@ -154,19 +152,17 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       if (scoorSection) {
         scoorSection.style.display = "none";
       }
-      // pop up to gave hem the result of the game
+
       onopenresult();
-      // sleep for 5 sec
+
       setTimeout(() => {
         oncloseresult();
         golobal.setGameData(undefined);
         router.push("/Home");
-        // setmain(true);
       }, 5000);
     };
 
     golobal.socketRef.current?.on("move", (newgameData: GameData, id: number) => {
-      // console.log("move", id, " and my id is : ", userId, " and game is : ", gameData);
       const paddles = newgameData.paddles;
       const player1Scoor = newgameData.player1.score;
       const Player2Scoor = newgameData.player2.score;
@@ -194,12 +190,10 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
     });
 
     golobal.socketRef.current?.on("gameOver", (result: any) => {
-      console.log(result);
       endGame(result);
     });
 
     golobal.socketRef.current?.on("opponentDisconnected", (result: any) => {
-      console.log("opponent disconnected");
       endGame(result);
     });
 
@@ -215,12 +209,10 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
   }, [gameData, userId]);
 
   const stopMoving = () => {
-    // console.log("stop moving");
     golobal.socketRef.current?.emit("stop", userId, gameId);
   };
 
   const startMoving = (direction: string) => {
-    // console.log("start moving", direction);
     golobal.socketRef.current?.emit("move", direction, gameId);
   };
 

@@ -48,7 +48,6 @@ export interface GameDto {
   paddles: Paddles;
   tableWidth: number;
   tableHeight: number;
-  gameState: "waiting" | "playing" | "ended";
   gametype: "bot" | "multiplayer";
 }
 

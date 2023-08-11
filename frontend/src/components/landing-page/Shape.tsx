@@ -6,11 +6,9 @@ interface colorProp {
   
   const Shape  = (props : colorProp) => {
       function changeValueColorTrue() {
-            console.log('true');
               props.setColor(true);
       }
       function changeValueColorFalse() {
-            console.log('false');
             props.setColor(false);
 
         }
