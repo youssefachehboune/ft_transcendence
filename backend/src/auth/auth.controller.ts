@@ -80,4 +80,14 @@ export class AuthController {
 		await this.AuthService.logout(req.user['email']);
 		res.redirect('http://localhost:3001/')
   }
+
+  @Get('singin')
+  @UseGuards(JwtGuard)
+  check_cookie(@Req() req: Request, @Res() res: Response) {
+	console.log("check cookie api called");
+	if (req.cookies['jwt'])
+		res.send({ logged: true });
+	else
+		res.send({ logged: false });
+  }
 }

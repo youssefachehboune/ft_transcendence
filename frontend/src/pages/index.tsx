@@ -8,7 +8,17 @@ import Cursor from '../components/landing-page/Cursor'
 import Loader from '@/components/Loader'
 export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
+  
   useEffect(() => {
+    const fetchData = async () => {
+        const res = await fetch('http://localhost:3000/singin', {
+          credentials: 'include'
+        })
+        const data = await res.json();
+        setIsLogin(data.logged);
+    }
+    fetchData();
     setTimeout(() => {
       setLoading(false)
     }, 3000);
@@ -26,7 +36,7 @@ export default function Home() {
             {/* <Cursor setColor={setChangeColor} color={changeColor} /> */}
             <Logo />
             {/* <Lang /> */}
-            <Main />
+            <Main logged={isLogin}/>
             <Footer setColor={setChangeColor} color={changeColor} />
           </div>
         </div>

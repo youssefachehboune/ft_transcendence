@@ -10,7 +10,8 @@ import FriendRequest from "./FriendRequest";
 import Blocked from "./Blocked";
 import Link from "next/link";
 import { useRouter } from "next/router";
-function Section({setListFriends, setmenu, menu, massagenotif, setshowprofile, showprofile}: any) {
+import ChannelInvite from "./ChannelInvite";
+function Section({setmychanel, setListFriends, setmenu, menu, massagenotif, setshowprofile, showprofile}: any) {
     const SettingRef = useRef<HTMLDivElement>(null);
     const requestRef = useRef<HTMLDivElement>(null);
     const [showSettings, setshowSettings] = useState<boolean>(false);
@@ -24,6 +25,7 @@ function Section({setListFriends, setmenu, menu, massagenotif, setshowprofile, s
     const [showdataRequest, setshowdataRequest] = useState<boolean>(true);
     const [check2fa, setcheck2fa] = useState<boolean>(false);
     const [checkDisable2fa, setcheckDisable2fa] = useState<boolean>(false);
+    const [channeldata, setchanneldata] = useState<any>([]);
     const router = useRouter()
 
 
@@ -44,7 +46,10 @@ function Section({setListFriends, setmenu, menu, massagenotif, setshowprofile, s
             const res = await fetch("http://localhost:3000/friends/status/REQUESTED", { credentials: "include" });
             const data = await res.json();
             setrequestdata(data);
-
+            const resa = await fetch("http://localhost:3000/channel/invitations", { credentials: "include" });
+            const dataa = await resa.json();
+            setchanneldata(dataa);
+            console.log(channeldata);
         }
         if (showRequest) {
             fetchData();
@@ -221,7 +226,15 @@ return (
                             blockeddata.length === 0 && !showdataRequest && !showChannelInvite && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Blocked</h1>
                         }
                         {
-                            showChannelInvite && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Channel Invite</h1>
+                            channeldata && showChannelInvite && channeldata.map((item: any, key : number) => {
+                                return (
+                                    <ChannelInvite setmychanel={setmychanel} chanel={item} key={key} name={item.name} image={item.avatar}/>
+                                )
+                            }
+                            )
+                        }
+                        {
+                            channeldata.length === 0 && showChannelInvite && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Channel Invite</h1>
                         }
                     </div>
                 </div>
