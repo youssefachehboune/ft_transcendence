@@ -2,8 +2,7 @@ import { Injectable, Req } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { Socket } from 'socket.io';
 import { parse } from 'cookie';
-import { WsException } from '@nestjs/websockets';
-import { ChannelLog, PrismaClient, User } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import { Request } from 'express'
 
 const prisma = new PrismaClient();
@@ -19,7 +18,7 @@ export class ChatService {
 			if (jwt) {
 				user = await this.authService.getUserFromAuthenticationToken(jwt);
 				if (!user) {
-					throw new WsException('Invalid credentials.'); 
+					return null; 
 				}
 			}
 			return user;
@@ -101,7 +100,7 @@ export class ChatService {
 				where: { user_id: req.user['id'] , channel_id: channel_id }
 			});
 			if (member.MemberType !== 'ADMIN' && member.MemberType !== 'OWNER' && member.MemberType !== 'MEMBER' && member.MemberType !== 'MUTED')
-				throw new WsException('You are not a member of the channel');
+				return null;
 			const channelLog = await prisma.channelLog.findMany({
 				where: { channel_id: channel_id }
 			})

@@ -3,43 +3,25 @@
 1. Clone the repository to your local machine:
 
 ```bash
-$ git clone <repository_url>
+$ git clone https://github.com/youssefachehboune/ft_transcendence.git
 ```
 
-2. Navigate to the project directory backend:
+2. Navigate to the project directory:
 
 ```bash
-$ cd project-directory/backend
+$ cd ft_transcendence
 ```
 
-3. Install the required dependencies:
+3. Run the following command to build the Docker image and start the container:
 
 ```bash
-$ npm install
+$ docker-compose up --build
 ```
 
-4. Create a .env file in this directory and fill it (you can refer to .env.example for guidance).
+#### Note: Make shure that you have the .env file in the backend directory. You can check the .env.example file to see the required variables.
 
 
-## Database Setup
+## Usage
 
-1. Push the Prisma migrations to your database:
+1. You can access the frontend at the following URL: http://localhost:3001
 
-```bash
-$ npx prisma db push
-```
-## Testing
-
-2. Seed the database with initial data (if applicable):
-
-```bash
-npx prisma db seed
-```
-
-3. Launch Prisma Studio to interact with the database:
-
-```bash
-npx prisma studio
-```
-
- Please note that I adjusted the wording slightly for clarity. Make sure to replace `<repository_url>` with the actual URL of your repository and update the `project-directory` accordingly. 👍

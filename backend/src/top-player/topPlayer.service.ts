@@ -8,6 +8,14 @@ const prisma = new PrismaClient();
 export class TopPlayerService {
     async getTopPlayer(): Promise<object> {
         const topPlayer = await prisma.userProfile.findMany({
+            where: {
+                User: {
+                    OR: [
+                        { role: 'ADMIN' },
+                        { role: 'USER' },
+                    ]
+                }
+            },
             take: 3,
             orderBy: {
                 level: 'desc'

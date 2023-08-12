@@ -102,11 +102,8 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
     }
 
 
-    async emitAchievement(userId: number, achievementId: number) {
+    async emitAchievement(userId: number, ashevname: string) {
         const sockets = usersMap.get(userId);
-        const ashevname = await this.achievementsService.getAchievementName(achievementId);
-        if(!ashevname)
-            return;
         if (sockets) {
             sockets.forEach((s) => {
                 if (s.type === "online") {
@@ -117,45 +114,45 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
     }
 
     async updateAchievWin(userId: number, loserScoore: number) {
-        if (await this.achievementsService.updateAchievements(userId, 7, false))
-            this.emitAchievement(userId, 7);
-        if (await this.achievementsService.updateAchievements(userId, 10, false))
-            this.emitAchievement(userId, 10);
-        if (await this.achievementsService.updateAchievements(userId, 15, false))
-            this.emitAchievement(userId, 15);
-        if (await this.achievementsService.updateAchievements(userId, 1, false))
-            this.emitAchievement(userId, 7);
-        if (await this.achievementsService.updateAchievements(userId, 5, false))
-            this.emitAchievement(userId, 10);
-        if (await this.achievementsService.updateAchievements(userId, 13, false))
-            this.emitAchievement(userId, 15);
+        if (await this.achievementsService.updateAchievements(userId, 'Novic', false))
+            this.emitAchievement(userId, 'Novic');
+        if (await this.achievementsService.updateAchievements(userId, 'Virtuoso', false))
+            this.emitAchievement(userId, 'Virtuoso');
+        if (await this.achievementsService.updateAchievements(userId, 'Luminary', false))
+            this.emitAchievement(userId, 'Luminary');
+        if (await this.achievementsService.updateAchievements(userId, 'Win Streak', false))
+            this.emitAchievement(userId, 'Win Streak');
+        if (await this.achievementsService.updateAchievements(userId, 'Win Streak 2', false))
+            this.emitAchievement(userId, 'Win Streak 2');
+        if (await this.achievementsService.updateAchievements(userId, 'Win Streak 3', false))
+            this.emitAchievement(userId, 'Win Streak 3');
         if (loserScoore === 0) {
-            if (await this.achievementsService.updateAchievements(userId, 1, false))
-                this.emitAchievement(userId, 4);
-            if (await this.achievementsService.updateAchievements(userId, 5, false))
-                this.emitAchievement(userId, 9);
-            if (await this.achievementsService.updateAchievements(userId, 13, false))
-                this.emitAchievement(userId, 12);
+            if (await this.achievementsService.updateAchievements(userId, 'Perfect Game', false))
+                this.emitAchievement(userId, 'Perfect Game');
+            if (await this.achievementsService.updateAchievements(userId, 'Perfect Game 2', false))
+                this.emitAchievement(userId, 'Perfect Game 2');
+            if (await this.achievementsService.updateAchievements(userId, 'Perfect Game 3', false))
+                this.emitAchievement(userId, 'Perfect Game 3');
         }
     }
 
     async updateAchievLose(userId: number) {
-        if (await this.achievementsService.updateAchievements(userId, 7, true))
-            this.emitAchievement(userId, 7);
-        if (await this.achievementsService.updateAchievements(userId, 10, true))
-            this.emitAchievement(userId, 10);
-        if (await this.achievementsService.updateAchievements(userId, 15, true))
-            this.emitAchievement(userId, 15);
+        if (await this.achievementsService.updateAchievements(userId, 'Win Streak', true))
+            this.emitAchievement(userId, 'Win Streak');
+        if (await this.achievementsService.updateAchievements(userId, 'Win Streak 2', true))
+            this.emitAchievement(userId, 'Win Streak 2');
+        if (await this.achievementsService.updateAchievements(userId, 'Win Streak 3', true))
+            this.emitAchievement(userId, 'Win Streak 3');
     }
 
     async updateAchievBot(userId: number) {
 
-        if (await this.achievementsService.updateAchievements(userId, 2, false))
-            this.emitAchievement(userId, 2);
-        if (await this.achievementsService.updateAchievements(userId, 6, false))
-            this.emitAchievement(userId, 6);
-        if (await this.achievementsService.updateAchievements(userId, 11, false))
-            this.emitAchievement(userId, 11);
+        if (await this.achievementsService.updateAchievements(userId, 'Electronic Elite', false))
+            this.emitAchievement(userId, 'Electronic Elite');
+        if (await this.achievementsService.updateAchievements(userId, 'Electronic Elite 2', false))
+            this.emitAchievement(userId, 'Electronic Elite 2');
+        if (await this.achievementsService.updateAchievements(userId, 'Electronic Elite 3', false))
+            this.emitAchievement(userId, 'Electronic Elite 3');
         return;
     }
 

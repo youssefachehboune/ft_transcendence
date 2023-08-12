@@ -129,14 +129,14 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
             gameData.player2.score++;
             this.restBallPosition(gameData);
         }
-        if (gameData.player2.score === 3 || gameData.player1.score === 3) {
-            if (gameData.player2.score === 3) {
+        if (gameData.player2.score === 10 || gameData.player1.score === 10) {
+            if (gameData.player2.score === 10) {
                 this.gameService.saveToCareer(gameData.player2, gameData.player1);
                 const result = { winner:{ userId: gameData.player2.userId, username: gameData.player2.username , avatar : gameData.player2.avatar, scoor : gameData.player2.score }, loser: { userId: gameData.player1.userId, username: gameData.player1.username , avatar : gameData.player1.avatar, scoor : gameData.player1.score } };
                 this.server.to(gameData.player2.socketId).emit("gameOver", result);
                 this.server.to(gameData.player1.socketId).emit("gameOver", result);
             }
-            else if (gameData.player1.score === 3) {
+            else if (gameData.player1.score === 10) {
                 this.gameService.saveToCareer(gameData.player1, gameData.player2);
                 const result = { winner:{ userId: gameData.player1.userId, username: gameData.player1.username , avatar : gameData.player1.avatar, scoor : gameData.player1.score }, loser: { userId: gameData.player2.userId, username: gameData.player2.username , avatar : gameData.player2.avatar, scoor : gameData.player2.score } };
                 this.server.to(gameData.player1.socketId).emit("gameOver", result);

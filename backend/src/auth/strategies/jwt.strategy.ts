@@ -30,7 +30,7 @@ export class JwtAuthStrategy extends PassportStrategy(Strategy, 'jwt') {
 				id: payload.sub
 			}
 		});
-		if (user.role == 'BANNED')
+		if (user?.role == 'BANNED')
 			throw new BadRequestException('Your account has been deleted');
     return { id: payload.sub, email: payload.email };
   }

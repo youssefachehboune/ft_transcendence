@@ -1,7 +1,6 @@
 import { Req, Injectable, Body, BadRequestException, Param } from '@nestjs/common';
 import { PrismaClient, UserProfile } from '@prisma/client';
 import { Request } from 'express';
-import { historyDto } from './history.dto';
 import { formatDistanceToNow } from 'date-fns';
 
 const prisma = new PrismaClient();
@@ -157,7 +156,6 @@ export class HistoryService {
 				opponent_id: OppeonentId,
 				userPoints: userPoints,
 				opponentPoints: opponentPoints,
-				result: 'WON'
 			}
 		});
 	}

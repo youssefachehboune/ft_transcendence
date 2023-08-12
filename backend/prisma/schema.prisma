@@ -14,7 +14,7 @@ model User {
     email            String   @unique
     createdAt        DateTime @default(now())
     twoFactorEnabled Boolean
-		firstTime				 Boolean
+    firstTime        Boolean
     role             Role
     refreshToken     String?
     twoFactorSecret  String?
@@ -26,8 +26,6 @@ model User {
     achievementLog       AchievementLog[]
     sentFriendship       Friendship[]     @relation("SentFriendship")
     receivedFriendship   Friendship[]     @relation("ReceivedFriendship")
-    sentNotification     Notification[]   @relation("SentNotification")
-    receivedNotification Notification[]   @relation("ReceivedNotification")
     sentMessage          Chat[]           @relation("SentMessage")
     receivedMessage      Chat[]           @relation("ReceivedMessage")
     channelLog           ChannelLog[]
@@ -36,7 +34,7 @@ model User {
 
 model UserProfile {
     id        Int    @id @default(autoincrement())
-    user_id   Int	@unique
+    user_id   Int    @unique
     username  String @unique
     firstName String
     lastName  String
@@ -57,7 +55,6 @@ model CareerLog {
     opponent_id    Int
     userPoints     Int
     opponentPoints Int
-    result         CareerLogResult
     occuredAt      DateTime        @default(now())
     User           User            @relation(name: "UserLog", fields: [user_id], references: [id])
     Opponent       User            @relation(name: "OpponentLog", fields: [opponent_id], references: [id])
@@ -80,17 +77,6 @@ model AchievementLog {
     occuredAt      DateTime
     User           User        @relation(fields: [user_id], references: [id])
     Achievement    Achievement @relation(fields: [achievement_id], references: [id])
-}
-
-model Notification {
-    id           Int              @id @default(autoincrement())
-    type         NotificationType
-    sender_id    Int?
-    recipient_id Int
-    occuredAt    DateTime         @default(now())
-    read         Boolean
-    Sender       User?            @relation(name: "SentNotification", fields: [sender_id], references: [id])
-    Recipient    User             @relation(name: "ReceivedNotification", fields: [recipient_id], references: [id])
 }
 
 model Friendship {
@@ -116,19 +102,19 @@ model Chat {
 }
 
 model ChannelMembers {
-    id         Int      @id @default(autoincrement())
+    id         Int        @id @default(autoincrement())
     user_id    Int
     channel_id Int
     MemberType memberType
-    User    User    @relation(fields: [user_id], references: [id])
-    Channel Channel @relation(fields: [channel_id], references: [id])
+    User       User       @relation(fields: [user_id], references: [id])
+    Channel    Channel    @relation(fields: [channel_id], references: [id])
 }
 
 model Channel {
-    id             Int              @id @default(autoincrement()) @unique
+    id             Int              @id @unique @default(autoincrement())
     name           String           @unique
     description    String
-    avatar			   String
+    avatar         String
     password       String?
     type           ChannelType
     createdAt      DateTime         @default(now())
@@ -145,24 +131,6 @@ model ChannelLog {
     sentAt     DateTime @default(now())
     User       User     @relation(fields: [user_id], references: [id])
     Channel    Channel  @relation(fields: [channel_id], references: [id])
-}
-
-model texts {
-    id  Int    @id @default(autoincrement())
-    key String @unique
-    en  String
-    fr  String
-}
-
-model configs {
-    id    Int    @id @default(autoincrement())
-    key   String @unique
-    value String
-}
-
-enum CareerLogResult {
-    WON
-    LOST
 }
 
 enum Role {
@@ -183,15 +151,6 @@ enum ChannelType {
     PRIVATE
     PROTECTED
     NOTACTIVE
-}
-
-enum NotificationType {
-    FRIEND_REQUEST
-    ACCEPTED_REQUEST
-    ACHIEVEMENT
-    LEVEL_UP
-    GAME_INVITE
-    GAME_UPDATES
 }
 
 enum memberType {

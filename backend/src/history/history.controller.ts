@@ -3,7 +3,6 @@ import { HistoryService } from './history.service';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 import { Request } from 'express';
 import { ApiBadRequestResponse, ApiParam, ApiTags } from '@nestjs/swagger';
-import { historyDto } from './history.dto';
 
 @ApiTags('history')
 @ApiBadRequestResponse({description: 'invalid username'})

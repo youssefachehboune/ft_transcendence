@@ -11,6 +11,14 @@ export class LeaderboardService {
 
 	async getLeaderboard(page: number) {
 		return await prisma.userProfile.findMany({
+			where: {
+				User: {
+					OR: [
+						{ role: 'ADMIN' },
+						{ role: 'USER' },
+					]
+				}
+			},
 			orderBy: {
 				level: 'desc'
 			},

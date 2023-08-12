@@ -35,19 +35,23 @@ export class AchievementsService {
 				occuredAt: AchievementLog[0] ? formatDistanceToNow(new Date(entry.AchievementLog[0].occuredAt), { addSuffix: true }) : ''
 			};
 		});
-		if (take)
-			updatedAchievements = updatedAchievements.slice(0, take);
 		if (type === 'UNCOMPLETE')
 			return updatedAchievements.filter(entry => entry.score !== +entry.milestone);
 		else if (type === 'COMPLETE')
-			return updatedAchievements.filter(entry => entry.score === +entry.milestone);
+		{
+			updatedAchievements =  updatedAchievements.filter(entry => entry.score === +entry.milestone);
+			if(take)
+				return updatedAchievements.slice(0, take);
+			else
+				return updatedAchievements;
+		}
 		else
 			return updatedAchievements;
 	}
 	
-	async updateAchievements(userId: number, ashiveId: number, reset? : boolean) {
+	async updateAchievements(userId: number, achievname: string, reset : boolean) {
 		const achievement = await prisma.achievement.findUnique({
-			where: { id: ashiveId },
+			where: { name: achievname },
 			include: {AchievementLog: true}
 		});
 		if (!achievement)
@@ -87,14 +91,5 @@ export class AchievementsService {
 			return true;
 		}
 		return false;
-	}
-
-	async getAchievementName(achievementId: number) {
-		const achievement = await prisma.achievement.findUnique({
-			where: { id: achievementId }
-		});
-		if (!achievement)
-			return null;
-		return achievement.name;
 	}
 }

@@ -1,5 +1,5 @@
 import { PrismaClient, User, UserProfile } from '.prisma/client';
-import { Injectable, Controller } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { FriendsService } from '../friend/friends.service';
 import { HistoryService } from '../history/history.service';

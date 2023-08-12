@@ -6,11 +6,9 @@ import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/c
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { LangModule } from './lang/lang.module';
 import { UserModule } from './user/user.module';
 import { HistoryModule } from './history/history.module';
 import { AchievementsModule } from './achievements/achievements.module';
-import { NotificationModule } from './notification/notification.module';
 import { ChatModule } from './chat/chat.module';
 import { topPlayerModule } from './top-player/topPlayer.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
@@ -22,7 +20,7 @@ import { RandomGateway } from './game/random.gateway';
 
 
 @Module({
-  imports: [ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, LangModule, UserModule, NotificationModule, ChatModule, topPlayerModule, LeaderboardModule, GameModule],
+  imports: [ChannelModule, ProfileModule, FriendsModule, AchievementsModule, HistoryModule, SearchModule, TwoFactorModule, AuthModule, UserModule, ChatModule, topPlayerModule, LeaderboardModule, GameModule],
   controllers: [AppController],
   providers: [AppService, BotGateway, RandomGateway],
 })

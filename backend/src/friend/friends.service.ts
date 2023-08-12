@@ -2,7 +2,6 @@ import { PrismaClient, User } from '.prisma/client';
 import { Injectable } from '@nestjs/common';
 import { Friendship, FriendshipStatus, UserProfile } from '@prisma/client';
 import { Request } from 'express';
-import { NotificationService, NotificationType } from 'src/notification/notification.service';
 
 export interface FriendshipUpdateData {
   status?: FriendshipStatus;
@@ -24,7 +23,7 @@ export enum Status {
 export class FriendsService {
   private readonly prisma: PrismaClient;
 
-  constructor(private readonly notificationService: NotificationService) {
+  constructor() {
     this.prisma = new PrismaClient();
   }
   async getFriendsList(req: Request) {
@@ -201,7 +200,6 @@ export class FriendsService {
           return { message: "You can't accept your own request" };
         else {
           updateData.status = 'FRIENDS';
-					this.notificationService.setNotification(NotificationType.ACCEPTED_REQUEST, user.id, friendProfile.user_id);
 				}
         break;
       case 'REJECT':
@@ -304,7 +302,6 @@ export class FriendsService {
         status: status,
       },
     });
-		this.notificationService.setNotification(NotificationType.FRIEND_REQUEST, user.id, friendProfile.user_id);
 		return friendship;
   }
 

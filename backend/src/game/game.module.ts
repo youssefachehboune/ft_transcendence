@@ -5,14 +5,13 @@ import { Module } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { FriendsService } from 'src/friend/friends.service';
-import { NotificationService } from 'src/notification/notification.service';
 import { AchievementsService } from 'src/achievements/achievements.service';
 import { HistoryService } from 'src/history/history.service';
 
 @Module({
     imports: [],
     controllers: [],
-    providers: [GameService, GameGateway, AuthService, JwtService, UserService, FriendsService, NotificationService, AchievementsService, HistoryService],
+    providers: [GameService, GameGateway, AuthService, JwtService, UserService, FriendsService, AchievementsService, HistoryService],
     exports: [GameService],
     
 })

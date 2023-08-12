@@ -16,5 +16,5 @@ services:
       dockerfile: frontendDockerfile
     container_name: front
     ports:
-      - '3001:3000'
+      - '3001:3001'
     restart: always

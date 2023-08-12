@@ -10,7 +10,7 @@ export default function AchievComp(props : AchievementProps) {
     return (
         <div className="w-[56%] h-[40%]  relative flex items-center justify-center laptop:w-[60%] Large-phone:w-[80%] phone:w-[80%]">
                                         <div className="w-[27%] h-[100%] flex items-center justify-center">
-                                            <Image src="iconAch.jpeg" alt=""  width={35} height={35} className="w-[35px] h-[35px] rounded-full
+                                            <Image src="/iconAch.jpeg" alt=""  width={35} height={35} className="w-[35px] h-[35px] rounded-full
                                             2xl:w-[31px] 2xl:h-[31px]
                                             xl:w-[30px] xl:h-[30px]
                                             laptop:w-[27px] laptop:h-[27px]

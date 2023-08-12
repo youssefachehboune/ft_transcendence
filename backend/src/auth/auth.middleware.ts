@@ -12,7 +12,7 @@ export class AuthMiddleware implements NestMiddleware {
   async use(@Req() req: Request, @Res() res: Response, next: NextFunction) {
     const accessToken = req.cookies['jwt'];
     if (!accessToken) {
-      return res.send('No access token found');
+      return res.send({ message: 'No access token found' });
     }
 		
     try {
