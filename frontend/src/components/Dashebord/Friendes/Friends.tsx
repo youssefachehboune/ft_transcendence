@@ -126,7 +126,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                             }
                                         </div>
                 </div>
-                {visible && <Profile_Frined setFriendClicked={setFriendClicked} setclickFriend={setclickFriend} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} setvisible={setvisible} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
+                {visible && <Profile_Frined setListFriends={setListFriends} setFriendClicked={setFriendClicked} setclickFriend={setclickFriend} setonlyChat={setonlyChat} setshowchatsection={setshowchatsection} setvisible={setvisible} Profile={Profile} profileloding={profileloding} setblock={setblock} block={block} />}                        
         </div>
      );
 }

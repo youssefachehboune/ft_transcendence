@@ -9,7 +9,7 @@ import { RxCross2 } from "react-icons/rx";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, profileloding, setblock, block, setshowchatsection, setonlyChat}: any) {
+function Profile_Frined({setListFriends, setFriendClicked, setclickFriend, setvisible, Profile, profileloding, setblock, block, setshowchatsection, setonlyChat}: any) {
 
     const router = useRouter()
     return (
@@ -45,12 +45,14 @@ function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, 
                                                         <div className="w-[110px] h-[60px]  absolute ml-[120px] mt-[90px] flex flex-col">
                                                             <button onClick={() => {
                                                                 setvisible(false);
+                                                                setListFriends((prevfriend: any) => prevfriend.filter((friend: any) => friend.username !== Profile.username));
                                                                 fetch('http://localhost:3000/friends/BLOCK/' + Profile.username, { credentials: "include", method: "POST"})
                                                             }} className="w-[100%] h-[50%] test5 rounded-t-[5px] hover:bg-red-600">
                                                                 <h1 className="flex ml-[5px] items-center text-[white] text-[10px] font-sora font-500 "><span className="mr-[5px] text-[15px]"><BsPersonFillSlash/></span>Block</h1>
                                                             </button>
                                                             <button onClick={() => {
                                                                 setvisible(false);
+                                                                setListFriends((prevfriend: any) => prevfriend.filter((friend: any) => friend.username !== Profile.username));
                                                                 fetch('http://localhost:3000/friends/UNFRIEND/' + Profile.username, { credentials: "include", method: "POST"})
                                                             }} className="w-[100%] h-[50%]  test5 rounded-b-[5px] hover:bg-red-600">
                                                                 <h1 className="flex ml-[5px] items-center text-[white] text-[10px] font-sora font-500 "><span className="mr-[5px] text-[15px]"><BsPersonFillX/></span>Remove friend</h1>
