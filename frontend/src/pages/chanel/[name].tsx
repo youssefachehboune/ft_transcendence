@@ -12,6 +12,7 @@ function Channel_Leyout() {
         global.setshowchanel(true)
         global.socketRef.current?.disconnect();
         global.socketRef.current = null;
+        global.setGameData(undefined);
       }, []);
       useEffect(() => {
         

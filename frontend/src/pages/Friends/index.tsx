@@ -9,6 +9,7 @@ function Friends_Leyout() {
         global.setshowchanel(false)
         global.socketRef.current?.disconnect();
         global.socketRef.current = null;
+        global.setGameData(undefined);
       }, []);
 
 

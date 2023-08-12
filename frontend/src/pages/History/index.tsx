@@ -9,6 +9,7 @@ function History_Leyout() {
         dataisloded.setshowchanel(false)
         dataisloded.socketRef.current?.disconnect();
         dataisloded.socketRef.current = null;
+        dataisloded.setGameData(undefined);
       }, []);
 
     return ( 

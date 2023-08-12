@@ -11,6 +11,7 @@ function Maindash() {
         golobal.setshowchanel(false)
         golobal.socketRef.current?.disconnect();
         golobal.socketRef.current = null;
+        golobal.setGameData(undefined);
       }, []);
     return ( 
         <Dashebord>

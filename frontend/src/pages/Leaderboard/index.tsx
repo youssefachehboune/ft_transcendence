@@ -7,6 +7,9 @@ function Leader_Leyout() {
     useEffect(() => {
         global.setshowchatsection(false)
         global.setshowchanel(false)
+        global.socketRef.current?.disconnect();
+        global.socketRef.current = null;
+        global.setGameData(undefined);
       }, [global]);
     return ( 
         <Dashebord>
