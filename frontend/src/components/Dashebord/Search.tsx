@@ -7,7 +7,7 @@ import { Alert, AlertIcon } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react'
 import {RxCross2} from 'react-icons/rx'
 import Image from "next/image";
-
+import user_socket from '@/userSocket';
 interface block {
     block: boolean,
     notfriend: boolean,
@@ -222,6 +222,7 @@ function Search({menu, setListFriends}: any) {
                                                                             duration: 9000,
                                                                             isClosable: true,
                                                                         })
+                                                                        user_socket.emit('request_accepted', datasearch.user_id)
                                                                         fetch("http://localhost:3000/friends/ACCEPT/" + datasearch?.username, { credentials: "include", method: "POST"})
                                                                     }
                                                                     } 

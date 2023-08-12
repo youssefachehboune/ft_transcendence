@@ -101,6 +101,26 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         }
     }
 
+    @SubscribeMessage("request_accepted")
+    async handleRequestAccepted(socket: Socket, data: any) {
+        const senderid = await this.getUserIdFromSocket(socket);
+        const sender = usersMap.get(senderid);
+        const receiver = usersMap.get(data);
+        if (sender && receiver) {
+            sender.forEach((s) => {
+                if (s.type === "online") {
+                    this.server.to(s.socket.id).emit("updateStatus", { userId: data, type: "online" });
+                }
+            });
+            receiver.forEach((r) => {
+                if (r.type === "online") {
+                    this.server.to(r.socket.id).emit("updateStatus", { userId: senderid, type: "online" });
+                }
+            });
+        }
+    }
+
+
 
     async emitAchievement(userId: number, ashevname: string) {
         const sockets = usersMap.get(userId);

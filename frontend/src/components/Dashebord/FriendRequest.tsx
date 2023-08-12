@@ -2,6 +2,7 @@ import { FaCheck } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import { useState } from "react";
 import Image from "next/image";
+import user_socket from "@/userSocket";
 interface Props {
     username: string;
     name: string;
@@ -15,6 +16,7 @@ export default function FriendRequest(props : Props) {
     function handleAccept() {
         fetch("http://localhost:3000/friends/ACCEPT/" + props.username, {credentials: "include", method: "POST" })
         setshowRequestFriend(false);
+        user_socket.emit('request_accepted', props.user.user_id)
         props.setListFriends((prev: any) => [...prev, props.user])
     }
     function handleReject() {
