@@ -1,5 +1,5 @@
 import { PrismaClient, User, UserProfile } from '.prisma/client';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Request } from 'express';
 import { FriendsService } from '../friend/friends.service';
 import { HistoryService } from '../history/history.service';
@@ -27,7 +27,7 @@ export class ProfileService {
                 email: req.user['email'],
             }
         });
-        if (!user) throw new Error('user not found');
+        if (!user) throw new BadRequestException('User not found');
         const userProfile: UserProfile = await prisma.userProfile.findFirst({
             where: {
                 user_id: user.id,
@@ -69,19 +69,19 @@ export class ProfileService {
                 email: req.user['email'],
             }
         });
-        if (!user) throw new Error('user not found');
+        if (!user) throw new BadRequestException('User not found');
         const Profile: UserProfile = await prisma.userProfile.findFirst({
             where: {
                 username: username,
             }
         });
-        if (!Profile) throw new Error('user not found');
+        if (!Profile) throw new BadRequestException('User not found');
         const profileUser: User = await prisma.user.findUnique({
             where: {
                 id: Profile.user_id,
             }
         });
-        if (!profileUser) throw new Error('user not found');
+        if (!profileUser) throw new BadRequestException('User not found');
         const member_since = profileUser.createdAt.toLocaleString('default', { month: 'long', year: 'numeric' });
         return {
             avatar: Profile.avatar,

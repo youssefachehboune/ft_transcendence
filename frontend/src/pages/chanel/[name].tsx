@@ -19,18 +19,17 @@ function Channel_Leyout() {
         if (name)
         {
             global.setchannelloding(true); global.setmumeberschannelloding(false);
-            fetch(`http://localhost:3000/channel/${name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {global.setmemebers(data)}).then(() => 
+            fetch(`http://localhost:3000/channel/${name}/members`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {if(!data.error) global.setmemebers(data)}).then(() => 
             fetch(`http://localhost:3000/channel/type/${name}/${global.data.username}`, { credentials: "include" }).then((resp) => {return resp.text();}).then((data) => {global.settypememeber(data); global.setmumeberschannelloding(true)})
             )
-            fetch('http://localhost:3000/channel/' + name + '/BANNED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {global.setbanList(data)})
-            fetch('http://localhost:3000/channel/' + name + '/INVITED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {global.setinvitationList(data)})
-            fetch('http://localhost:3000/channel/' + name + '/MUTED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {global.setmutedList(data)})
-            fetch('http://localhost:3000/channel/' + name + '/REQUESTED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {global.setrequestList(data)})
-            fetch(`http://localhost:3000/channel/${name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {global.setchanel(data); global.setchannelloding(false) })
+            fetch('http://localhost:3000/channel/' + name + '/BANNED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {if(!data.error) global.setbanList(data)})
+            fetch('http://localhost:3000/channel/' + name + '/INVITED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {if(!data.error) global.setinvitationList(data)})
+            fetch('http://localhost:3000/channel/' + name + '/MUTED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {if(!data.error) global.setmutedList(data)})
+            fetch('http://localhost:3000/channel/' + name + '/REQUESTED', { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {if(!data.error) global.setrequestList(data)})
+            fetch(`http://localhost:3000/channel/${name}`, { credentials: "include" }).then((resp) => {return resp.json();}).then((data) => {if(!data.error) global.setchanel(data); global.setchannelloding(false) })
 
           }
           
-
       }, [name]);
     return ( 
         <Dashebord>

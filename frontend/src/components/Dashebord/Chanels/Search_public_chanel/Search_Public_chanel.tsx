@@ -14,7 +14,9 @@ function Search_Public_chanel({ data, setsearchchanels, searchchanels, setchanel
   useEffect(() => {
     if (searchchanels) {
       fetch(`http://localhost:3000/channel/${searchchanels}`, { credentials: "include" }).then((resp) => { return resp.json(); }).then((response) => {
-        setchaneldata(response);
+        if (response.error)
+          return;
+          setchaneldata(response);
         if (response && !response.error)
           fetch(`http://localhost:3000/channel/type/${response.name}/${data.username}`, { credentials: "include" }).then((resp) => { return resp.text(); }).then((data) => { settypememeber(data) })
       })

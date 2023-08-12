@@ -48,8 +48,9 @@ const OTPField = (props : Prop) => {
         },
         body: JSON.stringify({token: num}),
       });
-      const data: boolean = await response.json();
-
+      const data = await response.json();
+      if(data.error)
+        return;
       if (data === true)
       {
         setIsValid(true);

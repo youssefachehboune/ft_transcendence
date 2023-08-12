@@ -26,6 +26,8 @@ function Chat({setclickFriend, setFriendClicked, setonlyChat, friendchat, data} 
                     credentials: 'include',
                 })
                 ).json();
+                if(oldmessages.error)
+                    return;
                 const oldchat = oldmessages.map((message: any) => ({
                     username: message.sender_username,
                     message: message.message,

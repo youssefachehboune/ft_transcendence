@@ -15,7 +15,7 @@ function Typechanel({typechanel, handleCountrySelect, Error}: any) {
                 <h1 className="text-[12px] text-[red]">{Error}</h1>
               ) : (
               <FormHelperText>
-                      chose type of chanel
+                      choose type of chanel
               </FormHelperText>
               )
         }

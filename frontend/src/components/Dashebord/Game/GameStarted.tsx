@@ -32,6 +32,8 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
       credentials: "include",
     });
     const userData = await response.json();
+    if(userData.error)
+      return;
     setUserId(userData);
   }, []);
 

@@ -14,12 +14,18 @@ export default function Main() {
         const fetchData = async () => {
             const achiev = await fetch('http://localhost:3000/achievements/last', { credentials: "include" });
             const achievData = await achiev.json();
+            if(achievData.error)
+                return;
             setDataAchiev(achievData);
             const lastMatches = await fetch('http://localhost:3000/history/lastMatches', { credentials: "include" });
             const lastMatchesData = await lastMatches.json();
+            if(lastMatchesData.error)
+                return;
             setDataMatch(lastMatchesData);
             const topPlayers = await fetch('http://localhost:3000/top-player', { credentials: "include" });
             const topPlayersData = await topPlayers.json();
+            if(topPlayersData.error)
+                return;
             setDatatop(topPlayersData);
         };
         fetchData();

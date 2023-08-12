@@ -23,6 +23,8 @@ export default function FriendsGame() {
       credentials: "include",
     });
     const data = await response.json();
+    if(data.error)
+      return;
     setFriends(data);
   };
 

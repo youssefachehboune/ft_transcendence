@@ -19,9 +19,13 @@ export default function Leaderboard(props: Props) {
             try {
                 const numberofpages = await fetch('http://localhost:3000/leaderboard/pages', { credentials: "include" });
                 const numberofpagesjson = await numberofpages.json();
+                if (numberofpagesjson.error)
+                    return;
                 setnumberofpage(numberofpagesjson);
                 const Leaderdata = await fetch('http://localhost:3000/leaderboard/' + indexlevel, { credentials: "include" });
                 const Leaderdatajson = await Leaderdata.json();
+                if (Leaderdatajson.error)
+                    return;
                 setdata(Leaderdatajson)
                 setshowdataLoading(false);
             } catch (error) {

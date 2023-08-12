@@ -33,6 +33,8 @@ function Section({setmychanel, setListFriends, setmenu, menu, massagenotif, sets
         const fetchData = async () => {
             const resc = await fetch("http://localhost:3000/2fa/status", { credentials: "include" });
             const datac = await resc.json();
+            if (datac.error)
+                return;
             setcheck2fa(datac);
         }
         fetchData();
@@ -42,12 +44,18 @@ function Section({setmychanel, setListFriends, setmenu, menu, massagenotif, sets
         const fetchData = async () => {
             const resb = await fetch("http://localhost:3000/friends/status/BLOCKED", { credentials: "include" });
             const datab = await resb.json();
+            if(datab.error)
+                return;
             setblockeddata(datab);
             const res = await fetch("http://localhost:3000/friends/status/REQUESTED", { credentials: "include" });
             const data = await res.json();
+            if(data.error)
+                return;
             setrequestdata(data);
             const resa = await fetch("http://localhost:3000/channel/invitations", { credentials: "include" });
             const dataa = await resa.json();
+            if(dataa.error)
+                return;
             setchanneldata(dataa);
         }
         if (showRequest) {
@@ -86,6 +94,8 @@ function Section({setmychanel, setListFriends, setmenu, menu, massagenotif, sets
             const fetchData = async () => {
                 const resb = await fetch("http://localhost:3000/2fa", { credentials: "include", method: "DELETE" });
                 const datab = await resb.json();
+                if (datab.error)
+                    return;
                 setcheck2fa(false);
                 setcheckDisable2fa(datab);
             }
@@ -304,12 +314,8 @@ return (
                             ">
                                 Log out
                             </Link>
-                            <button className="bg-[#fff0] rounded-[4px] box-border	 border-[#C4C4C4B3] border-[1px] w-[50%] h-[70%] text-[#C4C4C4B3] text-[10px] font-bold leading-normal
+                            <button className="bg-[#fff0] rounded-[4px] box-border	 w-[50%] h-[70%] text-[#C4C4C4B300] text-[10px] font-bold leading-normal cursor-auto
                             phone:text-[9px]
-                            hover:border-[#fff0]
-                            hover:bg-[#C4C4C4B3]
-                            hover:text-[#fff]
-                            hover:box-border
                             transition duration-700 ease-in-out
                             ">
                                 Delete account

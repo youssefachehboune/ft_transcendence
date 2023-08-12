@@ -20,9 +20,13 @@ function History() {
             try {
                 const numberofpages = await fetch('http://localhost:3000/history/pages', { credentials: "include" });
                 const numberofpagesjson = await numberofpages.json();
+                if (numberofpagesjson.error)
+                    return;
                 setnumberofpage(numberofpagesjson);
                 const Leaderdata = await fetch(`http://localhost:3000/history/${status}/` + indexlevel, { credentials: "include" });
                 const Leaderdatajson = await Leaderdata.json();
+                if (Leaderdatajson.error)
+                    return;
                 setallhistorie(Leaderdatajson)
                 setshowdataLoading(false);
             } catch (error) {

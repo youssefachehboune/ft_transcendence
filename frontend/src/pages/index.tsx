@@ -16,6 +16,8 @@ export default function Home() {
           credentials: 'include'
         })
         const data = await res.json();
+        if (data.error)
+          return;
         setIsLogin(data.logged);
     }
     fetchData();

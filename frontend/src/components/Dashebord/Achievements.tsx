@@ -10,6 +10,8 @@ export default function Achievements() {
         const fetchData = async () => {
             const datafetched = await fetch('http://localhost:3000/achievements/ALL', { credentials: 'include' });
             const data = await datafetched.json();
+            if (data.error) 
+                return ;
             setdataALL(data);
             setshowdataLoading(false);
         };

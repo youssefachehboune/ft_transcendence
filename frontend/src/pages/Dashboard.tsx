@@ -120,18 +120,26 @@ function Dashebord({ children }: any) {
       try {
         const friendsResponse = await fetch('http://localhost:3000/friends', { credentials: "include" });
         const friendsData = await friendsResponse.json();
+        if(friendsData.error)
+          return;
         golobal.setListFriends(friendsData);
 
         const profileResponse = await fetch('http://localhost:3000/profile', { credentials: "include" });
         const profileData = await profileResponse.json();
+        if(profileData.error)
+          return;
         golobal.setdata(profileData)
 
         const mychanels = await fetch('http://localhost:3000/channel/my_channels', { credentials: "include" });
         const chanelsdata = await mychanels.json();
+        if(chanelsdata.error)
+          return;
         golobal.setmychanel(chanelsdata)
 
         const publicmychanels = await fetch('http://localhost:3000/channel/channels', { credentials: "include" });
         const publicchanelsdata = await publicmychanels.json();
+        if(publicchanelsdata.error)
+          return;
         golobal.setpublic_channel(publicchanelsdata)
 
         golobal.setdataisloded(true)
