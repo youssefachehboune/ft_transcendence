@@ -314,12 +314,16 @@ return (
                             ">
                                 Log out
                             </Link>
-                            <button className="bg-[#fff0] rounded-[4px] box-border	 w-[50%] h-[70%] text-[#C4C4C4B300] text-[10px] font-bold leading-normal cursor-auto
+                            <Link href={"http://localhost:3000/user/delete"} className="bg-[#fff0] rounded-[4px] box-border	 border-[#C4C4C4B3] border-[1px] w-[50%] h-[70%] text-[#C4C4C4B3] text-[10px] font-bold leading-normal flex items-center justify-center
                             phone:text-[9px]
+                            hover:border-[#fff0]
+                            hover:bg-[#C4C4C4B3]
+                            hover:text-[#fff]
+                            hover:box-border
                             transition duration-700 ease-in-out
                             ">
                                 Delete account
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

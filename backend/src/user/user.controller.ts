@@ -33,4 +33,11 @@ export class UserController {
 	async updateUser(@Req() req: Request, @Body() data: UserDto) {
 		return await this.userService.updateUser(req, data);
 	}
+
+	@Get('delete')
+	@UseGuards(JwtGuard)
+	async deleteAccount(@Req() req: Request, @Res() res: Response) {
+		await this.userService.deleteAccount(req);
+		res.redirect('http://localhost:3001/')
+	}
 }
