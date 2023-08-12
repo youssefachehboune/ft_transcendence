@@ -94,7 +94,7 @@ export class ChannelService {
             },
         });
         return myChannels
-            .filter((channel) => ['OWNER', 'ADMIN', 'MEMBER'].includes(channel.MemberType) && channel.Channel.type !== 'NOTACTIVE')
+            .filter((channel) => ['OWNER', 'ADMIN', 'MEMBER', 'MUTED'].includes(channel.MemberType) && channel.Channel.type !== 'NOTACTIVE')
             .map((channel) => {
                 return {
                     name: channel.Channel.name,
@@ -186,7 +186,7 @@ export class ChannelService {
                 }
             },
         });
-        if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER'].includes(channelMember.MemberType)) {
+        if (!channelMember || !['OWNER', 'ADMIN', 'MEMBER', 'MUTED'].includes(channelMember.MemberType)) {
             return { error: 'User is not a member of the channel' }
         }
         const channelMembers = await prisma.channelMembers.findMany({

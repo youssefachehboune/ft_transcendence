@@ -11,7 +11,8 @@ async function Creat_channel(data : any, onCloseFn: () => void, setErrornamechan
 			const res = await response.json();
 			if(res.error)
 			{
-				setErrornamechanel(res.error)
+				if(res.error != "Bad Request")
+					setErrornamechanel(res.error)
 			}
 			else
 			{

@@ -1,8 +1,10 @@
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
 import { BsPersonFillSlash } from "react-icons/bs";
 import Image from "next/image";
+import socket from "@/chatSocket";
 function MutedList({setdatamumber, setmemebers, setmutedList, chanel, mutedList, isOpen, onClose}: any) {
     const handleBanClick = (user: any) => {
+        socket.emit('add_channel', chanel.name);
         setdatamumber(user)
         setmemebers((prevBanList : any) => [...prevBanList, user])
         setmutedList((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));

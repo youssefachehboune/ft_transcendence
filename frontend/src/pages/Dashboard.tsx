@@ -147,6 +147,7 @@ function Dashebord({ children }: any) {
       if (data.action == "delete") {
         golobal.setshowchanel(false)
         golobal.setmychanel((prevMembers: any) => prevMembers.filter((member: any) => member.name !== data.name));
+        router.push('/Home')
       }
       if (data.action == "update") {
         golobal.setmychanel((prevMembers: any) => {

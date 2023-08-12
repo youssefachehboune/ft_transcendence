@@ -1,4 +1,3 @@
-'use client'
 import React, { useContext, useEffect } from "react";
 import Dashebord from "../Dashboard";
 import Main from "../../components/Dashebord/Main_Cont";

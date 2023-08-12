@@ -100,7 +100,7 @@ export class ChatService {
 			const member = await prisma.channelMembers.findFirst({
 				where: { user_id: req.user['id'] , channel_id: channel_id }
 			});
-			if (member.MemberType !== 'ADMIN' && member.MemberType !== 'OWNER' && member.MemberType !== 'MEMBER')
+			if (member.MemberType !== 'ADMIN' && member.MemberType !== 'OWNER' && member.MemberType !== 'MEMBER' && member.MemberType !== 'MUTED')
 				throw new WsException('You are not a member of the channel');
 			const channelLog = await prisma.channelLog.findMany({
 				where: { channel_id: channel_id }

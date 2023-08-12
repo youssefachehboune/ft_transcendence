@@ -3,13 +3,20 @@ import { BsFillVolumeMuteFill, BsPersonFillAdd } from "react-icons/bs";
 import { FaBan, FaGamepad } from "react-icons/fa";
 import {TbUserCancel} from 'react-icons/tb'
 import Image from "next/image";
+import socket from "@/chatSocket";
 
 function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, index, user, updateUserType, play, data}: any) {
     const handleBanClick = (action: string) => {
         if (action == 'ban')
+        {
+            socket.emit('update_channel', {name: chanel.name, action: "delete"});
             setbanList((prevBanList : any) => [...prevBanList, user])
+        }
         if (action == 'mute')
             setmutedList((prevBanList : any) => [...prevBanList, user])
+        if (action == 'kick'){
+            socket.emit('update_channel', {name: chanel.name, action: "delete"});
+        }
         setmemebers((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
         fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/${action}`, {
           credentials: "include",

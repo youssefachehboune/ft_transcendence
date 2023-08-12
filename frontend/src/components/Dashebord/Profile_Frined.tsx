@@ -7,9 +7,11 @@ import {ImBlocked} from 'react-icons/im'
 import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
 import { RxCross2 } from "react-icons/rx";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, profileloding, setblock, block, setshowchatsection, setonlyChat}: any) {
 
+    const router = useRouter()
     return (
                     <div className="w-[60%] h-[100%] rounded-[10px] xl:w-[95%] 2xl:w-[95%] flex flex-col overflow-y-auto overflow-x-hidden test5 relative">
                         <div className="w-[100%] min-h-[320px] flex flex-col items-end overflow-hidden">
@@ -34,7 +36,7 @@ function Profile_Frined({setFriendClicked, setclickFriend, setvisible, Profile, 
                                                 <button className="w-[88px] h-[24px] test5 rounded-[4px] hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[15px]"><span className="mr-[5px]"><BsPersonCheckFill/></span>Friends</h1></button>
                                             </Skeleton>
                                             <Skeleton isLoaded={profileloding}>
-                                                <button onClick={() => {setshowchatsection(true); setonlyChat(false)}} className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
+                                                <button onClick={() => {router.push('/Chat')}} className="w-[88px] h-[24px] test5 text-white rounded-[4px] font-sora text-[11px] font-400 hover:bg-[#00DAEA]"><h1 className="text-white font-sora text-[11px] font-400 flex items-center ml-[10px]"><span className="mr-[5px]"><AiFillMessage/></span>message</h1></button>
                                             </Skeleton>
                                             <Skeleton isLoaded={profileloding}>
                                                 <button onClick={() => setblock(!block)} className="w-[30px] h-[24px] rounded-[4px] test5 flex justify-center items-center text-white"><BsChevronDown/></button>

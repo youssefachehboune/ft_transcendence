@@ -11,6 +11,7 @@ function Param({setpublic_channel, setmychanel, chanel, openrequested, openupdat
     const router = useRouter()
     const handleliveClick = () => {
         setpublic_channel((prevChannels: any) => [...prevChannels, chanel]);
+        setmychanel((prev: any) => prev.filter((chanels: any) => chanels.name !== chanel.name))
         const leave : {name: string, password: string | undefined | null} = {name: chanel.name, password: chanel.password};
         fetch(`http://localhost:3000/channel/user/leave`, {
             credentials: "include",
