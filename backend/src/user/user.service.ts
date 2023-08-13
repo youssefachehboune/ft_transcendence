@@ -64,6 +64,7 @@ export class UserService {
 		return {
 			avatar: userProfile.avatar,
 			firstName: userProfile.firstName,
+			lastName: userProfile.lastName,
 			username: userProfile.username,
 		}
 	}

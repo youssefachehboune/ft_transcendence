@@ -35,7 +35,7 @@ const Sign_up_page = ({ setShowFirstComponent, setShowSecondComponent }: Signin)
 		bio: "",
 	});
 	useEffect(() => {
-		fetch('http://localhost:3000/user', { credentials: "include" }).then((resp) => resp.json()).then((data) => setdata(data))
+		fetch('http://localhost:3000/user', { credentials: "include" }).then((resp) => resp.json()).then((data) => {setdata(data);})
 	}, [])
 
 	const handleMouseEnter = () => {
@@ -80,7 +80,7 @@ const Sign_up_page = ({ setShowFirstComponent, setShowSecondComponent }: Signin)
 		e.preventDefault();
 		dispatch({ type: "ERROR_MESSAGE", pyload: "" })
 		if (!state.errorLargeimg && state.error_user && state.ErrorBio)
-			await updateUser({ bio: formData.bio, avatar: avatar, username: formData.name, location: state.name_countrie }, { error: dispatch, first: setShowFirstComponent, second: setShowSecondComponent, tree: state.error_user, for: state.ErrorBio });
+			await updateUser({ bio: formData.bio, avatar: avatar, username: formData.name, location: state.name_countrie, firstName: data.firstName, lastName: data.lastName }, { error: dispatch, first: setShowFirstComponent, second: setShowSecondComponent, tree: state.error_user, for: state.ErrorBio });
 	};
 
 	return (
