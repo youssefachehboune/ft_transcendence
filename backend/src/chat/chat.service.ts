@@ -26,6 +26,7 @@ export class ChatService {
   }
 	
 	async saveMessage(content: { username: string, message: string }, author: User) {
+		if(!content || !content.username || !content.message) return null;
 		const recipient = await prisma.userProfile.findUnique({
 			where: {
 				username: content.username
@@ -42,6 +43,7 @@ export class ChatService {
 
 	async getChat(@Req() req: Request, username: string) {
 		try {
+			if(!username) { return { message: "NotFound" }; }
 			const id = (await prisma.userProfile.findUnique({
 				where: { username: username },
 			})).user_id;
@@ -79,6 +81,7 @@ export class ChatService {
 	}
 
 	async saveChannelMessage(content: { channel: string, message: string }, user: User) {
+		if(!content || !content.channel || !content.message) return null;
 		const channel = await prisma.channel.findUnique({
 			where: { name: content.channel }
 		});
@@ -93,6 +96,7 @@ export class ChatService {
 
 	async getChannelChat(@Req() req: Request, channel: string) {
 		try {
+			if(!channel) return null;
 			const channel_id = (await prisma.channel.findUnique({
 				where: { name: channel }
 			}))?.id;

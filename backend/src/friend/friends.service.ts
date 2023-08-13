@@ -102,6 +102,11 @@ export class FriendsService {
   }
   async getFriendshipStatus(req: Request, username: string) {
     try {
+      if(!username) {
+        return {
+          message: "User Not Found"
+        }
+      }
       const user: User = await this.prisma.user.findUnique({
         where: { email: req.user["email"] },
       });
@@ -306,6 +311,7 @@ export class FriendsService {
   }
 
   async updateFriendStatus(req: Request, status: Status, username: string): Promise<FriendshipUpdateData | { message: string }> {
+    if(!username) return { message: "Username is required" };
     const user: User = await this.prisma.user.findUnique({
       where: { email: req.user["email"] },
     });
