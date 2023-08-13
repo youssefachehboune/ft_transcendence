@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsNotEmpty, IsOptional, IsString, registerDecorator, Validate, ValidationArguments, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
+import { IsAlphanumeric, IsEnum, IsNotEmpty, IsOptional, IsDefined, IsString, MaxLength, MinLength, Validate, ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
 
 enum ChannelType {
   PUBLIC = 'PUBLIC',
@@ -34,6 +34,9 @@ class PasswordValidator implements ValidatorConstraintInterface {
 export class miniChannelDto {
   @IsNotEmpty()
   @IsString()
+	@IsAlphanumeric()
+	@MaxLength(10)
+	@IsDefined()
   @ApiProperty({
     description: 'The name of the channel',
     example: '42',
@@ -43,6 +46,7 @@ export class miniChannelDto {
 	@IsNotEmpty()
   @IsString()
   @IsOptional()
+	@MinLength(8)
   @ApiProperty({
     description: 'The password',
     example: 'bR^hW7f',
@@ -53,6 +57,9 @@ export class miniChannelDto {
 export class ChannelDTO {
   @IsNotEmpty()
   @IsString()
+	@IsAlphanumeric()
+	@MaxLength(10)
+	@IsDefined()
   @ApiProperty({
     description: 'The name of the channel',
     example: '1337',
@@ -61,6 +68,7 @@ export class ChannelDTO {
 
   @IsNotEmpty()
   @IsString()
+	@IsDefined()
   @ApiProperty({
     description: 'The description of the channel',
     example: '1337',
@@ -69,6 +77,7 @@ export class ChannelDTO {
 
 	@IsNotEmpty()
   @IsString()
+	@IsDefined()
   @ApiProperty({
     description: 'The profile picture of the channel',
     example: 'http://example.com/',
@@ -80,10 +89,11 @@ export class ChannelDTO {
     description: 'The type of the channel',
     example: 'PROTECTED',
   })
+	@IsNotEmpty()
+	@IsDefined()
   @IsEnum(ChannelType)
   type: ChannelType;
 
-  @ApiPropertyOptional()
   @IsOptional()
   @IsString()
   @ApiPropertyOptional({

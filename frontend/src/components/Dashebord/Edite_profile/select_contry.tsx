@@ -36,7 +36,7 @@ const Select_contry  = ({data, location, setlocation}: any) => {
       onChange={handleCountrySelect}
       required
       >
-      <option value={location ? location: data.info?.location}>{location ? location: data.info?.location}</option>
+      <option value={location ? location: data.info?.location}>{location}</option>
         {countries.map((country, key) => (
           <option key={key} value={country.code}>
             {country.name}

@@ -16,7 +16,7 @@ function Update_Bio({data, Bio, setBio, ErrorBio, setErrorBio}: any) {
     return ( 
         <FormControl mt={4}>
         <FormLabel>Bio</FormLabel>
-        <Input borderStyle={ErrorBio ? 'solid' : ''} borderWidth={ErrorBio ? '2px' : ''} borderColor={ErrorBio ? 'red' : ''} onChange={handleBioChange} value={Bio ? Bio : data.info?.bio} placeholder='Bio'/>
+        <Input borderStyle={ErrorBio ? 'solid' : ''} borderWidth={ErrorBio ? '2px' : ''} borderColor={ErrorBio ? 'red' : ''} onChange={handleBioChange} value={Bio} placeholder='Bio'/>
         {ErrorBio && <p className="text-[red] text-[12px] font-sora">{ErrorBio}</p>}
         </FormControl>
      );

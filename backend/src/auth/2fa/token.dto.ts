@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsString } from "class-validator";
 
 export class tokenDto {
 	@ApiProperty({
@@ -7,5 +7,6 @@ export class tokenDto {
 		example: "000000"
 	})
 	@IsString()
+  @IsNotEmpty()
 	token: string;
 }

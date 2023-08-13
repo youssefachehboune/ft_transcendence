@@ -30,7 +30,7 @@ export default function Update_avatar({ data, avatar, setavatar, setlargeimg, la
       <FormLabel>Update avatar</FormLabel>
       <div className='h-[150px] xl:h-[100px] flex flex-col justify-center items-center'>
         <div className='w-[140px] xl:w-[80px] xl:h-[80px] h-[140px] rounded-full'>
-          <Image width={'140'} height={'140'} src={avatar ? avatar : data.avatar} alt="" className='w-full rounded-full' />
+          <Image width={'140'} height={'140'} src={avatar} alt="" className='w-full rounded-full' />
         </div>
         {largeimg && <p className="text-[red] text-[12px] font-sora">{largeimg}</p>}
       </div>

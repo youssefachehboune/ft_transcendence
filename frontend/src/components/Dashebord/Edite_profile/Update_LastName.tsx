@@ -33,7 +33,7 @@ function Update_LastName({data, LatName, setLatName, ErrorLatName, setErrorLatNa
     return ( 
         <FormControl mt={4}>
         <FormLabel>Update LatName</FormLabel>
-        <Input borderStyle={ErrorLatName ? 'solid' : ''} borderWidth={ErrorLatName ? '2px' : ''} borderColor={ErrorLatName ? 'red' : ''} onChange={handleLatNameChange} value={LatName ? LatName : data.LatName} placeholder='LatName' />
+        <Input borderStyle={ErrorLatName ? 'solid' : ''} borderWidth={ErrorLatName ? '2px' : ''} borderColor={ErrorLatName ? 'red' : ''} onChange={handleLatNameChange} value={LatName} placeholder='LatName' />
         {ErrorLatName && <p className="text-[red] text-[12px] font-sora">{ErrorLatName}</p>}
         </FormControl>
      );

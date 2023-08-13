@@ -33,7 +33,7 @@ function Update_firstName({data, firsName, setfirsName, ErrorfirsName, setErrorf
     return ( 
         <FormControl mt={4}>
         <FormLabel>Update firsName</FormLabel>
-        <Input borderStyle={ErrorfirsName ? 'solid' : ''} borderWidth={ErrorfirsName ? '2px' : ''} borderColor={ErrorfirsName ? 'red' : ''} onChange={handlefirsNameChange} value={firsName ? firsName : data.firsName} placeholder='firsName' />
+        <Input borderStyle={ErrorfirsName ? 'solid' : ''} borderWidth={ErrorfirsName ? '2px' : ''} borderColor={ErrorfirsName ? 'red' : ''} onChange={handlefirsNameChange} value={firsName} placeholder='firsName' />
         {ErrorfirsName && <p className="text-[red] text-[12px] font-sora">{ErrorfirsName}</p>}
         </FormControl>
      );

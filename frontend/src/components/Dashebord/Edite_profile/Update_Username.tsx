@@ -33,7 +33,7 @@ function Update_Username({data, username, setusername, Errorusername, setErrorus
     return ( 
         <FormControl>
         <FormLabel>Update Username</FormLabel>
-        <Input borderStyle={Errorusername ? 'solid' : ''} borderWidth={Errorusername ? '2px' : ''} borderColor={Errorusername ? 'red' : ''} onChange={handleUsernameChange} value={username ? username : data.username} placeholder='Username' />
+        <Input borderStyle={Errorusername ? 'solid' : ''} borderWidth={Errorusername ? '2px' : ''} borderColor={Errorusername ? 'red' : ''} onChange={handleUsernameChange} value={username} placeholder='Username' />
         {Errorusername && <p className="text-[red] text-[12px] font-sora">{Errorusername}</p>}
         </FormControl>
      );
