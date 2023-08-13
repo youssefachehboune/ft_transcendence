@@ -12,6 +12,11 @@ export class SearchService {
 
     async search(@Req() req: Request, username: string) {
         try {
+            if(!username) {
+                return {
+                    message: "NotFound"
+                };
+            }
             const user: User = await this.prisma.user.findUnique({
                 where: { email: req.user["email"] },
                 include: { userProfile: true }

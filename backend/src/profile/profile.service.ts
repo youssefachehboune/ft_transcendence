@@ -64,6 +64,7 @@ export class ProfileService {
     }
 
     async getOtherProfile(req: Request, username: string) {
+        if(!username) throw new BadRequestException('User not found');
         const user: User = await prisma.user.findUnique({
             where: {
                 email: req.user['email'],

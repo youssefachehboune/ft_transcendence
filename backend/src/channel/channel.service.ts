@@ -145,6 +145,7 @@ export class ChannelService {
     }
 
     async getChannel(@Req() req: Request, name: string) {
+        if(!name) { return { error: 'Channel name is required' } }
         const channel = await prisma.channel.findUnique({
             where: {
                 name: name
@@ -163,6 +164,7 @@ export class ChannelService {
 
 
     async getChannelMembers(@Req() req: Request, name: string) {
+        if(!name) { return { error: 'Channel name is required' } }
         const channel = await prisma.channel.findUnique({
             where: {
                 name: name
@@ -376,6 +378,7 @@ export class ChannelService {
     }
 
     async deleteChannel(@Req() req: Request, name: string) {
+        if(!name) { return { error: 'Channel name is required' } }
         const channel = await prisma.channel.findUnique({
             where: {
                 name: name
@@ -419,6 +422,7 @@ export class ChannelService {
     }
 
     async createChannelMember(username: string, channel_name: string, memberType: 'MEMBER' | 'REQUESTED' | 'INVITED') {
+        if(!username || !channel_name) { return { error: 'Username and channel name are required' } };
         const channel = await prisma.channel.findUnique({
             where: {
                 name: channel_name
@@ -454,6 +458,7 @@ export class ChannelService {
 
 
     async AdminActions(@Req() req: Request, channel_name: string, username: string, action: 'ban' | 'mute' | 'kick' | 'unban' | 'unmute' | 'accept' | 'reject' | 'invite' | 'uninvite' | 'makeAdmin' | 'makeUser') {
+        if(!channel_name || !username || !action) { return { error: 'Channel name, username and action are required' } };
         const channel = await prisma.channel.findUnique({
             where: {
                 name: channel_name
@@ -581,6 +586,7 @@ export class ChannelService {
     }
 
     async UserActions(@Req() req: Request, password: string, name: string, action: 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
+        if(!password || !name || !action) { return { error: 'Invalid action' } };
         const channel = await prisma.channel.findUnique({
             where: {
                 name: name
