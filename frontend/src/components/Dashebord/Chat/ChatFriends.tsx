@@ -75,9 +75,9 @@ function ChatFriends(props: any) {
                                                 </MenuButton>
                                             )}
                                             <MenuList>
-                                                <MenuItem onClick={props.opencreatechanel} icon={<IoMdAddCircle/>}>creact chanel</MenuItem>
-                                                <MenuItem icon={<BsWechat/>} onClick={onOpen}>show my channel</MenuItem>
-                                                <MenuItem onClick={props.openpublic} icon={<ImSearch/>}>search for channel</MenuItem>
+                                                <MenuItem onClick={props.opencreatechanel} icon={<IoMdAddCircle/>}>Create Channel</MenuItem>
+                                                <MenuItem icon={<BsWechat/>} onClick={onOpen}>Show channels</MenuItem>
+                                                <MenuItem onClick={props.openpublic} icon={<ImSearch/>}>Search channels</MenuItem>
                                             </MenuList>
                                             </Menu>
                                             <Show_list_of_Channels setshowchanel={props.setshowchanel} setshowchatsection={props.setshowchatsection} setchanel={props.setchanel} setrequestList={props.setrequestList} setmutedList={props.setmutedList} setinvitationList={props.setinvitationList} setbanList={props.setbanList} settypememeber={props.settypememeber} setmemebers={props.setmemebers} setmumeberschannelloding={props.setmumeberschannelloding} setchannelloding={props.setchannelloding} data={props.data} mychanel={props.mychanel} isOpen={isOpen} onClose={onClose}/>

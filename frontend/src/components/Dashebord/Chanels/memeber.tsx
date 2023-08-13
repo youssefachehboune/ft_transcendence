@@ -9,13 +9,13 @@ function Memeber({setmutedList, setbanList, setmemebers, chanel, typememeber, in
     const handleBanClick = (action: string) => {
         if (action == 'ban')
         {
-            socket.emit('update_channel', {name: chanel.name, action: "delete"});
+            socket.emit('update_channel', {name: chanel.name, username: user.username, action: "Ban"});
             setbanList((prevBanList : any) => [...prevBanList, user])
         }
         if (action == 'mute')
             setmutedList((prevBanList : any) => [...prevBanList, user])
         if (action == 'kick'){
-            socket.emit('update_channel', {name: chanel.name, action: "delete"});
+            socket.emit('update_channel', {name: chanel.name, username: user.username,  action: "Ban"});
         }
         setmemebers((prevMembers: any) => prevMembers.filter((member: any) => member.username !== user.username));
         fetch(`http://localhost:3000/channel/Admin/${chanel.name}/${user.username}/${action}`, {

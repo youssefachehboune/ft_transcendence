@@ -65,7 +65,7 @@ function Profile({setdata, ListFriends, data, dataisloded, showprofile, setshowp
                             <div className="w-[70%] h-[30px] flex flex-row justify-end items-center mt-[10px]">
                                 <Skeleton isLoaded={dataisloded}>
                                     <button onClick={onopen} className="w-[88px] h-[24px] rounded-[4px] bg-[#414243] hover:bg-[#00DAEA]">
-                                        <h1 className="text-[white] text-[8px] flex items-center ml-[10px]"><span className="mr-[5px]"><FaPen/></span>Edite profile</h1>
+                                        <h1 className="text-[white] text-[8px] flex items-center ml-[10px]"><span className="mr-[5px]"><FaPen/></span>Edit profile</h1>
                                     </button>
                                 </Skeleton>
                             </div>

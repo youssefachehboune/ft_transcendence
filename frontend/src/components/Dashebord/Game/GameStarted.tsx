@@ -196,7 +196,10 @@ const GameStarted: React.FC<GameStartedProps> = ({ data }) => {
     });
 
     golobal.socketRef.current?.on("opponentDisconnected", (result: any) => {
-      endGame(result);
+      const opp = result.loser.userId;
+			if(opp)
+				user_socket.emit("myoppdisconnected", opp);
+			endGame(result);
     });
 
     return () => {

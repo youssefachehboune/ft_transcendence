@@ -30,7 +30,7 @@ function Search_Public_chanel({ data, setsearchchanels, searchchanels, setchanel
     <Modal size={'xl'} onClose={onclose} isOpen={isOpen} isCentered>
       <ModalOverlay />
       <ModalContent background={'#41424D'} height={'450px'}>
-        <ModalHeader borderBottomWidth='1px' color={'white'} className="font-sora font-500">Search for chanels</ModalHeader>
+        <ModalHeader borderBottomWidth='1px' color={'white'} className="font-sora font-500">Search for channels</ModalHeader>
         <ModalCloseButton />
         <ModalBody overflow={'hidden'}>
           <FormControl>

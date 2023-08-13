@@ -150,19 +150,27 @@ export class ChatGateway {
 	}
 
 	@SubscribeMessage('update_channel')
-	async leave_channel(@MessageBody() content :{new?: string, name: string, action: 'update' | 'delete'}, @ConnectedSocket() socket: Socket) {
+	async leave_channel(@MessageBody() content :{new?: string, username?: string,name: string, action: 'update' | 'delete' | 'Ban'}, @ConnectedSocket() socket: Socket) {
 		if (content.action === 'update') {
 			const channel = await prisma.channel.findUnique({
 				where: { name: content.new }
 			});
 			this.server.to(`${channel.id}`).except(socket.id).emit('refresh', content);
-		}
-		else if (content.action == 'delete') {
+		} else if (content.action == 'delete') {
 			const channel = await prisma.channel.findUnique({
 				where: { name: content.name }
 			});
 			socket.leave(`${channel.id}`);
 			this.server.to(`${channel.id}`).except(socket.id).emit('refresh', content);
+		} else if (content.action === 'Ban') {
+			const channel = await prisma.channel.findUnique({
+				where: { name: content.name }
+			});
+			const sockets = this.connectedUsers.get(content.username);
+			if (sockets) {
+				sockets.forEach(socket => socket.leave(`${channel.id}`));
+				sockets.forEach(socket => socket.emit('refresh', content));
+			}
 		}
 	}
 }

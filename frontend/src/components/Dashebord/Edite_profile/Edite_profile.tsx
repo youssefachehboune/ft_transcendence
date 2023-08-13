@@ -23,7 +23,7 @@ function Edite_profile(props: any) {
         >
             <ModalOverlay />
             <ModalContent height={'850px'}  width={['60%','60%','100%', '100%',]}>
-                    <ModalHeader>Edite your profile</ModalHeader>
+                    <ModalHeader>Edit profile</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <Update_avatar largeimg={props.Erroravatar} setlargeimg={props.setErroravatar} data={props.data} avatar={props.avatar} setavatar={props.setavatar}/>

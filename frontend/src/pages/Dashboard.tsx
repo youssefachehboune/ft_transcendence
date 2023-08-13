@@ -65,7 +65,6 @@ function Dashebord({ children }: any) {
     });
     user_socket.on("achievement", (data: any) => {
       if (data) {
-        console.log(data)
         toast({
           title: `${data}`,
           position: "top-right",
@@ -152,7 +151,7 @@ function Dashebord({ children }: any) {
       golobal.setmychanel((prev: any) => [...prev, channel])
     })
     socket.on('refresh', (data) => {
-      if (data.action == "delete") {
+      if (data.action == "delete" || data.action == "Ban") {
         golobal.setshowchanel(false)
         golobal.setmychanel((prevMembers: any) => prevMembers.filter((member: any) => member.name !== data.name));
         router.push('/Home')

@@ -1,4 +1,4 @@
-import { Injectable, Req } from '@nestjs/common';
+import { BadRequestException, Injectable, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { PrismaClient } from '@prisma/client';
 import { ChannelDTO } from './channel.dto';
@@ -43,6 +43,8 @@ export class ChannelService {
                 name: name
             }
         });
+				if(!channel)
+					throw new BadRequestException("channel not found");
         const channelMembers = await prisma.channelMembers.findMany({
             where: {
                 channel_id: channel.id,
@@ -586,7 +588,6 @@ export class ChannelService {
     }
 
     async UserActions(@Req() req: Request, password: string, name: string, action: 'join' | 'leave' | 'cancel' | 'accept' | 'reject') {
-        if(!password || !name || !action) { return { error: 'Invalid action' } };
         const channel = await prisma.channel.findUnique({
             where: {
                 name: name

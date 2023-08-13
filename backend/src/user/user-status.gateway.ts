@@ -216,6 +216,13 @@ export class UserStatusGateway implements OnGatewayConnection, OnGatewayDisconne
         }
         return null;
     }
+		@SubscribeMessage("myoppdisconnected")
+    async handleMyOppDisconnected(socket: Socket, data: any) {
+        const opp = usersMap.get(data);
+        if (opp) {
+            this.changeSocketsType(data, "online");
+        }
+    }
 
     addUser(userId: number, socket: Socket) {
         const sockets = usersMap.get(userId) || [];
