@@ -40,7 +40,7 @@ function Search_Public_chanel({ data, setsearchchanels, searchchanels, setchanel
           <div className="w-[100%] h-[270px] test5 flex flex-col gap-1 rounded-[7px] overflow-y-auto">
             {
               searchchanels === "" ? (
-                public_channel?.map((user: any, index: number) => (
+                public_channel && Array.isArray(public_channel) && public_channel?.map((user: any, index: number) => (
                   <Join_channels data={data} key={index} setmychanel={setmychanel} setpublic_channel={setpublic_channel} user={user} />
                 ))
               ) : searchchanels && chaneldata && !chaneldata.error && ((typememeber === "NOTMEMBER" || !typememeber) || typememeber === "REQUESTED") ? (

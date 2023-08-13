@@ -100,7 +100,7 @@ function Param({setpublic_channel, setmychanel, chanel, openrequested, openupdat
 
 function Parameteradmin({setpublic_channel, setshowchanel, setmychanel, chanel, openrequested, openupdate, openmuted, openaddmember, openbanlist, openlistinvitation, data, memebers, back, onOpen}: any) {
     return (
-        memebers && memebers?.map((user: any, index: number) => (
+        memebers && Array.isArray(memebers) && memebers?.map((user: any, index: number) => (
             <Param setpublic_channel={setpublic_channel} setshowchanel={setshowchanel} setmychanel={setmychanel} key={index} chanel={chanel} openrequested={openrequested} openupdate={openupdate} openmuted={openmuted} openaddmember={openaddmember} openbanlist={openbanlist} openlistinvitation={openlistinvitation} user={user} index={index} data={data} onOpen={onOpen} back={back}/>
         ))
      );

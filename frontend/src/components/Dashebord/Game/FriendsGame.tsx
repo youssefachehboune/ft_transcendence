@@ -75,7 +75,7 @@ export default function FriendsGame() {
                 phone:w-[85%]
                 ">
             {
-              friends.map((friend) => (
+              friends && Array.isArray(friends) && friends.map((friend) => (
                 <div key={friend.user_id} className="w-[100%] h-[70px] phone:h-[43px] rounded-l-full rounded-r-full border-[1.4px] border-[#00DAEA] flex items-center justify-start overflow-hidden mb-2">
                   <div className="w-[12%] h-[100%] flex items-center justify-center
                                 xl:w-[11%]

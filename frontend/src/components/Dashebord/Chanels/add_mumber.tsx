@@ -36,7 +36,7 @@ function Add_mumber({invitationList, mutedList, banList, setListfriends, setinvi
                     <ModalBody overflow={'hidden'}>
                         <div className="w-[100%] h-[270px] flex flex-col gap-1 rounded-[7px] overflow-y-auto">
                             {
-                                ListFriends && ListFriends.map((user: any, index: number) => (
+                                ListFriends && Array.isArray(ListFriends) && ListFriends.map((user: any, index: number) => (
                                     !isUserAlreadyMember(user) && !isUserAlreadybaned(user) && !isUserAlreadymuted(user) && !isUserAlreadyinvited(user) && (
                                         <button key={index} className={`w-[100%] flex items-center justify-center`}>
                                             <div className="w-[75px] h-[70px] flex justify-center items-center relative">

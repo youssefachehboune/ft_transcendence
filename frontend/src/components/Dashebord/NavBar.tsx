@@ -33,7 +33,7 @@ export default function NavBar(props : any) {
                             }
                             >
                                 {
-                                    props.mychanel?.map((item: any, key : any) => {
+                                    props.mychanel && Array.isArray(props.mychanel) && props.mychanel.map((item: any, key : any) => {
                                         return (
                                             <div key={key} className="relative w-[100px] h-[71px] flex items-center ">
                                                 <div onClick={() => {global.handleClick(key + 1); 

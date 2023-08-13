@@ -88,7 +88,7 @@ function Friends({setListFriends, friendsloding, ListFriends, setshowchatsection
                                             }
                                             {
                                                 searchfriend === "" && friendsloding ? (
-                                                    ListFriends && ListFriends?.map((user: any, index: any) => (
+                                                    ListFriends && Array.isArray(ListFriends) && ListFriends?.map((user: any, index: any) => (
                                                         <Friend play={play} isOnline={isOnline} key={user.user_id} setListFriends={setListFriends}  index={index} changecolor={friendClicked === index} setchangecolor={setFriendClicked} user={user} setblock={setblock} setvisible={setvisible} setprofileloding={setprofileloding} setProfile={setProfile}/>
                                                 ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (
                                                     <div  className="min-h-[61px] flex items-center">

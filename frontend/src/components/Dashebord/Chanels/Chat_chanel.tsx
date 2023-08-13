@@ -25,11 +25,14 @@ function Chat_chanel({back, chanel, data}: any) {
                     credentials: 'include',
                 })
                 ).json();
-                const oldchat = oldmessages.map((message: any) => ({
-                    avatar: message.avatar,
-                    message: message.message,
-                }));
-                setMessages(oldchat)
+                if(oldmessages && Array.isArray(oldmessages))
+                {
+                    const oldchat = oldmessages.map((message: any) => ({
+                        avatar: message.avatar,
+                        message: message.message,
+                    }));
+                    setMessages(oldchat)
+                }
         }
         if (check) 
         {
@@ -93,7 +96,7 @@ function Chat_chanel({back, chanel, data}: any) {
                 </div>
                 <div className="w-[100%] max-h-[70%] absolute overflow-y-auto overflow-x-hidden" ref={containerRef}>
                     { 
-                        messages.map((message, key) => {
+                        messages && Array.isArray(messages) &&  messages.map((message, key) => {
                             if (message.avatar == data?.avatar)
                             {
                                 return  <div key={key} className={`w-[100%] p-7 pt-5 h-fit  mb-[15px] flex flex-row-reverse items-center`}>

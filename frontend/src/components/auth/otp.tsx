@@ -95,7 +95,7 @@ const OTPField = (props : Prop) => {
     <form onSubmit={handleSubmit}>
     <div className="w-[100%] h-[55px] flex  items-end justify-center">
         <div className="div_input">
-            {otp.map((_, index) => {
+            { otp && Array.isArray(otp) && otp.map((_, index) => {
               return (
                 <React.Fragment key={index}>
                   <input

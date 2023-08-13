@@ -97,7 +97,7 @@ function Dashebord({ children }: any) {
     });
 
     user_socket.on("onlineFriends", (data: number[]) => {
-      if (data) {
+      if (data && Array.isArray(data)) {
         const newData = data.map((item) => {
           return { userId: item, type: types.online };
         });

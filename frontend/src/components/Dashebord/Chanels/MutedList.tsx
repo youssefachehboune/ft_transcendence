@@ -23,7 +23,7 @@ function MutedList({setdatamumber, setmemebers, setmutedList, chanel, mutedList,
                         <ModalBody overflow={'hidden'}>
                         <div className="w-[100%] h-[270px] test5 flex flex-col gap-1 rounded-[7px] overflow-y-auto">
                             {
-                                mutedList?.map((user: any, index: number) => (
+                                mutedList && Array.isArray(mutedList) &&  mutedList?.map((user: any, index: number) => (
                                 <div key={index} className="w-[100%] min-h-[61px] flex  gap-2">
                                     <div className={`w-[100%] flex items-center justify-center rounded-l-[6px]`}>
                                         <div className="w-[75px] h-[70px] flex justify-center items-center relative">

@@ -131,7 +131,7 @@ function Profile_Frined({setListFriends, setFriendClicked, setclickFriend, setvi
                             }
                             <div className="w-[100%] min-h-auto test5 rounded-[20px] flex flex-col justify-center gap-[5px]">
                                     {
-                                        profileloding && Profile?.Last_matches?.map((user: any, key: any) => (
+                                        profileloding && Array.isArray(Profile?.Last_matches) && Profile?.Last_matches?.map((user: any, key: any) => (
                                         <div key={key} className="w-[100%] min-h-[65px] text-white flex overflow-hidden">
                                             <div className="w-[33.5%] flex items-center justify-end ">
                                                 <Image width={'54'} height={'54'} src={user.User.avatar} alt="" className="w-[54px] rounded-full select-none"/>

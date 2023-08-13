@@ -36,7 +36,7 @@ function Show_list_of_Channels(props: any) {
             <ModalBody flexDir={'column'}>
             <div className="w-[100%] h-[270px] test5 flex flex-col gap-1  overflow-y-auto">
                       {
-                        props.mychanel && props.mychanel?.map((channel: any, index: number) => (
+                        props.mychanel && Array.isArray(props.mychanel) && props.mychanel?.map((channel: any, index: number) => (
                               <button onClick={() => { props.setchannelloding(true); props.setmumeberschannelloding(false); fetchdata(channel); router.push(`/chanel/${channel.name}`)}} key={index} className="w-[100%] min-h-[61px] flex gap-2 hover:bg-[#5b5b5b] rounded-[6px]">
                                   <div className={`w-[80%] flex items-center justify-center rounded-l-[6px]`}>
                                     <div className="w-[75px] h-[70px] flex justify-center items-center relative">

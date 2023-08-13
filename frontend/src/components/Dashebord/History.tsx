@@ -78,7 +78,7 @@ function History() {
                     }
                     {
                             status === "LOST" && !showdataLoading  && all?.length > 0 ? (
-                                all && all?.map((user: any, index: number) => (
+                                all && Array.isArray(all) && all?.map((user: any, index: number) => (
                                         <div key={index} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                                 <div className="w-[33.5%] flex items-center justify-end">
                                                     <Image width={'54'} height={'54'} src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>
@@ -101,7 +101,7 @@ function History() {
                                         </div>
                                     ))
                         ) : status === "WON" && !showdataLoading && all?.length > 0 ? (
-                            all && all?.map((user: any, index: number) => (
+                            all && Array.isArray(all) && all?.map((user: any, index: number) => (
                                         <div key={index} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                                 <div className="w-[33.5%] flex items-center justify-end">
                                                     <Image width={'54'} height={'54'} src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>
@@ -125,7 +125,7 @@ function History() {
                                     )
                             )
                         ) : status === "ALL" && !showdataLoading && all?.length > 0 ? (
-                            all && all?.map((user: any, index: number) => (
+                            all && Array.isArray(all) && all?.map((user: any, index: number) => (
                                 <div key={index} className="w-[100%] min-h-[65px] text-white flex  overflow-hidden">
                                         <div className="w-[33.5%] flex items-center justify-end">
                                             <Image width={'54'} height={'54'} src={user.User.avatar} alt="" className="w-[54px] rounded-full"/>

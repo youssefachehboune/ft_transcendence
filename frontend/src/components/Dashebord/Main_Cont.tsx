@@ -87,7 +87,7 @@ export default function Main() {
                                     phone:w-[100%] phone:h-[100%]
                                     ">
                                         {
-                                            datatop.map((item: any, key: number) => {
+                                            datatop && Array.isArray(datatop) && datatop.map((item: any, key: number) => {
                                                 return (
                                                     <TopPlayer key={key} avatar={item.avatar} name={(item.firstName + ' ' + item.lastName)} username={item.username} rank={key + 1} />
                                                 )
@@ -104,7 +104,7 @@ export default function Main() {
                         <div className="par_hover">
                             <div className="w-full h-full flex flex-col justify-between">
                                 {
-                                    dataAchiev && dataAchiev.map((item: any, key: number) => {
+                                    dataAchiev && Array.isArray(dataAchiev) && dataAchiev.map((item: any, key: number) => {
                                         return (
                                             <AchievComp key={key} title={item.name} description={item.description} reward={item.points} />
                                         )
@@ -126,7 +126,7 @@ export default function Main() {
                             <div className=" w-[100%] h-full flex items-center justify-center">
                                 <div className="w-[98%] h-[80%]   flex flex-col justify-between">
                                         {
-                                            dataMatch.map((item: any, key: number) => {
+                                            dataMatch && Array.isArray(dataMatch) && dataMatch.map((item: any, key: number) => {
                                                 return (
                                                     <LasMatches key={key} score1={item.userPoints} score2={item.opponentPoints} name1={item.User.firstName + ' ' + item.User.lastName} name2={item.Opponent.firstName + ' ' + item.Opponent.lastName} avatar1={item.User.avatar} avatar2={item.Opponent.avatar} username1={item.User.username} username2={item.Opponent.username} />
                                                 )

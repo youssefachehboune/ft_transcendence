@@ -57,7 +57,7 @@ export default function Achievements() {
                         }
                         )
                     }
-                    {dataALL && !showdataLoading && dataALL.map((achievement: any, key: any) => {
+                    {dataALL && !showdataLoading && Array.isArray(dataALL) && dataALL.map((achievement: any, key: any) => {
                         if (selectedOption === 'All')
                             return (
                                 <Achievement key={key} image="/iconAch.jpeg" title={achievement.name}

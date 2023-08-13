@@ -113,7 +113,7 @@ function ChatFriends(props: any) {
                                                 }
                                                 {
                                                     searchfriend === "" && props.friendsloding ? (
-                                                        props.ListFriends &&  props.ListFriends?.map((user: any, index: number) => (
+                                                        props.ListFriends && Array.isArray(props.ListFriends) &&  props.ListFriends?.map((user: any, index: number) => (
                                                             <Friend_chat play={play} isOnline={isOnline} key={user.user_id} setListFriends={props.setListFriends} index={index} user={user} changecolor={friendClicked === index} setchangecolor={setFriendClicked} setchatloding={setchatloding} setonlyChat={setonlyChat} setfriendchat={setfriendchat}/>
 
                                                     ))) : searchfriend && !datafriend?.message && datafriend?.friendShipStatus == "FRIENDS" ? (

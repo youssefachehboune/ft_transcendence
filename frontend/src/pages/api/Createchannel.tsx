@@ -24,7 +24,12 @@ async function Creat_channel(data : any, onCloseFn: () => void, setErrornamechan
 					type: data.typechanel,
 				};
 				socket.emit('add_channel', data.name);
-				setmychanel((prevChannels: any) => [...prevChannels, newChannel]);
+				setmychanel((prevChannels: any) => {
+					if (Array.isArray(prevChannels)) 
+						return [...prevChannels, newChannel];
+					else
+						return [newChannel];
+			});
 				onCloseFn()
 			}
 		} catch (error) {

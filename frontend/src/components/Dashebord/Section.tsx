@@ -214,13 +214,13 @@ return (
                         {
 
                             (showdataRequest  && !showChannelInvite) ?
-                            requestdata.map((item: any, key : number) => {
+                            requestdata && Array.isArray(requestdata) && requestdata.map((item: any, key : number) => {
                                 return (
                                     <FriendRequest user={item} setListFriends={setListFriends} key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
                                 )
                             })
                             :
-                            blockeddata.map((item: any, key : number) => {
+                            blockeddata && Array.isArray(blockeddata) && blockeddata.map((item: any, key : number) => {
                                 return (
                                     <Blocked key={key} username={item.username} image={item.avatar} name={item.firstName + ' ' + item.lastName}/>
                                 )
@@ -234,7 +234,7 @@ return (
                             blockeddata.length === 0 && !showdataRequest && !showChannelInvite && < h1 className="text-[14px] text-white font-sora font-semibold mt-6">No Blocked</h1>
                         }
                         {
-                            channeldata && showChannelInvite && channeldata.map((item: any, key : number) => {
+                            channeldata && Array.isArray(channeldata) && showChannelInvite && channeldata.map((item: any, key : number) => {
                                 return (
                                     <ChannelInvite setmychanel={setmychanel} chanel={item} key={key} name={item.name} image={item.avatar}/>
                                 )

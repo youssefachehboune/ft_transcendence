@@ -19,7 +19,7 @@ function List_of_invitation({setListfriends, setinvitationList, chanel, invitati
             <ModalBody flexDir={'column'}>
               <div className="w-[100%] h-[270px] test5 flex flex-col gap-1 rounded-[7px] overflow-y-auto">
                   {
-                    invitationList?.map((user: any, index: number) => (
+                    invitationList && Array.isArray(invitationList) &&  invitationList?.map((user: any, index: number) => (
                           <div key={index} className="w-[100%] min-h-[61px] flex gap-2">
                               <div className={`w-[80%] flex items-center justify-center rounded-l-[6px]`}>
                                 <div className="w-[75px] h-[70px] flex justify-center items-center relative">

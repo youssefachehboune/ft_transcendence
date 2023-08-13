@@ -92,7 +92,7 @@ function List_memebres(props: any) {
     const updateUserType = (username: any, userType: any) => {
         setsearchtypeofmember(userType)
         props.setmemebers((prevUsers: any) =>
-          prevUsers.map((user: any) =>
+        prevUsers && Array.isArray(prevUsers) && prevUsers.map((user: any) =>
             user.username === username ? { ...user, type: userType } : user
           )
         );
@@ -172,7 +172,7 @@ function List_memebres(props: any) {
                                                 }
                                                 {
                                                     searchformembers === "" && props.mumeberschannelloding ? (
-                                                        props.memebers?.map((user: any, index: number) => (
+                                                        props.memebers && Array.isArray(props.memebers) && props.memebers?.map((user: any, index: number) => (
                                                             <Memeber data={props.data} play={play} updateUserType={updateUserType} key={index} setmutedList={props.setmutedList} setbanList={props.setbanList} setmemebers={props.setmemebers} chanel={props.chanel} typememeber={props.typememeber} user={user} index={index}/>
                                                     ))) : searchformembers && props.mumeberschannelloding && !datamumber?.message && datamumber && searchtypeofmember && (searchtypeofmember === "MEMBER" || searchtypeofmember === "ADMIN" || searchtypeofmember === "OWNER") ? (
                                                             <Search_for_mumbers data={props.data} play={play} setdatamumber={setdatamumber} setmemebers={props.setmemebers} setmutedList={props.setmutedList} setbanList={props.setbanList} user={datamumber} typeofmumber={searchtypeofmember}  updateUserType={updateUserType} typememeber={props.typememeber} chanel={props.chanel}/>
