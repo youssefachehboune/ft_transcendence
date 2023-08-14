@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.Login
+{
+	@apply w-[378px] h-[475px] bg-white absolute z-[100] mr-[30%] rounded-[15px]
+						phone:w-[270px] phone:h-[300px] phone:mr-0 phone:mt-[50%]
+						Large-phone:w-[300px] Large-phone:h-[340px] Large-phone:mr-0 Large-phone:mt-[50%]
+						laptop:w-[350px] laptop:h-[370px]
+						desktop:w-[378px] desktop:h-[475px]
+}
+.Login_join_text
+{
+	@apply text-[25px] font-sora  font-semibold
+			phone:text-[15px]
+			Large-phone:text-[18px]
+			laptop:text-[20px]
+}
+
+.Login_sign_text
+{
+	@apply text-[25px]  font-sora  font-semibold
+			phone:text-[15px] 
+			Large-phone:text-[18px]
+			laptop:text-[20px]
+}
+
+.Emoji_icone
+{
+	@apply w-[90px] h-[90px] rounded-[50%] shadow-shdow 
+			phone:w-[45px] phone:h-[45px] phone:left-[70px]
+			Large-phone:w-[65px] Large-phone:h-[65px] Large-phone:left-[70px]
+			laptop:w-[65px] laptop:h-[65px] laptop:left-[70px]
+}
+
+.Intra_button
+{
+	@apply w-[325px] h-[55px] bg-Sky rounded-[30px] flex justify-center items-center
+			hover:border-[2px] hover:bg-[#00DAEA] hover:border-solid
+			phone:w-[150px] phone:h-[30px] phone:left-[60px] phone:top-[160px]
+			Large-phone:w-[200px] Large-phone:h-[40px] Large-phone:left-[50px] Large-phone:top-[180px]
+			laptop:w-[250px] laptop:h-[50px] laptop:left-[50px] laptop:top-[190px]
+}
+
+.Intra_text
+{
+	@apply text-white font-[400] font-sora
+			phone:text-[10px] phone:left-[25%]
+			Large-phone:text-[14px] Large-phone:left-[25%]
+			laptop:text-[15px]
+}
+
+.Intra_icone
+{
+	@apply mr-[10px] select-none
+			phone:w-[15px]
+			Large-phone:w-[20px]
+			laptop:w-[20px]
+}
+
+.Google_button
+{ 
+	@apply w-[325px] h-[55px] bg-white rounded-[30px] flex justify-center items-center
+			border-[1px] border-solid border-[#DADCE0]
+			hover:border-[2px] hover:bg-[#00DAEA] hover:border-solid
+			phone:w-[150px] phone:h-[30px]
+			Large-phone:w-[200px] Large-phone:h-[40px]
+			laptop:w-[250px] laptop:h-[50px]
+}
+.Google_text
+{
+	@apply  font-[400] font-sora
+			phone:text-[10px] phone:left-[25%] 
+			Large-phone:text-[14px] Large-phone:left-[25%]
+			laptop:text-[15px] 
+}
+
+.Google_icone 
+{
+	@apply mr-[10px] select-none
+			phone:w-[15px]
+			laptop:w-[20px]
+}
+
+
+.go_back_icone
+{
+	@apply  w-[25px] h-[25px] 
+			phone:w-[15px]
+			Large-phone:w-[20px]
+}
+.go_back_text 
+{
+	@apply  text-[15px] font-sora  font-[700]
+	phone:text-[8px]
+	 Large-phone:text-[11px]
+	laptop:text-[15px]
+}
+
+

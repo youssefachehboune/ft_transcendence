@@ -1,0 +1,165 @@
+// This is our Prisma schema file,
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id               Int      @id @default(autoincrement())
+    email            String   @unique
+    createdAt        DateTime @default(now())
+    twoFactorEnabled Boolean
+    firstTime        Boolean
+    role             Role
+    refreshToken     String?
+    twoFactorSecret  String?
+
+    // Relations
+    userProfile          UserProfile[]
+    careerLog            CareerLog[]      @relation("UserLog")
+    opponentLog          CareerLog[]      @relation("OpponentLog")
+    achievementLog       AchievementLog[]
+    sentFriendship       Friendship[]     @relation("SentFriendship")
+    receivedFriendship   Friendship[]     @relation("ReceivedFriendship")
+    sentMessage          Chat[]           @relation("SentMessage")
+    receivedMessage      Chat[]           @relation("ReceivedMessage")
+    channelLog           ChannelLog[]
+    ChannelMembers       ChannelMembers[]
+}
+
+model UserProfile {
+    id        Int    @id @default(autoincrement())
+    user_id   Int    @unique
+    username  String @unique
+    firstName String
+    lastName  String
+    bio       String
+    location  String
+    avatar    String
+    level     Float
+    points    Int
+    won       Int
+    lost      Int
+    winStreak Int
+    User      User   @relation(fields: [user_id], references: [id])
+}
+
+model CareerLog {
+    id             Int             @id @default(autoincrement())
+    user_id        Int
+    opponent_id    Int
+    userPoints     Int
+    opponentPoints Int
+    occuredAt      DateTime        @default(now())
+    User           User            @relation(name: "UserLog", fields: [user_id], references: [id])
+    Opponent       User            @relation(name: "OpponentLog", fields: [opponent_id], references: [id])
+}
+
+model Achievement {
+    id             Int              @id @default(autoincrement())
+    name           String           @unique
+    description    String
+    points         String
+    milestone      String
+    AchievementLog AchievementLog[]
+}
+
+model AchievementLog {
+    id             Int         @id @default(autoincrement())
+    user_id        Int
+    achievement_id Int
+    score          Int
+    occuredAt      DateTime
+    User           User        @relation(fields: [user_id], references: [id])
+    Achievement    Achievement @relation(fields: [achievement_id], references: [id])
+}
+
+model Friendship {
+    id        Int              @id @default(autoincrement())
+    user_id   Int
+    friend_id Int
+    status    FriendshipStatus
+    createdAt DateTime         @default(now())
+    updatedAt DateTime         @updatedAt
+    User      User             @relation(name: "SentFriendship", fields: [user_id], references: [id])
+    Friend    User             @relation(name: "ReceivedFriendship", fields: [friend_id], references: [id])
+}
+
+model Chat {
+    id           Int       @id @default(autoincrement())
+    sender_id    Int
+    recipient_id Int
+    message      String
+    sentAt       DateTime  @default(now())
+    readAt       DateTime?
+    User         User      @relation(name: "SentMessage", fields: [sender_id], references: [id])
+    Recipient    User      @relation(name: "ReceivedMessage", fields: [recipient_id], references: [id])
+}
+
+model ChannelMembers {
+    id         Int        @id @default(autoincrement())
+    user_id    Int
+    channel_id Int
+    MemberType memberType
+    User       User       @relation(fields: [user_id], references: [id])
+    Channel    Channel    @relation(fields: [channel_id], references: [id])
+}
+
+model Channel {
+    id             Int              @id @unique @default(autoincrement())
+    name           String           @unique
+    description    String
+    avatar         String
+    password       String?
+    type           ChannelType
+    createdAt      DateTime         @default(now())
+    updatedAt      DateTime         @updatedAt
+    ChannelLog     ChannelLog[]
+    ChannelMembers ChannelMembers[]
+}
+
+model ChannelLog {
+    id         Int      @id @default(autoincrement())
+    channel_id Int
+    user_id    Int
+    message    String
+    sentAt     DateTime @default(now())
+    User       User     @relation(fields: [user_id], references: [id])
+    Channel    Channel  @relation(fields: [channel_id], references: [id])
+}
+
+enum Role {
+    ADMIN
+    USER
+    BANNED
+}
+
+enum FriendshipStatus {
+    REQUESTED
+    FRIENDS
+    NOTFRIENDS
+    BLOCKED
+}
+
+enum ChannelType {
+    PUBLIC
+    PRIVATE
+    PROTECTED
+    NOTACTIVE
+}
+
+enum memberType {
+    OWNER
+    ADMIN
+    MEMBER
+    NOTMEMBER
+    BANNED
+    MUTED
+    REQUESTED
+    INVITED
+}

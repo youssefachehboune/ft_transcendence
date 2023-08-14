@@ -1,0 +1,288 @@
+
+.Play_div {
+    position: relative;
+    width: 80%;
+    height: 70%;
+    background-color: #1A1C21;
+    border-radius: 26px;
+    backdrop-filter: blur(25px);
+    overflow: hidden;
+}
+
+.ShapeHover1 {
+    /* align-self: end; */
+    position: absolute;
+    /* top: 20%; */
+    width: 100%;
+    /* background-color: #43C7FF; */
+    height: 100%;
+    transition: 0.7s;
+    /* mix-blend-mode: luminosity; */
+    opacity: 0.9;
+    z-index: 1;
+}
+
+.ShapeHover2 {
+    /* align-self: end; */
+    position: absolute;
+    /* top: 20%; */
+    width: 100%;
+    /* background-color: #43C7FF; */
+    height: 100%;
+    transition: 0.7s;
+    top: 70%;
+    opacity: 0.9;
+    /* mix-blend-mode: luminosity; */
+
+    z-index: 1;
+}
+
+.ShapeHover3 {
+    /* align-self: end; */
+    position: absolute;
+    /* top: 20%; */
+    width: 100%;
+    /* background-color: #43C7FF; */
+    height: 100%;
+    opacity: 0.9;
+    top: 70%;
+    transition: 0.7s;
+    
+    /* mix-blend-mode: luminosity; */
+
+    z-index: 1;
+}
+
+.ShapeHover4 {
+    /* align-self: end; */
+    position: absolute;
+    /* top: 20%; */
+    width: 100%;
+    /* background-color: #43C7FF; */
+    height: 100%;
+    top: 70%;
+    transition: 0.7s;
+    opacity: 0.9;
+    /* mix-blend-mode: luminosity; */
+
+    z-index: 1;
+}
+
+.ShapeHover5 {
+    /* align-self: end; */
+    position: absolute;
+    /* top: 20%; */
+    width: 100%;
+    /* background-color: #43C7FF; */
+    height: 100%;
+    top: 70%;
+    transition: 0.7s;
+    opacity: 0.9;
+    /* mix-blend-mode: luminosity; */
+
+    z-index: 1;
+}
+
+.backc1 {
+    background: url(../../public/newbg1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    width: 40%;
+    height: 90%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.backc2 {
+    background: url(../../public/newbg2.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    width: 40%;
+    height: 90%;
+    border-radius: 20px;
+    overflow: hidden;
+    /* background-color: aqua; */
+}
+
+.backc3 {
+    background: url(../../public/newbg3.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    width: 40%;
+    height: 90%;
+    border-radius: 20px;
+    overflow: hidden;
+    /* background-color: aqua; */
+}
+
+.backc4 {
+    background: url(../../public/newbg4.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    width: 40%;
+    height: 90%;
+    border-radius: 20px;
+    overflow: hidden;
+    /* background-color: aqua; */
+}
+
+/* .Play_div svg path {
+    backdrop-filter: blur(25px);
+} */
+
+/* .Play_div svg:hover {
+    top: 1.5vw;
+} */
+
+
+
+.backc1:hover img {
+    top: 30%;
+}
+/* .backc1:hover > h1 {
+    top: 40%;
+    transition: 300ms ease-in-out all;
+} */
+
+.backc1:hover .header_play4 {
+    animation: 0.7s slidein;
+    bottom: 50%;
+}
+
+
+
+.backc2:hover img {
+    top: 30%;
+}
+.backc2:hover h1 {
+    animation: 0.7s slidein;
+    bottom: 50%;
+}
+.backc3:hover img {
+    top: 30%;
+}
+.backc3:hover h1 {
+    animation: 0.7s slidein;
+    bottom: 50%;
+}
+.backc4:hover img {
+    top: 30%;
+}
+.backc4:hover h1 {
+    animation: 0.7s slidein;
+    bottom: 50%;
+}
+
+.backc1:hover div {
+    animation: 0.6s slidee;
+    bottom: 5%;
+}
+.backc2:hover div {
+    animation: 0.6s slidee;
+    bottom: 5%;
+}
+.backc3:hover div {
+    animation: 0.6s slidee;
+    bottom: 5%;
+}
+.backc4:hover div {
+    animation: 0.6s slidee;
+    bottom: 5%;
+}
+
+@keyframes slidee {
+
+    0% {
+        bottom: -65%;
+    }
+
+  100% {
+    bottom: 5%;
+  }
+}
+
+@keyframes slidein {
+
+    0% {
+        bottom: 5%;
+    }
+
+  100% {
+    bottom: 50%;
+  }
+}
+
+.par_hover {
+    @apply  w-[90%]  h-[40%] absolute bottom-[-65%] left-[5%] z-[99]
+}
+
+.par_hover .pa {
+    @apply font-sora text-[15px] text-[#ffffffad]
+    desktop:font-sora desktop:text-[15px] desktop:text-[#ffffffad]
+    laptop:font-sora laptop:text-[10px] laptop:text-[#ffffffad]
+    Large-phone:font-sora Large-phone:text-[9px] Large-phone:text-[#ffffffad]
+    phone:font-sora phone:text-[7px] phone:text-[#ffffffad]
+}
+
+.circle1 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(173, 0, 255, 0.5);
+    mix-blend-mode: normal;
+    opacity: 0.4;
+    filter: blur(200px);
+    border-radius: 50%;
+    top: -50px;
+    left: -60px;
+    z-index: 2;
+    transition: 0.7s;
+}
+
+.circle2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: rgba(173, 0, 255, 0.5);
+    mix-blend-mode: normal;
+    opacity: 0.4;
+    filter: blur(200px);
+    border-radius: 50%;
+    top: -50px;
+    right: -60px;
+    z-index: 2;
+    transition: 0.7s;
+}
+
+.header_play {
+    @apply font-sora font-bold text-[35px] leading-[44px] text-[#fff] tracking-[0.025em]
+desktop:text-[35px] desktop:leading-[44px] desktop:tracking-[0.025em]
+    laptop:text-[30px] laptop:leading-[38px] laptop:tracking-[0.025em]
+    Large-phone:text-[30px] Large-phone:leading-[32px] Large-phone:tracking-[0.025em]
+    phone:text-[25px] phone:leading-[26px] phone:tracking-[0.025em]
+
+}
+.header_play4 {
+    @apply font-sora font-bold text-[25px] leading-[32px] text-[#fff] tracking-[0.025em] absolute bottom-[5%] left-[5%] z-[1]
+    desktop:text-[25px] desktop:leading-[32px] desktop:tracking-[0.025em]
+    laptop:text-[17px] laptop:leading-[26px] laptop:tracking-[0.025em]
+    Large-phone:text-[15px] Large-phone:leading-[22px] Large-phone:tracking-[0.025em]
+    phone:text-[10px] phone:leading-[18px] phone:tracking-[0.025em]
+
+}
+
+.parag_play {
+    @apply font-sora font-normal text-[#fff] text-[0.9em] leading-[18px] transition-[0.5s] text-center
+    desktop:text-[0.9em] desktop:leading-[18px]
+    laptop:text-[0.8em] laptop:leading-[16px]
+    Large-phone:text-[0.8em] Large-phone:leading-[16px]
+    phone:text-[10px] phone:leading-[12px]
+}

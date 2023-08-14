@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.success
+{
+	@apply w-[378px] h-[475px] bg-white absolute z-[100] mr-[30%] rounded-[15px]
+						phone:w-[270px] phone:h-[300px] phone:mr-0 phone:mt-[50%]
+						Large-phone:w-[300px] Large-phone:h-[340px] Large-phone:mr-0 Large-phone:mt-[50%]
+						laptop:w-[350px] laptop:h-[370px]
+						desktop:w-[378px] desktop:h-[475px]
+}
+.test:before
+{
+	content: "";
+	background: rgb(255, 255, 255);
+	width: 8%;
+	height: 8%;
+	position: absolute;
+	right: 12%;
+	animation: a 1.5s linear infinite;
+}
+
+@keyframes a
+{
+	100%
+	{
+		right: 3%;
+	}
+}
+.emoji_icone
+{
+	@apply w-[116px] h-[116px]
+			phone:w-[80px] phone:h-[80px]
+			Large-phone:w-[85px] Large-phone:h-[85px]
+}
+
+.success_title
+{
+	@apply font-sora text-[60px] font-semibold leading-[79px]
+			phone:text-[35px]
+			Large-phone:text-[35px] 
+}
+
+.success_text
+{
+	@apply font-sora  text-[20px] leading-[24px] font-normal flex items-center justify-center
+			phone:text-[15px]
+			Large-phone:text-[15px] 
+}
